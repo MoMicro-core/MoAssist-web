@@ -1,0 +1,223 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { api } from '../lib/api'
+import { useWebSocket } from '../context/WebSocketContext'
+import { Badge } from '../ui/badge'
+import { Button } from '../ui/button'
+import { Textarea } from '../ui/textarea'
+import { Heading } from '../ui/heading'
+import { Text } from '../ui/text'
+import { Loading } from '../components/Loading'
+
+const formatTime = (value) => {
+  if (!value) return ''
+  return new Date(value).toLocaleString()
+}
+
+export const ChatbotChats = () => {
+  const { chatbotId } = useParams()
+  const { connected, on, subscribeConversation, sendOwnerMessage, markConversationRead } = useWebSocket()
+  const [conversations, setConversations] = useState([])
+  const [activeId, setActiveId] = useState('')
+  const [activeConversation, setActiveConversation] = useState(null)
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  const loadConversations = async () => {
+    setLoading(true)
+    const data = await api.chatbots.conversations(chatbotId)
+    setConversations(data || [])
+    if (data?.length && !activeId) {
+      setActiveId(data[0].id)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    loadConversations()
+  }, [chatbotId])
+
+  useEffect(() => {
+    if (!activeId) {
+      setActiveConversation(null)
+      return
+    }
+    const loadConversation = async () => {
+      const data = await api.conversations.get(activeId)
+      setActiveConversation(data)
+      subscribeConversation(activeId)
+      markConversationRead(activeId)
+      setConversations((prev) =>
+        prev.map((item) =>
+          item.id === activeId ? { ...item, unreadForOwner: 0 } : item,
+        ),
+      )
+    }
+    loadConversation()
+  }, [activeId, subscribeConversation, markConversationRead])
+
+  useEffect(() => {
+    const offMessage = on('message.created', (payload) => {
+      if (!payload || payload.chatbotId !== chatbotId) return
+      setConversations((prev) =>
+        prev.map((item) =>
+          item.id === payload.conversationId
+            ? {
+                ...item,
+                lastMessagePreview: payload.message.content,
+                lastMessageAt: payload.message.createdAt,
+                unreadForOwner:
+                  payload.message.authorType === 'visitor'
+                    ? (item.unreadForOwner || 0) + 1
+                    : item.unreadForOwner,
+              }
+            : item,
+        ),
+      )
+      if (payload.conversationId === activeId) {
+        setActiveConversation((prev) =>
+          prev
+            ? {
+                ...prev,
+                messages: [...(prev.messages || []), payload.message],
+              }
+            : prev,
+        )
+        if (payload.message.authorType === 'visitor') {
+          markConversationRead(activeId)
+        }
+      }
+    })
+    const offCreated = on('conversation.created', (payload) => {
+      if (!payload?.conversation || payload.conversation.chatbotId !== chatbotId) return
+      setConversations((prev) => [payload.conversation, ...prev])
+    })
+    const offRead = on('conversation.read', (payload) => {
+      if (!payload || payload.chatbotId !== chatbotId) return
+      setConversations((prev) =>
+        prev.map((item) =>
+          item.id === payload.conversationId ? { ...item, unreadForOwner: 0 } : item,
+        ),
+      )
+    })
+    return () => {
+      offMessage()
+      offCreated()
+      offRead()
+    }
+  }, [on, chatbotId, activeId])
+
+  const handleSend = async () => {
+    if (!message.trim() || !activeId) return
+    const content = message.trim()
+    setMessage('')
+    if (connected) {
+      sendOwnerMessage(activeId, content)
+    } else {
+      await api.conversations.sendMessage(activeId, content)
+    }
+  }
+
+  const activeMessages = useMemo(
+    () => activeConversation?.messages || [],
+    [activeConversation],
+  )
+
+  if (loading) return <Loading />
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-[320px,1fr]">
+      <div className="space-y-4">
+        <Heading level={3} className="font-display text-lg">
+          Conversations
+        </Heading>
+        <div className="space-y-3">
+          {conversations.map((conversation) => (
+            <button
+              key={conversation.id}
+              onClick={() => setActiveId(conversation.id)}
+              className={`w-full rounded-2xl border px-4 py-3 text-left transition ${
+                activeId === conversation.id
+                  ? 'border-emerald-200 bg-emerald-50'
+                  : 'border-zinc-200 bg-white hover:border-emerald-100'
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-sm font-medium text-zinc-900">
+                  {conversation.visitor?.name || 'New visitor'}
+                </div>
+                {conversation.unreadForOwner ? (
+                  <Badge color="teal">{conversation.unreadForOwner}</Badge>
+                ) : null}
+              </div>
+              <div className="mt-1 text-xs text-zinc-500">
+                {conversation.lastMessagePreview || 'No messages yet'}
+              </div>
+            </button>
+          ))}
+          {conversations.length === 0 ? (
+            <Text className="text-sm text-zinc-500">No conversations found.</Text>
+          ) : null}
+        </div>
+      </div>
+      <div className="flex min-h-[420px] flex-col rounded-2xl border border-zinc-200 bg-white shadow-sm">
+        {activeConversation ? (
+          <>
+            <div className="border-b border-zinc-100 px-6 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <div className="text-sm font-semibold text-zinc-900">
+                    {activeConversation.visitor?.name || 'New visitor'}
+                  </div>
+                  <div className="text-xs text-zinc-500">
+                    {activeConversation.visitor?.email || 'No email'}
+                  </div>
+                </div>
+                <Badge color={activeConversation.status === 'open' ? 'emerald' : 'zinc'}>
+                  {activeConversation.status}
+                </Badge>
+              </div>
+            </div>
+            <div className="flex-1 space-y-3 overflow-y-auto px-6 py-4">
+              {activeMessages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
+                    msg.authorType === 'owner'
+                      ? 'ml-auto bg-emerald-500 text-white'
+                      : msg.authorType === 'assistant'
+                      ? 'bg-zinc-100 text-zinc-800'
+                      : 'bg-zinc-200 text-zinc-900'
+                  }`}
+                >
+                  <div>{msg.content}</div>
+                  <div className="mt-1 text-[11px] opacity-70">{formatTime(msg.createdAt)}</div>
+                </div>
+              ))}
+              {activeMessages.length === 0 ? (
+                <Text className="text-sm text-zinc-500">No messages yet.</Text>
+              ) : null}
+            </div>
+            <div className="border-t border-zinc-100 px-6 py-4">
+              <div className="flex items-end gap-3">
+                <Textarea
+                  rows={2}
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
+                  placeholder="Write a reply..."
+                />
+                <Button color="teal" onClick={handleSend}>
+                  Send
+                </Button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-1 items-center justify-center">
+            <Text className="text-sm text-zinc-500">Select a conversation.</Text>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
