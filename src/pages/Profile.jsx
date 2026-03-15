@@ -8,9 +8,11 @@ import { Heading } from '../ui/heading'
 import { Text } from '../ui/text'
 import { Badge } from '../ui/badge'
 import { Loading } from '../components/Loading'
+import { useI18n } from '../context/I18nContext'
 
 export const Profile = () => {
   const { user, refreshSession } = useAuth()
+  const { t } = useI18n()
   const [summary, setSummary] = useState(null)
   const [name, setName] = useState('')
   const [photoUrl, setPhotoUrl] = useState('')
@@ -58,10 +60,10 @@ export const Profile = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <Heading level={2} className="font-display text-2xl">
-            Profile
+            {t('profile')}
           </Heading>
           <Text className="text-sm text-zinc-600">
-            Manage your account and subscription.
+            {t('accountDetails')}
           </Text>
         </div>
         <Badge color={summary?.premiumStatus === 'free' ? 'zinc' : 'emerald'}>
@@ -69,9 +71,9 @@ export const Profile = () => {
         </Badge>
       </div>
       <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
-        <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
           <Heading level={3} className="font-display text-lg">
-            Account details
+            {t('accountDetails')}
           </Heading>
           <FieldGroup>
             <Field>
@@ -88,12 +90,12 @@ export const Profile = () => {
             </Field>
           </FieldGroup>
           <Button color="teal" onClick={handleSave} disabled={saving}>
-            {saving ? 'Saving' : 'Save profile'}
+            {saving ? t('saving') : t('saveChanges')}
           </Button>
         </section>
-        <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+        <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
           <Heading level={3} className="font-display text-lg">
-            Subscription
+            {t('subscription')}
           </Heading>
           <div className="space-y-2 text-sm text-zinc-600">
             <div>Plan: {summary?.premiumPlan || 'free'}</div>
@@ -106,10 +108,10 @@ export const Profile = () => {
           </div>
           <div className="grid gap-2">
             <Button color="teal" onClick={openCheckout}>
-              Upgrade plan
+              {t('upgrade')}
             </Button>
             <Button outline onClick={openPortal}>
-              Manage billing
+              {t('manageBilling')}
             </Button>
           </div>
         </section>

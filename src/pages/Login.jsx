@@ -7,10 +7,15 @@ import { Input } from '../ui/input'
 import { Heading } from '../ui/heading'
 import { Text } from '../ui/text'
 import { Badge } from '../ui/badge'
+import { useI18n } from '../context/I18nContext'
+import { useTheme } from '../context/ThemeContext'
+import { Select } from '../ui/select'
 
 export const Login = () => {
   const { user, signIn, register } = useAuth()
   const navigate = useNavigate()
+  const { t, language, setLanguage, languages } = useI18n()
+  const { theme, toggleTheme } = useTheme()
   const [mode, setMode] = useState('signin')
   const [form, setForm] = useState({ name: '', email: '', password: '' })
   const [loading, setLoading] = useState(false)
@@ -46,36 +51,48 @@ export const Login = () => {
     <div className="mx-auto grid min-h-screen max-w-5xl items-center gap-10 px-6 py-12 lg:grid-cols-[1.2fr,1fr]">
       <div className="space-y-6">
         <Badge color="teal" className="w-fit uppercase tracking-wide">
-          MoAssist
+          {t('appName')}
         </Badge>
         <Heading level={1} className="font-display text-4xl sm:text-5xl">
-          Manage chatbots, conversations, and knowledge in one place.
+          {t('loginTitle')}
         </Heading>
         <Text className="text-base text-zinc-600">
-          Sign in with Firebase and sync your dashboard with MoAssist server sessions.
+          {t('loginBody')}
         </Text>
         <div className="grid gap-3">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm">
-            Track chatbots, publish widgets, and respond to conversations from a single hub.
+          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300">
+            {t('featureA')}
           </div>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm">
-            Upload knowledge files and monitor analytics without leaving the dashboard.
+          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300">
+            {t('featureB')}
           </div>
         </div>
       </div>
-      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm">
+      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+        <div className="flex justify-end gap-3">
+          <Select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            {languages.map((lang) => (
+              <option key={lang} value={lang}>
+                {lang.toUpperCase()}
+              </option>
+            ))}
+          </Select>
+          <Button outline onClick={toggleTheme}>
+            {theme === 'dark' ? t('light') : t('dark')}
+          </Button>
+        </div>
         <div className="flex gap-2">
           <Button
             color={mode === 'signin' ? 'teal' : 'light'}
             onClick={() => setMode('signin')}
           >
-            Sign in
+            {t('signIn')}
           </Button>
           <Button
             color={mode === 'register' ? 'teal' : 'light'}
             onClick={() => setMode('register')}
           >
-            Register
+            {t('register')}
           </Button>
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
@@ -106,7 +123,7 @@ export const Login = () => {
             </div>
           ) : null}
           <Button color="teal" type="submit" disabled={loading}>
-            {loading ? 'Please wait' : mode === 'signin' ? 'Sign in' : 'Create account'}
+            {loading ? 'Please wait' : mode === 'signin' ? t('signIn') : t('register')}
           </Button>
         </form>
       </div>

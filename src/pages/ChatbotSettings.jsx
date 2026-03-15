@@ -13,6 +13,8 @@ import { Text } from '../ui/text'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Badge } from '../ui/badge'
 import { Loading } from '../components/Loading'
+import { ChatbotPreview } from '../components/ChatbotPreview'
+import { useI18n } from '../context/I18nContext'
 
 const splitList = (value) =>
   value
@@ -25,6 +27,7 @@ const listToText = (value) => (value || []).join('\n')
 export const ChatbotSettings = () => {
   const { chatbotId } = useParams()
   const { chatbot, loading, reload } = useChatbot()
+  const { t } = useI18n()
   const [draft, setDraft] = useState(null)
   const [saving, setSaving] = useState(false)
   const [files, setFiles] = useState([])
@@ -169,80 +172,81 @@ export const ChatbotSettings = () => {
   if (loading || !draft) return <Loading />
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <Heading level={3} className="font-display text-lg">
-          Chatbot settings
-        </Heading>
-        <Button color="teal" onClick={handleSave} disabled={saving}>
-          {saving ? 'Saving' : 'Save changes'}
-        </Button>
-      </div>
-      {error ? (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {error}
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px]">
+      <div className="space-y-8">
+        <div className="flex items-center justify-between">
+          <Heading level={3} className="font-display text-lg">
+            {t('chatbotSettings')}
+          </Heading>
+          <Button color="teal" onClick={handleSave} disabled={saving}>
+            {saving ? t('saving') : t('saveChanges')}
+          </Button>
         </div>
-      ) : null}
+        {error ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        ) : null}
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <Heading level={4} className="font-display text-base">
-          Basics
+          {t('basics')}
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Title</Label>
+            <Label>{t('titleLabel')}</Label>
             <Input value={draft.title || ''} onChange={update('title')} />
           </Field>
           <Field>
-            <Label>Bot name</Label>
+            <Label>{t('botNameLabel')}</Label>
             <Input value={draft.botName || ''} onChange={update('botName')} />
           </Field>
           <Field>
-            <Label>Status</Label>
+            <Label>{t('statusLabel')}</Label>
             <Select value={draft.status || 'draft'} onChange={update('status')}>
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
+              <option value="draft">{t('statusDraft')}</option>
+              <option value="published">{t('statusPublished')}</option>
             </Select>
           </Field>
           <Field>
-            <Label>Initial message</Label>
+            <Label>{t('initialMessageLabel')}</Label>
             <Textarea value={draft.initialMessage || ''} onChange={update('initialMessage')} rows={3} />
           </Field>
           <Field>
-            <Label>Input placeholder</Label>
+            <Label>{t('inputPlaceholderLabel')}</Label>
             <Input value={draft.inputPlaceholder || ''} onChange={update('inputPlaceholder')} />
           </Field>
         </FieldGroup>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <Heading level={4} className="font-display text-base">
-          Appearance
+          {t('appearance')}
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Widget location</Label>
+            <Label>{t('widgetLocationLabel')}</Label>
             <Select value={draft.widgetLocation || 'right'} onChange={update('widgetLocation')}>
               <option value="right">Right</option>
               <option value="left">Left</option>
             </Select>
           </Field>
           <Field>
-            <Label>Rounded corners</Label>
+            <Label>{t('roundedCornersLabel')}</Label>
             <Switch checked={Boolean(draft.rounded)} onChange={updateBoolean('rounded')} />
           </Field>
           <Field>
-            <Label>Logo URL</Label>
+            <Label>{t('logoUrlLabel')}</Label>
             <Input value={draft.brand?.logoUrl || ''} onChange={updateBrand('logoUrl')} />
           </Field>
           <Field>
-            <Label>Bubble icon URL</Label>
+            <Label>{t('bubbleIconUrlLabel')}</Label>
             <Input value={draft.brand?.bubbleIconUrl || ''} onChange={updateBrand('bubbleIconUrl')} />
           </Field>
         </FieldGroup>
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4">
-            <Text className="text-sm font-medium text-zinc-700">Light theme</Text>
+          <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-800/60">
+            <Text className="text-sm font-medium text-zinc-700 dark:text-zinc-200">Light theme</Text>
             <FieldGroup>
               <Field>
                 <Label>Accent</Label>
@@ -266,8 +270,8 @@ export const ChatbotSettings = () => {
               </Field>
             </FieldGroup>
           </div>
-          <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4">
-            <Text className="text-sm font-medium text-zinc-700">Dark theme</Text>
+          <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-800/60">
+            <Text className="text-sm font-medium text-zinc-700 dark:text-zinc-200">Dark theme</Text>
             <FieldGroup>
               <Field>
                 <Label>Accent</Label>
@@ -294,40 +298,40 @@ export const ChatbotSettings = () => {
         </div>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <Heading level={4} className="font-display text-base">
-          Domains and prompts
+          {t('domains')}
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Allowed domains</Label>
+            <Label>{t('allowedDomainsLabel')}</Label>
             <Textarea value={domainText} onChange={updateDomains} rows={3} />
           </Field>
           <Field>
-            <Label>Suggested messages</Label>
+            <Label>{t('suggestedMessagesLabel')}</Label>
             <Textarea value={suggestedText} onChange={updateSuggested} rows={3} />
           </Field>
         </FieldGroup>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <Heading level={4} className="font-display text-base">
-          Lead capture form
+          {t('leadForm')}
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Form title</Label>
+            <Label>{t('formTitleLabel')}</Label>
             <Input value={draft.leadsFormTitle || ''} onChange={update('leadsFormTitle')} />
           </Field>
         </FieldGroup>
-        <div className="overflow-hidden rounded-xl border border-zinc-100">
+        <div className="overflow-hidden rounded-xl border border-zinc-100 dark:border-white/5">
           <Table>
             <TableHead>
               <TableRow>
-                <TableHeader>Key</TableHeader>
-                <TableHeader>Label</TableHeader>
-                <TableHeader>Type</TableHeader>
-                <TableHeader>Required</TableHeader>
+                <TableHeader>{t('keyLabel')}</TableHeader>
+                <TableHeader>{t('labelLabel')}</TableHeader>
+                <TableHeader>{t('typeLabel')}</TableHeader>
+                <TableHeader>{t('requiredLabel')}</TableHeader>
                 <TableHeader></TableHeader>
               </TableRow>
             </TableHead>
@@ -364,7 +368,7 @@ export const ChatbotSettings = () => {
                   </TableCell>
                   <TableCell>
                     <Button outline onClick={() => removeLeadField(index)}>
-                      Remove
+                      {t('remove')}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -373,25 +377,25 @@ export const ChatbotSettings = () => {
           </Table>
         </div>
         <Button outline onClick={addLeadField}>
-          Add field
+          {t('addField')}
         </Button>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <Heading level={4} className="font-display text-base">
-          AI configuration
+          {t('aiConfig')}
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Enable AI replies</Label>
+            <Label>{t('enableAiLabel')}</Label>
             <Switch checked={Boolean(draft.ai?.enabled)} onChange={updateAiBoolean('enabled')} />
           </Field>
           <Field>
-            <Label>Template</Label>
+            <Label>{t('templateLabel')}</Label>
             <Input value={draft.ai?.template || ''} onChange={updateAi('template')} />
           </Field>
           <Field>
-            <Label>Response length</Label>
+            <Label>{t('responseLengthLabel')}</Label>
             <Select value={draft.ai?.responseLength || 'medium'} onChange={updateAi('responseLength')}>
               <option value="short">Short</option>
               <option value="medium">Medium</option>
@@ -399,20 +403,20 @@ export const ChatbotSettings = () => {
             </Select>
           </Field>
           <Field>
-            <Label>Guidelines</Label>
+            <Label>{t('guidelinesLabel')}</Label>
             <Textarea value={draft.ai?.guidelines || ''} onChange={updateAi('guidelines')} rows={4} />
           </Field>
         </FieldGroup>
       </section>
 
-      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+      <section className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         <div className="flex items-center justify-between">
           <Heading level={4} className="font-display text-base">
-            Knowledge files
+            {t('knowledgeFiles')}
           </Heading>
           <label className="flex items-center gap-2">
             <Button outline disabled={uploading}>
-              {uploading ? 'Uploading' : 'Upload files'}
+              {uploading ? t('uploading') : t('uploadFiles')}
             </Button>
             <input
               type="file"
@@ -423,7 +427,7 @@ export const ChatbotSettings = () => {
             />
           </label>
         </div>
-        <div className="overflow-hidden rounded-xl border border-zinc-100">
+        <div className="overflow-hidden rounded-xl border border-zinc-100 dark:border-white/5">
           <Table>
             <TableHead>
               <TableRow>
@@ -445,7 +449,7 @@ export const ChatbotSettings = () => {
                   <TableCell>{Math.round(file.size / 1024)} KB</TableCell>
                   <TableCell>
                     <Button outline onClick={() => handleFileDelete(file.id)}>
-                      Delete
+                      {t('delete')}
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -453,7 +457,7 @@ export const ChatbotSettings = () => {
               {files.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={4}>
-                    <Text className="text-sm text-zinc-500">No files uploaded.</Text>
+                    <Text className="text-sm text-zinc-500">{t('noFiles')}</Text>
                   </TableCell>
                 </TableRow>
               ) : null}
@@ -461,6 +465,13 @@ export const ChatbotSettings = () => {
           </Table>
         </div>
       </section>
+      </div>
+      <aside className="space-y-4 lg:sticky lg:top-6">
+        <Heading level={4} className="font-display text-base">
+          {t('preview')}
+        </Heading>
+        <ChatbotPreview settings={draft} />
+      </aside>
     </div>
   )
 }

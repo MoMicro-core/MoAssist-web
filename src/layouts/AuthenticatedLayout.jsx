@@ -13,34 +13,38 @@ import {
   SidebarItem,
   SidebarLabel,
   SidebarSection,
-  SidebarDivider,
 } from '../ui/sidebar'
 import { Navbar, NavbarSection, NavbarItem, NavbarLabel, NavbarSpacer } from '../ui/navbar'
 import { Avatar } from '../ui/avatar'
 import { Button } from '../ui/button'
+import { Select } from '../ui/select'
 import { useAuth } from '../context/AuthContext'
-
-const navItems = [
-  { label: 'Chatbots', path: '/chatbots', icon: ChatBubbleLeftRightIcon },
-  { label: 'Profile', path: '/profile', icon: UserCircleIcon },
-  { label: 'Support', path: '/support', icon: LifebuoyIcon },
-]
+import { useTheme } from '../context/ThemeContext'
+import { useI18n } from '../context/I18nContext'
 
 export const AuthenticatedLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
+  const { theme, toggleTheme } = useTheme()
+  const { t, language, setLanguage, languages } = useI18n()
+
+  const navItems = [
+    { label: t('chatbots'), path: '/chatbots', icon: ChatBubbleLeftRightIcon },
+    { label: t('profile'), path: '/profile', icon: UserCircleIcon },
+    { label: t('support'), path: '/support', icon: LifebuoyIcon },
+  ]
 
   const sidebar = (
-    <Sidebar className="bg-white">
+    <Sidebar className="bg-white dark:bg-zinc-900">
       <SidebarHeader>
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-white">
             M
           </div>
           <div>
-            <div className="font-display text-base font-semibold">MoAssist</div>
-            <div className="text-xs text-zinc-500">Dashboard</div>
+            <div className="font-display text-base font-semibold">{t('appName')}</div>
+            <div className="text-xs text-zinc-500">{t('dashboard')}</div>
           </div>
         </div>
       </SidebarHeader>
@@ -57,15 +61,6 @@ export const AuthenticatedLayout = () => {
             </SidebarItem>
           ))}
         </SidebarSection>
-        <SidebarDivider />
-        <SidebarSection>
-          <SidebarItem href="/chatbots" current={false}>
-            <span className="text-sm text-zinc-500">Active workspace</span>
-            <SidebarLabel className="ml-auto text-sm font-medium text-zinc-700">
-              {user?.name || user?.email || 'Account'}
-            </SidebarLabel>
-          </SidebarItem>
-        </SidebarSection>
       </SidebarBody>
       <SidebarFooter>
         <SidebarSection>
@@ -76,6 +71,18 @@ export const AuthenticatedLayout = () => {
             />
             <SidebarLabel>{user?.name || user?.email || 'Account'}</SidebarLabel>
           </SidebarItem>
+          <div className="mt-4 space-y-2">
+            <Select value={language} onChange={(event) => setLanguage(event.target.value)}>
+              {languages.map((lang) => (
+                <option key={lang} value={lang}>
+                  {lang.toUpperCase()}
+                </option>
+              ))}
+            </Select>
+            <Button outline onClick={toggleTheme}>
+              {theme === 'dark' ? t('light') : t('dark')}
+            </Button>
+          </div>
         </SidebarSection>
       </SidebarFooter>
     </Sidebar>
@@ -85,7 +92,7 @@ export const AuthenticatedLayout = () => {
     <Navbar>
       <NavbarSection>
         <NavbarItem onClick={() => navigate('/chatbots')}>
-          <NavbarLabel className="font-display">MoAssist</NavbarLabel>
+          <NavbarLabel className="font-display">{t('appName')}</NavbarLabel>
         </NavbarItem>
       </NavbarSection>
       <NavbarSpacer />
@@ -98,7 +105,7 @@ export const AuthenticatedLayout = () => {
           <NavbarLabel className="text-sm">{user?.email}</NavbarLabel>
         </NavbarItem>
         <Button color="teal" onClick={signOut}>
-          Sign out
+          {t('signOut')}
         </Button>
       </NavbarSection>
     </Navbar>

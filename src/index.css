@@ -13,6 +13,13 @@ body {
     #f4f4f5;
 }
 
+html.dark body {
+  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(14, 116, 144, 0.18), transparent 35%),
+    #0f172a;
+  color: #e2e8f0;
+}
+
 .font-display {
   font-family: "Sora", sans-serif;
 }

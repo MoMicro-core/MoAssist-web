@@ -96,6 +96,7 @@ export const api = {
       apiRequest(`/v1/chatbots/${chatbotId}/conversations`),
   },
   conversations: {
+    list: (params) => apiRequest(withQuery('/v1/conversations', params)),
     get: (conversationId) =>
       apiRequest(`/v1/conversations/${conversationId}`),
     sendMessage: (conversationId, content) =>
