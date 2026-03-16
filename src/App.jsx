@@ -12,6 +12,8 @@ import { ChatbotChats } from './pages/ChatbotChats'
 import { ChatbotSettings } from './pages/ChatbotSettings'
 import { ChatbotPlugin } from './pages/ChatbotPlugin'
 import { NotFound } from './pages/NotFound'
+import { Chats } from './pages/Chats'
+import { Billings } from './pages/Billings'
 
 const RequireAuth = ({ children }) => {
   const { user, ready } = useAuth()
@@ -33,6 +35,8 @@ export default function App() {
       >
         <Route index element={<Navigate to="/chatbots" replace />} />
         <Route path="/chatbots" element={<Chatbots />} />
+        <Route path="/chats" element={<Chats />} />
+        <Route path="/billings" element={<Billings />} />
         <Route path="/chatbots/:chatbotId" element={<ChatbotLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<ChatbotDashboard />} />

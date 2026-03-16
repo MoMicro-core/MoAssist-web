@@ -1,5 +1,9 @@
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
+  Bars3BottomLeftIcon,
+  CreditCardIcon,
+  InboxStackIcon,
   ChatBubbleLeftRightIcon,
   LifebuoyIcon,
   UserCircleIcon,
@@ -19,32 +23,50 @@ import { Avatar } from '../ui/avatar'
 import { Button } from '../ui/button'
 import { Select } from '../ui/select'
 import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
 import { useI18n } from '../context/I18nContext'
+import { ThemeToggle } from '../components/ThemeToggle'
+
+const SIDEBAR_PREF_KEY = 'moassist-sidebar-hidden'
 
 export const AuthenticatedLayout = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, signOut } = useAuth()
-  const { theme, toggleTheme } = useTheme()
   const { t, language, setLanguage, languages } = useI18n()
+  const [sidebarHidden, setSidebarHidden] = useState(() => {
+    try {
+      return localStorage.getItem(SIDEBAR_PREF_KEY) === '1'
+    } catch {
+      return false
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SIDEBAR_PREF_KEY, sidebarHidden ? '1' : '0')
+    } catch {
+      // ignore storage errors
+    }
+  }, [sidebarHidden])
 
   const navItems = [
     { label: t('chatbots'), path: '/chatbots', icon: ChatBubbleLeftRightIcon },
+    { label: t('chatsMenu'), path: '/chats', icon: InboxStackIcon },
+    { label: t('billings'), path: '/billings', icon: CreditCardIcon },
     { label: t('profile'), path: '/profile', icon: UserCircleIcon },
     { label: t('support'), path: '/support', icon: LifebuoyIcon },
   ]
 
   const sidebar = (
-    <Sidebar className="bg-white dark:bg-zinc-900">
+    <Sidebar className="glass-panel overflow-hidden">
       <SidebarHeader>
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-white">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 text-white shadow-sm">
             M
           </div>
           <div>
             <div className="font-display text-base font-semibold">{t('appName')}</div>
-            <div className="text-xs text-zinc-500">{t('dashboard')}</div>
+            <div className="text-xs text-zinc-500 dark:text-zinc-400">{t('dashboard')}</div>
           </div>
         </div>
       </SidebarHeader>
@@ -71,7 +93,7 @@ export const AuthenticatedLayout = () => {
             />
             <SidebarLabel>{user?.name || user?.email || 'Account'}</SidebarLabel>
           </SidebarItem>
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 space-y-3">
             <Select value={language} onChange={(event) => setLanguage(event.target.value)}>
               {languages.map((lang) => (
                 <option key={lang} value={lang}>
@@ -79,8 +101,14 @@ export const AuthenticatedLayout = () => {
                 </option>
               ))}
             </Select>
-            <Button outline onClick={toggleTheme}>
-              {theme === 'dark' ? t('light') : t('dark')}
+            <div className="flex items-center justify-between rounded-xl border border-zinc-200/70 bg-white/70 px-3 py-2 dark:border-white/10 dark:bg-zinc-900/70">
+              <span className="text-xs font-medium text-zinc-600 dark:text-zinc-300">
+                {t('theme')}
+              </span>
+              <ThemeToggle />
+            </div>
+            <Button outline onClick={() => setSidebarHidden(true)} className="w-full">
+              {t('hideMenu')}
             </Button>
           </div>
         </SidebarSection>
@@ -89,11 +117,19 @@ export const AuthenticatedLayout = () => {
   )
 
   const navbar = (
-    <Navbar>
+    <Navbar className="rounded-2xl border border-zinc-200/70 bg-white/75 px-3 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/70">
       <NavbarSection>
         <NavbarItem onClick={() => navigate('/chatbots')}>
           <NavbarLabel className="font-display">{t('appName')}</NavbarLabel>
         </NavbarItem>
+        <Button
+          outline
+          className="hidden lg:inline-flex"
+          onClick={() => setSidebarHidden((prev) => !prev)}
+        >
+          <Bars3BottomLeftIcon data-slot="icon" />
+          {sidebarHidden ? t('showMenu') : t('hideMenu')}
+        </Button>
       </NavbarSection>
       <NavbarSpacer />
       <NavbarSection>
@@ -102,8 +138,9 @@ export const AuthenticatedLayout = () => {
             data-slot="avatar"
             initials={(user?.name || user?.email || 'M')[0]}
           />
-          <NavbarLabel className="text-sm">{user?.email}</NavbarLabel>
+          <NavbarLabel className="hidden text-sm sm:inline">{user?.email}</NavbarLabel>
         </NavbarItem>
+        <ThemeToggle className="hidden sm:inline-flex" />
         <Button color="teal" onClick={signOut}>
           {t('signOut')}
         </Button>
@@ -112,7 +149,12 @@ export const AuthenticatedLayout = () => {
   )
 
   return (
-    <SidebarLayout navbar={navbar} sidebar={sidebar}>
+    <SidebarLayout
+      navbar={navbar}
+      sidebar={sidebar}
+      sidebarHidden={sidebarHidden}
+      onToggleSidebar={() => setSidebarHidden((prev) => !prev)}
+    >
       <Outlet />
     </SidebarLayout>
   )

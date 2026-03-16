@@ -34,15 +34,16 @@ export const NavbarItem = forwardRef(function NavbarItem(
   ref,
 ) {
   const classes = clsx(
-    'relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-zinc-950 sm:text-sm/5',
-    'data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:fill-zinc-500 sm:data-[slot=icon]:*:size-5',
+    'ui-pressable relative flex min-w-0 items-center gap-3 rounded-xl p-2 text-left text-base/6 font-medium text-zinc-950 sm:text-sm/5',
+    'transition-all duration-300 ease-out data-[hover]:-translate-y-[1px]',
+    'data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:text-zinc-500 sm:data-[slot=icon]:*:size-5 data-[slot=icon]:*:stroke-[1.8]',
     'data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4',
     'data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] sm:data-[slot=avatar]:*:size-6',
-    'data-[hover]:bg-zinc-950/5 data-[slot=icon]:*:data-[hover]:fill-zinc-950',
-    'data-[active]:bg-zinc-950/5 data-[slot=icon]:*:data-[active]:fill-zinc-950',
-    'dark:text-white dark:data-[slot=icon]:*:fill-zinc-400',
-    'dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[hover]:fill-white',
-    'dark:data-[active]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:fill-white',
+    'data-[hover]:bg-zinc-950/5 data-[slot=icon]:*:data-[hover]:text-zinc-950',
+    'data-[active]:bg-zinc-950/5 data-[slot=icon]:*:data-[active]:text-zinc-950',
+    'dark:text-white dark:data-[slot=icon]:*:text-zinc-400',
+    'dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[hover]:text-white',
+    'dark:data-[active]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:text-white',
   )
 
   return (
@@ -60,7 +61,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
       ) : (
         <Headless.Button
           {...props}
-          className={clsx('cursor-default', classes)}
+          className={clsx('cursor-pointer', classes)}
           data-current={current ? 'true' : undefined}
           ref={ref}
         >

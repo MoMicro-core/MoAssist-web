@@ -169,10 +169,10 @@ export const ChatbotChats = () => {
             <button
               key={tab.id}
               onClick={() => setFilter(tab.id)}
-              className={`rounded-full px-3 py-1 text-xs font-medium ${
+              className={`chip-control ${
                 filter === tab.id
-                  ? 'bg-emerald-500 text-white'
-                  : 'bg-zinc-100 text-zinc-600'
+                  ? 'chip-control-active'
+                  : ''
               }`}
             >
               {tab.label}
@@ -184,12 +184,12 @@ export const ChatbotChats = () => {
             <button
               key={conversation.id}
               onClick={() => setActiveId(conversation.id)}
-            className={`w-full rounded-2xl border px-4 py-3 text-left transition dark:border-white/10 ${
-              activeId === conversation.id
-                  ? 'border-emerald-200 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-900/20'
-                  : 'border-zinc-200 bg-white hover:border-emerald-100 dark:bg-zinc-900'
+              className={`ui-pressable w-full rounded-2xl border px-4 py-3 text-left transition dark:border-white/10 ${
+                activeId === conversation.id
+                  ? 'border-emerald-200 bg-emerald-50/90 dark:border-emerald-500/40 dark:bg-emerald-900/25'
+                  : 'border-zinc-200 bg-white/90 hover:border-emerald-100 dark:bg-zinc-900/85'
               }`}
-          >
+            >
               <div className="flex items-center justify-between gap-2">
                 <div className="text-sm font-medium text-zinc-900 dark:text-white">
                   {conversation.visitor?.name || t('newVisitor')}
@@ -211,7 +211,7 @@ export const ChatbotChats = () => {
           ) : null}
         </div>
       </div>
-      <div className="flex min-h-[420px] flex-col rounded-2xl border border-zinc-200 bg-white shadow-sm dark:border-white/10 dark:bg-zinc-900">
+      <div className="glass-panel flex min-h-[420px] flex-col rounded-2xl">
         {activeConversation ? (
           <>
             <div className="border-b border-zinc-100 px-6 py-4 dark:border-white/10">
@@ -249,15 +249,15 @@ export const ChatbotChats = () => {
                 <Text className="text-sm text-zinc-500">No messages yet.</Text>
               ) : null}
             </div>
-            <div className="border-t border-zinc-100 px-6 py-4">
-              <div className="flex items-end gap-3">
+            <div className="border-t border-zinc-100 px-4 py-4 dark:border-white/10 sm:px-6">
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-end">
                 <Textarea
                   rows={2}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder={t('messagesPlaceholder')}
                 />
-                <Button color="teal" onClick={handleSend}>
+                <Button color="teal" onClick={handleSend} className="w-full sm:w-auto">
                   {t('send')}
                 </Button>
               </div>

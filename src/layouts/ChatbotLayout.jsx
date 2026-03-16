@@ -41,8 +41,8 @@ const ChatbotShell = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="space-y-5">
+      <div className="glass-panel fade-up flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5">
         <div className="space-y-1">
           <Heading level={2} className="font-display text-2xl">
             {chatbot?.settings?.title || 'Chatbot'}
@@ -64,19 +64,21 @@ const ChatbotShell = () => {
           </Button>
         </div>
       </div>
-      <Navbar className="rounded-2xl border border-zinc-200 bg-white px-3 dark:border-white/10 dark:bg-zinc-900">
-        <NavbarSection>
-          {tabs.map((tab) => {
-            const href = `/chatbots/${chatbotId}/${tab.path}`
-            const current = location.pathname === href
-            return (
-              <NavbarItem key={tab.path} href={href} current={current}>
-                <NavbarLabel>{tab.label}</NavbarLabel>
-              </NavbarItem>
-            )
-          })}
-        </NavbarSection>
-      </Navbar>
+      <div className="-mx-1 overflow-x-auto px-1 pb-1">
+        <Navbar className="glass-panel min-w-max rounded-2xl border-zinc-200/70 px-3 py-1.5 dark:border-white/10">
+          <NavbarSection className="flex-nowrap">
+            {tabs.map((tab) => {
+              const href = `/chatbots/${chatbotId}/${tab.path}`
+              const current = location.pathname === href
+              return (
+                <NavbarItem key={tab.path} href={href} current={current}>
+                  <NavbarLabel>{tab.label}</NavbarLabel>
+                </NavbarItem>
+              )
+            })}
+          </NavbarSection>
+        </Navbar>
+      </div>
       <Outlet />
     </div>
   )

@@ -13,12 +13,17 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const root = document.documentElement
+    root.classList.add('theme-transition')
     if (theme === 'dark') {
       root.classList.add('dark')
     } else {
       root.classList.remove('dark')
     }
     localStorage.setItem(THEME_KEY, theme)
+    const timer = window.setTimeout(() => {
+      root.classList.remove('theme-transition')
+    }, 280)
+    return () => window.clearTimeout(timer)
   }, [theme])
 
   const value = useMemo(

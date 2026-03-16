@@ -110,7 +110,8 @@ export const api = {
       }),
   },
   billing: {
-    summary: () => apiRequest('/v1/subscription'),
+    summary: (chatbotId) =>
+      apiRequest(withQuery('/v1/subscription', { chatbotId })),
     checkout: (payload) =>
       apiRequest('/v1/subscription/checkout', {
         method: 'POST',
@@ -118,6 +119,11 @@ export const api = {
       }),
     portal: (payload) =>
       apiRequest('/v1/subscription/portal', {
+        method: 'POST',
+        body: payload,
+      }),
+    trial: (payload) =>
+      apiRequest('/v1/subscription/trial', {
         method: 'POST',
         body: payload,
       }),

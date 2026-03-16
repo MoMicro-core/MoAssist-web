@@ -6,16 +6,14 @@ import { Field, FieldGroup, Label } from '../ui/fieldset'
 import { Input } from '../ui/input'
 import { Heading } from '../ui/heading'
 import { Text } from '../ui/text'
-import { Badge } from '../ui/badge'
 import { useI18n } from '../context/I18nContext'
-import { useTheme } from '../context/ThemeContext'
 import { Select } from '../ui/select'
+import { ThemeToggle } from '../components/ThemeToggle'
 
 export const Login = () => {
   const { user, signIn, register } = useAuth()
   const navigate = useNavigate()
   const { t, language, setLanguage, languages } = useI18n()
-  const { theme, toggleTheme } = useTheme()
   const [mode, setMode] = useState('signin')
   const [form, setForm] = useState({ name: '', email: '', password: '' })
   const [loading, setLoading] = useState(false)
@@ -48,27 +46,8 @@ export const Login = () => {
   }
 
   return (
-    <div className="mx-auto grid min-h-screen max-w-5xl items-center gap-10 px-6 py-12 lg:grid-cols-[1.2fr,1fr]">
-      <div className="space-y-6">
-        <Badge color="teal" className="w-fit uppercase tracking-wide">
-          {t('appName')}
-        </Badge>
-        <Heading level={1} className="font-display text-4xl sm:text-5xl">
-          {t('loginTitle')}
-        </Heading>
-        <Text className="text-base text-zinc-600">
-          {t('loginBody')}
-        </Text>
-        <div className="grid gap-3">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300">
-            {t('featureA')}
-          </div>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-4 text-sm text-zinc-600 shadow-sm dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-300">
-            {t('featureB')}
-          </div>
-        </div>
-      </div>
-      <div className="rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+    <div className="mx-auto flex min-h-screen w-full max-w-lg items-center px-6 py-12">
+      <div className="glass-panel fade-up w-full rounded-3xl p-8">
         <div className="flex justify-end gap-3">
           <Select value={language} onChange={(event) => setLanguage(event.target.value)}>
             {languages.map((lang) => (
@@ -77,24 +56,18 @@ export const Login = () => {
               </option>
             ))}
           </Select>
-          <Button outline onClick={toggleTheme}>
-            {theme === 'dark' ? t('light') : t('dark')}
-          </Button>
+          <ThemeToggle />
         </div>
-        <div className="flex gap-2">
-          <Button
-            color={mode === 'signin' ? 'teal' : 'light'}
-            onClick={() => setMode('signin')}
-          >
-            {t('signIn')}
-          </Button>
-          <Button
-            color={mode === 'register' ? 'teal' : 'light'}
-            onClick={() => setMode('register')}
-          >
-            {t('register')}
-          </Button>
+
+        <div className="mt-5 space-y-2">
+          <Heading level={1} className="font-display text-3xl">
+            {mode === 'signin' ? t('signIn') : t('register')}
+          </Heading>
+          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+            {t('loginBody')}
+          </Text>
         </div>
+
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
           <FieldGroup>
             {mode === 'register' ? (
@@ -117,14 +90,24 @@ export const Login = () => {
               />
             </Field>
           </FieldGroup>
+
           {error ? (
             <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
               {error}
             </div>
           ) : null}
-          <Button color="teal" type="submit" disabled={loading}>
+
+          <Button color="teal" type="submit" disabled={loading} className="w-full">
             {loading ? 'Please wait' : mode === 'signin' ? t('signIn') : t('register')}
           </Button>
+
+          <button
+            type="button"
+            onClick={() => setMode((prev) => (prev === 'signin' ? 'register' : 'signin'))}
+            className="ui-pressable w-full rounded-xl border border-zinc-200/80 px-4 py-2.5 text-sm text-zinc-700 hover:border-teal-200 dark:border-white/10 dark:text-zinc-200 dark:hover:border-teal-400/40"
+          >
+            {mode === 'signin' ? t('switchToRegister') : t('switchToSignIn')}
+          </button>
         </form>
       </div>
     </div>

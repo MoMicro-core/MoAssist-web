@@ -97,7 +97,7 @@ export const Chatbots = () => {
   return (
     <div className="space-y-8">
       <div className="grid gap-6 lg:grid-cols-[1.6fr,1fr]">
-        <div className="rounded-3xl border border-emerald-200/60 bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-8 shadow-sm dark:border-emerald-900/40 dark:from-emerald-950/60 dark:via-zinc-950 dark:to-zinc-900">
+        <div className="glass-panel rounded-3xl border-emerald-200/60 bg-gradient-to-br from-emerald-50 via-white/90 to-cyan-50 p-8 dark:border-emerald-900/40 dark:from-emerald-950/45 dark:via-zinc-950 dark:to-zinc-900">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div className="space-y-3">
               <Badge color="teal" className="uppercase tracking-wide">
@@ -129,7 +129,7 @@ export const Chatbots = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+        <div className="glass-panel rounded-3xl p-6">
           <Heading level={3} className="font-display text-lg">
             {t('activity')}
           </Heading>
@@ -181,9 +181,9 @@ export const Chatbots = () => {
             <button
               key={chatbot.id}
               onClick={() => navigate(`/chatbots/${chatbot.id}/dashboard`)}
-              className="text-left"
+              className="ui-pressable text-left"
             >
-              <div className="group flex h-full flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-white/10 dark:bg-zinc-900">
+              <div className="surface-card group flex h-full flex-col justify-between p-5">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <Heading level={3} className="font-display text-lg">
@@ -222,7 +222,7 @@ export const Chatbots = () => {
           ))}
         </div>
       )}
-      <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+      <div className="glass-panel rounded-3xl p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <Heading level={3} className="font-display text-lg">
@@ -241,10 +241,10 @@ export const Chatbots = () => {
               <button
                 key={tab.id}
                 onClick={() => setConversationStatus(tab.id)}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                className={`chip-control ${
                   conversationStatus === tab.id
-                    ? 'bg-emerald-500 text-white'
-                    : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-200'
+                    ? 'chip-control-active'
+                    : ''
                 }`}
               >
                 {tab.label}
@@ -268,9 +268,9 @@ export const Chatbots = () => {
                       `/chatbots/${conversation.chatbotId}/chats?conversation=${conversation.id}`,
                     )
                   }
-                  className="w-full text-left"
+                  className="ui-pressable w-full text-left"
                 >
-                  <div className="rounded-2xl border border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-white/5 dark:bg-zinc-800/60">
+                  <div className="surface-card px-4 py-3">
                     <div className="flex items-center justify-between gap-3">
                       <div>
                         <div className="text-sm font-medium text-zinc-900 dark:text-white">

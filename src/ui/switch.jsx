@@ -130,10 +130,11 @@ export function Switch({ color = 'dark/zinc', className, ...props }) {
       {...props}
       className={clsx(
         className,
-        'group relative isolate inline-flex h-6 w-10 cursor-default rounded-full p-[3px] sm:h-5 sm:w-8',
-        'transition duration-0 ease-in-out data-[changing]:duration-200',
+        'ui-pressable group relative isolate inline-flex h-6 w-10 cursor-pointer rounded-full p-[3px] sm:h-5 sm:w-8',
+        'transition duration-300 ease-[cubic-bezier(.25,.8,.25,1)]',
         'forced-colors:outline forced-colors:[--switch-bg:Highlight] dark:forced-colors:[--switch-bg:Highlight]',
         'bg-zinc-200 ring-1 ring-inset ring-black/5 dark:bg-white/5 dark:ring-white/15',
+        'shadow-[0_6px_18px_-12px_rgba(15,23,42,0.6)]',
         'data-[checked]:bg-[--switch-bg] data-[checked]:ring-[--switch-bg-ring] dark:data-[checked]:bg-[--switch-bg] dark:data-[checked]:ring-[--switch-bg-ring]',
         'focus:outline-none data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-blue-500',
         'data-[hover]:data-[checked]:ring-[--switch-bg-ring] data-[hover]:ring-black/15',
@@ -147,7 +148,7 @@ export function Switch({ color = 'dark/zinc', className, ...props }) {
         aria-hidden="true"
         className={clsx(
           'pointer-events-none relative inline-block size-[1.125rem] rounded-full sm:size-3.5',
-          'translate-x-0 transition duration-200 ease-in-out',
+          'translate-x-0 transition duration-400 ease-[cubic-bezier(.25,.8,.25,1)]',
           'border border-transparent',
           'bg-white shadow ring-1 ring-black/5',
           'group-data-[checked]:bg-[--switch] group-data-[checked]:shadow-[--switch-shadow] group-data-[checked]:ring-[--switch-ring]',
