@@ -1,0 +1,68 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#0B3A43"/>
+    </linearGradient>
+    <linearGradient id="card" x1="220" y1="120" x2="1280" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#DFF5F5" stop-opacity="0.78"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="shadow" x="140" y="80" width="1320" height="860" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#001018" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <circle cx="1290" cy="180" r="220" fill="#14B8A6" fill-opacity="0.2"/>
+  <circle cx="240" cy="860" r="260" fill="#0891B2" fill-opacity="0.18"/>
+
+  <g filter="url(#shadow)">
+    <rect x="220" y="120" width="1160" height="760" rx="38" fill="url(#card)"/>
+  </g>
+
+  <rect x="260" y="170" width="240" height="660" rx="26" fill="#0F172A" fill-opacity="0.95"/>
+  <rect x="292" y="212" width="175" height="46" rx="12" fill="url(#accent)"/>
+  <rect x="292" y="282" width="175" height="38" rx="10" fill="#17293B"/>
+  <rect x="292" y="334" width="175" height="38" rx="10" fill="#17293B"/>
+  <rect x="292" y="386" width="175" height="38" rx="10" fill="#17293B"/>
+  <rect x="292" y="438" width="175" height="38" rx="10" fill="#17293B"/>
+
+  <rect x="540" y="170" width="800" height="92" rx="22" fill="#FFFFFF" fill-opacity="0.78"/>
+  <rect x="572" y="198" width="270" height="36" rx="10" fill="#E2E8F0"/>
+  <rect x="1132" y="198" width="176" height="36" rx="10" fill="url(#accent)"/>
+
+  <rect x="540" y="286" width="250" height="170" rx="20" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="560" y="306" width="116" height="18" rx="8" fill="#E2E8F0"/>
+  <rect x="560" y="336" width="70" height="40" rx="10" fill="url(#accent)"/>
+  <rect x="560" y="388" width="210" height="50" rx="14" fill="#ECFEFF"/>
+
+  <rect x="810" y="286" width="250" height="170" rx="20" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="830" y="306" width="116" height="18" rx="8" fill="#E2E8F0"/>
+  <rect x="830" y="336" width="70" height="40" rx="10" fill="url(#accent)"/>
+  <rect x="830" y="388" width="210" height="50" rx="14" fill="#ECFEFF"/>
+
+  <rect x="1080" y="286" width="260" height="170" rx="20" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="1100" y="306" width="116" height="18" rx="8" fill="#E2E8F0"/>
+  <rect x="1100" y="336" width="70" height="40" rx="10" fill="url(#accent)"/>
+  <rect x="1100" y="388" width="220" height="50" rx="14" fill="#ECFEFF"/>
+
+  <rect x="540" y="486" width="530" height="344" rx="24" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="564" y="516" width="134" height="18" rx="8" fill="#E2E8F0"/>
+  <rect x="564" y="560" width="440" height="20" rx="8" fill="#E5E7EB"/>
+  <rect x="564" y="594" width="360" height="20" rx="8" fill="#E5E7EB"/>
+  <rect x="564" y="628" width="410" height="20" rx="8" fill="#E5E7EB"/>
+  <rect x="564" y="666" width="464" height="130" rx="16" fill="#ECFEFF"/>
+
+  <rect x="1090" y="486" width="250" height="344" rx="24" fill="#FFFFFF" fill-opacity="0.9"/>
+  <rect x="1110" y="516" width="96" height="18" rx="8" fill="#E2E8F0"/>
+  <rect x="1110" y="556" width="210" height="16" rx="8" fill="#D1FAE5"/>
+  <rect x="1110" y="586" width="184" height="16" rx="8" fill="#BAE6FD"/>
+  <rect x="1110" y="616" width="156" height="16" rx="8" fill="#A7F3D0"/>
+  <rect x="1110" y="646" width="220" height="16" rx="8" fill="#99F6E4"/>
+  <rect x="1110" y="676" width="166" height="16" rx="8" fill="#E0F2FE"/>
+</svg>

@@ -14,6 +14,10 @@ import { ChatbotPlugin } from './pages/ChatbotPlugin'
 import { NotFound } from './pages/NotFound'
 import { Chats } from './pages/Chats'
 import { Billings } from './pages/Billings'
+import { Landing } from './pages/Landing'
+import { PrivacyPolicy } from './pages/PrivacyPolicy'
+import { Imprint } from './pages/Imprint'
+import { TermsConditions } from './pages/TermsConditions'
 
 const RequireAuth = ({ children }) => {
   const { user, ready } = useAuth()
@@ -25,6 +29,10 @@ const RequireAuth = ({ children }) => {
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      <Route path="/imprint" element={<Imprint />} />
+      <Route path="/terms-and-conditions" element={<TermsConditions />} />
       <Route path="/login" element={<Login />} />
       <Route
         element={
@@ -33,7 +41,6 @@ export default function App() {
           </RequireAuth>
         }
       >
-        <Route index element={<Navigate to="/chatbots" replace />} />
         <Route path="/chatbots" element={<Chatbots />} />
         <Route path="/chats" element={<Chats />} />
         <Route path="/billings" element={<Billings />} />

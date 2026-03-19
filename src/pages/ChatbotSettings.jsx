@@ -24,6 +24,42 @@ const splitList = (value) =>
 
 const listToText = (value) => (value || []).join('\n')
 
+const normalizeColor = (value, fallback = '#14b8a6') => {
+  if (typeof value !== 'string') return fallback
+  const input = value.trim()
+  if (/^#[0-9a-fA-F]{6}$/.test(input)) return input
+  if (/^#[0-9a-fA-F]{3}$/.test(input)) {
+    const [r, g, b] = input.slice(1)
+    return `#${r}${r}${g}${g}${b}${b}`
+  }
+  return fallback
+}
+
+const ColorField = ({
+  label,
+  value,
+  onTextChange,
+  onColorChange,
+  fallback = '#14b8a6',
+}) => (
+  <Field>
+    <Label>{label}</Label>
+    <div className="flex items-center gap-2">
+      <input
+        type="color"
+        value={normalizeColor(value, fallback)}
+        onChange={(event) => onColorChange(event.target.value)}
+        className="h-10 w-12 cursor-pointer rounded-lg border border-zinc-300 bg-white p-1 dark:border-white/20 dark:bg-zinc-900"
+      />
+      <Input
+        value={value || ''}
+        onChange={onTextChange}
+        placeholder={normalizeColor(value, fallback).toUpperCase()}
+      />
+    </div>
+  </Field>
+)
+
 export const ChatbotSettings = () => {
   const { chatbotId } = useParams()
   const { chatbot, loading, reload } = useChatbot()
@@ -63,14 +99,18 @@ export const ChatbotSettings = () => {
     }))
   }
 
-  const updateTheme = (mode, field) => (event) => {
+  const setThemeValue = (mode, field, value) => {
     setDraft((prev) => ({
       ...prev,
       theme: {
         ...(prev.theme || {}),
-        [mode]: { ...(prev.theme?.[mode] || {}), [field]: event.target.value },
+        [mode]: { ...(prev.theme?.[mode] || {}), [field]: value },
       },
     }))
+  }
+
+  const updateTheme = (mode, field) => (event) => {
+    setThemeValue(mode, field, event.target.value)
   }
 
   const updateAi = (field) => (event) => {
@@ -248,51 +288,81 @@ export const ChatbotSettings = () => {
           <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-800/60">
             <Text className="text-sm font-medium text-zinc-700 dark:text-zinc-200">Light theme</Text>
             <FieldGroup>
-              <Field>
-                <Label>Accent</Label>
-                <Input value={draft.theme?.light?.accentColor || ''} onChange={updateTheme('light', 'accentColor')} />
-              </Field>
-              <Field>
-                <Label>Background</Label>
-                <Input value={draft.theme?.light?.backgroundColor || ''} onChange={updateTheme('light', 'backgroundColor')} />
-              </Field>
-              <Field>
-                <Label>Surface</Label>
-                <Input value={draft.theme?.light?.surfaceColor || ''} onChange={updateTheme('light', 'surfaceColor')} />
-              </Field>
-              <Field>
-                <Label>Text</Label>
-                <Input value={draft.theme?.light?.textColor || ''} onChange={updateTheme('light', 'textColor')} />
-              </Field>
-              <Field>
-                <Label>Border</Label>
-                <Input value={draft.theme?.light?.borderColor || ''} onChange={updateTheme('light', 'borderColor')} />
-              </Field>
+              <ColorField
+                label="Accent"
+                value={draft.theme?.light?.accentColor || ''}
+                onTextChange={updateTheme('light', 'accentColor')}
+                onColorChange={(value) => setThemeValue('light', 'accentColor', value)}
+                fallback="#14b8a6"
+              />
+              <ColorField
+                label="Background"
+                value={draft.theme?.light?.backgroundColor || ''}
+                onTextChange={updateTheme('light', 'backgroundColor')}
+                onColorChange={(value) => setThemeValue('light', 'backgroundColor', value)}
+                fallback="#ffffff"
+              />
+              <ColorField
+                label="Surface"
+                value={draft.theme?.light?.surfaceColor || ''}
+                onTextChange={updateTheme('light', 'surfaceColor')}
+                onColorChange={(value) => setThemeValue('light', 'surfaceColor', value)}
+                fallback="#f8fafc"
+              />
+              <ColorField
+                label="Text"
+                value={draft.theme?.light?.textColor || ''}
+                onTextChange={updateTheme('light', 'textColor')}
+                onColorChange={(value) => setThemeValue('light', 'textColor', value)}
+                fallback="#0f172a"
+              />
+              <ColorField
+                label="Border"
+                value={draft.theme?.light?.borderColor || ''}
+                onTextChange={updateTheme('light', 'borderColor')}
+                onColorChange={(value) => setThemeValue('light', 'borderColor', value)}
+                fallback="#cbd5e1"
+              />
             </FieldGroup>
           </div>
           <div className="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-800/60">
             <Text className="text-sm font-medium text-zinc-700 dark:text-zinc-200">Dark theme</Text>
             <FieldGroup>
-              <Field>
-                <Label>Accent</Label>
-                <Input value={draft.theme?.dark?.accentColor || ''} onChange={updateTheme('dark', 'accentColor')} />
-              </Field>
-              <Field>
-                <Label>Background</Label>
-                <Input value={draft.theme?.dark?.backgroundColor || ''} onChange={updateTheme('dark', 'backgroundColor')} />
-              </Field>
-              <Field>
-                <Label>Surface</Label>
-                <Input value={draft.theme?.dark?.surfaceColor || ''} onChange={updateTheme('dark', 'surfaceColor')} />
-              </Field>
-              <Field>
-                <Label>Text</Label>
-                <Input value={draft.theme?.dark?.textColor || ''} onChange={updateTheme('dark', 'textColor')} />
-              </Field>
-              <Field>
-                <Label>Border</Label>
-                <Input value={draft.theme?.dark?.borderColor || ''} onChange={updateTheme('dark', 'borderColor')} />
-              </Field>
+              <ColorField
+                label="Accent"
+                value={draft.theme?.dark?.accentColor || ''}
+                onTextChange={updateTheme('dark', 'accentColor')}
+                onColorChange={(value) => setThemeValue('dark', 'accentColor', value)}
+                fallback="#14b8a6"
+              />
+              <ColorField
+                label="Background"
+                value={draft.theme?.dark?.backgroundColor || ''}
+                onTextChange={updateTheme('dark', 'backgroundColor')}
+                onColorChange={(value) => setThemeValue('dark', 'backgroundColor', value)}
+                fallback="#0f172a"
+              />
+              <ColorField
+                label="Surface"
+                value={draft.theme?.dark?.surfaceColor || ''}
+                onTextChange={updateTheme('dark', 'surfaceColor')}
+                onColorChange={(value) => setThemeValue('dark', 'surfaceColor', value)}
+                fallback="#111827"
+              />
+              <ColorField
+                label="Text"
+                value={draft.theme?.dark?.textColor || ''}
+                onTextChange={updateTheme('dark', 'textColor')}
+                onColorChange={(value) => setThemeValue('dark', 'textColor', value)}
+                fallback="#e2e8f0"
+              />
+              <ColorField
+                label="Border"
+                value={draft.theme?.dark?.borderColor || ''}
+                onTextChange={updateTheme('dark', 'borderColor')}
+                onColorChange={(value) => setThemeValue('dark', 'borderColor', value)}
+                fallback="#334155"
+              />
             </FieldGroup>
           </div>
         </div>

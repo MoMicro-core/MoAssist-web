@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ArrowsUpDownIcon } from '@heroicons/react/24/outline'
+import { StarIcon } from '@heroicons/react/24/solid'
 import { api } from '../lib/api'
 import { Button } from '../ui/button'
 import { Badge } from '../ui/badge'
@@ -12,6 +14,45 @@ import { Loading } from '../components/Loading'
 import { EmptyState } from '../components/EmptyState'
 import { useI18n } from '../context/I18nContext'
 
+const CHATBOT_ORDER_KEY = 'moassist-chatbots-order'
+const CHATBOT_PINNED_KEY = 'moassist-chatbots-pinned'
+
+const readStoredIds = (key) => {
+  try {
+    const value = localStorage.getItem(key)
+    const parsed = JSON.parse(value || '[]')
+    return Array.isArray(parsed) ? parsed.filter((item) => typeof item === 'string') : []
+  } catch {
+    return []
+  }
+}
+
+const writeStoredIds = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    // ignore storage errors
+  }
+}
+
+const normalizeOrderedIds = (orderedIds, existingIds) => {
+  const existingSet = new Set(existingIds)
+  const cleaned = orderedIds.filter((id) => existingSet.has(id))
+  const missing = existingIds.filter((id) => !cleaned.includes(id))
+  return [...cleaned, ...missing]
+}
+
+const moveId = (ids, sourceId, targetId) => {
+  if (!sourceId || !targetId || sourceId === targetId) return ids
+  const list = [...ids]
+  const sourceIndex = list.indexOf(sourceId)
+  const targetIndex = list.indexOf(targetId)
+  if (sourceIndex < 0 || targetIndex < 0) return ids
+  const [item] = list.splice(sourceIndex, 1)
+  list.splice(targetIndex, 0, item)
+  return list
+}
+
 export const Chatbots = () => {
   const navigate = useNavigate()
   const { t } = useI18n()
@@ -20,6 +61,10 @@ export const Chatbots = () => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [creating, setCreating] = useState(false)
   const [title, setTitle] = useState('')
+  const [orderIds, setOrderIds] = useState(() => readStoredIds(CHATBOT_ORDER_KEY))
+  const [pinnedIds, setPinnedIds] = useState(() => readStoredIds(CHATBOT_PINNED_KEY))
+  const [draggingId, setDraggingId] = useState('')
+  const [dragOverId, setDragOverId] = useState('')
   const [allConversations, setAllConversations] = useState([])
   const [loadingConversations, setLoadingConversations] = useState(false)
   const [conversationStatus, setConversationStatus] = useState('open')
@@ -27,13 +72,25 @@ export const Chatbots = () => {
   const loadChatbots = async () => {
     setLoading(true)
     const data = await api.chatbots.list()
-    setChatbots(data || [])
+    const items = data || []
+    const existingIds = items.map((item) => item.id)
+    setChatbots(items)
+    setOrderIds((prev) => normalizeOrderedIds(prev, existingIds))
+    setPinnedIds((prev) => prev.filter((id) => existingIds.includes(id)))
     setLoading(false)
   }
 
   useEffect(() => {
     loadChatbots()
   }, [])
+
+  useEffect(() => {
+    writeStoredIds(CHATBOT_ORDER_KEY, orderIds)
+  }, [orderIds])
+
+  useEffect(() => {
+    writeStoredIds(CHATBOT_PINNED_KEY, pinnedIds)
+  }, [pinnedIds])
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -61,9 +118,59 @@ export const Chatbots = () => {
     [chatbots],
   )
 
+  const orderedChatbots = useMemo(() => {
+    const ids = normalizeOrderedIds(orderIds, chatbots.map((bot) => bot.id))
+    return ids.map((id) => chatbotLookup.get(id)).filter(Boolean)
+  }, [orderIds, chatbots, chatbotLookup])
+
+  const pinnedSet = useMemo(() => new Set(pinnedIds), [pinnedIds])
+
   const openCreate = () => {
     setTitle('')
     setDialogOpen(true)
+  }
+
+  const togglePin = (chatbotId) => {
+    setPinnedIds((prev) => {
+      if (prev.includes(chatbotId)) {
+        return prev.filter((id) => id !== chatbotId)
+      }
+      return [chatbotId, ...prev.filter((id) => id !== chatbotId)]
+    })
+    setOrderIds((prev) => [chatbotId, ...prev.filter((id) => id !== chatbotId)])
+  }
+
+  const clearDragState = () => {
+    setDraggingId('')
+    setDragOverId('')
+  }
+
+  const handleDragStart = (chatbotId) => (event) => {
+    setDraggingId(chatbotId)
+    event.dataTransfer.effectAllowed = 'move'
+    event.dataTransfer.setData('text/plain', chatbotId)
+  }
+
+  const handleDragOver = (chatbotId) => (event) => {
+    event.preventDefault()
+    event.dataTransfer.dropEffect = 'move'
+    if (dragOverId !== chatbotId) {
+      setDragOverId(chatbotId)
+    }
+  }
+
+  const handleDrop = (chatbotId) => (event) => {
+    event.preventDefault()
+    const sourceId = draggingId || event.dataTransfer.getData('text/plain')
+    if (!sourceId || sourceId === chatbotId) {
+      clearDragState()
+      return
+    }
+    const existingIds = chatbots.map((item) => item.id)
+    setOrderIds((prev) =>
+      moveId(normalizeOrderedIds(prev, existingIds), sourceId, chatbotId),
+    )
+    clearDragState()
   }
 
   const handleCreate = async (event) => {
@@ -177,25 +284,71 @@ export const Chatbots = () => {
         />
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
-          {chatbots.map((chatbot) => (
-            <button
+          {orderedChatbots.map((chatbot) => (
+            <div
               key={chatbot.id}
               onClick={() => navigate(`/chatbots/${chatbot.id}/dashboard`)}
-              className="ui-pressable text-left"
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault()
+                  navigate(`/chatbots/${chatbot.id}/dashboard`)
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              draggable
+              onDragStart={handleDragStart(chatbot.id)}
+              onDragOver={handleDragOver(chatbot.id)}
+              onDrop={handleDrop(chatbot.id)}
+              onDragEnd={clearDragState}
+              className={`ui-pressable text-left ${
+                draggingId === chatbot.id ? 'opacity-45' : ''
+              } ${dragOverId === chatbot.id ? 'ring-2 ring-teal-400' : ''}`}
             >
-              <div className="surface-card group flex h-full flex-col justify-between p-5">
+              <div
+                className={`surface-card group flex h-full flex-col justify-between p-5 ${
+                  pinnedSet.has(chatbot.id)
+                    ? 'border-teal-300/80 dark:border-teal-400/50'
+                    : ''
+                }`}
+              >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <Heading level={3} className="font-display text-lg">
                       {chatbot.settings?.title || 'MoAssist Bot'}
                     </Heading>
-                    <Badge color={statusColor(chatbot.settings?.status)}>
-                      {chatbot.settings?.status || 'draft'}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.preventDefault()
+                          event.stopPropagation()
+                          togglePin(chatbot.id)
+                        }}
+                        className={`ui-pressable rounded-full p-1.5 ${
+                          pinnedSet.has(chatbot.id)
+                            ? 'bg-teal-500 text-white'
+                            : 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300'
+                        }`}
+                        aria-label={pinnedSet.has(chatbot.id) ? 'Unpin chatbot' : 'Pin chatbot'}
+                        title={pinnedSet.has(chatbot.id) ? 'Unpin chatbot' : 'Pin chatbot'}
+                      >
+                        <StarIcon className="size-4" />
+                      </button>
+                      <Badge color={statusColor(chatbot.settings?.status)}>
+                        {chatbot.settings?.status || 'draft'}
+                      </Badge>
+                    </div>
                   </div>
-                  <Text className="text-sm text-zinc-600">
-                    {chatbot.settings?.botName || 'MoAssist'}
-                  </Text>
+                  <div className="flex items-center justify-between">
+                    <Text className="text-sm text-zinc-600">
+                      {chatbot.settings?.botName || 'MoAssist'}
+                    </Text>
+                    <div className="flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500">
+                      <ArrowsUpDownIcon className="size-3.5" />
+                      <span>Drag</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-6 grid grid-cols-3 gap-3 text-xs text-zinc-600">
                   <div className="rounded-xl bg-zinc-50 px-3 py-2">
@@ -218,7 +371,7 @@ export const Chatbots = () => {
                   </div>
                 </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       )}
