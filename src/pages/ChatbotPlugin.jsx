@@ -1,77 +1,106 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { api } from '../lib/api'
-import { Heading } from '../ui/heading'
-import { Text } from '../ui/text'
-import { Button } from '../ui/button'
-import { Loading } from '../components/Loading'
-import { useI18n } from '../context/I18nContext'
-import { useChatbot } from '../context/ChatbotContext'
-import { ChatbotPreview } from '../components/ChatbotPreview'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { api } from "../lib/api";
+import { Heading } from "../ui/heading";
+import { Text } from "../ui/text";
+import { Button } from "../ui/button";
+import { Loading } from "../components/Loading";
+import { useI18n } from "../context/I18nContext";
+import { useChatbot } from "../context/ChatbotContext";
+import { ChatbotPreview } from "../components/ChatbotPreview";
 
 export const ChatbotPlugin = () => {
-  const { chatbotId } = useParams()
-  const { t } = useI18n()
-  const { chatbot } = useChatbot()
-  const [install, setInstall] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { chatbotId } = useParams();
+  const { t } = useI18n();
+  const { chatbot } = useChatbot();
+  const [install, setInstall] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getPath = (value) => {
-    if (!value) return ''
+    if (!value) return "";
     try {
-      return new URL(value).pathname
+      return new URL(value).pathname;
     } catch {
-      return value.replace(/^https?:\/\/[^/]+/, '')
+      return value.replace(/^https?:\/\/[^/]+/, "");
     }
-  }
+  };
 
   useEffect(() => {
     const load = async () => {
-      setLoading(true)
-      const data = await api.chatbots.install(chatbotId)
-      setInstall(data)
-      setLoading(false)
-    }
-    load()
-  }, [chatbotId])
+      setLoading(true);
+      const data = await api.chatbots.install(chatbotId);
+      setInstall(data);
+      setLoading(false);
+    };
+    load();
+  }, [chatbotId]);
 
   const copy = async (value) => {
-    if (!value) return
-    await navigator.clipboard.writeText(value)
-  }
+    if (!value) return;
+    await navigator.clipboard.writeText(value);
+  };
 
-  if (loading) return <Loading />
+  if (loading) return <Loading />;
 
-  const scriptPath = getPath(install?.scriptUrl)
-  const iframePath = getPath(install?.iframeUrl)
+  const scriptPath = getPath(install?.scriptUrl);
+  const iframePath = getPath(install?.iframeUrl);
   const displayScriptSnippet =
     install?.scriptSnippet && install?.scriptUrl
       ? install.scriptSnippet.replace(install.scriptUrl, scriptPath)
-      : install?.scriptSnippet
+      : install?.scriptSnippet;
   const displayIframeSnippet =
     install?.iframeSnippet && install?.iframeUrl
       ? install.iframeSnippet.replace(install.iframeUrl, iframePath)
-      : install?.iframeSnippet
+      : install?.iframeSnippet;
+  const authSnippet = chatbot?.settings?.auth
+    ? `<script>
+window.MOMICRO_ASSIST_CONFIG = {
+  ${JSON.stringify(chatbotId)}: {
+    authClient: window.websiteSession.userId
+  }
+}
+</script>`
+    : "";
 
   return (
     <div className="space-y-6">
       <div className="space-y-1">
         <Heading level={3} className="font-display text-lg">
-          {t('embedTitle')}
+          {t("embedTitle")}
         </Heading>
         <Text className="text-sm text-zinc-600 dark:text-zinc-300">
-          {t('embedBody')}
+          {t("embedBody")}
         </Text>
       </div>
+      {chatbot?.settings?.auth ? (
+        <div className="rounded-2xl border border-sky-200 bg-sky-50/80 p-6 shadow-sm dark:border-sky-500/20 dark:bg-sky-950/20">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <Heading level={4} className="font-display text-base">
+                {t("authEnabledLabel")}
+              </Heading>
+              <Text className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
+                {t("authClientHelp")}
+              </Text>
+            </div>
+            <Button outline onClick={() => copy(authSnippet)}>
+              {t("copy")}
+            </Button>
+          </div>
+          <pre className="mt-4 overflow-x-auto rounded-xl bg-zinc-950 p-4 text-sm text-zinc-100">
+            {authSnippet}
+          </pre>
+        </div>
+      ) : null}
       <div className="grid gap-4 lg:grid-cols-[1.2fr,0.8fr]">
         <div className="space-y-4">
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
             <div className="flex items-center justify-between">
               <Heading level={4} className="font-display text-base">
-                {t('scriptEmbed')}
+                {t("scriptEmbed")}
               </Heading>
               <Button outline onClick={() => copy(install?.scriptSnippet)}>
-                {t('copy')}
+                {t("copy")}
               </Button>
             </div>
             <pre className="mt-4 overflow-x-auto rounded-xl bg-zinc-950 p-4 text-sm text-zinc-100">
@@ -81,10 +110,10 @@ export const ChatbotPlugin = () => {
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
             <div className="flex items-center justify-between">
               <Heading level={4} className="font-display text-base">
-                {t('iframeEmbed')}
+                {t("iframeEmbed")}
               </Heading>
               <Button outline onClick={() => copy(install?.iframeSnippet)}>
-                {t('copy')}
+                {t("copy")}
               </Button>
             </div>
             <pre className="mt-4 overflow-x-auto rounded-xl bg-zinc-950 p-4 text-sm text-zinc-100">
@@ -94,7 +123,7 @@ export const ChatbotPlugin = () => {
         </div>
         <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
           <Heading level={4} className="font-display text-base">
-            {t('preview')}
+            {t("preview")}
           </Heading>
           <div className="mt-4">
             <ChatbotPreview settings={chatbot?.settings} />
@@ -102,5 +131,5 @@ export const ChatbotPlugin = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

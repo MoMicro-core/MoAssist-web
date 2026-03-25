@@ -93,8 +93,8 @@ export function SidebarLayout({
           sidebarHidden ? 'lg:pl-3' : 'lg:pl-[18.75rem]',
         )}
       >
-        <div className="glass-panel grow p-4 sm:p-6 lg:rounded-[1.75rem] lg:p-8">
-          <div className="mx-auto max-w-6xl">{children}</div>
+        <div className="glass-panel grow ml-1 p-4 sm:p-6 lg:rounded-[1.75rem] lg:p-8">
+          <div className="mx-auto max-w-full h-[90vh] overflow-y-scroll overflow-x-hidden no-scrollbar scroll-smooth">{children}</div>
         </div>
       </main>
     </div>

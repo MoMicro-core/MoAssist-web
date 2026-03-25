@@ -1,42 +1,40 @@
-import { useMemo, useState } from 'react'
-import { Button } from '../ui/button'
-import { Badge } from '../ui/badge'
-import { Text } from '../ui/text'
-import { useI18n } from '../context/I18nContext'
+import { useMemo, useState } from "react";
+import { Badge } from "../ui/badge";
+import { Text } from "../ui/text";
+import { useI18n } from "../context/I18nContext";
 
 const fallbackTheme = {
   light: {
-    accentColor: '#0f766e',
-    backgroundColor: '#f8fafc',
-    surfaceColor: '#ffffff',
-    textColor: '#0f172a',
-    accentTextColor: '#ffffff',
-    borderColor: '#cbd5e1',
+    accentColor: "#099ad9",
+    backgroundColor: "#fcfff8",
+    surfaceColor: "#ffffff",
+    textColor: "#173a55",
+    accentTextColor: "#fcfff8",
+    borderColor: "#beebf0",
   },
   dark: {
-    accentColor: '#14b8a6',
-    backgroundColor: '#0f172a',
-    surfaceColor: '#111827',
-    textColor: '#e5e7eb',
-    accentTextColor: '#042f2e',
-    borderColor: '#1f2937',
+    accentColor: "#5cd7d3",
+    backgroundColor: "#0b1c2a",
+    surfaceColor: "#102536",
+    textColor: "#ecfdff",
+    accentTextColor: "#0b1c2a",
+    borderColor: "#214d6f",
   },
-}
+};
 
 export const ChatbotPreview = ({ settings }) => {
-  const [mode, setMode] = useState('light')
-  const { t } = useI18n()
-  const theme = settings?.theme || fallbackTheme
-  const palette = theme?.[mode] || fallbackTheme[mode]
+  const [mode, setMode] = useState("light");
+  const { t } = useI18n();
+  const theme = settings?.theme || fallbackTheme;
+  const palette = theme?.[mode] || fallbackTheme[mode];
   const initialMessage =
-    settings?.initialMessage || 'Hi. How can I help you today?'
-  const suggested = settings?.suggestedMessages || []
-  const userPrompt =
-    suggested[0] || 'How can I reset my password?'
-  const botName = settings?.botName || 'MoAssist'
-  const logoUrl = settings?.brand?.logoUrl
-  const borderRadius = settings?.rounded ? '20px' : '6px'
-  const containerRadius = settings?.rounded ? 'rounded-3xl' : 'rounded-xl'
+    settings?.initialMessage || "Hi. How can I help you today?";
+  const suggested = settings?.suggestedMessages || [];
+  const userPrompt = suggested[0] || "How can I reset my password?";
+  const botName = settings?.botName || "MoAssist";
+  const logoUrl = settings?.brand?.logoUrl || "/preview/logo.svg";
+  const borderRadius = settings?.rounded ? "20px" : "6px";
+  const containerRadius = settings?.rounded ? "rounded-3xl" : "rounded-xl";
 
   const bubbleStyle = useMemo(
     () => ({
@@ -46,7 +44,7 @@ export const ChatbotPreview = ({ settings }) => {
       borderRadius,
     }),
     [palette, borderRadius],
-  )
+  );
 
   const userBubbleStyle = useMemo(
     () => ({
@@ -55,12 +53,15 @@ export const ChatbotPreview = ({ settings }) => {
       borderRadius,
     }),
     [palette, borderRadius],
-  )
+  );
 
   return (
     <div
       className={`flex w-full flex-col gap-3 overflow-hidden border shadow-sm ${containerRadius}`}
-      style={{ backgroundColor: palette.surfaceColor, borderColor: palette.borderColor }}
+      style={{
+        backgroundColor: palette.surfaceColor,
+        borderColor: palette.borderColor,
+      }}
     >
       <div
         className="flex items-center justify-between gap-3 px-4 py-3"
@@ -69,32 +70,59 @@ export const ChatbotPreview = ({ settings }) => {
         <div className="flex items-center gap-3">
           <div
             className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-sm font-semibold"
-            style={{ backgroundColor: palette.accentColor, color: palette.accentTextColor }}
+            style={{
+              backgroundColor: palette.accentColor,
+              color: palette.accentTextColor,
+            }}
           >
             {logoUrl ? (
-              <img src={logoUrl} alt={botName} className="h-full w-full object-cover" />
+              <img
+                src={logoUrl}
+                alt={botName}
+                className="h-full w-full object-contain p-1"
+              />
             ) : (
               botName.slice(0, 1)
             )}
           </div>
           <div>
-            <div className="text-sm font-semibold" style={{ color: palette.textColor }}>
+            <div
+              className="text-sm font-semibold"
+              style={{ color: palette.textColor }}
+            >
               {botName}
             </div>
-            <div className="text-xs" style={{ color: palette.textColor, opacity: 0.7 }}>
-              {t('online')}
+            <div
+              className="text-xs"
+              style={{ color: palette.textColor, opacity: 0.7 }}
+            >
+              {t("online")}
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Badge color={mode === 'light' ? 'teal' : 'zinc'}>{t('light')}</Badge>
-          <Button outline onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
-            {mode === 'light' ? t('dark') : t('light')}
-          </Button>
+          <Badge color={mode === "light" ? "sky" : "zinc"}>
+            {mode === "light" ? t("light") : t("dark")}
+          </Badge>
+          <button
+            type="button"
+            onClick={() => setMode(mode === "light" ? "dark" : "light")}
+            className="rounded-full border px-3 py-1 text-xs font-medium transition"
+            style={{
+              borderColor: palette.borderColor,
+              color: palette.textColor,
+              backgroundColor: "transparent",
+            }}
+          >
+            {mode === "light" ? t("dark") : t("light")}
+          </button>
         </div>
       </div>
       <div className="flex min-h-[320px] flex-1 flex-col gap-3 px-4 py-4">
-        <div className="max-w-[85%] rounded-2xl border px-3 py-2 text-sm" style={bubbleStyle}>
+        <div
+          className="max-w-[85%] rounded-2xl border px-3 py-2 text-sm"
+          style={bubbleStyle}
+        >
           {initialMessage}
         </div>
         <div
@@ -109,7 +137,10 @@ export const ChatbotPreview = ({ settings }) => {
               <span
                 key={msg}
                 className="rounded-full border px-3 py-1 text-xs"
-                style={{ borderColor: palette.borderColor, color: palette.textColor }}
+                style={{
+                  borderColor: palette.borderColor,
+                  color: palette.textColor,
+                }}
               >
                 {msg}
               </span>
@@ -119,21 +150,39 @@ export const ChatbotPreview = ({ settings }) => {
       </div>
       <div
         className="border-t px-4 py-3"
-        style={{ borderColor: palette.borderColor, backgroundColor: palette.backgroundColor }}
+        style={{
+          borderColor: palette.borderColor,
+          backgroundColor: palette.backgroundColor,
+        }}
       >
         <div className="flex items-center gap-2">
           <div
             className="flex-1 rounded-2xl border px-3 py-2 text-xs"
-            style={{ borderColor: palette.borderColor, color: palette.textColor }}
+            style={{
+              borderColor: palette.borderColor,
+              color: palette.textColor,
+            }}
           >
-            {settings?.inputPlaceholder || 'Write a message...'}
+            {settings?.inputPlaceholder || "Write a message..."}
           </div>
-          <Button color="teal">{t('send')}</Button>
+          <button
+            type="button"
+            className="rounded-2xl px-4 py-2 text-sm font-semibold shadow-sm"
+            style={{
+              backgroundColor: palette.accentColor,
+              color: palette.accentTextColor,
+            }}
+          >
+            {t("send")}
+          </button>
         </div>
-        <Text className="mt-2 text-xs" style={{ color: palette.textColor, opacity: 0.6 }}>
+        <Text
+          className="mt-2 text-xs"
+          style={{ color: palette.textColor, opacity: 0.6 }}
+        >
           Powered by MoAssist
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};

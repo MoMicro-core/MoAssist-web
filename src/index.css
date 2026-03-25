@@ -4,18 +4,22 @@
 
 :root {
   color-scheme: light;
-  --app-bg: #eef2ee;
-  --app-bg-soft: #f8faf8;
-  --app-fg: #171717;
-  --app-grid: rgba(15, 23, 42, 0.045);
+  --brand-cyan: #099ad9;
+  --brand-aqua: #5cd7d3;
+  --brand-deep: #173a55;
+  --brand-ink: #0b1c2a;
+  --app-bg: #f4fbff;
+  --app-bg-soft: #fcfff8;
+  --app-fg: #173a55;
+  --app-grid: rgba(23, 58, 85, 0.05);
 }
 
 html.dark {
   color-scheme: dark;
-  --app-bg: #090c10;
-  --app-bg-soft: #101721;
-  --app-fg: #e2e8f0;
-  --app-grid: rgba(148, 163, 184, 0.08);
+  --app-bg: #081521;
+  --app-bg-soft: #102536;
+  --app-fg: #ecfdff;
+  --app-grid: rgba(92, 215, 211, 0.08);
 }
 
 * {
@@ -25,28 +29,46 @@ html.dark {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Albert Sans', sans-serif;
+  font-family: "Albert Sans", sans-serif;
   color: var(--app-fg);
   background:
-    radial-gradient(circle at 8% 8%, rgba(20, 184, 166, 0.18), transparent 36%),
-    radial-gradient(circle at 92% 18%, rgba(14, 165, 233, 0.15), transparent 38%),
-    radial-gradient(circle at 18% 92%, rgba(16, 185, 129, 0.12), transparent 42%),
+    radial-gradient(circle at 8% 8%, rgba(9, 154, 217, 0.18), transparent 36%),
+    radial-gradient(
+      circle at 92% 18%,
+      rgba(92, 215, 211, 0.16),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 18% 92%,
+      rgba(30, 139, 169, 0.12),
+      transparent 42%
+    ),
     linear-gradient(160deg, var(--app-bg-soft), var(--app-bg));
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 60% 40%, rgba(255, 255, 255, 0.4), transparent 42%);
+  background:
+    radial-gradient(
+      circle at 60% 40%,
+      rgba(255, 255, 255, 0.4),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(92, 215, 211, 0.12),
+      transparent 28%
+    );
   mix-blend-mode: soft-light;
   animation: aura-float 20s ease-in-out infinite alternate;
   z-index: 0;
 }
 
 body::after {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -66,7 +88,7 @@ body::after {
 }
 
 .font-display {
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   letter-spacing: -0.0125em;
 }
 
@@ -83,7 +105,7 @@ html.theme-transition *::after {
 
 @layer base {
   button,
-  [role='button'] {
+  [role="button"] {
     position: relative;
     -webkit-tap-highlight-color: transparent;
     transition:
@@ -94,8 +116,18 @@ html.theme-transition *::after {
   }
 
   button:active,
-  [role='button']:active {
+  [role="button"]:active {
     transform: translateY(1px) scale(0.985);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -109,15 +141,15 @@ html.theme-transition *::after {
   }
 
   .ui-pressable {
-    @apply relative overflow-hidden transition-all duration-300 ease-out active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/50 focus-visible:ring-offset-2 dark:focus-visible:ring-teal-300/60;
+    @apply relative overflow-hidden transition-all duration-300 ease-out active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:ring-offset-2 dark:focus-visible:ring-cyan-300/60;
   }
 
   .chip-control {
-    @apply ui-pressable rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:border-teal-200 hover:text-zinc-900 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-teal-400/40;
+    @apply ui-pressable rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:border-sky-200 hover:text-zinc-900 dark:border-white/10 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-cyan-400/40;
   }
 
   .chip-control-active {
-    @apply border-transparent bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-md shadow-teal-500/25;
+    @apply border-transparent bg-gradient-to-r from-sky-500 to-cyan-400 text-white shadow-md shadow-sky-500/25;
   }
 
   .fade-up {

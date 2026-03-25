@@ -1,26 +1,35 @@
-import { Button } from '../ui/button'
-import { Select } from '../ui/select'
-import { ThemeToggle } from './ThemeToggle'
-import { useI18n } from '../context/I18nContext'
+import { Button } from "../ui/button";
+import { Select } from "../ui/select";
+import { ThemeToggle } from "./ThemeToggle";
+import { useI18n } from "../context/I18nContext";
 
 export const PublicHeader = ({ showActions = true }) => {
-  const { language, setLanguage, languages } = useI18n()
+  const { language, setLanguage, languages } = useI18n();
 
   return (
     <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 pt-6 sm:px-8">
       <a href="/" className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 text-sm font-bold text-white">
-          M
-        </div>
+        <img
+          src="/preview/logo.svg"
+          alt="MoAssist"
+          className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm dark:bg-white/10"
+        />
         <div>
-          <div className="font-display text-lg font-semibold text-zinc-900 dark:text-white">MoAssist</div>
-          <div className="text-xs text-zinc-500 dark:text-zinc-400">AI chat concierge</div>
+          <div className="font-display text-lg font-semibold text-zinc-900 dark:text-white">
+            MoAssist
+          </div>
+          <div className="text-xs text-zinc-500 dark:text-zinc-400">
+            AI chat concierge
+          </div>
         </div>
       </a>
 
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="w-[4.6rem] sm:w-24">
-          <Select value={language} onChange={(event) => setLanguage(event.target.value)}>
+          <Select
+            value={language}
+            onChange={(event) => setLanguage(event.target.value)}
+          >
             {languages.map((lang) => (
               <option key={lang} value={lang}>
                 {lang.toUpperCase()}
@@ -43,5 +52,5 @@ export const PublicHeader = ({ showActions = true }) => {
         ) : null}
       </div>
     </header>
-  )
-}
+  );
+};

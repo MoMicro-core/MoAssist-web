@@ -5,6 +5,7 @@ import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Heading } from '../ui/heading'
 import { Navbar, NavbarSection, NavbarItem, NavbarLabel } from '../ui/navbar'
+import { Text } from '../ui/text'
 import { Loading } from '../components/Loading'
 import { useI18n } from '../context/I18nContext'
 import { api } from '../lib/api'
@@ -12,9 +13,10 @@ import { api } from '../lib/api'
 const ChatbotShell = () => {
   const { chatbotId } = useParams()
   const location = useLocation()
-  const { chatbot, loading, reload } = useChatbot()
+  const { chatbot, loading, error, reload } = useChatbot()
   const { t } = useI18n()
   const [savingStatus, setSavingStatus] = useState(false)
+  const [statusError, setStatusError] = useState('')
 
   const tabs = [
     { label: t('dashboard'), path: 'dashboard' },
@@ -25,6 +27,26 @@ const ChatbotShell = () => {
 
   if (loading) return <Loading />
 
+  if (error || !chatbot) {
+    return (
+      <div className="glass-panel space-y-4 rounded-3xl p-6">
+        <div>
+          <Heading level={3} className="font-display text-lg">
+            Unable to load chatbot
+          </Heading>
+          <Text className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
+            {error || 'The requested chatbot could not be loaded.'}
+          </Text>
+        </div>
+        <div>
+          <Button outline onClick={reload}>
+            Retry
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   const status = chatbot?.settings?.status || 'draft'
   const statusLabel = status === 'published' ? t('statusPublished') : t('statusDraft')
 
@@ -32,9 +54,12 @@ const ChatbotShell = () => {
     if (!chatbot || savingStatus) return
     const nextStatus = status === 'published' ? 'draft' : 'published'
     setSavingStatus(true)
+    setStatusError('')
     try {
       await api.chatbots.update(chatbot.id, { status: nextStatus })
       await reload()
+    } catch (err) {
+      setStatusError(err?.message || 'Unable to update chatbot status')
     } finally {
       setSavingStatus(false)
     }
@@ -64,6 +89,11 @@ const ChatbotShell = () => {
           </Button>
         </div>
       </div>
+      {statusError ? (
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {statusError}
+        </div>
+      ) : null}
       <div className="-mx-1 overflow-x-auto px-1 pb-1">
         <Navbar className="glass-panel min-w-max rounded-2xl border-zinc-200/70 px-3 py-1.5 dark:border-white/10">
           <NavbarSection className="flex-nowrap">

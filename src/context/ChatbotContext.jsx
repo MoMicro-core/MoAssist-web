@@ -9,14 +9,27 @@ export const ChatbotProvider = ({ children }) => {
   const { chatbotId } = useParams()
   const [chatbot, setChatbot] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const { subscribeChatbot } = useWebSocket()
 
   const loadChatbot = useCallback(async () => {
-    if (!chatbotId) return
+    if (!chatbotId) {
+      setChatbot(null)
+      setError('')
+      setLoading(false)
+      return
+    }
     setLoading(true)
-    const data = await api.chatbots.get(chatbotId)
-    setChatbot(data)
-    setLoading(false)
+    setError('')
+    try {
+      const data = await api.chatbots.get(chatbotId)
+      setChatbot(data)
+    } catch (err) {
+      setChatbot(null)
+      setError(err?.message || 'Unable to load chatbot')
+    } finally {
+      setLoading(false)
+    }
   }, [chatbotId])
 
   useEffect(() => {
@@ -28,7 +41,7 @@ export const ChatbotProvider = ({ children }) => {
   }, [chatbotId, subscribeChatbot])
 
   return (
-    <ChatbotContext.Provider value={{ chatbot, loading, reload: loadChatbot }}>
+    <ChatbotContext.Provider value={{ chatbot, loading, error, reload: loadChatbot }}>
       {children}
     </ChatbotContext.Provider>
   )
