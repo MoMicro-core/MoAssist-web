@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import App from './App'
 import './index.css'
 import { AuthProvider } from './context/AuthContext'
@@ -16,6 +18,8 @@ root.render(
         <AuthProvider>
           <WebSocketProvider>
             <App />
+            <Analytics />
+            <SpeedInsights />
           </WebSocketProvider>
         </AuthProvider>
       </I18nProvider>
