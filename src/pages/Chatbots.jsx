@@ -10,6 +10,7 @@ import { Field, FieldGroup, Label } from "../ui/fieldset";
 import { Input } from "../ui/input";
 import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
+import { Select } from "../ui/select";
 import { Loading } from "../components/Loading";
 import { EmptyState } from "../components/EmptyState";
 import { useI18n } from "../context/I18nContext";
@@ -55,6 +56,14 @@ const moveId = (ids, sourceId, targetId) => {
   return list;
 };
 
+const normalizeLanguageSelection = (defaultLanguage, languages = []) => {
+  const next = [
+    defaultLanguage,
+    ...(Array.isArray(languages) ? languages : []).filter(Boolean),
+  ].filter(Boolean);
+  return [...new Set(next)];
+};
+
 const getStatusMeta = (status, t) => {
   if (status === "pending") {
     return { color: "amber", label: t("pendingLabel") };
@@ -75,6 +84,14 @@ export const Chatbots = () => {
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState("");
   const [title, setTitle] = useState("");
+  const [languageOptions, setLanguageOptions] = useState({
+    defaultLanguage: "english",
+    allowedLanguages: ["english"],
+  });
+  const [createDefaultLanguage, setCreateDefaultLanguage] = useState("english");
+  const [createEnabledLanguages, setCreateEnabledLanguages] = useState([
+    "english",
+  ]);
   const [orderIds, setOrderIds] = useState(() =>
     readStoredIds(CHATBOT_ORDER_KEY),
   );
@@ -106,6 +123,33 @@ export const Chatbots = () => {
 
   useEffect(() => {
     loadChatbots();
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    const loadLanguageOptions = async () => {
+      try {
+        const data = await api.chatbots.languages();
+        if (!active || !data) return;
+        const nextDefault = data.defaultLanguage || "english";
+        const nextAllowed =
+          data.allowedLanguages && data.allowedLanguages.length
+            ? data.allowedLanguages
+            : [nextDefault];
+        setLanguageOptions({
+          defaultLanguage: nextDefault,
+          allowedLanguages: nextAllowed,
+        });
+        setCreateDefaultLanguage(nextDefault);
+        setCreateEnabledLanguages([nextDefault]);
+      } catch {
+        // keep fallback values
+      }
+    };
+    loadLanguageOptions();
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -158,6 +202,9 @@ export const Chatbots = () => {
   const openCreate = () => {
     setTitle("");
     setCreateError("");
+    const nextDefault = languageOptions.defaultLanguage || "english";
+    setCreateDefaultLanguage(nextDefault);
+    setCreateEnabledLanguages([nextDefault]);
     setDialogOpen(true);
   };
 
@@ -220,9 +267,17 @@ export const Chatbots = () => {
     setCreating(true);
     try {
       const trimmedTitle = title.trim();
-      const created = await api.chatbots.create(
-        trimmedTitle ? { title: trimmedTitle } : {},
+      const defaultLanguage =
+        createDefaultLanguage || languageOptions.defaultLanguage || "english";
+      const enabledLanguages = normalizeLanguageSelection(
+        defaultLanguage,
+        createEnabledLanguages,
       );
+      const created = await api.chatbots.create({
+        ...(trimmedTitle ? { title: trimmedTitle } : {}),
+        defaultLanguage,
+        enabledLanguages,
+      });
       const chatbotId = created?.id;
       if (!chatbotId) {
         throw new Error("Chatbot created but no chatbot ID was returned");
@@ -234,6 +289,33 @@ export const Chatbots = () => {
     } finally {
       setCreating(false);
     }
+  };
+
+  const availableLanguages = useMemo(
+    () =>
+      languageOptions.allowedLanguages?.length
+        ? languageOptions.allowedLanguages
+        : [languageOptions.defaultLanguage || "english"],
+    [languageOptions],
+  );
+
+  const handleCreateDefaultLanguageChange = (event) => {
+    const nextDefaultLanguage = event.target.value;
+    setCreateDefaultLanguage(nextDefaultLanguage);
+    setCreateEnabledLanguages((prev) =>
+      normalizeLanguageSelection(nextDefaultLanguage, prev),
+    );
+  };
+
+  const toggleCreateLanguage = (language) => {
+    if (language === createDefaultLanguage) return;
+    setCreateEnabledLanguages((prev) => {
+      const current = normalizeLanguageSelection(createDefaultLanguage, prev);
+      if (current.includes(language)) {
+        return current.filter((item) => item !== language);
+      }
+      return [...current, language];
+    });
   };
 
   if (loading) return <Loading />;
@@ -569,6 +651,50 @@ export const Chatbots = () => {
                   placeholder="MoAssist Bot"
                   autoFocus
                 />
+              </Field>
+              <Field>
+                <Label>{t("defaultLanguageSetting")}</Label>
+                <Select
+                  value={createDefaultLanguage}
+                  onChange={handleCreateDefaultLanguageChange}
+                >
+                  {availableLanguages.map((language) => (
+                    <option key={language} value={language}>
+                      {language}
+                    </option>
+                  ))}
+                </Select>
+              </Field>
+              <Field>
+                <Label>{t("enabledLanguagesLabel")}</Label>
+                <div className="flex flex-wrap gap-2">
+                  {availableLanguages.map((language) => {
+                    const selected = createEnabledLanguages.includes(language);
+                    const isDefault = language === createDefaultLanguage;
+                    return (
+                      <button
+                        key={language}
+                        type="button"
+                        onClick={() => toggleCreateLanguage(language)}
+                        className={`chip-control ${
+                          selected ? "chip-control-active" : ""
+                        }`}
+                        disabled={isDefault}
+                        title={
+                          isDefault
+                            ? t("defaultLanguagePinnedHelp")
+                            : undefined
+                        }
+                      >
+                        {language}
+                        {isDefault ? ` • ${t("defaultLanguageShort")}` : ""}
+                      </button>
+                    );
+                  })}
+                </div>
+                <Text className="text-xs text-zinc-500 dark:text-zinc-400">
+                  {t("createLanguagesHelp")}
+                </Text>
               </Field>
             </FieldGroup>
             {createError ? (

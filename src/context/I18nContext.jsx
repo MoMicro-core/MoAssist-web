@@ -150,7 +150,20 @@ const dictionary = {
     startTrial: "Start trial",
     upgrade: "Upgrade plan",
     manageBilling: "Manage billing",
+    freePlanLabel: "Free",
+    tierDescriptionFallback: "Choose the plan that matches the support flow you need.",
+    currentPlanCta: "Current plan",
+    upgradeToPlan: "Choose this plan",
     language: "Language",
+    defaultLanguageSetting: "Default chatbot language",
+    enabledLanguagesLabel: "Additional chatbot languages",
+    defaultLanguagePinnedHelp:
+      "The main chatbot language is always included in the selected languages.",
+    defaultLanguageShort: "default",
+    createLanguagesHelp:
+      "Choose the main chatbot language first, then add only the extra languages you want to publish.",
+    enabledLanguagesHelp:
+      "Only the selected languages will be generated and served in the widget.",
     theme: "Theme",
     light: "Light",
     dark: "Dark",
@@ -176,6 +189,17 @@ const dictionary = {
     scriptPath: "Script path",
     iframePath: "Iframe path",
     copyUrl: "Copy",
+    subscriptionAccessTitle: "Subscription access",
+    subscriptionAccessBody:
+      "Each chatbot inherits its available features from the current plan, so blocked options stay disabled and safe to edit around.",
+    authUpgradeHint:
+      "Upgrade to the Connected or Full AI plan to connect signed-in website customers to chat sessions.",
+    aiPlanHint:
+      "AI replies are available on the Full AI plan and can still be configured here.",
+    aiUpgradeHint:
+      "Upgrade to the Full AI plan to turn on automated answers.",
+    knowledgeUpgradeHint:
+      "Knowledge uploads are available on the Full AI plan.",
   },
   de: {
     appName: "MoAssist",

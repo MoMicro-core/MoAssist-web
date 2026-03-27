@@ -31,6 +31,14 @@ const splitList = (value) =>
 
 const listToText = (value) => (value || []).join("\n");
 
+const normalizeLanguageSelection = (defaultLanguage, languages = []) => {
+  const next = [
+    defaultLanguage,
+    ...(Array.isArray(languages) ? languages : []).filter(Boolean),
+  ].filter(Boolean);
+  return [...new Set(next)];
+};
+
 const normalizeColor = (value, fallback = "#099ad9") => {
   if (typeof value !== "string") return fallback;
   const input = value.trim();
@@ -200,6 +208,37 @@ export const ChatbotSettings = () => {
     setDraft((prev) => ({ ...prev, [field]: event.target.value }));
   };
 
+  const updateDefaultLanguage = (event) => {
+    const nextDefaultLanguage = event.target.value;
+    setDraft((prev) => ({
+      ...prev,
+      defaultLanguage: nextDefaultLanguage,
+      enabledLanguages: normalizeLanguageSelection(
+        nextDefaultLanguage,
+        prev.enabledLanguages,
+      ),
+    }));
+  };
+
+  const toggleEnabledLanguage = (language) => {
+    setDraft((prev) => {
+      const defaultLanguage =
+        prev.defaultLanguage || languageOptions.defaultLanguage || "english";
+      if (language === defaultLanguage) return prev;
+      const current = normalizeLanguageSelection(
+        defaultLanguage,
+        prev.enabledLanguages,
+      );
+      const next = current.includes(language)
+        ? current.filter((item) => item !== language)
+        : [...current, language];
+      return {
+        ...prev,
+        enabledLanguages: normalizeLanguageSelection(defaultLanguage, next),
+      };
+    });
+  };
+
   const updateBoolean = (field) => (value) => {
     setDraft((prev) => ({ ...prev, [field]: value }));
   };
@@ -346,16 +385,33 @@ export const ChatbotSettings = () => {
         : [languageOptions.defaultLanguage || "english"],
     [languageOptions],
   );
+  const enabledLanguages = useMemo(
+    () =>
+      normalizeLanguageSelection(
+        draft?.defaultLanguage || languageOptions.defaultLanguage || "english",
+        draft?.enabledLanguages,
+      ),
+    [draft?.defaultLanguage, draft?.enabledLanguages, languageOptions],
+  );
   const translationCoverage = useMemo(
     () =>
-      Object.values(draft?.translations || {}).filter(
-        (pack) => pack && typeof pack === "object",
+      enabledLanguages.filter(
+        (language) =>
+          draft?.translations?.[language] &&
+          typeof draft.translations[language] === "object",
       ).length,
-    [draft?.translations],
+    [draft?.translations, enabledLanguages],
   );
+  const featureAccess = chatbot?.featureAccess || {
+    authenticatedWidget: false,
+    aiResponder: false,
+    knowledgeFiles: false,
+  };
+  const currentTier = chatbot?.currentTier || null;
   const paletteFallback = themeFallbacks[previewMode];
   const sectionChips = [
     { id: "settings-basics", label: t("basics") },
+    { id: "settings-subscription", label: t("subscription") },
     { id: "settings-ui", label: "UI studio" },
     { id: "settings-conversation", label: t("conversationBehavior") },
     { id: "settings-localization", label: "Localization" },
@@ -649,6 +705,29 @@ export const ChatbotSettings = () => {
         </div>
       ) : null}
 
+      <SettingsCard
+        id="settings-subscription"
+        title={t("subscriptionAccessTitle")}
+        description={t("subscriptionAccessBody")}
+      >
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge color="sky">
+            {t("currentPlanLabel")}: {currentTier?.name || chatbot?.premiumPlan || "Free"}
+          </Badge>
+          <Badge
+            color={featureAccess.authenticatedWidget ? "emerald" : "zinc"}
+          >
+            {t("authEnabledLabel")}
+          </Badge>
+          <Badge color={featureAccess.aiResponder ? "emerald" : "zinc"}>
+            {t("aiConfig")}
+          </Badge>
+          <Badge color={featureAccess.knowledgeFiles ? "emerald" : "zinc"}>
+            {t("knowledgeFiles")}
+          </Badge>
+        </div>
+      </SettingsCard>
+
       <div className="flex flex-wrap gap-2">
         {sectionChips.map((section) => (
           <button
@@ -836,8 +915,13 @@ export const ChatbotSettings = () => {
               checked={Boolean(draft.auth)}
               onChange={updateBoolean("auth")}
               color="sky"
+              disabled={!featureAccess.authenticatedWidget}
             />
-            <PreviewHint>{t("authClientHelp")}</PreviewHint>
+            <PreviewHint>
+              {featureAccess.authenticatedWidget
+                ? t("authClientHelp")
+                : t("authUpgradeHint")}
+            </PreviewHint>
           </Field>
           <Field>
             <Label>{t("inactivityHoursLabel")}</Label>
@@ -863,23 +947,52 @@ export const ChatbotSettings = () => {
       >
         <FieldGroup>
           <Field>
-            <Label>Default language</Label>
+            <Label>{t("defaultLanguageSetting")}</Label>
             <Select
               value={draft.defaultLanguage || languageOptions.defaultLanguage}
-              onChange={update("defaultLanguage")}
+              onChange={updateDefaultLanguage}
             >
               {availableLanguages.map((language) => (
                 <option key={language} value={language}>
                   {language}
                 </option>
-              ))}
+                ))}
             </Select>
+          </Field>
+          <Field>
+            <Label>{t("enabledLanguagesLabel")}</Label>
+            <div className="flex flex-wrap gap-2">
+              {availableLanguages.map((language) => {
+                const selected = enabledLanguages.includes(language);
+                const isDefault =
+                  language ===
+                  (draft.defaultLanguage || languageOptions.defaultLanguage);
+                return (
+                  <button
+                    key={language}
+                    type="button"
+                    onClick={() => toggleEnabledLanguage(language)}
+                    className={`chip-control ${
+                      selected ? "chip-control-active" : ""
+                    }`}
+                    disabled={isDefault}
+                    title={
+                      isDefault ? t("defaultLanguagePinnedHelp") : undefined
+                    }
+                  >
+                    {language}
+                    {isDefault ? ` • ${t("defaultLanguageShort")}` : ""}
+                  </button>
+                );
+              })}
+            </div>
+            <PreviewHint>{t("enabledLanguagesHelp")}</PreviewHint>
           </Field>
         </FieldGroup>
 
         <div className="flex flex-wrap gap-2">
           <Badge color="sky">
-            Translation packs: {translationCoverage}/{availableLanguages.length}
+            Translation packs: {translationCoverage}/{enabledLanguages.length}
           </Badge>
           <Badge color="zinc">
             Source hash: {draft.translationSourceHash || "not generated yet"}
@@ -894,6 +1007,7 @@ export const ChatbotSettings = () => {
             {JSON.stringify(
               {
                 defaultLanguage: draft.defaultLanguage,
+                enabledLanguages,
                 translations: draft.translations || {},
                 translationSourceHash: draft.translationSourceHash || "",
               },
@@ -1017,7 +1131,13 @@ export const ChatbotSettings = () => {
               checked={Boolean(draft.ai?.enabled)}
               onChange={updateAiBoolean("enabled")}
               color="sky"
+              disabled={!featureAccess.aiResponder}
             />
+            <PreviewHint>
+              {featureAccess.aiResponder
+                ? t("aiPlanHint")
+                : t("aiUpgradeHint")}
+            </PreviewHint>
           </Field>
           <Field>
             <Label>{t("templateLabel")}</Label>
@@ -1054,7 +1174,7 @@ export const ChatbotSettings = () => {
         description="Knowledge uploads stay separate from the visual UI editor."
         actions={
           <label className="flex items-center gap-2">
-            <Button outline disabled={uploading}>
+            <Button outline disabled={uploading || !featureAccess.knowledgeFiles}>
               {uploading ? t("uploading") : t("uploadFiles")}
             </Button>
             <input
@@ -1063,10 +1183,14 @@ export const ChatbotSettings = () => {
               onChange={handleFileUpload}
               className="hidden"
               accept=".pdf,.txt,.json"
+              disabled={!featureAccess.knowledgeFiles}
             />
           </label>
         }
       >
+        {!featureAccess.knowledgeFiles ? (
+          <PreviewHint>{t("knowledgeUpgradeHint")}</PreviewHint>
+        ) : null}
         <div className="overflow-hidden rounded-xl border border-zinc-100 dark:border-white/5">
           <Table>
             <TableHead>

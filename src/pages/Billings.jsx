@@ -9,6 +9,18 @@ import { Select } from '../ui/select'
 import { Loading } from '../components/Loading'
 import { useI18n } from '../context/I18nContext'
 
+const capabilityLabels = {
+  authenticated_widget: 'Signed-in customer support',
+  ai_responder: 'AI answers',
+  knowledge_files: 'Knowledge uploads',
+}
+
+const humanizeLimitKey = (key = '') =>
+  String(key)
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (character) => character.toUpperCase())
+
 export const Billings = () => {
   const { t } = useI18n()
   const [chatbots, setChatbots] = useState([])
@@ -74,6 +86,13 @@ export const Billings = () => {
     () => chatbots.find((item) => item.id === selectedChatbotId),
     [chatbots, selectedChatbotId],
   )
+  const sortedTiers = useMemo(
+    () =>
+      [...(summary?.availableTiers || [])].sort(
+        (left, right) => left.monthlyPriceUsd - right.monthlyPriceUsd,
+      ),
+    [summary?.availableTiers],
+  )
 
   const runAction = async (request) => {
     if (!selectedChatbotId || billingAction) return
@@ -89,8 +108,10 @@ export const Billings = () => {
     }
   }
 
-  const openCheckout = async () => {
-    await runAction(() => api.billing.checkout({ chatbotId: selectedChatbotId }))
+  const openCheckout = async (tierId) => {
+    await runAction(() =>
+      api.billing.checkout({ chatbotId: selectedChatbotId, tierId }),
+    )
   }
 
   const openPortal = async () => {
@@ -109,6 +130,7 @@ export const Billings = () => {
   if (loading) return <Loading />
 
   const premiumStatus = summary?.premiumStatus || 'free'
+  const currentTierId = summary?.currentTier?.id || 'free'
   const periodEnd = summary?.premiumCurrentPeriodEnd
     ? new Date(summary.premiumCurrentPeriodEnd).toLocaleDateString()
     : 'N/A'
@@ -157,7 +179,7 @@ export const Billings = () => {
               {t('selectedChatbot')}: {selectedChatbot?.settings?.title || selectedChatbot?.id}
             </div>
             <div>
-              {t('planLabel')}: {summary?.premiumPlan || 'free'}
+              {t('planLabel')}: {summary?.currentTier?.name || summary?.premiumPlan || 'free'}
             </div>
             <div>
               {t('billingStatusLabel')}: {premiumStatus}
@@ -169,18 +191,83 @@ export const Billings = () => {
           </div>
         )}
 
-        <div className="grid gap-2 sm:grid-cols-3">
-          <Button
-            color="teal"
-            onClick={openCheckout}
-            disabled={!selectedChatbotId || billingAction}
-          >
-            {t('upgrade')}
-          </Button>
+        <div className="grid gap-4 lg:grid-cols-3">
+          {sortedTiers.map((tier) => {
+            const isCurrent = tier.id === currentTierId
+            const capabilities =
+              tier.capabilities?.length
+                ? tier.capabilities
+                : ['Live visitor chat']
+            const limits = Object.entries(tier.limits || {})
+
+            return (
+              <div
+                key={tier.id}
+                className={`rounded-2xl border p-5 ${
+                  isCurrent
+                    ? 'border-sky-300 bg-sky-50/80 dark:border-cyan-400/40 dark:bg-sky-950/20'
+                    : 'border-zinc-200 bg-white dark:border-white/10 dark:bg-zinc-900/70'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <Heading level={3} className="font-display text-lg">
+                      {tier.name}
+                    </Heading>
+                    <Text className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+                      {tier.metadata?.description || t('tierDescriptionFallback')}
+                    </Text>
+                  </div>
+                  <Badge color={isCurrent ? 'sky' : 'zinc'}>
+                    {tier.monthlyPriceUsd > 0
+                      ? `$${tier.monthlyPriceUsd}/mo`
+                      : t('freePlanLabel')}
+                  </Badge>
+                </div>
+
+                <div className="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+                  {capabilities.map((capability) => (
+                    <div key={capability}>
+                      {capabilityLabels[capability] || capability}
+                    </div>
+                  ))}
+                  {limits.map(([key, value]) => (
+                    <div key={key}>
+                      {humanizeLimitKey(key)}: {value}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-5">
+                  {isCurrent ? (
+                    <Button outline disabled className="w-full">
+                      {t('currentPlanCta')}
+                    </Button>
+                  ) : tier.checkoutEnabled ? (
+                    <Button
+                      color="teal"
+                      className="w-full"
+                      onClick={() => openCheckout(tier.id)}
+                      disabled={!selectedChatbotId || billingAction}
+                    >
+                      {t('upgradeToPlan')}
+                    </Button>
+                  ) : (
+                    <Button outline disabled className="w-full">
+                      {t('freePlanLabel')}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2">
           <Button
             outline
             onClick={startTrial}
-            disabled={!selectedChatbotId || billingAction}
+            disabled={!selectedChatbotId || billingAction || premiumStatus !== 'free'}
           >
             {t('startTrial')}
           </Button>
