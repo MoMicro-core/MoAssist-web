@@ -1,4 +1,14 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
+import {
+  DEFAULT_LOCALE_KEY,
+  LANGUAGE_OPTIONS,
+  buildLocalizedPath,
+  isPublicLandingPath,
+  readLocaleFromPathname,
+  readLocaleFromSearch,
+  resolveLocale,
+} from "../lib/siteLocales";
 
 const I18nContext = createContext(null);
 
@@ -17,7 +27,9 @@ const dictionary = {
     billings: "Billings",
     signOut: "Sign out",
     signIn: "Sign in",
+    tryNow: "Try now",
     register: "Register",
+    marketingTagline: "AI chat concierge",
     continueWithGoogle: "Continue with Google",
     continueWithApple: "Continue with Apple",
     orUseEmail: "Or continue with email",
@@ -213,7 +225,9 @@ const dictionary = {
     billings: "Abrechnung",
     signOut: "Abmelden",
     signIn: "Anmelden",
+    tryNow: "Jetzt testen",
     register: "Registrieren",
+    marketingTagline: "KI Chat Concierge",
     continueWithGoogle: "Mit Google fortfahren",
     continueWithApple: "Mit Apple fortfahren",
     orUseEmail: "Oder mit E-Mail fortfahren",
@@ -384,7 +398,9 @@ const dictionary = {
     billings: "Facturacion",
     signOut: "Salir",
     signIn: "Entrar",
+    tryNow: "Probar ahora",
     register: "Registrar",
+    marketingTagline: "Asistente de chat con IA",
     continueWithGoogle: "Continuar con Google",
     continueWithApple: "Continuar con Apple",
     orUseEmail: "O continuar con correo",
@@ -544,11 +560,117 @@ const dictionary = {
   },
 };
 
+dictionary.fr = {
+  appName: "MoAssist",
+  dashboard: "Tableau de bord",
+  signOut: "Se deconnecter",
+  signIn: "Se connecter",
+  tryNow: "Essayer",
+  marketingTagline: "Concierge chat IA",
+  theme: "Theme",
+  light: "Clair",
+  dark: "Sombre",
+  hideMenu: "Masquer le menu",
+  showMenu: "Afficher le menu",
+};
+
+dictionary.it = {
+  appName: "MoAssist",
+  dashboard: "Dashboard",
+  signOut: "Esci",
+  signIn: "Accedi",
+  tryNow: "Prova ora",
+  marketingTagline: "Assistente chat AI",
+  theme: "Tema",
+  light: "Chiaro",
+  dark: "Scuro",
+  hideMenu: "Nascondi menu",
+  showMenu: "Mostra menu",
+};
+
+dictionary.ru = {
+  appName: "MoAssist",
+  dashboard: "Панель",
+  signOut: "Выйти",
+  signIn: "Войти",
+  tryNow: "Попробовать",
+  marketingTagline: "AI чат-консьерж",
+  theme: "Тема",
+  light: "Светлая",
+  dark: "Темная",
+  hideMenu: "Скрыть меню",
+  showMenu: "Показать меню",
+};
+
+dictionary.ua = {
+  appName: "MoAssist",
+  dashboard: "Панель",
+  signOut: "Вийти",
+  signIn: "Увійти",
+  tryNow: "Спробувати",
+  marketingTagline: "AI чат-консьєрж",
+  theme: "Тема",
+  light: "Світла",
+  dark: "Темна",
+  hideMenu: "Сховати меню",
+  showMenu: "Показати меню",
+};
+
 export const I18nProvider = ({ children }) => {
+  const location = useLocation();
   const [language, setLanguage] = useState(() => {
+    const pathLocale = readLocaleFromPathname(window.location.pathname);
+    if (pathLocale?.key && pathLocale.key !== DEFAULT_LOCALE_KEY) {
+      return pathLocale.key;
+    }
+
+    const queryLocale = readLocaleFromSearch(window.location.search);
+    if (queryLocale?.key) {
+      return queryLocale.key;
+    }
+
     const stored = localStorage.getItem(LANG_KEY);
-    return stored && dictionary[stored] ? stored : "en";
+    return resolveLocale(stored).key || DEFAULT_LOCALE_KEY;
   });
+
+  useEffect(() => {
+    const pathLocale = readLocaleFromPathname(location.pathname);
+
+    if (pathLocale?.key && pathLocale.key !== DEFAULT_LOCALE_KEY) {
+      if (pathLocale.key !== language) {
+        setLanguage(pathLocale.key);
+        localStorage.setItem(LANG_KEY, pathLocale.key);
+      }
+
+      return;
+    }
+
+    const queryLocale = readLocaleFromSearch(location.search);
+    const hasQueryLocale = new URLSearchParams(location.search).has("lang");
+
+    if (hasQueryLocale && isPublicLandingPath(location.pathname)) {
+      const normalizedUrl = new URL(window.location.href);
+      normalizedUrl.pathname = buildLocalizedPath(
+        location.pathname,
+        queryLocale.key,
+      );
+      normalizedUrl.searchParams.delete("lang");
+      window.history.replaceState({}, "", normalizedUrl.toString());
+
+      if (queryLocale.key !== language) {
+        setLanguage(queryLocale.key);
+        localStorage.setItem(LANG_KEY, queryLocale.key);
+      }
+
+      return;
+    }
+
+    if (location.pathname === "/" && language !== DEFAULT_LOCALE_KEY) {
+      const localizedUrl = new URL(window.location.href);
+      localizedUrl.pathname = buildLocalizedPath("/", language);
+      window.history.replaceState({}, "", localizedUrl.toString());
+    }
+  }, [language, location.pathname, location.search]);
 
   const t = useMemo(
     () => (key) => dictionary[language]?.[key] || dictionary.en[key] || key,
@@ -559,14 +681,30 @@ export const I18nProvider = ({ children }) => {
     () => ({
       language,
       setLanguage: (lang) => {
-        if (!dictionary[lang]) return;
-        setLanguage(lang);
-        localStorage.setItem(LANG_KEY, lang);
+        const nextLocale = resolveLocale(lang);
+
+        if (!dictionary[nextLocale.key]) return;
+
+        setLanguage(nextLocale.key);
+        localStorage.setItem(LANG_KEY, nextLocale.key);
+
+        const nextUrl = new URL(window.location.href);
+
+        if (isPublicLandingPath(location.pathname)) {
+          nextUrl.pathname = buildLocalizedPath(
+            location.pathname,
+            nextLocale.key,
+          );
+          nextUrl.searchParams.delete("lang");
+        }
+
+        window.location.replace(nextUrl.toString());
       },
       t,
-      languages: Object.keys(dictionary),
+      languages: LANGUAGE_OPTIONS.map(({ key }) => key),
+      languageOptions: LANGUAGE_OPTIONS,
     }),
-    [language, t],
+    [language, location.pathname, t],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

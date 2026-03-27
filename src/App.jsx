@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Loading } from "./components/Loading";
+import { PUBLIC_LOCALE_KEYS } from "./lib/siteLocales";
 
 const AuthenticatedLayout = lazy(() =>
   import("./layouts/AuthenticatedLayout").then((module) => ({
@@ -83,6 +84,11 @@ export default function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Landing />} />
+        {PUBLIC_LOCALE_KEYS.map((locale) => (
+          <Route key={locale} path={`/${locale}`} element={<Landing />} />
+        ))}
+        <Route path="/at" element={<Navigate to="/de" replace />} />
+        <Route path="/gr" element={<Navigate to="/" replace />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/terms-and-conditions" element={<TermsConditions />} />

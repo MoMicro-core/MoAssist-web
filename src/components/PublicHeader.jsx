@@ -2,13 +2,14 @@ import { Button } from "../ui/button";
 import { Select } from "../ui/select";
 import { ThemeToggle } from "./ThemeToggle";
 import { useI18n } from "../context/I18nContext";
+import { buildLocalizedPath } from "../lib/siteLocales";
 
 export const PublicHeader = ({ showActions = true }) => {
-  const { language, setLanguage, languages } = useI18n();
+  const { language, setLanguage, languageOptions, t } = useI18n();
 
   return (
     <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 pt-6 sm:px-8">
-      <a href="/" className="flex items-center gap-3">
+      <a href={buildLocalizedPath("/", language)} className="flex items-center gap-3">
         <img
           src="/preview/logo.svg"
           alt="MoAssist"
@@ -19,20 +20,21 @@ export const PublicHeader = ({ showActions = true }) => {
             MoAssist
           </div>
           <div className="text-xs text-zinc-500 dark:text-zinc-400">
-            AI chat concierge
+            {t("marketingTagline")}
           </div>
         </div>
       </a>
 
       <div className="flex items-center gap-2 sm:gap-3">
-        <div className="w-[4.6rem] sm:w-24">
+        <div className="w-[5.5rem] sm:w-[6.25rem]">
           <Select
+            className="[&_select]:text-[1.45rem] [&_select]:leading-none [&_select]:sm:text-[1.7rem]"
             value={language}
             onChange={(event) => setLanguage(event.target.value)}
           >
-            {languages.map((lang) => (
-              <option key={lang} value={lang}>
-                {lang.toUpperCase()}
+            {languageOptions.map((option) => (
+              <option key={option.key} value={option.key}>
+                {option.label}
               </option>
             ))}
           </Select>
@@ -43,10 +45,10 @@ export const PublicHeader = ({ showActions = true }) => {
         {showActions ? (
           <div className="hidden items-center gap-2 sm:flex">
             <Button outline href="/login">
-              Login
+              {t("signIn")}
             </Button>
             <Button color="teal" href="/chatbots">
-              Try now
+              {t("tryNow")}
             </Button>
           </div>
         ) : null}

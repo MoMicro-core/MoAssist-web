@@ -42,7 +42,7 @@ export const AuthenticatedLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { t, language, setLanguage, languages } = useI18n();
+  const { t, language, setLanguage, languageOptions } = useI18n();
   const [sidebarHidden, setSidebarHidden] = useState(() => {
     try {
       return localStorage.getItem(SIDEBAR_PREF_KEY) === "1";
@@ -113,12 +113,13 @@ export const AuthenticatedLayout = () => {
           </SidebarItem>
           <div className="mt-4 space-y-3">
             <Select
+              className="[&_select]:text-[1.45rem] [&_select]:leading-none [&_select]:sm:text-[1.7rem]"
               value={language}
               onChange={(event) => setLanguage(event.target.value)}
             >
-              {languages.map((lang) => (
-                <option key={lang} value={lang}>
-                  {lang.toUpperCase()}
+              {languageOptions.map((option) => (
+                <option key={option.key} value={option.key}>
+                  {option.label}
                 </option>
               ))}
             </Select>
