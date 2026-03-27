@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import clsx from "clsx";
 import {
+  ArrowLeftOnRectangleIcon,
   Bars3BottomLeftIcon,
   CreditCardIcon,
   InboxStackIcon,
@@ -33,6 +35,8 @@ import { useI18n } from "../context/I18nContext";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 const SIDEBAR_PREF_KEY = "moassist-sidebar-hidden";
+const menuButtonClasses =
+  "menu-toggle ui-pressable inline-flex items-center justify-center gap-2 rounded-2xl border border-[color:var(--ui-accent-border)] bg-[color:var(--ui-accent-surface)] px-4 py-3 text-sm font-semibold text-[color:var(--ui-accent-text)] shadow-[0_18px_34px_-24px_var(--ui-accent-shadow)] backdrop-blur-sm transition hover:border-[color:var(--ui-accent-border-strong)] hover:shadow-[0_22px_42px_-28px_var(--ui-accent-shadow)]";
 
 export const AuthenticatedLayout = () => {
   const location = useLocation();
@@ -124,12 +128,21 @@ export const AuthenticatedLayout = () => {
               </span>
               <ThemeToggle />
             </div>
-            <Button
-              outline
+            <button
+              type="button"
               onClick={() => setSidebarHidden(true)}
-              className="w-full"
+              className={clsx(menuButtonClasses, "w-full")}
             >
+              <Bars3BottomLeftIcon className="size-5" />
               {t("hideMenu")}
+            </button>
+            <Button
+              color="sky"
+              onClick={signOut}
+              className="w-full justify-center shadow-[0_18px_34px_-24px_rgba(9,154,217,0.46)] dark:shadow-[0_18px_34px_-24px_rgba(27,177,212,0.54)]"
+            >
+              <ArrowLeftOnRectangleIcon data-slot="icon" />
+              {t("signOut")}
             </Button>
           </div>
         </SidebarSection>
@@ -150,14 +163,14 @@ export const AuthenticatedLayout = () => {
             <NavbarLabel className="font-display">{t("appName")}</NavbarLabel>
           </div>
         </NavbarItem>
-        <Button
-          outline
-          className="hidden lg:inline-flex"
+        <button
+          type="button"
+          className={clsx(menuButtonClasses, "hidden lg:inline-flex")}
           onClick={() => setSidebarHidden((prev) => !prev)}
         >
-          <Bars3BottomLeftIcon data-slot="icon" />
+          <Bars3BottomLeftIcon className="size-5" />
           {sidebarHidden ? t("showMenu") : t("hideMenu")}
-        </Button>
+        </button>
       </NavbarSection>
       <NavbarSpacer />
       <NavbarSection>
@@ -171,7 +184,12 @@ export const AuthenticatedLayout = () => {
           </NavbarLabel>
         </NavbarItem>
         <ThemeToggle className="hidden sm:inline-flex" />
-        <Button color="teal" onClick={signOut}>
+        <Button
+          color="sky"
+          onClick={signOut}
+          className="shadow-[0_18px_34px_-24px_rgba(9,154,217,0.46)] dark:shadow-[0_18px_34px_-24px_rgba(27,177,212,0.54)]"
+        >
+          <ArrowLeftOnRectangleIcon data-slot="icon" />
           {t("signOut")}
         </Button>
       </NavbarSection>

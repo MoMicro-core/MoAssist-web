@@ -121,6 +121,7 @@ export const api = {
       ]),
     create: (settings) =>
       requestChatbotMutation("/v1/chatbots", "POST", settings),
+    languages: () => apiRequest("/v1/chatbots/languages"),
     get: async (chatbotId) =>
       unwrapResource(await apiRequest(`/v1/chatbots/${chatbotId}`), [
         "chatbot",
