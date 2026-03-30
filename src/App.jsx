@@ -108,6 +108,7 @@ export default function App() {
             <Route path="dashboard" element={<ChatbotDashboard />} />
             <Route path="chats" element={<ChatbotChats />} />
             <Route path="settings" element={<ChatbotSettings />} />
+            <Route path="billing" element={<Billings />} />
             <Route path="plugin" element={<ChatbotPlugin />} />
           </Route>
           <Route path="/profile" element={<Profile />} />

@@ -25,6 +25,7 @@ const dictionary = {
     activeChats: "Active chats",
     activeChatsBody: "Open conversations from all chatbots in one place.",
     billings: "Billings",
+    billingTab: "Billing",
     signOut: "Sign out",
     signIn: "Sign in",
     tryNow: "Try now",
@@ -62,6 +63,7 @@ const dictionary = {
     scriptEmbed: "Script embed",
     iframeEmbed: "Iframe embed",
     copy: "Copy",
+    copyCode: "Copy code",
     conversations: "Conversations",
     selectConversation: "Select a conversation.",
     messagesPlaceholder: "Write a reply...",
@@ -162,6 +164,7 @@ const dictionary = {
     startTrial: "Start trial",
     upgrade: "Upgrade plan",
     manageBilling: "Manage billing",
+    openBilling: "Open billing",
     freePlanLabel: "Free",
     tierDescriptionFallback: "Choose the plan that matches the support flow you need.",
     currentPlanCta: "Current plan",
@@ -201,6 +204,13 @@ const dictionary = {
     scriptPath: "Script path",
     iframePath: "Iframe path",
     copyUrl: "Copy",
+    billingAccessTitle: "Plan and access",
+    billingAccessBody:
+      "This chatbot plan controls signed-in customer chat, AI replies, and knowledge uploads. Open billing to upgrade or manage payments.",
+    billingAccessUpgradeHint:
+      "Move to a higher plan when you want signed-in customer sessions, AI answers, or knowledge uploads for this chatbot.",
+    billingAccessFullHint:
+      "This chatbot already has access to signed-in customer chat, AI replies, and knowledge uploads.",
     subscriptionAccessTitle: "Subscription access",
     subscriptionAccessBody:
       "Each chatbot inherits its available features from the current plan, so blocked options stay disabled and safe to edit around.",
@@ -212,6 +222,12 @@ const dictionary = {
       "Upgrade to the Full AI plan to turn on automated answers.",
     knowledgeUpgradeHint:
       "Knowledge uploads are available on the Full AI plan.",
+    pluginScriptBody:
+      "Copy the website script and paste it into your site to load the chatbot widget.",
+    pluginIframeBody:
+      "Copy the iframe code if you want to place the chatbot inside a fixed area on a page.",
+    pluginAuthBody:
+      "Copy the website session snippet so the chatbot can recognize signed-in customers before the widget loads.",
   },
   de: {
     appName: "MoAssist",
@@ -223,6 +239,7 @@ const dictionary = {
     activeChats: "Aktive Chats",
     activeChatsBody: "Offene Gespraeche ueber alle deine Chatbots.",
     billings: "Abrechnung",
+    billingTab: "Billing",
     signOut: "Abmelden",
     signIn: "Anmelden",
     tryNow: "Jetzt testen",
@@ -258,6 +275,7 @@ const dictionary = {
     scriptEmbed: "Script Einbettung",
     iframeEmbed: "Iframe Einbettung",
     copy: "Kopieren",
+    copyCode: "Code kopieren",
     conversations: "Gespräche",
     selectConversation: "Wähle ein Gespräch.",
     messagesPlaceholder: "Antwort schreiben...",
@@ -359,6 +377,7 @@ const dictionary = {
     startTrial: "Testphase starten",
     upgrade: "Upgrade",
     manageBilling: "Abrechnung verwalten",
+    openBilling: "Billing oeffnen",
     language: "Sprache",
     theme: "Design",
     light: "Hell",
@@ -385,6 +404,19 @@ const dictionary = {
     scriptPath: "Script Pfad",
     iframePath: "Iframe Pfad",
     copyUrl: "Kopieren",
+    billingAccessTitle: "Plan und Zugriff",
+    billingAccessBody:
+      "Der Plan dieses Chatbots steuert angemeldete Kundensitzungen, KI-Antworten und Wissensdateien. Oeffne Billing, um Upgrades oder Zahlungen zu verwalten.",
+    billingAccessUpgradeHint:
+      "Wechsle auf einen hoeheren Plan, wenn dieser Chatbot angemeldete Kunden, KI-Antworten oder Wissensdateien nutzen soll.",
+    billingAccessFullHint:
+      "Dieser Chatbot hat bereits Zugriff auf angemeldete Kundenchats, KI-Antworten und Wissensdateien.",
+    pluginScriptBody:
+      "Kopiere das Website-Script und fuege es in deine Seite ein, um das Chatbot-Widget zu laden.",
+    pluginIframeBody:
+      "Kopiere den Iframe-Code, wenn du den Chatbot in einem festen Bereich einer Seite anzeigen willst.",
+    pluginAuthBody:
+      "Kopiere das Session-Snippet deiner Website, damit der Chatbot angemeldete Kunden erkennt, bevor das Widget geladen wird.",
   },
   es: {
     appName: "MoAssist",
@@ -396,6 +428,7 @@ const dictionary = {
     activeChats: "Chats activos",
     activeChatsBody: "Conversaciones abiertas de todos tus chatbots.",
     billings: "Facturacion",
+    billingTab: "Billing",
     signOut: "Salir",
     signIn: "Entrar",
     tryNow: "Probar ahora",
@@ -431,6 +464,7 @@ const dictionary = {
     scriptEmbed: "Script",
     iframeEmbed: "Iframe",
     copy: "Copiar",
+    copyCode: "Copiar codigo",
     conversations: "Conversaciones",
     selectConversation: "Selecciona una conversación.",
     messagesPlaceholder: "Escribe una respuesta...",
@@ -531,6 +565,7 @@ const dictionary = {
     startTrial: "Iniciar prueba",
     upgrade: "Mejorar plan",
     manageBilling: "Gestionar pagos",
+    openBilling: "Abrir billing",
     language: "Idioma",
     theme: "Tema",
     light: "Claro",
@@ -557,6 +592,19 @@ const dictionary = {
     scriptPath: "Ruta del script",
     iframePath: "Ruta del iframe",
     copyUrl: "Copiar",
+    billingAccessTitle: "Plan y acceso",
+    billingAccessBody:
+      "El plan de este chatbot controla chats con usuarios identificados, respuestas con IA y archivos de conocimiento. Abre billing para mejorar el plan o gestionar pagos.",
+    billingAccessUpgradeHint:
+      "Sube de plan cuando quieras sesiones con usuarios identificados, respuestas con IA o archivos de conocimiento en este chatbot.",
+    billingAccessFullHint:
+      "Este chatbot ya tiene acceso a sesiones con usuarios identificados, respuestas con IA y archivos de conocimiento.",
+    pluginScriptBody:
+      "Copia el script del sitio y pegalo en tu web para cargar el widget del chatbot.",
+    pluginIframeBody:
+      "Copia el codigo del iframe si quieres colocar el chatbot dentro de un area fija de una pagina.",
+    pluginAuthBody:
+      "Copia el fragmento de sesion de tu sitio para que el chatbot reconozca a usuarios identificados antes de cargar el widget.",
   },
 };
 

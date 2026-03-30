@@ -151,9 +151,10 @@ export const marketingContent = {
         "feature-install-launch",
         "Install and launch",
         "Launch the chatbot on your site, your store, or your customer area.",
-        "Install with a script or iframe, choose the default language and extra languages, and control which domains are allowed to load the chatbot.",
+        "Install the chatbot almost anywhere with a one-line copy and paste, choose the default language and extra languages, and control which domains are allowed to load it. If you want help, our team can assist with the installation for free.",
         [
-          "Script and iframe installation",
+          "One-line script installation",
+          "Free installation help from our team",
           "Default and additional languages",
           "Allowed domain controls",
           "Fast rollout to public and private areas",
@@ -221,7 +222,7 @@ export const marketingContent = {
         step: "Step 04",
         label: "Launch",
         title: "Publish the chatbot and handle real customer conversations",
-        body: "Install it on your website or customer area, support signed-in users, and let AI plus your team reply from one place.",
+        body: "Copy one line to install it on your website or customer area, support signed-in users, and let AI plus your team reply from one place.",
       },
     ],
     useCasesSection: {
@@ -279,6 +280,11 @@ export const marketingContent = {
           "Yes. You can collect names, emails, and other custom fields with lead forms inside the chat.",
       },
       {
+        question: "How hard is it to install MoAssist?",
+        answer:
+          "Installation is simple. In most cases you can add the chatbot with a one-line copy and paste, and our team can help you with setup for free.",
+      },
+      {
         question: "Can I connect the chatbot to signed-in users and my own admin flow?",
         answer:
           "Yes. MoAssist can keep the conversation connected to the right signed-in customer and fit into your internal support workflow.",
@@ -302,7 +308,7 @@ export const marketingContent = {
     ctaSection: {
       eyebrow: "Get started",
       title: "Start with one chatbot and grow into a stronger sales and support workflow.",
-      body: "If you need a platform to build chatbots, upload business knowledge, customize the interface, collect customer data, support signed-in users, and run AI plus human replies from one dashboard, MoAssist is built for that job.",
+      body: "If you need a platform to build chatbots, upload business knowledge, customize the interface, collect customer data, support signed-in users, and run AI plus human replies from one dashboard, MoAssist is built for that job. You can install it with a simple copy and paste, and our team can help with setup for free.",
     },
     footerTagline: "AI chatbots for online shops and support teams.",
     footerColumns: createFooterColumns(

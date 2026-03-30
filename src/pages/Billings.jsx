@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { api } from '../lib/api'
 import { Heading } from '../ui/heading'
 import { Text } from '../ui/text'
@@ -23,8 +24,9 @@ const humanizeLimitKey = (key = '') =>
 
 export const Billings = () => {
   const { t } = useI18n()
+  const { chatbotId: routeChatbotId } = useParams()
   const [chatbots, setChatbots] = useState([])
-  const [selectedChatbotId, setSelectedChatbotId] = useState('')
+  const [selectedChatbotId, setSelectedChatbotId] = useState(routeChatbotId || '')
   const [summary, setSummary] = useState(null)
   const [loading, setLoading] = useState(true)
   const [billingLoading, setBillingLoading] = useState(false)
@@ -41,7 +43,7 @@ export const Billings = () => {
         if (!active) return
         const next = bots || []
         setChatbots(next)
-        setSelectedChatbotId(next[0]?.id || '')
+        setSelectedChatbotId(routeChatbotId || next[0]?.id || '')
       } catch (err) {
         if (!active) return
         setError(err?.message || 'Unable to load billing data')
@@ -54,7 +56,7 @@ export const Billings = () => {
     return () => {
       active = false
     }
-  }, [])
+  }, [routeChatbotId])
 
   useEffect(() => {
     if (!selectedChatbotId) {
@@ -86,6 +88,7 @@ export const Billings = () => {
     () => chatbots.find((item) => item.id === selectedChatbotId),
     [chatbots, selectedChatbotId],
   )
+  const isChatbotBilling = Boolean(routeChatbotId)
   const sortedTiers = useMemo(
     () =>
       [...(summary?.availableTiers || [])].sort(
@@ -140,10 +143,10 @@ export const Billings = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <Heading level={2} className="font-display text-2xl">
-            {t('billings')}
+            {isChatbotBilling ? t('billingTab') : t('billings')}
           </Heading>
           <Text className="text-sm text-zinc-600 dark:text-zinc-300">
-            {t('billingPerChatbotBody')}
+            {isChatbotBilling ? t('billingAccessBody') : t('billingPerChatbotBody')}
           </Text>
         </div>
         <Badge color={premiumStatus === 'free' ? 'zinc' : 'emerald'}>{premiumStatus}</Badge>
@@ -156,20 +159,22 @@ export const Billings = () => {
       ) : null}
 
       <section className="glass-panel space-y-5 p-6">
-        <Field>
-          <Label>{t('billingChatbot')}</Label>
-          <Select
-            value={selectedChatbotId}
-            onChange={(event) => setSelectedChatbotId(event.target.value)}
-            disabled={!chatbots.length}
-          >
-            {chatbots.map((chatbot) => (
-              <option key={chatbot.id} value={chatbot.id}>
-                {chatbot.settings?.title || chatbot.id}
-              </option>
-            ))}
-          </Select>
-        </Field>
+        {!isChatbotBilling ? (
+          <Field>
+            <Label>{t('billingChatbot')}</Label>
+            <Select
+              value={selectedChatbotId}
+              onChange={(event) => setSelectedChatbotId(event.target.value)}
+              disabled={!chatbots.length}
+            >
+              {chatbots.map((chatbot) => (
+                <option key={chatbot.id} value={chatbot.id}>
+                  {chatbot.settings?.title || chatbot.id}
+                </option>
+              ))}
+            </Select>
+          </Field>
+        ) : null}
 
         {!chatbots.length ? (
           <Text className="text-sm text-zinc-500">{t('noChatbotsForBilling')}</Text>

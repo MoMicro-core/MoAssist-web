@@ -411,7 +411,6 @@ export const ChatbotSettings = () => {
   const paletteFallback = themeFallbacks[previewMode];
   const sectionChips = [
     { id: "settings-basics", label: t("basics") },
-    { id: "settings-subscription", label: t("subscription") },
     { id: "settings-ui", label: "UI studio" },
     { id: "settings-conversation", label: t("conversationBehavior") },
     { id: "settings-localization", label: "Localization" },
@@ -706,25 +705,38 @@ export const ChatbotSettings = () => {
       ) : null}
 
       <SettingsCard
-        id="settings-subscription"
-        title={t("subscriptionAccessTitle")}
-        description={t("subscriptionAccessBody")}
+        title={t("billingAccessTitle")}
+        description={t("billingAccessBody")}
+        actions={
+          <Button outline href={`/chatbots/${chatbotId}/billing`}>
+            {t("openBilling")}
+          </Button>
+        }
       >
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge color="sky">
-            {t("currentPlanLabel")}: {currentTier?.name || chatbot?.premiumPlan || "Free"}
-          </Badge>
-          <Badge
-            color={featureAccess.authenticatedWidget ? "emerald" : "zinc"}
-          >
-            {t("authEnabledLabel")}
-          </Badge>
-          <Badge color={featureAccess.aiResponder ? "emerald" : "zinc"}>
-            {t("aiConfig")}
-          </Badge>
-          <Badge color={featureAccess.knowledgeFiles ? "emerald" : "zinc"}>
-            {t("knowledgeFiles")}
-          </Badge>
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge color="sky">
+              {t("planLabel")}: {currentTier?.name || chatbot?.premiumPlan || "Free"}
+            </Badge>
+            <Badge
+              color={featureAccess.authenticatedWidget ? "emerald" : "zinc"}
+            >
+              {t("authEnabledLabel")}
+            </Badge>
+            <Badge color={featureAccess.aiResponder ? "emerald" : "zinc"}>
+              {t("aiConfig")}
+            </Badge>
+            <Badge color={featureAccess.knowledgeFiles ? "emerald" : "zinc"}>
+              {t("knowledgeFiles")}
+            </Badge>
+          </div>
+          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+            {featureAccess.aiResponder &&
+            featureAccess.authenticatedWidget &&
+            featureAccess.knowledgeFiles
+              ? t("billingAccessFullHint")
+              : t("billingAccessUpgradeHint")}
+          </Text>
         </div>
       </SettingsCard>
 

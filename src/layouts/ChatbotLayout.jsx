@@ -22,6 +22,7 @@ const ChatbotShell = () => {
     { label: t('dashboard'), path: 'dashboard' },
     { label: t('conversations'), path: 'chats' },
     { label: t('chatbotSettings'), path: 'settings' },
+    { label: t('billingTab'), path: 'billing' },
     { label: 'Plugin', path: 'plugin' },
   ]
 
