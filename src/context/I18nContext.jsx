@@ -31,6 +31,11 @@ const dictionary = {
     tryNow: "Try now",
     register: "Register",
     marketingTagline: "AI chat concierge",
+    pricingNav: "Pricing",
+    contactsNav: "Contacts",
+    brandRelationshipShort: "Product by MoMicro",
+    brandRelationshipLabel:
+      "MoAssist is the chatbot product. MoMicro is the organization behind it.",
     continueWithGoogle: "Continue with Google",
     continueWithApple: "Continue with Apple",
     orUseEmail: "Or continue with email",
@@ -62,6 +67,8 @@ const dictionary = {
     embedBody: "Use the snippets below to install the widget on your website.",
     scriptEmbed: "Script embed",
     iframeEmbed: "Iframe embed",
+    dashboardScriptEmbed: "Admin panel script",
+    dashboardIframeEmbed: "Admin panel iframe",
     copy: "Copy",
     copyCode: "Copy code",
     conversations: "Conversations",
@@ -228,6 +235,13 @@ const dictionary = {
       "Copy the iframe code if you want to place the chatbot inside a fixed area on a page.",
     pluginAuthBody:
       "Copy the website session snippet so the chatbot can recognize signed-in customers before the widget loads.",
+    dashboardScriptBody:
+      "Copy the admin panel script to embed the live conversation inbox inside your own back office. Replace the placeholder session token with a valid signed-in MoAssist session.",
+    dashboardIframeBody:
+      "Copy the admin panel iframe code if you want to place the conversation inbox inside a fixed area of your own admin interface.",
+    dashboardInstallLockedTitle: "Admin panel install",
+    dashboardInstallLockedBody:
+      "This install option is available on the Connected and Full AI plans.",
   },
   de: {
     appName: "MoAssist",
@@ -245,6 +259,11 @@ const dictionary = {
     tryNow: "Jetzt testen",
     register: "Registrieren",
     marketingTagline: "KI Chat Concierge",
+    pricingNav: "Preise",
+    contactsNav: "Kontakt",
+    brandRelationshipShort: "Produkt von MoMicro",
+    brandRelationshipLabel:
+      "MoAssist ist das Chatbot-Produkt. MoMicro ist die Organisation dahinter.",
     continueWithGoogle: "Mit Google fortfahren",
     continueWithApple: "Mit Apple fortfahren",
     orUseEmail: "Oder mit E-Mail fortfahren",
@@ -274,6 +293,8 @@ const dictionary = {
     embedBody: "Nutze die Snippets, um das Widget einzubinden.",
     scriptEmbed: "Script Einbettung",
     iframeEmbed: "Iframe Einbettung",
+    dashboardScriptEmbed: "Adminbereich Script",
+    dashboardIframeEmbed: "Adminbereich Iframe",
     copy: "Kopieren",
     copyCode: "Code kopieren",
     conversations: "Gespräche",
@@ -417,6 +438,13 @@ const dictionary = {
       "Kopiere den Iframe-Code, wenn du den Chatbot in einem festen Bereich einer Seite anzeigen willst.",
     pluginAuthBody:
       "Kopiere das Session-Snippet deiner Website, damit der Chatbot angemeldete Kunden erkennt, bevor das Widget geladen wird.",
+    dashboardScriptBody:
+      "Kopiere das Adminbereich-Script, um den Live-Konversationsbereich in dein eigenes Backoffice einzubetten. Ersetze den Platzhalter fuer das Session-Token mit einer gueltigen angemeldeten MoAssist-Session.",
+    dashboardIframeBody:
+      "Kopiere den Adminbereich-Iframe-Code, wenn du den Konversationsbereich in einem festen Bereich deiner eigenen Adminoberflaeche anzeigen willst.",
+    dashboardInstallLockedTitle: "Adminbereich Installation",
+    dashboardInstallLockedBody:
+      "Diese Installationsoption ist nur im Connected- oder Full-AI-Plan verfuegbar.",
   },
   es: {
     appName: "MoAssist",
@@ -434,6 +462,11 @@ const dictionary = {
     tryNow: "Probar ahora",
     register: "Registrar",
     marketingTagline: "Asistente de chat con IA",
+    pricingNav: "Precios",
+    contactsNav: "Contactos",
+    brandRelationshipShort: "Producto de MoMicro",
+    brandRelationshipLabel:
+      "MoAssist es el producto de chatbot. MoMicro es la organización que lo crea.",
     continueWithGoogle: "Continuar con Google",
     continueWithApple: "Continuar con Apple",
     orUseEmail: "O continuar con correo",
@@ -463,6 +496,8 @@ const dictionary = {
     embedBody: "Usa los fragmentos para instalar el widget.",
     scriptEmbed: "Script",
     iframeEmbed: "Iframe",
+    dashboardScriptEmbed: "Script del panel admin",
+    dashboardIframeEmbed: "Iframe del panel admin",
     copy: "Copiar",
     copyCode: "Copiar codigo",
     conversations: "Conversaciones",
@@ -605,6 +640,13 @@ const dictionary = {
       "Copia el codigo del iframe si quieres colocar el chatbot dentro de un area fija de una pagina.",
     pluginAuthBody:
       "Copia el fragmento de sesion de tu sitio para que el chatbot reconozca a usuarios identificados antes de cargar el widget.",
+    dashboardScriptBody:
+      "Copia el script del panel admin para insertar la bandeja de conversaciones en tu propio back office. Sustituye el token de ejemplo por una sesion valida iniciada en MoAssist.",
+    dashboardIframeBody:
+      "Copia el iframe del panel admin si quieres colocar la bandeja de conversaciones en un area fija de tu propia interfaz administrativa.",
+    dashboardInstallLockedTitle: "Instalacion en panel admin",
+    dashboardInstallLockedBody:
+      "Esta opcion de instalacion solo esta disponible en los planes Connected y Full AI.",
   },
 };
 

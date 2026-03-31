@@ -34,27 +34,27 @@ const createFooterColumns = (product, explore, legal) => [
 export const marketingContent = {
   en: {
     seo: {
-      title: "MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses",
+      title: "MoAssist | AI Chatbots That Automate Customer Answers for Growing Businesses",
       description:
-        "MoAssist helps online shops and sales-driven businesses build branded chatbots, answer with business knowledge, collect leads, support signed-in customers, and manage AI plus human conversations from one dashboard.",
+        "MoAssist helps online shops and sales-driven businesses build AI chatbots that answer customer questions automatically, collect leads, support signed-in users, and scale support across regions from one dashboard.",
       keywords:
-        "online shop chatbot, ecommerce chatbot, sales chatbot, support chatbot, AI chatbot for business, lead capture chatbot, chatbot for customer portal, chatbot knowledge base, multilingual chatbot, branded website chatbot",
+        "online shop chatbot, ecommerce chatbot, AI chatbot automation, automated customer support, multilingual chatbot, chatbot for scaling business, chatbot for regional expansion, chatbot knowledge base, lead capture chatbot, branded website chatbot",
       ogDescription:
-        "Build a branded chatbot for each store or sales flow, train it with your documents, collect customer details, and manage AI plus team replies from one dashboard.",
+        "Build a branded AI chatbot, train it with your documents, automate routine customer answers, and scale support across regions from one dashboard.",
       twitterDescription:
-        "AI chatbots for online shops and sales teams. Train with documents, collect leads, support customers, and manage AI plus human replies in one place.",
+        "AI chatbots for growing businesses. Train with documents, automate customer answers, reduce manual response work, and scale support across regions.",
     },
     appDescription:
-      "MoAssist is a chatbot platform for online shops and sales-driven businesses that want faster replies, better lead capture, and stronger customer support.",
+      "MoAssist is a chatbot platform for online shops and sales-driven businesses that want automated replies, better lead capture, and stronger customer support while they scale.",
     heroPill: "Built For Online Shops And Selling Businesses",
-    heroTitle: "A better way to talk with shoppers, leads, and customers.",
+    heroTitle: "AI chatbots that answer questions and automate support work.",
     heroBody:
-      "Create a branded chatbot for each store or sales flow, train it with your documents, capture customer details, support signed-in users, and manage AI plus team replies in one place.",
+      "Create a branded chatbot for each store or sales flow, train it with your documents, let AI answer routine user questions automatically, and free your team to focus on higher-value tasks while you scale into new regions.",
     heroHighlights: [
       { title: "Shop-specific chatbots", href: "#feature-individual-chatbots" },
-      { title: "Knowledge-based answers", href: "#feature-knowledge-ai" },
+      { title: "Automated AI answers", href: "#feature-knowledge-ai" },
       { title: "Lead capture", href: "#feature-lead-capture" },
-      { title: "Team inbox", href: "#feature-support-workflow" },
+      { title: "Scale to new regions", href: "#feature-install-launch" },
     ],
     coreBenefits: [
       {
@@ -62,19 +62,19 @@ export const marketingContent = {
         body: "Set the welcome text, prompts, logo, colors, launcher, placement, and publish state for every chatbot.",
       },
       {
-        title: "Answer from your own business material",
-        body: "Upload guides, product information, policies, and other documents so the chatbot answers with real context.",
+        title: "Automate answers from your own business material",
+        body: "Upload guides, product information, policies, and other documents so the AI chatbot can answer routine questions with real context.",
       },
       {
-        title: "Handle sales and support in one system",
-        body: "Collect lead data, help signed-in customers, and let AI plus your team work in the same conversation inbox.",
+        title: "Scale support without scaling manual response work",
+        body: "Let AI handle repeat questions while your team focuses on sales, operations, and the conversations that need a person.",
       },
     ],
     featuresSection: {
       eyebrow: "What you can do",
       title:
         "Everything you need to create, train, publish, and operate custom chatbots.",
-      body: "MoAssist is made for online shops and businesses that sell products or services. It helps teams talk with visitors, leads, buyers, and existing customers through one connected workflow.",
+      body: "MoAssist is made for online shops and businesses that sell products or services. It helps teams automate customer answers, support users in different regions, and keep human attention for the work that matters most.",
     },
     featureSections: [
       createFeature(
@@ -94,13 +94,14 @@ export const marketingContent = {
       createFeature(
         "feature-knowledge-ai",
         "Knowledge and AI answers",
-        "Upload documents so the chatbot can answer with real business context.",
-        "Add documents and files, turn AI replies on when your plan allows it, choose answer length, and set reply guidelines so the chatbot answers from your material instead of guessing.",
+        "Upload documents so the chatbot can answer user questions automatically with real business context.",
+        "Add documents and files, turn AI replies on when your plan allows it, choose answer length, and set reply guidelines so the chatbot can automate routine responses instead of forcing your team to answer everything manually.",
         [
           "Document and file uploads",
           "Reply instructions and tone control",
           "Short, medium, or long answer style",
-          "Faster first replies for customers",
+          "Automated first replies for customers",
+          "Better scaling across languages and regions",
         ],
         "MoAssist knowledge upload and AI settings",
         "MoAssist knowledge upload placeholder image",
@@ -166,7 +167,7 @@ export const marketingContent = {
     reasonsSection: {
       eyebrow: "Why choose MoAssist",
       title: "Why sales and support teams choose MoAssist.",
-      body: "Choose MoAssist when you need one system for pre-sale questions, lead capture, customer support, signed-in user help, and team takeover.",
+      body: "Choose MoAssist when you need one system for automated customer answers, lead capture, signed-in user help, and support that can scale without adding manual response pressure.",
     },
     reasonCards: [
       {
@@ -182,16 +183,16 @@ export const marketingContent = {
         body: "Every chatbot can have its own style, content, language setup, and behavior.",
       },
       {
-        title: "Faster replies without losing control",
-        body: "AI can answer common questions while your team still controls tone, lead capture, and takeover.",
+        title: "Automate routine questions without losing control",
+        body: "AI can answer common questions while your team still controls tone, lead capture, escalation, and takeover.",
       },
       {
         title: "Better help for existing customers",
         body: "MoAssist works for signed-in users in customer areas, not only for anonymous visitors.",
       },
       {
-        title: "Useful across the whole customer journey",
-        body: "Use one platform for product questions, lead capture, support, and ongoing customer service.",
+        title: "Useful when scaling across regions",
+        body: "Use one platform to keep replies fast and consistent as the business grows into new languages, markets, and customer groups.",
       },
     ],
     workflowSection: {
@@ -221,8 +222,8 @@ export const marketingContent = {
       {
         step: "Step 04",
         label: "Launch",
-        title: "Publish the chatbot and handle real customer conversations",
-        body: "Copy one line to install it on your website or customer area, support signed-in users, and let AI plus your team reply from one place.",
+        title: "Publish the chatbot and automate real customer conversations",
+        body: "Copy one line to install it on your website or customer area, let AI answer routine questions first, and keep your team available for the conversations that need human judgment.",
       },
     ],
     useCasesSection: {
@@ -233,7 +234,7 @@ export const marketingContent = {
     useCases: [
       {
         title: "Customer support and help center",
-        body: "Answer common questions, use uploaded knowledge, and let human agents take over when needed.",
+        body: "Answer common questions automatically, use uploaded knowledge, and let human agents take over when needed.",
       },
       {
         title: "Sales and lead qualification",
@@ -244,8 +245,8 @@ export const marketingContent = {
         body: "Support signed-in customers inside your product, portal, or account area.",
       },
       {
-        title: "Internal admin and service workflows",
-        body: "Use the dashboard as the control center for AI and human conversations.",
+        title: "Regional growth and multilingual support",
+        body: "Use AI replies and language controls to keep support responsive while the business expands into new regions.",
       },
     ],
     faqSection: {
@@ -268,6 +269,11 @@ export const marketingContent = {
         question: "Can I upload documents so the chatbot knows my business?",
         answer:
           "Yes. You can upload documents and files so the chatbot can answer from your business material.",
+      },
+      {
+        question: "Can the AI chatbot answer customer questions automatically?",
+        answer:
+          "Yes. On the Full AI tier, the chatbot can use your uploaded knowledge and reply guidelines to automate routine customer answers so your team can focus on more important tasks.",
       },
       {
         question: "Can I customize the chatbot on my website?",
@@ -302,13 +308,13 @@ export const marketingContent = {
       {
         question: "Why do businesses choose MoAssist?",
         answer:
-          "Businesses choose MoAssist because it combines chatbot setup, knowledge uploads, lead capture, signed-in customer support, and AI plus human replies in one product.",
+          "Businesses choose MoAssist because it combines chatbot setup, AI automation, knowledge uploads, lead capture, signed-in customer support, and human takeover in one product that works well when the business is scaling.",
       },
     ],
     ctaSection: {
       eyebrow: "Get started",
-      title: "Start with one chatbot and grow into a stronger sales and support workflow.",
-      body: "If you need a platform to build chatbots, upload business knowledge, customize the interface, collect customer data, support signed-in users, and run AI plus human replies from one dashboard, MoAssist is built for that job. You can install it with a simple copy and paste, and our team can help with setup for free.",
+      title: "Start with one chatbot and grow into an automated support workflow.",
+      body: "If you need a platform to build chatbots, upload business knowledge, automate routine answers, collect customer data, support signed-in users, and run AI plus human replies from one dashboard, MoAssist is built for that job. That is especially useful when the business is scaling and expanding to different regions.",
     },
     footerTagline: "AI chatbots for online shops and support teams.",
     footerColumns: createFooterColumns(
@@ -317,7 +323,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Login", href: "/login" },
-          { label: "Support", href: "mailto:support@momicro.ai" },
+          { label: "Support", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -623,7 +629,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Login", href: "/login" },
-          { label: "Support", href: "mailto:support@momicro.ai" },
+          { label: "Support", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -929,7 +935,7 @@ export const marketingContent = {
         links: [
           { label: "Panel", href: "/chatbots" },
           { label: "Login", href: "/login" },
-          { label: "Soporte", href: "mailto:support@momicro.ai" },
+          { label: "Soporte", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -1235,7 +1241,7 @@ export const marketingContent = {
         links: [
           { label: "Tableau de bord", href: "/chatbots" },
           { label: "Connexion", href: "/login" },
-          { label: "Support", href: "mailto:support@momicro.ai" },
+          { label: "Support", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -1541,7 +1547,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Σύνδεση", href: "/login" },
-          { label: "Υποστήριξη", href: "mailto:support@momicro.ai" },
+          { label: "Υποστήριξη", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -1847,7 +1853,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Login", href: "/login" },
-          { label: "Supporto", href: "mailto:support@momicro.ai" },
+          { label: "Supporto", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -2153,7 +2159,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Вход", href: "/login" },
-          { label: "Поддержка", href: "mailto:support@momicro.ai" },
+          { label: "Поддержка", href: "mailto:support@momicro.com" },
         ],
       },
       {
@@ -2459,7 +2465,7 @@ export const marketingContent = {
         links: [
           { label: "Dashboard", href: "/chatbots" },
           { label: "Вхід", href: "/login" },
-          { label: "Підтримка", href: "mailto:support@momicro.ai" },
+          { label: "Підтримка", href: "mailto:support@momicro.com" },
         ],
       },
       {

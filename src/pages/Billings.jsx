@@ -122,12 +122,7 @@ export const Billings = () => {
   }
 
   const startTrial = async () => {
-    await runAction(async () => {
-      await api.billing.trial({ chatbotId: selectedChatbotId })
-      const refreshed = await api.billing.summary(selectedChatbotId)
-      setSummary(refreshed)
-      return null
-    })
+    await runAction(() => api.billing.trial({ chatbotId: selectedChatbotId }))
   }
 
   if (loading) return <Loading />

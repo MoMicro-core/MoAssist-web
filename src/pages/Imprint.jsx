@@ -6,20 +6,22 @@ export const Imprint = () => {
 
       <section className="space-y-2">
         <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">Provider</h2>
-        <p>MoMicro Assist</p>
+        <p>MoMicro</p>
         <p>Sample Street 1</p>
         <p>10115 Berlin, Germany</p>
       </section>
 
       <section className="space-y-2">
         <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">Contact</h2>
-        <p>Email: legal@momicro.ai</p>
-        <p>Support: support@momicro.ai</p>
+        <p>Email: info@momicro.com</p>
+        <p>Support: support@momicro.com</p>
+        <p>Phone: +49 160 8417916</p>
+        <p>Phone: +380 66 139 4645</p>
       </section>
 
       <section className="space-y-2">
         <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">Responsible for Content</h2>
-        <p>MoMicro Assist Management Team</p>
+        <p>Oleksii (Alex) Buglak, CEO</p>
       </section>
 
       <section className="space-y-2">

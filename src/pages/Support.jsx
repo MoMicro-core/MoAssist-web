@@ -26,7 +26,7 @@ export const Support = () => {
           <Button
             outline
             className="mt-4"
-            onClick={() => (window.location.href = "mailto:support@momicro.ai")}
+            onClick={() => (window.location.href = "mailto:support@momicro.com")}
           >
             {t("emailSupport")}
           </Button>

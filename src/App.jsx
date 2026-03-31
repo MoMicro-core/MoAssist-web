@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Fragment, lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Loading } from "./components/Loading";
@@ -58,6 +58,15 @@ const Billings = lazy(() =>
 const Landing = lazy(() =>
   import("./pages/Landing").then((module) => ({ default: module.Landing })),
 );
+const Pricing = lazy(() =>
+  import("./pages/Pricing").then((module) => ({ default: module.Pricing })),
+);
+const Contacts = lazy(() =>
+  import("./pages/Contacts").then((module) => ({ default: module.Contacts })),
+);
+const MoMicro = lazy(() =>
+  import("./pages/MoMicro").then((module) => ({ default: module.MoMicro })),
+);
 const PrivacyPolicy = lazy(() =>
   import("./pages/PrivacyPolicy").then((module) => ({
     default: module.PrivacyPolicy,
@@ -84,8 +93,21 @@ export default function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/contants" element={<Navigate to="/contacts" replace />} />
+        <Route path="/momicro" element={<MoMicro />} />
         {PUBLIC_LOCALE_KEYS.map((locale) => (
-          <Route key={locale} path={`/${locale}`} element={<Landing />} />
+          <Fragment key={locale}>
+            <Route path={`/${locale}`} element={<Landing />} />
+            <Route path={`/${locale}/pricing`} element={<Pricing />} />
+            <Route path={`/${locale}/contacts`} element={<Contacts />} />
+            <Route
+              path={`/${locale}/contants`}
+              element={<Navigate to={`/${locale}/contacts`} replace />}
+            />
+            <Route path={`/${locale}/momicro`} element={<MoMicro />} />
+          </Fragment>
         ))}
         <Route path="/at" element={<Navigate to="/de" replace />} />
         <Route path="/gr" element={<Navigate to="/" replace />} />

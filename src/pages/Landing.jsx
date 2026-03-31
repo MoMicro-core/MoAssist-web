@@ -1,130 +1,23 @@
 import { useEffect, useRef, useState } from "react";
+import { PublicFooter } from "../components/PublicFooter";
 import { PublicHeader } from "../components/PublicHeader";
 import { useI18n } from "../context/I18nContext";
 import { getMarketingContent } from "../content/marketingContent";
 import {
-  DEFAULT_LOCALE_KEY,
+  COMPANY_INFO,
+  buildCeoStructuredData,
+  buildOrganizationStructuredData,
+} from "../lib/companyInfo";
+import { usePublicSeo } from "../lib/publicSeo";
+import {
   SITE_LOCALES,
   buildLocaleUrl,
   resolveLocale,
 } from "../lib/siteLocales";
 import { Button } from "../ui/button";
 
-const upsertMeta = (attribute, key, content) => {
-  let tag = document.head.querySelector(`meta[${attribute}="${key}"]`);
-
-  if (!tag) {
-    tag = document.createElement("meta");
-    tag.setAttribute(attribute, key);
-    document.head.appendChild(tag);
-  }
-
-  tag.setAttribute("content", content);
-};
-
-const upsertLink = (rel, href) => {
-  let link = document.head.querySelector(`link[rel="${rel}"]`);
-
-  if (!link) {
-    link = document.createElement("link");
-    link.setAttribute("rel", rel);
-    document.head.appendChild(link);
-  }
-
-  link.setAttribute("href", href);
-};
-
-const replaceAlternateLinks = (origin, pathname = "/") => {
-  document.head
-    .querySelectorAll('link[rel="alternate"][data-moassist-locale="true"]')
-    .forEach((node) => node.remove());
-
-  const xDefaultLink = document.createElement("link");
-  xDefaultLink.setAttribute("rel", "alternate");
-  xDefaultLink.setAttribute("hreflang", "x-default");
-  xDefaultLink.setAttribute(
-    "href",
-    buildLocaleUrl(origin, pathname, DEFAULT_LOCALE_KEY),
-  );
-  xDefaultLink.dataset.moassistLocale = "true";
-  document.head.appendChild(xDefaultLink);
-
-  SITE_LOCALES.forEach((locale) => {
-    const link = document.createElement("link");
-    link.setAttribute("rel", "alternate");
-    link.setAttribute("hreflang", locale.hreflang);
-    link.setAttribute("href", buildLocaleUrl(origin, pathname, locale.key));
-    link.dataset.moassistLocale = "true";
-    document.head.appendChild(link);
-  });
-};
-
-const replaceAlternateOgLocales = (activeLocale) => {
-  document.head
-    .querySelectorAll('meta[property="og:locale:alternate"][data-moassist-locale="true"]')
-    .forEach((node) => node.remove());
-
-  SITE_LOCALES.filter((locale) => locale.key !== activeLocale.key).forEach(
-    (locale) => {
-      const meta = document.createElement("meta");
-      meta.setAttribute("property", "og:locale:alternate");
-      meta.setAttribute("content", locale.ogLocale);
-      meta.dataset.moassistLocale = "true";
-      document.head.appendChild(meta);
-    },
-  );
-};
-
 const handlePlaceholderError = (event) => {
   event.currentTarget.style.opacity = "0";
-};
-
-const useLandingSeo = ({ localeConfig, seo }) => {
-  useEffect(() => {
-    document.documentElement.lang = localeConfig.htmlLang;
-    document.title = seo.title;
-
-    upsertMeta("name", "description", seo.description);
-    upsertMeta("name", "keywords", seo.keywords);
-    upsertMeta("name", "application-name", "MoAssist");
-    upsertMeta("name", "language", localeConfig.languageName);
-    upsertMeta("property", "og:title", seo.title);
-    upsertMeta("property", "og:description", seo.ogDescription);
-    upsertMeta("property", "og:type", "website");
-    upsertMeta("property", "og:locale", localeConfig.ogLocale);
-    upsertMeta("name", "twitter:title", seo.title);
-    upsertMeta("name", "twitter:description", seo.twitterDescription);
-    upsertMeta(
-      "name",
-      "robots",
-      "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
-    );
-    upsertMeta("property", "og:site_name", "MoAssist");
-
-    if (window.location?.href) {
-      const canonicalUrl = buildLocaleUrl(
-        window.location.origin,
-        window.location.pathname,
-        localeConfig.key,
-      );
-
-      upsertMeta("property", "og:url", canonicalUrl);
-      upsertLink("canonical", canonicalUrl);
-      replaceAlternateLinks(window.location.origin, window.location.pathname);
-      replaceAlternateOgLocales(localeConfig);
-      upsertMeta(
-        "property",
-        "og:image",
-        `${window.location.origin}/preview/logo.svg`,
-      );
-      upsertMeta("property", "og:image:alt", "MoAssist logo");
-      upsertMeta(
-        "name",
-        "twitter:image",
-        `${window.location.origin}/preview/logo.svg`,
-      );
-    }
-  }, [localeConfig, seo]);
 };
 
 const useRevealOnScroll = () => {
@@ -473,7 +366,7 @@ export const Landing = () => {
   const localeConfig = resolveLocale(language);
   const content = getMarketingContent(localeConfig.key);
 
-  useLandingSeo({ localeConfig, seo: content.seo });
+  usePublicSeo({ localeConfig, seo: content.seo, pathname: "/" });
   useRevealOnScroll();
   useWorkflowStepObserver(workflowSectionRef, setActiveWorkflowStep);
   usePointerLight(mouseLightRef);
@@ -492,29 +385,41 @@ export const Landing = () => {
       },
     })),
   };
-  const organizationStructuredData = {
+  const organizationStructuredData = buildOrganizationStructuredData({
+    siteUrl,
+    description: "MoMicro is the organization behind the MoAssist product.",
+    availableLanguages: SITE_LOCALES.map((locale) => locale.htmlLang),
+  });
+  const ceoStructuredData = buildCeoStructuredData({ siteUrl });
+  const productStructuredData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "MoAssist",
-    url: siteUrl || undefined,
-    logo: siteUrl ? `${siteUrl}/preview/logo.svg` : undefined,
+    "@type": "SoftwareApplication",
+    name: COMPANY_INFO.productName,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
     description: content.appDescription,
-    availableLanguage: SITE_LOCALES.map((locale) => locale.htmlLang),
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        email: "support@momicro.ai",
-        contactType: "customer support",
-      },
-    ],
+    brand: {
+      "@type": "Brand",
+      name: COMPANY_INFO.productName,
+    },
+    provider: {
+      "@type": "Organization",
+      name: COMPANY_INFO.organizationName,
+      url: siteUrl || undefined,
+    },
   };
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "MoAssist",
+    name: COMPANY_INFO.productName,
     url: siteUrl || undefined,
     inLanguage: SITE_LOCALES.map((locale) => locale.htmlLang),
     description: content.appDescription,
+    publisher: {
+      "@type": "Organization",
+      name: COMPANY_INFO.organizationName,
+      email: COMPANY_INFO.infoEmail,
+    },
   };
   const webPageStructuredData = {
     "@context": "https://schema.org",
@@ -525,13 +430,22 @@ export const Landing = () => {
       : undefined,
     inLanguage: localeConfig.htmlLang,
     description: content.seo.description,
+    about: {
+      "@type": "SoftwareApplication",
+      name: COMPANY_INFO.productName,
+    },
     isPartOf: siteUrl
       ? {
           "@type": "WebSite",
-          name: "MoAssist",
+          name: COMPANY_INFO.productName,
           url: siteUrl,
         }
       : undefined,
+    publisher: {
+      "@type": "Organization",
+      name: COMPANY_INFO.organizationName,
+      email: COMPANY_INFO.infoEmail,
+    },
   };
 
   return (
@@ -546,6 +460,18 @@ export const Landing = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(ceoStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productStructuredData),
         }}
       />
       <script
@@ -594,6 +520,10 @@ export const Landing = () => {
                 {t("signIn")}
               </Button>
             </div>
+
+            <p className="max-w-2xl text-sm leading-7 text-zinc-500 dark:text-zinc-400">
+              {t("brandRelationshipLabel")}
+            </p>
 
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {content.heroHighlights.map((item, index) => (
@@ -849,60 +779,29 @@ export const Landing = () => {
         </section>
       </main>
 
-      <footer className="mx-auto mt-16 w-full max-w-7xl px-5 sm:px-8">
-        <div
-          data-reveal
-          className="landing-reveal brand-stage rounded-[2.4rem] px-6 py-8 sm:px-8 sm:py-10"
-        >
-          <div className="grid gap-10 lg:grid-cols-[1.08fr,0.92fr]">
-            <div className="space-y-5">
-              <div className="flex items-center gap-3">
-                <img
-                  src="/preview/logo.svg"
-                  alt="MoAssist"
-                  className="h-12 w-12 rounded-2xl bg-white/90 p-1.5 shadow-sm dark:bg-white/10"
-                />
-                <div>
-                  <div className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
-                    MoAssist
-                  </div>
-                  <div className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {content.footerTagline}
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
-                <p>support@momicro.ai</p>
-                <p>legal@momicro.ai</p>
-                <p>
-                  © {new Date().getFullYear()} MoAssist.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid gap-8 sm:grid-cols-3">
-              {content.footerColumns.map((column) => (
-                <div key={column.title} className="space-y-3">
-                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
-                    {column.title}
-                  </div>
-                  <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
-                    {column.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        className="block transition hover:text-zinc-900 dark:hover:text-white"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter
+        tagline={content.footerTagline}
+        companyNote={COMPANY_INFO.companyNote}
+        columns={[
+          {
+            ...content.footerColumns[0],
+            links: [
+              ...content.footerColumns[0].links.slice(0, 1),
+              { label: t("pricingNav"), href: "/pricing" },
+              { label: t("contactsNav"), href: "/contacts" },
+              content.footerColumns[0].links[1],
+            ],
+          },
+          {
+            ...content.footerColumns[1],
+            links: [
+              ...content.footerColumns[1].links,
+              { label: "MoMicro", href: "/momicro" },
+            ],
+          },
+          content.footerColumns[2],
+        ]}
+      />
 
       <div className="fixed inset-x-0 bottom-3 z-30 px-4 sm:hidden">
         <div className="brand-stage flex items-center gap-2 rounded-2xl p-2">

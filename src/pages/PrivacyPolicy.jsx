@@ -181,7 +181,9 @@ export const PrivacyPolicy = () => {
         <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
           10. Contact
         </h2>
-        <p>For privacy requests, contact: privacy@momicro.ai</p>
+        <p>For privacy and general requests, contact: info@momicro.com</p>
+        <p>Support email: support@momicro.com</p>
+        <p>Phone: +49 160 8417916 or +380 66 139 4645</p>
       </section>
     </main>
   );
