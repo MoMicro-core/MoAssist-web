@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import {
-  ArrowLeftOnRectangleIcon,
   Bars3BottomLeftIcon,
   CreditCardIcon,
   InboxStackIcon,
@@ -32,6 +31,7 @@ import { Button } from "../ui/button";
 import { Select } from "../ui/select";
 import { useAuth } from "../context/AuthContext";
 import { useI18n } from "../context/I18nContext";
+import { Loading } from "../components/Loading";
 import { ThemeToggle } from "../components/ThemeToggle";
 
 const SIDEBAR_PREF_KEY = "moassist-sidebar-hidden";
@@ -41,7 +41,7 @@ const menuButtonClasses =
 export const AuthenticatedLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const { t, language, setLanguage, languageOptions } = useI18n();
   const [sidebarHidden, setSidebarHidden] = useState(() => {
     try {
@@ -70,11 +70,15 @@ export const AuthenticatedLayout = () => {
   const sidebar = (
     <Sidebar className="glass-panel overflow-hidden">
       <SidebarHeader>
-        <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => navigate("/chatbots")}
+          className="flex items-center gap-3 text-left"
+        >
           <img
             src="/preview/logo.svg"
             alt={t("appName")}
-            className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm dark:bg-white/10"
+            className="h-12 w-12 rounded-2xl bg-white/80 object-contain p-1.5 shadow-sm dark:bg-white/10"
           />
           <div>
             <div className="font-display text-base font-semibold">
@@ -84,7 +88,7 @@ export const AuthenticatedLayout = () => {
               {t("dashboard")}
             </div>
           </div>
-        </div>
+        </button>
       </SidebarHeader>
       <SidebarBody>
         <SidebarSection>
@@ -137,14 +141,6 @@ export const AuthenticatedLayout = () => {
               <Bars3BottomLeftIcon className="size-5" />
               {t("hideMenu")}
             </button>
-            <Button
-              color="sky"
-              onClick={signOut}
-              className="w-full justify-center shadow-[0_18px_34px_-24px_rgba(9,154,217,0.46)] dark:shadow-[0_18px_34px_-24px_rgba(27,177,212,0.54)]"
-            >
-              <ArrowLeftOnRectangleIcon data-slot="icon" />
-              {t("signOut")}
-            </Button>
           </div>
         </SidebarSection>
       </SidebarFooter>
@@ -159,7 +155,7 @@ export const AuthenticatedLayout = () => {
             <img
               src="/preview/logo.svg"
               alt={t("appName")}
-              className="h-8 w-8 rounded-lg bg-white/80 object-contain p-1 shadow-sm dark:bg-white/10"
+              className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1.5 shadow-sm dark:bg-white/10"
             />
             <NavbarLabel className="font-display">{t("appName")}</NavbarLabel>
           </div>
@@ -185,14 +181,6 @@ export const AuthenticatedLayout = () => {
           </NavbarLabel>
         </NavbarItem>
         <ThemeToggle className="hidden sm:inline-flex" />
-        <Button
-          color="sky"
-          onClick={signOut}
-          className="shadow-[0_18px_34px_-24px_rgba(9,154,217,0.46)] dark:shadow-[0_18px_34px_-24px_rgba(27,177,212,0.54)]"
-        >
-          <ArrowLeftOnRectangleIcon data-slot="icon" />
-          {t("signOut")}
-        </Button>
       </NavbarSection>
     </Navbar>
   );
@@ -204,7 +192,9 @@ export const AuthenticatedLayout = () => {
       sidebarHidden={sidebarHidden}
       onToggleSidebar={() => setSidebarHidden((prev) => !prev)}
     >
-      <Outlet />
+      <Suspense fallback={<Loading label="Loading dashboard" />}>
+        <Outlet />
+      </Suspense>
     </SidebarLayout>
   );
 };

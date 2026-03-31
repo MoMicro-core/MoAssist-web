@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { Outlet, useLocation, useParams } from 'react-router-dom'
 import { ChatbotProvider, useChatbot } from '../context/ChatbotContext'
 import { Badge } from '../ui/badge'
@@ -110,7 +110,9 @@ const ChatbotShell = () => {
           </NavbarSection>
         </Navbar>
       </div>
-      <Outlet />
+      <Suspense fallback={<Loading label="Loading tab" />}>
+        <Outlet />
+      </Suspense>
     </div>
   )
 }

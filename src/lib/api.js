@@ -151,6 +151,18 @@ export const api = {
         isForm: true,
       });
     },
+    uploadLogo: async (chatbotId, file) => {
+      const form = new FormData();
+      form.append("file", file);
+      return unwrapResource(
+        await apiRequest(`/v1/chatbots/${chatbotId}/logo`, {
+          method: "POST",
+          body: form,
+          isForm: true,
+        }),
+        ["chatbot", "item", "result", "data"],
+      );
+    },
     deleteFile: (chatbotId, fileId) =>
       apiRequest(`/v1/chatbots/${chatbotId}/files/${fileId}`, {
         method: "DELETE",

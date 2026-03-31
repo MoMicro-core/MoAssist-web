@@ -57,11 +57,11 @@ export const PublicFooter = ({
       <div className="brand-stage rounded-[2.4rem] px-6 py-8 sm:px-8 sm:py-10">
         <div className="grid gap-10 lg:grid-cols-[1.08fr,0.92fr]">
           <div className="space-y-6">
-            <div className="flex items-center gap-3">
+            <a href="/chatbots" className="flex items-center gap-3">
               <img
                 src="/preview/logo.svg"
                 alt="MoAssist"
-                className="h-12 w-12 rounded-2xl bg-white/90 p-1.5 shadow-sm dark:bg-white/10"
+                className="h-14 w-14 rounded-[1.4rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 dark:bg-white/10"
               />
               <div>
                 <div className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
@@ -71,7 +71,7 @@ export const PublicFooter = ({
                   {tagline || t("marketingTagline")}
                 </div>
               </div>
-            </div>
+            </a>
             <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
               <p>{companyNote || COMPANY_INFO.companyNote}</p>
               <p className="text-zinc-500 dark:text-zinc-400">

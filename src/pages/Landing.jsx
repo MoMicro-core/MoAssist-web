@@ -16,10 +16,6 @@ import {
 } from "../lib/siteLocales";
 import { Button } from "../ui/button";
 
-const handlePlaceholderError = (event) => {
-  event.currentTarget.style.opacity = "0";
-};
-
 const useRevealOnScroll = () => {
   useEffect(() => {
     const revealNodes = Array.from(document.querySelectorAll("[data-reveal]"));
@@ -198,14 +194,21 @@ const PlaceholderImage = ({
       className={`relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88 ${aspectClass}`}
     >
       <img
-        src="#"
+        src="/preview/logo.svg"
         alt={alt}
         loading="lazy"
-        onError={handlePlaceholderError}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain p-12 opacity-20"
       />
       <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(160deg,rgba(255,255,255,0.88),rgba(239,248,255,0.78))] p-6 text-center dark:bg-[linear-gradient(160deg,rgba(10,28,44,0.9),rgba(8,21,33,0.88))]">
         <div>
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/80 bg-white/90 shadow-sm dark:border-white/10 dark:bg-white/10">
+            <img
+              src="/preview/logo.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 object-contain"
+            />
+          </div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
             {placeholderLabel}
           </div>
@@ -225,15 +228,22 @@ const WorkflowCardImage = ({ title, alt, placeholderLabel, placeholderBody }) =>
   <div className="relative overflow-hidden rounded-[1.65rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88">
     <div className="aspect-[4/3]">
       <img
-        src="#"
+        src="/preview/logo.svg"
         alt={alt}
         loading="lazy"
-        onError={handlePlaceholderError}
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain p-12 opacity-20"
       />
     </div>
     <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(160deg,rgba(255,255,255,0.88),rgba(239,248,255,0.78))] p-6 text-center dark:bg-[linear-gradient(160deg,rgba(10,28,44,0.9),rgba(8,21,33,0.88))]">
       <div>
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/80 bg-white/90 shadow-sm dark:border-white/10 dark:bg-white/10">
+          <img
+            src="/preview/logo.svg"
+            alt=""
+            aria-hidden="true"
+            className="h-10 w-10 object-contain"
+          />
+        </div>
         <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
           {placeholderLabel}
         </div>

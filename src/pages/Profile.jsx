@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/outline";
 import { api } from '../lib/api'
 import { useAuth } from '../context/AuthContext'
 import { Button } from '../ui/button'
@@ -10,10 +11,9 @@ import { Loading } from '../components/Loading'
 import { useI18n } from '../context/I18nContext'
 
 export const Profile = () => {
-  const { user, refreshSession } = useAuth()
+  const { user, refreshSession, signOut } = useAuth()
   const { t } = useI18n()
   const [name, setName] = useState('')
-  const [photoUrl, setPhotoUrl] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
@@ -21,7 +21,6 @@ export const Profile = () => {
   useEffect(() => {
     if (user) {
       setName(user.name || '')
-      setPhotoUrl(user.photoUrl || '')
     }
     setLoading(false)
   }, [user])
@@ -30,7 +29,7 @@ export const Profile = () => {
     setSaving(true)
     setError('')
     try {
-      await api.auth.updateProfile({ name, photoUrl })
+      await api.auth.updateProfile({ name })
       await refreshSession()
     } catch (err) {
       setError(err?.message || 'Unable to save profile')
@@ -68,16 +67,29 @@ export const Profile = () => {
             <Input value={name} onChange={(event) => setName(event.target.value)} />
           </Field>
           <Field>
-            <Label>Photo URL</Label>
-            <Input value={photoUrl} onChange={(event) => setPhotoUrl(event.target.value)} />
-          </Field>
-          <Field>
             <Label>Email</Label>
             <Input value={user?.email || ''} disabled />
           </Field>
         </FieldGroup>
         <Button color="teal" onClick={handleSave} disabled={saving}>
           {saving ? t('saving') : t('saveChanges')}
+        </Button>
+      </section>
+
+      <section className="glass-panel space-y-4 p-6">
+        <Heading level={3} className="font-display text-lg">
+          {t('profile')}
+        </Heading>
+        <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+          Sign out from your current dashboard session.
+        </Text>
+        <Button
+          color="sky"
+          onClick={signOut}
+          className="justify-center shadow-[0_18px_34px_-24px_rgba(9,154,217,0.46)] dark:shadow-[0_18px_34px_-24px_rgba(27,177,212,0.54)]"
+        >
+          <ArrowLeftOnRectangleIcon data-slot="icon" />
+          {t('signOut')}
         </Button>
       </section>
     </div>

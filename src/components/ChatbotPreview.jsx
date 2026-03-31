@@ -69,6 +69,8 @@ export const ChatbotPreview = ({
   const userPrompt = suggested[0] || "How can I reset my password?";
   const botName = settings?.botName || "MoAssist";
   const logoUrl = settings?.brand?.logoUrl || "/preview/logo.svg";
+  const logoBackgroundColor =
+    settings?.brand?.logoBackgroundColor || palette.surfaceColor;
   const launcherIconUrl =
     settings?.brand?.bubbleIconUrl ||
     settings?.brand?.logoUrl ||
@@ -117,8 +119,9 @@ export const ChatbotPreview = ({
           <div
             className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-sm font-semibold"
             style={{
-              backgroundColor: palette.accentColor,
-              color: palette.accentTextColor,
+              backgroundColor: logoBackgroundColor,
+              color: palette.textColor,
+              border: `1px solid ${palette.borderColor}`,
             }}
           >
             {logoUrl ? (

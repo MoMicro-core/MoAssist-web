@@ -15,13 +15,13 @@ export const PublicHeader = ({ showActions = true }) => {
   return (
     <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 pt-6 sm:px-8">
       <a
-        href={buildLocalizedPath("/", language)}
+        href="/chatbots"
         className="flex items-center gap-3"
       >
         <img
           src="/preview/logo.svg"
           alt="MoAssist"
-          className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm dark:bg-white/10"
+          className="h-12 w-12 rounded-2xl bg-white/80 object-contain p-1.5 shadow-sm sm:h-14 sm:w-14 dark:bg-white/10"
         />
         <div>
           <div className="font-display text-lg font-semibold text-zinc-900 dark:text-white">

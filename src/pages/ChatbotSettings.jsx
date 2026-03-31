@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import { useChatbot } from "../context/ChatbotContext";
@@ -56,6 +56,7 @@ const ColorField = ({
   onTextChange,
   onColorChange,
   fallback = "#099ad9",
+  disabled = false,
 }) => (
   <Field>
     <Label>{label}</Label>
@@ -64,12 +65,14 @@ const ColorField = ({
         type="color"
         value={normalizeColor(value, fallback)}
         onChange={(event) => onColorChange(event.target.value)}
+        disabled={disabled}
         className="h-10 w-12 cursor-pointer rounded-lg border border-zinc-300 bg-white p-1 dark:border-white/20 dark:bg-zinc-900"
       />
       <Input
         value={value || ""}
         onChange={onTextChange}
         placeholder={normalizeColor(value, fallback).toUpperCase()}
+        disabled={disabled}
       />
     </div>
   </Field>
@@ -144,10 +147,12 @@ export const ChatbotSettings = () => {
   const { chatbotId } = useParams();
   const { chatbot, loading, reload } = useChatbot();
   const { t } = useI18n();
+  const logoInputRef = useRef(null);
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const [logoUploading, setLogoUploading] = useState(false);
   const [error, setError] = useState("");
   const [previewMode, setPreviewMode] = useState("light");
   const [selectedPreviewPart, setSelectedPreviewPart] = useState("header");
@@ -365,6 +370,25 @@ export const ChatbotSettings = () => {
     }
   };
 
+  const handleLogoUpload = async (event) => {
+    const [file] = Array.from(event.target.files || []);
+    if (!file) return;
+    setLogoUploading(true);
+    setError("");
+    try {
+      const updatedChatbot = await api.chatbots.uploadLogo(chatbotId, file);
+      if (updatedChatbot?.settings) {
+        setDraft(updatedChatbot.settings);
+      }
+      await reload();
+    } catch (err) {
+      setError(err?.message || "Unable to upload logo");
+    } finally {
+      setLogoUploading(false);
+      event.target.value = "";
+    }
+  };
+
   const scrollToSection = (sectionId) => {
     const node = document.getElementById(sectionId);
     node?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -406,9 +430,13 @@ export const ChatbotSettings = () => {
     authenticatedWidget: false,
     aiResponder: false,
     knowledgeFiles: false,
+    customBranding: false,
   };
+  const canCustomizeBranding = featureAccess.customBranding === true;
   const currentTier = chatbot?.currentTier || null;
   const paletteFallback = themeFallbacks[previewMode];
+  const logoBackgroundFallback =
+    draft?.theme?.[previewMode]?.surfaceColor || paletteFallback.surfaceColor;
   const sectionChips = [
     { id: "settings-basics", label: t("basics") },
     { id: "settings-ui", label: "UI studio" },
@@ -432,12 +460,76 @@ export const ChatbotSettings = () => {
               <Input value={draft.botName || ""} onChange={update("botName")} />
             </Field>
             <Field>
-              <Label>{t("logoUrlLabel")}</Label>
-              <Input
-                value={draft.brand?.logoUrl || ""}
-                onChange={updateBrand("logoUrl")}
-              />
+              <Label>{t("uploadLogoLabel")}</Label>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border"
+                    style={{
+                      backgroundColor:
+                        draft.brand?.logoBackgroundColor ||
+                        logoBackgroundFallback,
+                      borderColor:
+                        draft.theme?.[previewMode]?.borderColor ||
+                        paletteFallback.borderColor,
+                    }}
+                  >
+                    {draft.brand?.logoUrl ? (
+                      <img
+                        src={draft.brand.logoUrl}
+                        alt={draft.botName || "Chatbot logo"}
+                        className="h-full w-full object-contain p-2"
+                      />
+                    ) : (
+                      <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-200">
+                        {(draft.botName || "M").slice(0, 1)}
+                      </span>
+                    )}
+                  </div>
+                  <input
+                    ref={logoInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                    className="hidden"
+                    onChange={handleLogoUpload}
+                    disabled={!canCustomizeBranding || logoUploading}
+                  />
+                  <Button
+                    type="button"
+                    color="sky"
+                    disabled={!canCustomizeBranding || logoUploading}
+                    onClick={() => logoInputRef.current?.click()}
+                  >
+                    {logoUploading
+                      ? t("uploadingLogo")
+                      : draft.brand?.logoUrl
+                        ? t("replaceLogoAction")
+                        : t("uploadLogoAction")}
+                  </Button>
+                </div>
+                <PreviewHint>
+                  {canCustomizeBranding
+                    ? t("logoUploadHelp")
+                    : t("customBrandingUpgradeHint")}
+                </PreviewHint>
+              </div>
             </Field>
+            <ColorField
+              label={t("logoBackgroundColorLabel")}
+              value={draft.brand?.logoBackgroundColor || ""}
+              onTextChange={updateBrand("logoBackgroundColor")}
+              onColorChange={(value) =>
+                setDraft((prev) => ({
+                  ...prev,
+                  brand: {
+                    ...(prev.brand || {}),
+                    logoBackgroundColor: value,
+                  },
+                }))
+              }
+              fallback={logoBackgroundFallback}
+              disabled={!canCustomizeBranding}
+            />
             <ColorField
               label={`${previewMode === "light" ? "Light" : "Dark"} background`}
               value={draft.theme?.[previewMode]?.backgroundColor || ""}
@@ -728,6 +820,9 @@ export const ChatbotSettings = () => {
             </Badge>
             <Badge color={featureAccess.knowledgeFiles ? "emerald" : "zinc"}>
               {t("knowledgeFiles")}
+            </Badge>
+            <Badge color={canCustomizeBranding ? "emerald" : "zinc"}>
+              {t("customBranding")}
             </Badge>
           </div>
           <Text className="text-sm text-zinc-600 dark:text-zinc-300">
