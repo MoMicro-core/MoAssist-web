@@ -110,6 +110,7 @@ export const ChatbotDashboard = () => {
         value: analytics?.unreadConversations || 0,
       },
       { label: t("totalMessages"), value: analytics?.totalMessages || 0 },
+      { label: t("leadsCaptured"), value: analytics?.totalLeads || 0 },
       { label: t("knowledgeFiles"), value: filesCount || 0 },
     ],
     [analytics, filesCount, t],
@@ -122,15 +123,15 @@ export const ChatbotDashboard = () => {
 
   const insights = useMemo(
     () => [
-      { label: "Engagement", value: analytics?.totalMessages || 0 },
-      { label: "Active load", value: analytics?.activeConversations || 0 },
+      { label: t("totalMessages"), value: analytics?.totalMessages || 0 },
+      { label: t("openConversations"), value: analytics?.openConversations || 0 },
       {
-        label: "Pending follow-up",
+        label: t("pendingLabel"),
         value: analytics?.pendingConversations || 0,
       },
-      { label: "Leads velocity", value: analytics?.totalLeads || 0 },
+      { label: t("leadsCaptured"), value: analytics?.totalLeads || 0 },
     ],
-    [analytics],
+    [analytics, t],
   );
 
   if (loading) return <Loading />;

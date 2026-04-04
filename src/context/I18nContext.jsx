@@ -99,6 +99,8 @@ const dictionary = {
     knowledgeFiles: "Knowledge files",
     activity: "Activity",
     needsReply: "Needs reply",
+    draftChatbots: "Draft chatbots",
+    recentChatbotUpdates: "Recent chatbot updates",
     insights: "Insights",
     dashboardOverview: "Clarity-first dashboard",
     dashboardOverviewBody:
@@ -124,8 +126,8 @@ const dictionary = {
       "Pass authClient from your website session before loading the widget script.",
     authenticatedChatHelp:
       "Authenticated chats only switch between active and pending and cannot be closed manually.",
-    appearance: "Appearance",
-    widgetLocationLabel: "Widget location",
+    appearance: "UI customization",
+    widgetLocationLabel: "Chat launcher position",
     roundedCornersLabel: "Rounded corners",
     logoUrlLabel: "Logo",
     uploadLogoLabel: "Upload logo",
@@ -335,6 +337,8 @@ const dictionary = {
     knowledgeFiles: "Wissensdateien",
     activity: "Aktivitaet",
     needsReply: "Antwort noetig",
+    draftChatbots: "Entwurfs-Chatbots",
+    recentChatbotUpdates: "Letzte Chatbot-Aktualisierungen",
     insights: "Einblicke",
     dashboardOverview: "Klares Dashboard",
     dashboardOverviewBody:
@@ -360,8 +364,8 @@ const dictionary = {
       "Uebergib authClient aus deiner Website Session, bevor das Widget Script geladen wird.",
     authenticatedChatHelp:
       "Authentifizierte Chats wechseln nur zwischen aktiv und wartend und koennen nicht manuell geschlossen werden.",
-    appearance: "Design",
-    widgetLocationLabel: "Widget Position",
+    appearance: "UI-Anpassung",
+    widgetLocationLabel: "Position des Chat-Launchers",
     roundedCornersLabel: "Abgerundete Ecken",
     logoUrlLabel: "Logo",
     uploadLogoLabel: "Logo hochladen",
@@ -548,6 +552,8 @@ const dictionary = {
     knowledgeFiles: "Archivos",
     activity: "Actividad",
     needsReply: "Pendientes",
+    draftChatbots: "Chatbots en borrador",
+    recentChatbotUpdates: "Actualizaciones recientes",
     insights: "Insights",
     dashboardOverview: "Panel claro y minimo",
     dashboardOverviewBody:
@@ -573,8 +579,8 @@ const dictionary = {
       "Pasa authClient desde la sesion de tu sitio antes de cargar el script del widget.",
     authenticatedChatHelp:
       "Los chats autenticados solo usan activo o pendiente y no se pueden cerrar manualmente.",
-    appearance: "Apariencia",
-    widgetLocationLabel: "Ubicación del widget",
+    appearance: "Personalizacion UI",
+    widgetLocationLabel: "Posicion del lanzador",
     roundedCornersLabel: "Esquinas redondeadas",
     logoUrlLabel: "Logo",
     uploadLogoLabel: "Subir logo",

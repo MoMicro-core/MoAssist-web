@@ -41,6 +41,11 @@ const ChatbotSettings = lazy(() =>
     default: module.ChatbotSettings,
   })),
 );
+const ChatbotAppearance = lazy(() =>
+  import("./pages/ChatbotAppearance").then((module) => ({
+    default: module.ChatbotAppearance,
+  })),
+);
 const ChatbotPlugin = lazy(() =>
   import("./pages/ChatbotPlugin").then((module) => ({
     default: module.ChatbotPlugin,
@@ -130,6 +135,7 @@ export default function App() {
             <Route path="dashboard" element={<ChatbotDashboard />} />
             <Route path="chats" element={<ChatbotChats />} />
             <Route path="settings" element={<ChatbotSettings />} />
+            <Route path="appearance" element={<ChatbotAppearance />} />
             <Route path="billing" element={<Billings />} />
             <Route path="plugin" element={<ChatbotPlugin />} />
           </Route>

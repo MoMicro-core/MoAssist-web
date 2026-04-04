@@ -49,6 +49,18 @@ const getPartStyle = (part, selectedPart, interactive, palette) => ({
       : undefined,
 });
 
+const resolveLauncherPlacement = (value = "right") => {
+  const location = value || "right";
+  const isTop = location === "top-left" || location === "top-right";
+  const isLeft = location === "left" || location === "top-left";
+
+  return {
+    isTop,
+    isLeft,
+    dockClassName: isLeft ? "justify-start" : "justify-end",
+  };
+};
+
 export const ChatbotPreview = ({
   settings,
   interactive = false,
@@ -78,6 +90,7 @@ export const ChatbotPreview = ({
   const borderRadius = settings?.rounded ? "20px" : "8px";
   const containerRadius = settings?.rounded ? "rounded-[2rem]" : "rounded-xl";
   const widgetLocation = settings?.widgetLocation || "right";
+  const launcherPlacement = resolveLauncherPlacement(widgetLocation);
 
   const bubbleStyle = useMemo(
     () => ({
@@ -98,6 +111,40 @@ export const ChatbotPreview = ({
     [palette, borderRadius],
   );
 
+  const launcherDock = (
+    <div
+      className={`flex px-4 py-4 ${
+        launcherPlacement.dockClassName
+      } ${launcherPlacement.isTop ? "border-b" : "border-t"}`}
+      style={{
+        borderColor: palette.borderColor,
+        backgroundColor: palette.backgroundColor,
+      }}
+    >
+      <button
+        type="button"
+        className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border shadow-lg"
+        style={{
+          backgroundColor: palette.accentColor,
+          color: palette.accentTextColor,
+          borderColor: palette.borderColor,
+          ...getPartStyle("launcher", selectedPart, interactive, palette),
+        }}
+        {...interactiveProps("launcher", interactive, onSelectPart)}
+      >
+        {launcherIconUrl ? (
+          <img
+            src={launcherIconUrl}
+            alt={`${botName} launcher`}
+            className="h-full w-full object-contain p-2"
+          />
+        ) : (
+          botName.slice(0, 1)
+        )}
+      </button>
+    </div>
+  );
+
   return (
     <div
       className={`flex w-full flex-col overflow-hidden border shadow-sm ${containerRadius}`}
@@ -106,6 +153,7 @@ export const ChatbotPreview = ({
         borderColor: palette.borderColor,
       }}
     >
+      {launcherPlacement.isTop ? launcherDock : null}
       <div
         className="flex items-center justify-between gap-3 border-b px-4 py-3"
         style={{
@@ -274,38 +322,7 @@ export const ChatbotPreview = ({
           Powered by MoAssist
         </Text>
       </div>
-
-      <div
-        className={`flex border-t px-4 py-4 ${
-          widgetLocation === "left" ? "justify-start" : "justify-end"
-        }`}
-        style={{
-          borderColor: palette.borderColor,
-          backgroundColor: palette.backgroundColor,
-        }}
-      >
-        <button
-          type="button"
-          className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border shadow-lg"
-          style={{
-            backgroundColor: palette.accentColor,
-            color: palette.accentTextColor,
-            borderColor: palette.borderColor,
-            ...getPartStyle("launcher", selectedPart, interactive, palette),
-          }}
-          {...interactiveProps("launcher", interactive, onSelectPart)}
-        >
-          {launcherIconUrl ? (
-            <img
-              src={launcherIconUrl}
-              alt={`${botName} launcher`}
-              className="h-full w-full object-contain p-2"
-            />
-          ) : (
-            botName.slice(0, 1)
-          )}
-        </button>
-      </div>
+      {launcherPlacement.isTop ? null : launcherDock}
     </div>
   );
 };

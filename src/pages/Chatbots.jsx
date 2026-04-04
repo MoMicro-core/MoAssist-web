@@ -320,6 +320,12 @@ export const Chatbots = () => {
 
   if (loading) return <Loading />;
 
+  const activeChatbotsCount = chatbots.filter(
+    (bot) => bot.settings?.status === "published",
+  ).length;
+  const draftChatbotsCount = chatbots.filter(
+    (bot) => bot.settings?.status !== "published",
+  ).length;
   const totalConversations = chatbots.reduce(
     (sum, bot) => sum + (bot.metrics?.conversationsCount || 0),
     0,
@@ -360,7 +366,7 @@ export const Chatbots = () => {
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/80">
               <div className="text-xl font-semibold text-zinc-900 dark:text-white">
-                {chatbots.length}
+                {activeChatbotsCount}
               </div>
               <Text className="text-xs text-zinc-600 dark:text-zinc-300">
                 {t("activeChatbots")}
@@ -386,7 +392,7 @@ export const Chatbots = () => {
         </div>
         <div className="glass-panel rounded-3xl p-6">
           <Heading level={3} className="font-display text-lg">
-            {t("activity")}
+            {t("recentChatbotUpdates")}
           </Heading>
           <div className="mt-4 space-y-3">
             {recentBots.map((bot) => (
@@ -422,10 +428,10 @@ export const Chatbots = () => {
             </div>
             <div className="rounded-2xl border border-zinc-100 bg-zinc-50 p-4 text-center dark:border-white/5 dark:bg-zinc-800/60">
               <div className="text-lg font-semibold text-zinc-900 dark:text-white">
-                {totalUnread}
+                {draftChatbotsCount}
               </div>
               <Text className="text-xs text-zinc-600 dark:text-zinc-300">
-                {t("needsReply")}
+                {t("draftChatbots")}
               </Text>
             </div>
           </div>
@@ -524,19 +530,19 @@ export const Chatbots = () => {
                     <div className="text-zinc-900">
                       {chatbot.metrics?.conversationsCount || 0}
                     </div>
-                    <div>Conversations</div>
+                    <div>{t("totalConversations")}</div>
                   </div>
                   <div className="rounded-xl bg-zinc-50 px-3 py-2">
                     <div className="text-zinc-900">
                       {chatbot.metrics?.unreadCount || 0}
                     </div>
-                    <div>Unread</div>
+                    <div>{t("unreadConversations")}</div>
                   </div>
                   <div className="rounded-xl bg-zinc-50 px-3 py-2">
                     <div className="text-zinc-900">
                       {chatbot.metrics?.filesCount || 0}
                     </div>
-                    <div>Files</div>
+                    <div>{t("knowledgeFiles")}</div>
                   </div>
                 </div>
               </div>
