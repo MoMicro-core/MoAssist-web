@@ -8,7 +8,6 @@ import { Button } from "../ui/button";
 import { Loading } from "../components/Loading";
 import { useI18n } from "../context/I18nContext";
 import { useChatbot } from "../context/ChatbotContext";
-import { ChatbotPreview } from "../components/ChatbotPreview";
 
 const createCodePreview = (snippet = "") => {
   const lines = String(snippet || "")
@@ -138,56 +137,46 @@ window.MOMICRO_ASSIST_CONFIG = {
           onCopy={() => copy(authSnippet)}
         />
       ) : null}
-      <div className="grid gap-4 lg:grid-cols-[1.2fr,0.8fr]">
-        <div className="space-y-4">
-          <InstallMethodCard
-            title={t("scriptEmbed")}
-            body={t("pluginScriptBody")}
-            ctaLabel={t("copyCode")}
-            previewCode={createCodePreview(install?.scriptSnippet)}
-            onCopy={() => copy(install?.scriptSnippet)}
-          />
-          <InstallMethodCard
-            title={t("iframeEmbed")}
-            body={t("pluginIframeBody")}
-            ctaLabel={t("copyCode")}
-            previewCode={createCodePreview(install?.iframeSnippet)}
-            onCopy={() => copy(install?.iframeSnippet)}
-          />
-          {dashboardInstallEnabled ? (
-            <>
-              <InstallMethodCard
-                title={t("dashboardScriptEmbed")}
-                body={t("dashboardScriptBody")}
-                ctaLabel={t("copyCode")}
-                previewCode={createCodePreview(install?.dashboardScriptSnippet)}
-                onCopy={() => copy(install?.dashboardScriptSnippet)}
-              />
-              <InstallMethodCard
-                title={t("dashboardIframeEmbed")}
-                body={t("dashboardIframeBody")}
-                ctaLabel={t("copyCode")}
-                previewCode={createCodePreview(install?.dashboardIframeSnippet)}
-                onCopy={() => copy(install?.dashboardIframeSnippet)}
-              />
-            </>
-          ) : (
-            <LockedInstallCard
-              title={t("dashboardInstallLockedTitle")}
-              body={t("dashboardInstallLockedBody")}
-              ctaLabel={t("openBilling")}
-              href={`/chatbots/${chatbotId}/billing`}
+      <div className="space-y-4">
+        <InstallMethodCard
+          title={t("scriptEmbed")}
+          body={t("pluginScriptBody")}
+          ctaLabel={t("copyCode")}
+          previewCode={createCodePreview(install?.scriptSnippet)}
+          onCopy={() => copy(install?.scriptSnippet)}
+        />
+        <InstallMethodCard
+          title={t("iframeEmbed")}
+          body={t("pluginIframeBody")}
+          ctaLabel={t("copyCode")}
+          previewCode={createCodePreview(install?.iframeSnippet)}
+          onCopy={() => copy(install?.iframeSnippet)}
+        />
+        {dashboardInstallEnabled ? (
+          <>
+            <InstallMethodCard
+              title={t("dashboardScriptEmbed")}
+              body={t("dashboardScriptBody")}
+              ctaLabel={t("copyCode")}
+              previewCode={createCodePreview(install?.dashboardScriptSnippet)}
+              onCopy={() => copy(install?.dashboardScriptSnippet)}
             />
-          )}
-        </div>
-        <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
-          <Heading level={4} className="font-display text-base">
-            {t("preview")}
-          </Heading>
-          <div className="mt-4">
-            <ChatbotPreview settings={chatbot?.settings} />
-          </div>
-        </div>
+            <InstallMethodCard
+              title={t("dashboardIframeEmbed")}
+              body={t("dashboardIframeBody")}
+              ctaLabel={t("copyCode")}
+              previewCode={createCodePreview(install?.dashboardIframeSnippet)}
+              onCopy={() => copy(install?.dashboardIframeSnippet)}
+            />
+          </>
+        ) : (
+          <LockedInstallCard
+            title={t("dashboardInstallLockedTitle")}
+            body={t("dashboardInstallLockedBody")}
+            ctaLabel={t("openBilling")}
+            href={`/chatbots/${chatbotId}/billing`}
+          />
+        )}
       </div>
     </div>
   );

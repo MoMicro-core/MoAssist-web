@@ -1,16 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import { useChatbot } from "../context/ChatbotContext";
 import { Button } from "../ui/button";
 import { Field, FieldGroup, Label } from "../ui/fieldset";
 import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
 import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
 import { Loading } from "../components/Loading";
-import { ChatbotPreview } from "../components/ChatbotPreview";
 import { useI18n } from "../context/I18nContext";
 import {
   ColorField,
@@ -21,14 +19,6 @@ import {
   previewTargets,
   themeFallbacks,
 } from "../components/chatbot-settings/shared";
-
-const splitList = (value) =>
-  value
-    .split(/[\n,]/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const listToText = (value) => (value || []).join("\n");
 
 const widgetLocationOptions = [
   { value: "right", label: "Bottom right" },
@@ -42,12 +32,31 @@ export const ChatbotAppearance = () => {
   const { chatbot, loading, reload } = useChatbot();
   const { t } = useI18n();
   const logoInputRef = useRef(null);
+  const previewFrameRef = useRef(null);
+  const previewRequestRef = useRef(0);
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
   const [logoUploading, setLogoUploading] = useState(false);
   const [error, setError] = useState("");
+  const [previewHtml, setPreviewHtml] = useState("");
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [previewError, setPreviewError] = useState("");
   const [previewMode, setPreviewMode] = useState("light");
   const [selectedPreviewPart, setSelectedPreviewPart] = useState("launcher");
+
+  const postPreviewHighlight = (part = selectedPreviewPart) => {
+    const target = previewFrameRef.current?.contentWindow;
+    if (!target || !chatbotId) return;
+    target.postMessage(
+      {
+        type: "momicro-assist-preview",
+        action: "highlight",
+        chatbotId,
+        part,
+      },
+      "*",
+    );
+  };
 
   useEffect(() => {
     if (chatbot?.settings) {
@@ -55,19 +64,119 @@ export const ChatbotAppearance = () => {
     }
   }, [chatbot]);
 
-  const update = (field) => (event) => {
-    setDraft((prev) => ({ ...prev, [field]: event.target.value }));
-  };
+  useEffect(() => {
+    if (!chatbotId || !draft) return undefined;
+
+    const requestId = previewRequestRef.current + 1;
+    previewRequestRef.current = requestId;
+
+    const timeoutId = window.setTimeout(async () => {
+      setPreviewLoading(true);
+      try {
+        const response = await api.chatbots.preview(
+          chatbotId,
+          draft,
+          previewMode,
+          selectedPreviewPart,
+        );
+        if (previewRequestRef.current !== requestId) return;
+        setPreviewHtml(response?.html || "");
+        setPreviewError("");
+      } catch (err) {
+        if (previewRequestRef.current !== requestId) return;
+        setPreviewError(err?.message || "Unable to render live widget preview");
+      } finally {
+        if (previewRequestRef.current === requestId) {
+          setPreviewLoading(false);
+        }
+      }
+    }, 180);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [chatbotId, draft, previewMode]);
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      const data = event.data || {};
+      if (
+        data.type !== "momicro-assist-preview" ||
+        data.chatbotId !== chatbotId
+      ) {
+        return;
+      }
+
+      if (data.action === "select" && data.part) {
+        setSelectedPreviewPart(data.part);
+        return;
+      }
+
+      if (data.action !== "change" || !data.field) {
+        return;
+      }
+
+      setDraft((prev) => {
+        if (!prev) return prev;
+
+        if (data.field === "suggestedMessages") {
+          const nextItems = Array.isArray(prev.suggestedMessages)
+            ? [...prev.suggestedMessages]
+            : [];
+          const index = Number.isInteger(data.index)
+            ? data.index
+            : Number.parseInt(data.index, 10);
+
+          if (!Number.isNaN(index) && index >= 0) {
+            if (data.value) {
+              nextItems[index] = data.value;
+            } else {
+              nextItems.splice(index, 1);
+            }
+          }
+
+          return {
+            ...prev,
+            suggestedMessages: nextItems.filter(Boolean),
+          };
+        }
+
+        return {
+          ...prev,
+          [data.field]: data.value,
+        };
+      });
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [chatbotId]);
+
+  useEffect(() => {
+    if (!previewHtml) return undefined;
+    const timeoutId = window.setTimeout(() => {
+      postPreviewHighlight(selectedPreviewPart);
+    }, 0);
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [previewHtml, selectedPreviewPart]);
 
   const updateBoolean = (field) => (value) => {
     setDraft((prev) => ({ ...prev, [field]: value }));
   };
 
-  const updateBrand = (field) => (event) => {
+  const setBrandValue = (field, value) => {
     setDraft((prev) => ({
       ...prev,
-      brand: { ...(prev.brand || {}), [field]: event.target.value },
+      brand: { ...(prev.brand || {}), [field]: value },
     }));
+  };
+
+  const updateBrand = (field) => (event) => {
+    setBrandValue(field, event.target.value);
   };
 
   const setWidgetLocation = (value) => {
@@ -86,13 +195,6 @@ export const ChatbotAppearance = () => {
 
   const updateTheme = (mode, field) => (event) => {
     setThemeValue(mode, field, event.target.value);
-  };
-
-  const updateSuggested = (event) => {
-    setDraft((prev) => ({
-      ...prev,
-      suggestedMessages: splitList(event.target.value),
-    }));
   };
 
   const handleSave = async () => {
@@ -135,30 +237,18 @@ export const ChatbotAppearance = () => {
   const paletteFallback = themeFallbacks[previewMode];
   const logoBackgroundFallback =
     draft?.theme?.[previewMode]?.surfaceColor || paletteFallback.surfaceColor;
-  const suggestedText = useMemo(
-    () => listToText(draft?.suggestedMessages),
-    [draft?.suggestedMessages],
-  );
 
   if (loading || !draft) return <Loading />;
+
+  const selectedPreviewLabel =
+    previewTargets.find((part) => part.id === selectedPreviewPart)?.label ||
+    "Launcher";
 
   const renderFocusedUiControls = () => {
     switch (selectedPreviewPart) {
       case "header":
         return (
           <FieldGroup>
-            <Field>
-              <Label>{t("botNameLabel")}</Label>
-              <Input value={draft.botName || ""} onChange={update("botName")} />
-            </Field>
-            <Field>
-              <Label>{t("initialMessageLabel")}</Label>
-              <Textarea
-                rows={3}
-                value={draft.initialMessage || ""}
-                onChange={update("initialMessage")}
-              />
-            </Field>
             <ColorField
               label="Header background"
               value={draft.theme?.[previewMode]?.backgroundColor || ""}
@@ -214,14 +304,6 @@ export const ChatbotAppearance = () => {
       case "visitorBubble":
         return (
           <FieldGroup>
-            <Field>
-              <Label>{t("suggestedMessagesLabel")}</Label>
-              <Textarea
-                value={suggestedText}
-                onChange={updateSuggested}
-                rows={3}
-              />
-            </Field>
             <ColorField
               label="Accent"
               value={draft.theme?.[previewMode]?.accentColor || ""}
@@ -245,14 +327,6 @@ export const ChatbotAppearance = () => {
       case "suggested":
         return (
           <FieldGroup>
-            <Field>
-              <Label>{t("suggestedMessagesLabel")}</Label>
-              <Textarea
-                value={suggestedText}
-                onChange={updateSuggested}
-                rows={4}
-              />
-            </Field>
             <ColorField
               label="Chip surface"
               value={draft.theme?.[previewMode]?.surfaceColor || ""}
@@ -276,13 +350,6 @@ export const ChatbotAppearance = () => {
       case "composer":
         return (
           <FieldGroup>
-            <Field>
-              <Label>{t("inputPlaceholderLabel")}</Label>
-              <Input
-                value={draft.inputPlaceholder || ""}
-                onChange={update("inputPlaceholder")}
-              />
-            </Field>
             <ColorField
               label="Composer border"
               value={draft.theme?.[previewMode]?.borderColor || ""}
@@ -393,8 +460,9 @@ export const ChatbotAppearance = () => {
             UI customization
           </Heading>
           <Text className="text-sm text-zinc-500 dark:text-zinc-400">
-            Control launcher placement, brand assets, and the full light and
-            dark chat palette in one dedicated workspace.
+            Edit the exact widget your visitors receive, not a mock. The center
+            preview is rendered by the backend widget template and updates from
+            your local draft settings before you save.
           </Text>
         </div>
         <Button color="sky" onClick={handleSave} disabled={saving}>
@@ -408,242 +476,279 @@ export const ChatbotAppearance = () => {
         </div>
       ) : null}
 
-      <SettingsCard
-        title="Launcher and branding"
-        description="Pick the launcher corner, upload the chatbot logo, and control the visual mark people see before they open the conversation."
-        actions={
-          <Button outline href={`/chatbots/${chatbotId}/billing`}>
-            {currentTier?.name || chatbot?.premiumPlan || t("openBilling")}
-          </Button>
-        }
-      >
-        <FieldGroup>
-          <Field>
-            <Label>{t("widgetLocationLabel")}</Label>
-            <WidgetLocationButtonGroup
-              options={widgetLocationOptions}
-              value={draft.widgetLocation || "right"}
-              onChange={setWidgetLocation}
-            />
-            <PreviewHint>
-              Bottom left and bottom right work like a classic floating chat.
-              Top positions keep the launcher pinned to the upper corners.
-            </PreviewHint>
-          </Field>
-          <Field>
-            <Label>{t("uploadLogoLabel")}</Label>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div
-                  className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border"
-                  style={{
-                    backgroundColor:
-                      draft.brand?.logoBackgroundColor ||
-                      logoBackgroundFallback,
-                    borderColor:
-                      draft.theme?.[previewMode]?.borderColor ||
-                      paletteFallback.borderColor,
-                  }}
-                >
-                  {draft.brand?.logoUrl ? (
-                    <img
-                      src={draft.brand.logoUrl}
-                      alt={draft.botName || "Chatbot logo"}
-                      className="h-full w-full object-contain p-2"
-                    />
-                  ) : (
-                    <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-200">
-                      {(draft.botName || "M").slice(0, 1)}
-                    </span>
-                  )}
-                </div>
-                <input
-                  ref={logoInputRef}
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp,image/svg+xml"
-                  className="hidden"
-                  onChange={handleLogoUpload}
-                  disabled={!canCustomizeBranding || logoUploading}
+      <div className="grid gap-6 xl:grid-cols-[320px_minmax(0,1fr)_360px] xl:items-start">
+        <div className="space-y-6">
+          <SettingsCard
+            title="Preview controls"
+            description="Switch the visual mode first, then place the launcher in the same corner your visitors will see on the website."
+            actions={
+              <div className="flex items-center gap-2">
+                <PartButton
+                  active={previewMode === "light"}
+                  label={t("light")}
+                  onClick={() => setPreviewMode("light")}
                 />
-                <Button
-                  type="button"
-                  color="sky"
-                  disabled={!canCustomizeBranding || logoUploading}
-                  onClick={() => logoInputRef.current?.click()}
-                >
-                  {logoUploading
-                    ? t("uploadingLogo")
-                    : draft.brand?.logoUrl
-                      ? t("replaceLogoAction")
-                      : t("uploadLogoAction")}
-                </Button>
+                <PartButton
+                  active={previewMode === "dark"}
+                  label={t("dark")}
+                  onClick={() => setPreviewMode("dark")}
+                />
               </div>
-              <PreviewHint>
-                {canCustomizeBranding
-                  ? t("logoUploadHelp")
-                  : t("customBrandingUpgradeHint")}
-              </PreviewHint>
-            </div>
-          </Field>
-          <ColorField
-            label={t("logoBackgroundColorLabel")}
-            value={draft.brand?.logoBackgroundColor || ""}
-            onTextChange={updateBrand("logoBackgroundColor")}
-            onColorChange={(value) =>
-              setDraft((prev) => ({
-                ...prev,
-                brand: {
-                  ...(prev.brand || {}),
-                  logoBackgroundColor: value,
-                },
-              }))
             }
-            fallback={logoBackgroundFallback}
-            disabled={!canCustomizeBranding}
-          />
-          <Field>
-            <Label>{t("bubbleIconUrlLabel")}</Label>
-            <Input
-              value={draft.brand?.bubbleIconUrl || ""}
-              onChange={updateBrand("bubbleIconUrl")}
-            />
-            <PreviewHint>
-              Use a custom launcher image URL if you want a different icon than
-              the main logo.
-            </PreviewHint>
-          </Field>
-          <Field>
-            <Label>{t("roundedCornersLabel")}</Label>
-            <Switch
-              checked={Boolean(draft.rounded)}
-              onChange={updateBoolean("rounded")}
-              color="sky"
-            />
-          </Field>
-        </FieldGroup>
-      </SettingsCard>
+          >
+            <FieldGroup>
+              <Field>
+                <Label>{t("widgetLocationLabel")}</Label>
+                <WidgetLocationButtonGroup
+                  options={widgetLocationOptions}
+                  value={draft.widgetLocation || "right"}
+                  onChange={setWidgetLocation}
+                />
+                <PreviewHint>
+                  Bottom positions behave like a classic floating chat. Top
+                  positions keep the launcher pinned to the upper corners.
+                </PreviewHint>
+              </Field>
+              <Field>
+                <Label>{t("roundedCornersLabel")}</Label>
+                <Switch
+                  checked={Boolean(draft.rounded)}
+                  onChange={updateBoolean("rounded")}
+                  color="sky"
+                />
+              </Field>
+            </FieldGroup>
+          </SettingsCard>
 
-      <SettingsCard
-        title="Interactive UI studio"
-        description="Click any visible part of the chat preview to focus the matching controls, then fine-tune the full light and dark theme tokens."
-        actions={
-          <div className="flex items-center gap-2">
-            <PartButton
-              active={previewMode === "light"}
-              label={t("light")}
-              onClick={() => setPreviewMode("light")}
-            />
-            <PartButton
-              active={previewMode === "dark"}
-              label={t("dark")}
-              onClick={() => setPreviewMode("dark")}
-            />
-          </div>
-        }
-      >
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr),360px]">
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-950/60">
-              <PreviewHint>
-                Click the header, message bubbles, suggestion chips, composer,
-                launcher, or canvas to jump straight to the matching design
-                controls.
-              </PreviewHint>
-            </div>
-            <ChatbotPreview
-              settings={draft}
-              mode={previewMode}
-              onModeChange={setPreviewMode}
-              interactive
-              selectedPart={selectedPreviewPart}
-              onSelectPart={setSelectedPreviewPart}
-            />
-          </div>
-
-          <div className="space-y-4">
-            <div className="surface-card space-y-4 p-5">
-              <div className="space-y-2">
-                <Text className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                  Focused editor
-                </Text>
-                <div className="flex flex-wrap gap-2">
-                  {previewTargets.map((part) => (
-                    <PartButton
-                      key={part.id}
-                      active={selectedPreviewPart === part.id}
-                      label={part.label}
-                      onClick={() => setSelectedPreviewPart(part.id)}
+          <SettingsCard
+            title="Brand and launcher"
+            description="Control the logo, the background behind it, and the launcher artwork people see before the chat opens."
+            actions={
+              <Button outline href={`/chatbots/${chatbotId}/billing`}>
+                {currentTier?.name || chatbot?.premiumPlan || t("openBilling")}
+              </Button>
+            }
+          >
+            <FieldGroup>
+              <Field>
+                <Label>{t("uploadLogoLabel")}</Label>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border"
+                      style={{
+                        backgroundColor:
+                          draft.brand?.logoBackgroundColor ||
+                          logoBackgroundFallback,
+                        borderColor:
+                          draft.theme?.[previewMode]?.borderColor ||
+                          paletteFallback.borderColor,
+                      }}
+                    >
+                      {draft.brand?.logoUrl ? (
+                        <img
+                          src={draft.brand.logoUrl}
+                          alt={draft.botName || "Chatbot logo"}
+                          className="h-full w-full object-contain p-2"
+                        />
+                      ) : (
+                        <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-200">
+                          {(draft.botName || "M").slice(0, 1)}
+                        </span>
+                      )}
+                    </div>
+                    <input
+                      ref={logoInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                      className="hidden"
+                      onChange={handleLogoUpload}
+                      disabled={!canCustomizeBranding || logoUploading}
                     />
-                  ))}
+                    <Button
+                      type="button"
+                      color="sky"
+                      disabled={!canCustomizeBranding || logoUploading}
+                      onClick={() => logoInputRef.current?.click()}
+                    >
+                      {logoUploading
+                        ? t("uploadingLogo")
+                        : draft.brand?.logoUrl
+                          ? t("replaceLogoAction")
+                          : t("uploadLogoAction")}
+                    </Button>
+                  </div>
+                  <PreviewHint>
+                    {canCustomizeBranding
+                      ? t("logoUploadHelp")
+                      : t("customBrandingUpgradeHint")}
+                  </PreviewHint>
                 </div>
+              </Field>
+              <ColorField
+                label={t("logoBackgroundColorLabel")}
+                value={draft.brand?.logoBackgroundColor || ""}
+                onTextChange={updateBrand("logoBackgroundColor")}
+                onColorChange={(value) =>
+                  setBrandValue("logoBackgroundColor", value)
+                }
+                fallback={logoBackgroundFallback}
+                disabled={!canCustomizeBranding}
+              />
+              <Field>
+                <Label>{t("bubbleIconUrlLabel")}</Label>
+                <Input
+                  value={draft.brand?.bubbleIconUrl || ""}
+                  onChange={updateBrand("bubbleIconUrl")}
+                />
+                <PreviewHint>
+                  Use a different image here if you want the launcher button to
+                  use another icon than the main chatbot logo.
+                </PreviewHint>
+              </Field>
+            </FieldGroup>
+          </SettingsCard>
+
+        </div>
+
+        <section className="space-y-4">
+          <div className="rounded-2xl border border-zinc-200 bg-white px-4 py-4 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="space-y-1">
+                <Text className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                  Live widget studio
+                </Text>
+                <PreviewHint>
+                  Click any part of the chat to focus its colors. Edit visible
+                  text directly inside the preview: bot name, welcome message,
+                  quick replies, and the composer text.
+                </PreviewHint>
+              </div>
+              <div className="flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
+                <span>{selectedPreviewLabel}</span>
+                {previewLoading ? (
+                  <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-semibold text-sky-700 dark:bg-sky-950/40 dark:text-sky-100">
+                    Refreshing
+                  </span>
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex min-h-[760px] items-center justify-center">
+            {previewError ? (
+              <div className="flex min-h-[560px] w-full items-center justify-center rounded-[1.75rem] border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+                {previewError}
+              </div>
+            ) : previewHtml ? (
+              <iframe
+                ref={previewFrameRef}
+                title="Live chatbot preview"
+                srcDoc={previewHtml}
+                className="h-[760px] w-full max-w-[520px] border-0 bg-transparent"
+                onLoad={() => {
+                  window.setTimeout(
+                    () => postPreviewHighlight(selectedPreviewPart),
+                    0,
+                  );
+                }}
+              />
+            ) : (
+              <div className="flex min-h-[560px] w-full items-center justify-center text-center text-sm text-zinc-500 dark:text-zinc-400">
+                Loading live widget preview...
+              </div>
+            )}
+          </div>
+        </section>
+
+        <div className="space-y-6">
+          <SettingsCard
+            title="Focused editor"
+            description="Use the live preview to pick a part, then adjust only the colors and visual controls that belong to that area."
+          >
+            <div className="space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {previewTargets.map((part) => (
+                  <PartButton
+                    key={part.id}
+                    active={selectedPreviewPart === part.id}
+                    label={part.label}
+                    onClick={() => {
+                      setSelectedPreviewPart(part.id);
+                      window.setTimeout(() => {
+                        postPreviewHighlight(part.id);
+                      }, 0);
+                    }}
+                  />
+                ))}
               </div>
               {renderFocusedUiControls()}
             </div>
+          </SettingsCard>
 
-            <div className="surface-card space-y-4 p-5">
-              <Text className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                Full {previewMode} theme tokens
-              </Text>
-              <div className="grid gap-4">
-                <ColorField
-                  label="Accent"
-                  value={draft.theme?.[previewMode]?.accentColor || ""}
-                  onTextChange={updateTheme(previewMode, "accentColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "accentColor", value)
-                  }
-                  fallback={paletteFallback.accentColor}
-                />
-                <ColorField
-                  label="Accent text"
-                  value={draft.theme?.[previewMode]?.accentTextColor || ""}
-                  onTextChange={updateTheme(previewMode, "accentTextColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "accentTextColor", value)
-                  }
-                  fallback={paletteFallback.accentTextColor}
-                />
-                <ColorField
-                  label="Background"
-                  value={draft.theme?.[previewMode]?.backgroundColor || ""}
-                  onTextChange={updateTheme(previewMode, "backgroundColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "backgroundColor", value)
-                  }
-                  fallback={paletteFallback.backgroundColor}
-                />
-                <ColorField
-                  label="Surface"
-                  value={draft.theme?.[previewMode]?.surfaceColor || ""}
-                  onTextChange={updateTheme(previewMode, "surfaceColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "surfaceColor", value)
-                  }
-                  fallback={paletteFallback.surfaceColor}
-                />
-                <ColorField
-                  label="Text"
-                  value={draft.theme?.[previewMode]?.textColor || ""}
-                  onTextChange={updateTheme(previewMode, "textColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "textColor", value)
-                  }
-                  fallback={paletteFallback.textColor}
-                />
-                <ColorField
-                  label="Border"
-                  value={draft.theme?.[previewMode]?.borderColor || ""}
-                  onTextChange={updateTheme(previewMode, "borderColor")}
-                  onColorChange={(value) =>
-                    setThemeValue(previewMode, "borderColor", value)
-                  }
-                  fallback={paletteFallback.borderColor}
-                />
-              </div>
+          <SettingsCard
+            title={`Full ${previewMode} theme tokens`}
+            description="Fine-tune the complete palette once the selected preview part already looks right."
+          >
+            <div className="grid gap-4">
+              <ColorField
+                label="Accent"
+                value={draft.theme?.[previewMode]?.accentColor || ""}
+                onTextChange={updateTheme(previewMode, "accentColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "accentColor", value)
+                }
+                fallback={paletteFallback.accentColor}
+              />
+              <ColorField
+                label="Accent text"
+                value={draft.theme?.[previewMode]?.accentTextColor || ""}
+                onTextChange={updateTheme(previewMode, "accentTextColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "accentTextColor", value)
+                }
+                fallback={paletteFallback.accentTextColor}
+              />
+              <ColorField
+                label="Background"
+                value={draft.theme?.[previewMode]?.backgroundColor || ""}
+                onTextChange={updateTheme(previewMode, "backgroundColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "backgroundColor", value)
+                }
+                fallback={paletteFallback.backgroundColor}
+              />
+              <ColorField
+                label="Surface"
+                value={draft.theme?.[previewMode]?.surfaceColor || ""}
+                onTextChange={updateTheme(previewMode, "surfaceColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "surfaceColor", value)
+                }
+                fallback={paletteFallback.surfaceColor}
+              />
+              <ColorField
+                label="Text"
+                value={draft.theme?.[previewMode]?.textColor || ""}
+                onTextChange={updateTheme(previewMode, "textColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "textColor", value)
+                }
+                fallback={paletteFallback.textColor}
+              />
+              <ColorField
+                label="Border"
+                value={draft.theme?.[previewMode]?.borderColor || ""}
+                onTextChange={updateTheme(previewMode, "borderColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "borderColor", value)
+                }
+                fallback={paletteFallback.borderColor}
+              />
             </div>
-          </div>
+          </SettingsCard>
         </div>
-      </SettingsCard>
+      </div>
     </div>
   );
 };

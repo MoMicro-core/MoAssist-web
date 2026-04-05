@@ -134,6 +134,15 @@ export const api = {
     remove: (chatbotId) =>
       apiRequest(`/v1/chatbots/${chatbotId}`, { method: "DELETE" }),
     install: (chatbotId) => apiRequest(`/v1/chatbots/${chatbotId}/install`),
+    preview: (chatbotId, settings, mode = "light", selectedPart = "launcher") =>
+      apiRequest(`/v1/chatbots/${chatbotId}/preview/widget`, {
+        method: "POST",
+        body: {
+          settings,
+          mode,
+          selectedPart,
+        },
+      }),
     analytics: (chatbotId) => apiRequest(`/v1/chatbots/${chatbotId}/analytics`),
     files: async (chatbotId) =>
       unwrapCollection(await apiRequest(`/v1/chatbots/${chatbotId}/files`), [

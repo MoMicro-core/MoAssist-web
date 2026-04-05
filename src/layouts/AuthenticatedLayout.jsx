@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import {
   Bars3BottomLeftIcon,
+  Cog6ToothIcon,
   CreditCardIcon,
   InboxStackIcon,
   ChatBubbleLeftRightIcon,
@@ -28,11 +29,9 @@ import {
 } from "../ui/navbar";
 import { Avatar } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { Select } from "../ui/select";
 import { useAuth } from "../context/AuthContext";
 import { useI18n } from "../context/I18nContext";
 import { Loading } from "../components/Loading";
-import { ThemeToggle } from "../components/ThemeToggle";
 
 const SIDEBAR_PREF_KEY = "moassist-sidebar-hidden";
 const menuButtonClasses =
@@ -42,7 +41,7 @@ export const AuthenticatedLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t, language, setLanguage, languageOptions } = useI18n();
+  const { t } = useI18n();
   const [sidebarHidden, setSidebarHidden] = useState(() => {
     try {
       return localStorage.getItem(SIDEBAR_PREF_KEY) === "1";
@@ -64,6 +63,7 @@ export const AuthenticatedLayout = () => {
     { label: t("chatsMenu"), path: "/chats", icon: InboxStackIcon },
     { label: t("billings"), path: "/billings", icon: CreditCardIcon },
     { label: t("profile"), path: "/profile", icon: UserCircleIcon },
+    { label: t("settings"), path: "/settings", icon: Cog6ToothIcon },
     { label: t("support"), path: "/support", icon: LifebuoyIcon },
   ];
 
@@ -115,33 +115,14 @@ export const AuthenticatedLayout = () => {
               {user?.name || user?.email || "Account"}
             </SidebarLabel>
           </SidebarItem>
-          <div className="mt-4 space-y-3">
-            <Select
-              className="[&_select]:text-[1.45rem] [&_select]:leading-none [&_select]:sm:text-[1.7rem]"
-              value={language}
-              onChange={(event) => setLanguage(event.target.value)}
-            >
-              {languageOptions.map((option) => (
-                <option key={option.key} value={option.key}>
-                  {option.label}
-                </option>
-              ))}
-            </Select>
-            <div className="flex items-center justify-between rounded-xl border border-zinc-200/70 bg-white/70 px-3 py-2 dark:border-white/10 dark:bg-zinc-900/70">
-              <span className="text-xs font-medium text-zinc-600 dark:text-zinc-300">
-                {t("theme")}
-              </span>
-              <ThemeToggle />
-            </div>
-            <button
-              type="button"
-              onClick={() => setSidebarHidden(true)}
-              className={clsx(menuButtonClasses, "w-full")}
-            >
-              <Bars3BottomLeftIcon className="size-5" />
-              {t("hideMenu")}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setSidebarHidden(true)}
+            className={clsx(menuButtonClasses, "mt-4 w-full")}
+          >
+            <Bars3BottomLeftIcon className="size-5" />
+            {t("hideMenu")}
+          </button>
         </SidebarSection>
       </SidebarFooter>
     </Sidebar>
@@ -180,7 +161,6 @@ export const AuthenticatedLayout = () => {
             {user?.email}
           </NavbarLabel>
         </NavbarItem>
-        <ThemeToggle className="hidden sm:inline-flex" />
       </NavbarSection>
     </Navbar>
   );

@@ -23,6 +23,9 @@ const Login = lazy(() =>
 const Profile = lazy(() =>
   import("./pages/Profile").then((module) => ({ default: module.Profile })),
 );
+const Settings = lazy(() =>
+  import("./pages/Settings").then((module) => ({ default: module.Settings })),
+);
 const Support = lazy(() =>
   import("./pages/Support").then((module) => ({ default: module.Support })),
 );
@@ -140,6 +143,7 @@ export default function App() {
             <Route path="plugin" element={<ChatbotPlugin />} />
           </Route>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/support" element={<Support />} />
         </Route>
         <Route path="*" element={<NotFound />} />

@@ -42,6 +42,30 @@ const normalizeLanguageSelection = (defaultLanguage, languages = []) => {
   return [...new Set(next)];
 };
 
+const SimpleSwitchRow = ({
+  label,
+  description,
+  checked,
+  onChange,
+  disabled = false,
+  hint,
+}) => (
+  <div className="flex items-start justify-between gap-4 rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+    <div className="space-y-1">
+      <div className="text-sm font-semibold text-zinc-900 dark:text-white">
+        {label}
+      </div>
+      {description ? (
+        <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+          {description}
+        </Text>
+      ) : null}
+      {hint ? <PreviewHint>{hint}</PreviewHint> : null}
+    </div>
+    <Switch checked={checked} onChange={onChange} color="sky" disabled={disabled} />
+  </div>
+);
+
 export const ChatbotSettings = () => {
   const { chatbotId } = useParams();
   const { chatbot, loading, reload } = useChatbot();
@@ -273,15 +297,6 @@ export const ChatbotSettings = () => {
       ),
     [draft?.defaultLanguage, draft?.enabledLanguages, languageOptions],
   );
-  const translationCoverage = useMemo(
-    () =>
-      enabledLanguages.filter(
-        (language) =>
-          draft?.translations?.[language] &&
-          typeof draft.translations[language] === "object",
-      ).length,
-    [draft?.translations, enabledLanguages],
-  );
   const featureAccess = chatbot?.featureAccess || {
     authenticatedWidget: false,
     aiResponder: false,
@@ -289,11 +304,17 @@ export const ChatbotSettings = () => {
     customBranding: false,
   };
   const currentTier = chatbot?.currentTier || null;
+  const isPublished = (draft?.status || "draft") === "published";
+  const extraLanguages = enabledLanguages.filter(
+    (language) =>
+      language !==
+      (draft?.defaultLanguage || languageOptions.defaultLanguage || "english"),
+  );
   const sectionChips = [
+    { id: "settings-quick", label: "Quick controls" },
     { id: "settings-basics", label: t("basics") },
-    { id: "settings-conversation", label: t("conversationBehavior") },
-    { id: "settings-localization", label: "Localization" },
-    { id: "settings-domains", label: t("domains") },
+    { id: "settings-widget", label: "Website & chat" },
+    { id: "settings-localization", label: "Languages" },
     { id: "settings-leads", label: t("leadForm") },
     { id: "settings-ai", label: t("aiConfig") },
     { id: "settings-files", label: t("knowledgeFiles") },
@@ -309,8 +330,8 @@ export const ChatbotSettings = () => {
             {t("chatbotSettings")}
           </Heading>
           <Text className="text-sm text-zinc-500 dark:text-zinc-400">
-            Configure publishing, chat behavior, languages, AI, and knowledge.
-            Visual customization now lives in a separate tab.
+            Keep this page for the main chatbot behavior only. Design and visual
+            customization live in the separate appearance tab.
           </Text>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -338,33 +359,39 @@ export const ChatbotSettings = () => {
           </Button>
         }
       >
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge color="sky">
-              {t("planLabel")}: {currentTier?.name || chatbot?.premiumPlan || "Free"}
-            </Badge>
-            <Badge
-              color={featureAccess.authenticatedWidget ? "emerald" : "zinc"}
-            >
-              {t("authEnabledLabel")}
-            </Badge>
-            <Badge color={featureAccess.aiResponder ? "emerald" : "zinc"}>
-              {t("aiConfig")}
-            </Badge>
-            <Badge color={featureAccess.knowledgeFiles ? "emerald" : "zinc"}>
-              {t("knowledgeFiles")}
-            </Badge>
-            <Badge color={canCustomizeBranding ? "emerald" : "zinc"}>
-              {t("customBranding")}
-            </Badge>
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+              {t("planLabel")}
+            </div>
+            <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
+              {currentTier?.name || chatbot?.premiumPlan || "Free"}
+            </div>
           </div>
-          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
-            {featureAccess.aiResponder &&
-            featureAccess.authenticatedWidget &&
-            featureAccess.knowledgeFiles
-              ? t("billingAccessFullHint")
-              : t("billingAccessUpgradeHint")}
-          </Text>
+          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+              Signed-in support
+            </div>
+            <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
+              {featureAccess.authenticatedWidget ? "Included" : "Upgrade required"}
+            </div>
+          </div>
+          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+              AI replies
+            </div>
+            <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
+              {featureAccess.aiResponder ? "Included" : "Upgrade required"}
+            </div>
+          </div>
+          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
+              Knowledge files
+            </div>
+            <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
+              {featureAccess.knowledgeFiles ? "Included" : "Upgrade required"}
+            </div>
+          </div>
         </div>
       </SettingsCard>
 
@@ -382,9 +409,51 @@ export const ChatbotSettings = () => {
       </div>
 
       <SettingsCard
+        id="settings-quick"
+        title="Quick controls"
+        description="Use simple switches for the main chatbot behavior."
+      >
+        <div className="space-y-3">
+          <SimpleSwitchRow
+            label={t("statusPublished")}
+            description="Turn the chatbot live on your allowed domains when you are ready."
+            checked={isPublished}
+            onChange={(value) =>
+              setDraft((prev) => ({
+                ...prev,
+                status: value ? "published" : "draft",
+              }))
+            }
+          />
+          <SimpleSwitchRow
+            label={t("authEnabledLabel")}
+            description="Connect conversations to signed-in website customers."
+            checked={Boolean(draft.auth)}
+            onChange={updateBoolean("auth")}
+            disabled={!featureAccess.authenticatedWidget}
+            hint={
+              featureAccess.authenticatedWidget
+                ? t("authClientHelp")
+                : t("authUpgradeHint")
+            }
+          />
+          <SimpleSwitchRow
+            label={t("enableAiLabel")}
+            description="Let AI answer routine questions from your uploaded business knowledge."
+            checked={Boolean(draft.ai?.enabled)}
+            onChange={updateAiBoolean("enabled")}
+            disabled={!featureAccess.aiResponder}
+            hint={
+              featureAccess.aiResponder ? t("aiPlanHint") : t("aiUpgradeHint")
+            }
+          />
+        </div>
+      </SettingsCard>
+
+      <SettingsCard
         id="settings-basics"
         title={t("basics")}
-        description="Set the public chatbot title, the visible assistant name, and the copy visitors see when the conversation opens."
+        description="Set the name and the basic text customers see when the chat opens."
       >
         <FieldGroup>
           <Field>
@@ -394,13 +463,6 @@ export const ChatbotSettings = () => {
           <Field>
             <Label>{t("botNameLabel")}</Label>
             <Input value={draft.botName || ""} onChange={update("botName")} />
-          </Field>
-          <Field>
-            <Label>{t("statusLabel")}</Label>
-            <Select value={draft.status || "draft"} onChange={update("status")}>
-              <option value="draft">{t("statusDraft")}</option>
-              <option value="published">{t("statusPublished")}</option>
-            </Select>
           </Field>
           <Field>
             <Label>{t("initialMessageLabel")}</Label>
@@ -421,25 +483,11 @@ export const ChatbotSettings = () => {
       </SettingsCard>
 
       <SettingsCard
-        id="settings-conversation"
-        title={t("conversationBehavior")}
-        description="Control how long conversations stay active, and whether the chatbot should recognize signed-in website customers."
+        id="settings-widget"
+        title="Website & chat flow"
+        description="Choose where the widget can run and what customers see first when the conversation starts."
       >
         <FieldGroup>
-          <Field>
-            <Label>{t("authEnabledLabel")}</Label>
-            <Switch
-              checked={Boolean(draft.auth)}
-              onChange={updateBoolean("auth")}
-              color="sky"
-              disabled={!featureAccess.authenticatedWidget}
-            />
-            <PreviewHint>
-              {featureAccess.authenticatedWidget
-                ? t("authClientHelp")
-                : t("authUpgradeHint")}
-            </PreviewHint>
-          </Field>
           <Field>
             <Label>{t("inactivityHoursLabel")}</Label>
             <Input
@@ -450,8 +498,36 @@ export const ChatbotSettings = () => {
               onChange={updateNumber("inactivityHours", 3)}
             />
             <PreviewHint>
-              Use 1 to 24 hours. Standard chats close after this timeout,
+              Use 1 to 24 hours. After this timeout, regular chats close and
               authenticated chats move to pending.
+            </PreviewHint>
+          </Field>
+          <Field>
+            <Label>{t("allowedDomainsLabel")}</Label>
+            <Textarea
+              value={domainText}
+              onChange={updateDomains}
+              rows={4}
+              placeholder={"app.example.com\nwww.example.com"}
+            />
+            <PreviewHint>
+              Add one domain per line. The chatbot will load only on these
+              websites.
+            </PreviewHint>
+          </Field>
+          <Field>
+            <Label>{t("suggestedMessagesLabel")}</Label>
+            <Textarea
+              value={suggestedText}
+              onChange={updateSuggested}
+              rows={4}
+              placeholder={
+                "What are your prices?\nHow can I contact support?"
+              }
+            />
+            <PreviewHint>
+              These are the starter questions shown to customers before they
+              type their own message.
             </PreviewHint>
           </Field>
         </FieldGroup>
@@ -459,8 +535,8 @@ export const ChatbotSettings = () => {
 
       <SettingsCard
         id="settings-localization"
-        title="Localization"
-        description="Choose the main chatbot language and only the extra languages you want to generate and publish."
+        title="Languages"
+        description="Choose one main language and only the extra languages you want to publish."
       >
         <FieldGroup>
           <Field>
@@ -473,93 +549,58 @@ export const ChatbotSettings = () => {
                 <option key={language} value={language}>
                   {language}
                 </option>
-                ))}
+              ))}
             </Select>
           </Field>
           <Field>
             <Label>{t("enabledLanguagesLabel")}</Label>
-            <div className="flex flex-wrap gap-2">
+            <div className="space-y-3">
               {availableLanguages.map((language) => {
                 const selected = enabledLanguages.includes(language);
                 const isDefault =
                   language ===
                   (draft.defaultLanguage || languageOptions.defaultLanguage);
                 return (
-                  <button
+                  <div
                     key={language}
-                    type="button"
-                    onClick={() => toggleEnabledLanguage(language)}
-                    className={`chip-control ${
-                      selected ? "chip-control-active" : ""
-                    }`}
-                    disabled={isDefault}
-                    title={
-                      isDefault ? t("defaultLanguagePinnedHelp") : undefined
-                    }
+                    className="flex items-start justify-between gap-4 rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50"
                   >
-                    {language}
-                    {isDefault ? ` • ${t("defaultLanguageShort")}` : ""}
-                  </button>
+                    <div className="space-y-1">
+                      <div className="text-sm font-semibold text-zinc-900 dark:text-white">
+                        {language}
+                        {isDefault ? ` • ${t("defaultLanguageShort")}` : ""}
+                      </div>
+                      <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+                        {isDefault
+                          ? "This language stays on because it is the main language."
+                          : "Turn this on if you want the chatbot available in this language."}
+                      </Text>
+                    </div>
+                    <Switch
+                      checked={selected}
+                      onChange={() => toggleEnabledLanguage(language)}
+                      color="sky"
+                      disabled={isDefault}
+                    />
+                  </div>
                 );
               })}
             </div>
             <PreviewHint>{t("enabledLanguagesHelp")}</PreviewHint>
           </Field>
         </FieldGroup>
-
-        <div className="flex flex-wrap gap-2">
-          <Badge color="sky">
-            Translation packs: {translationCoverage}/{enabledLanguages.length}
-          </Badge>
-          <Badge color="zinc">
-            Source hash: {draft.translationSourceHash || "not generated yet"}
-          </Badge>
+        <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+            Extra languages selected:{" "}
+            {extraLanguages.length ? extraLanguages.join(", ") : "none"}
+          </Text>
         </div>
-
-        <details className="rounded-2xl border border-zinc-100 bg-zinc-50 p-4 dark:border-white/5 dark:bg-zinc-950/60">
-          <summary className="cursor-pointer text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-            Server translation payload
-          </summary>
-          <pre className="mt-3 max-h-72 overflow-auto rounded-xl border border-zinc-200 bg-white p-3 text-xs text-zinc-700 dark:border-white/10 dark:bg-zinc-900 dark:text-zinc-200">
-            {JSON.stringify(
-              {
-                defaultLanguage: draft.defaultLanguage,
-                enabledLanguages,
-                translations: draft.translations || {},
-                translationSourceHash: draft.translationSourceHash || "",
-              },
-              null,
-              2,
-            )}
-          </pre>
-        </details>
-      </SettingsCard>
-
-      <SettingsCard
-        id="settings-domains"
-        title={t("domains")}
-        description="Decide where the widget is allowed to load and which suggested prompts visitors should see first."
-      >
-        <FieldGroup>
-          <Field>
-            <Label>{t("allowedDomainsLabel")}</Label>
-            <Textarea value={domainText} onChange={updateDomains} rows={3} />
-          </Field>
-          <Field>
-            <Label>{t("suggestedMessagesLabel")}</Label>
-            <Textarea
-              value={suggestedText}
-              onChange={updateSuggested}
-              rows={3}
-            />
-          </Field>
-        </FieldGroup>
       </SettingsCard>
 
       <SettingsCard
         id="settings-leads"
         title={t("leadForm")}
-        description="Collect the contact details and business fields you need before the team follows up."
+        description="Choose the customer details you want to collect before your team follows up."
       >
         <FieldGroup>
           <Field>
@@ -570,49 +611,47 @@ export const ChatbotSettings = () => {
             />
           </Field>
         </FieldGroup>
-        <div className="overflow-hidden rounded-xl border border-zinc-100 dark:border-white/5">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableHeader>{t("keyLabel")}</TableHeader>
-                <TableHeader>{t("labelLabel")}</TableHeader>
-                <TableHeader>{t("typeLabel")}</TableHeader>
-                <TableHeader>{t("requiredLabel")}</TableHeader>
-                <TableHeader></TableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {(draft.leadsForm || []).map((field, index) => (
-                <TableRow key={`${field.key}-${index}`}>
-                  <TableCell>
-                    <Input
-                      value={field.key}
-                      onChange={(event) =>
-                        updateLeadsField(index, "key", event.target.value)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Input
-                      value={field.label}
-                      onChange={(event) =>
-                        updateLeadsField(index, "label", event.target.value)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Select
-                      value={field.type}
-                      onChange={(event) =>
-                        updateLeadsField(index, "type", event.target.value)
-                      }
-                    >
-                      <option value="text">Text</option>
-                      <option value="email">Email</option>
-                      <option value="phone">Phone</option>
-                    </Select>
-                  </TableCell>
-                  <TableCell>
+        <div className="space-y-3">
+          {(draft.leadsForm || []).map((field, index) => (
+            <div
+              key={`${field.key}-${index}`}
+              className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50"
+            >
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field>
+                  <Label>{t("keyLabel")}</Label>
+                  <Input
+                    value={field.key}
+                    onChange={(event) =>
+                      updateLeadsField(index, "key", event.target.value)
+                    }
+                  />
+                </Field>
+                <Field>
+                  <Label>{t("labelLabel")}</Label>
+                  <Input
+                    value={field.label}
+                    onChange={(event) =>
+                      updateLeadsField(index, "label", event.target.value)
+                    }
+                  />
+                </Field>
+                <Field>
+                  <Label>{t("typeLabel")}</Label>
+                  <Select
+                    value={field.type}
+                    onChange={(event) =>
+                      updateLeadsField(index, "type", event.target.value)
+                    }
+                  >
+                    <option value="text">Text</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                  </Select>
+                </Field>
+                <Field>
+                  <Label>{t("requiredLabel")}</Label>
+                  <div className="pt-2">
                     <Switch
                       checked={Boolean(field.required)}
                       onChange={(value) =>
@@ -620,16 +659,21 @@ export const ChatbotSettings = () => {
                       }
                       color="sky"
                     />
-                  </TableCell>
-                  <TableCell>
-                    <Button outline onClick={() => removeLeadField(index)}>
-                      {t("remove")}
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                  </div>
+                </Field>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <Button outline onClick={() => removeLeadField(index)}>
+                  {t("remove")}
+                </Button>
+              </div>
+            </div>
+          ))}
+          {!(draft.leadsForm || []).length ? (
+            <div className="rounded-2xl border border-dashed border-zinc-300 p-4 text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400">
+              No lead fields yet. Add the first field you want to collect.
+            </div>
+          ) : null}
         </div>
         <Button outline onClick={addLeadField}>
           {t("addField")}
@@ -639,50 +683,53 @@ export const ChatbotSettings = () => {
       <SettingsCard
         id="settings-ai"
         title={t("aiConfig")}
-        description="Choose when AI replies are available, the response style, and the operating guidelines behind each answer."
+        description="Choose whether AI should reply, how long replies should be, and which guidelines it should follow."
       >
-        <FieldGroup>
-          <Field>
-            <Label>{t("enableAiLabel")}</Label>
-            <Switch
-              checked={Boolean(draft.ai?.enabled)}
-              onChange={updateAiBoolean("enabled")}
-              color="sky"
-              disabled={!featureAccess.aiResponder}
-            />
-            <PreviewHint>
-              {featureAccess.aiResponder
-                ? t("aiPlanHint")
-                : t("aiUpgradeHint")}
-            </PreviewHint>
-          </Field>
-          <Field>
-            <Label>{t("templateLabel")}</Label>
-            <Input
-              value={draft.ai?.template || ""}
-              onChange={updateAi("template")}
-            />
-          </Field>
-          <Field>
-            <Label>{t("responseLengthLabel")}</Label>
-            <Select
-              value={draft.ai?.responseLength || "medium"}
-              onChange={updateAi("responseLength")}
-            >
-              <option value="short">Short</option>
-              <option value="medium">Medium</option>
-              <option value="long">Long</option>
-            </Select>
-          </Field>
-          <Field>
-            <Label>{t("guidelinesLabel")}</Label>
-            <Textarea
-              value={draft.ai?.guidelines || ""}
-              onChange={updateAi("guidelines")}
-              rows={4}
-            />
-          </Field>
-        </FieldGroup>
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
+            <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+              AI replies are currently{" "}
+              <span className="font-semibold text-zinc-900 dark:text-white">
+                {draft.ai?.enabled ? "enabled" : "disabled"}
+              </span>
+              . Use Quick controls above to switch them on or off.
+            </Text>
+          </div>
+          <FieldGroup>
+            <Field>
+              <Label>{t("responseLengthLabel")}</Label>
+              <Select
+                value={draft.ai?.responseLength || "medium"}
+                onChange={updateAi("responseLength")}
+                disabled={!featureAccess.aiResponder || !draft.ai?.enabled}
+              >
+                <option value="short">Short</option>
+                <option value="medium">Medium</option>
+                <option value="long">Long</option>
+              </Select>
+            </Field>
+            <Field>
+              <Label>{t("guidelinesLabel")}</Label>
+              <Textarea
+                value={draft.ai?.guidelines || ""}
+                onChange={updateAi("guidelines")}
+                rows={4}
+                disabled={!featureAccess.aiResponder || !draft.ai?.enabled}
+              />
+            </Field>
+            <Field>
+              <Label>{t("templateLabel")}</Label>
+              <Input
+                value={draft.ai?.template || ""}
+                onChange={updateAi("template")}
+                disabled={!featureAccess.aiResponder || !draft.ai?.enabled}
+              />
+              <PreviewHint>
+                Keep this empty unless you need a custom AI template.
+              </PreviewHint>
+            </Field>
+          </FieldGroup>
+        </div>
       </SettingsCard>
 
       <SettingsCard

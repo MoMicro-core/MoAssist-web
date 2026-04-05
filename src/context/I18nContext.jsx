@@ -20,6 +20,13 @@ const dictionary = {
     dashboard: "Dashboard",
     chatbots: "Chatbots",
     profile: "Profile",
+    settings: "Settings",
+    settingsPageBody: "Manage your dashboard language and theme in one place.",
+    settingsLanguageBody:
+      "Choose the language used across your dashboard and public pages.",
+    settingsThemeBody:
+      "Pick the dashboard look you prefer. The change applies immediately.",
+    currentThemeLabel: "Current theme",
     support: "Support",
     chatsMenu: "Chats",
     activeChats: "Active chats",
@@ -260,6 +267,13 @@ const dictionary = {
     dashboard: "Übersicht",
     chatbots: "Chatbots",
     profile: "Profil",
+    settings: "Einstellungen",
+    settingsPageBody: "Verwalte Dashboard-Sprache und Design an einem Ort.",
+    settingsLanguageBody:
+      "Waehle die Sprache fuer dein Dashboard und deine oeffentlichen Seiten.",
+    settingsThemeBody:
+      "Waehle das Design fuer dein Dashboard. Die Aenderung gilt sofort.",
+    currentThemeLabel: "Aktuelles Design",
     support: "Support",
     chatsMenu: "Chats",
     activeChats: "Aktive Chats",
@@ -475,6 +489,14 @@ const dictionary = {
     dashboard: "Panel",
     chatbots: "Chatbots",
     profile: "Perfil",
+    settings: "Configuracion",
+    settingsPageBody:
+      "Gestiona el idioma y el tema del panel en un solo lugar.",
+    settingsLanguageBody:
+      "Elige el idioma usado en tu panel y en tus paginas publicas.",
+    settingsThemeBody:
+      "Elige la apariencia del panel. El cambio se aplica al instante.",
+    currentThemeLabel: "Tema actual",
     support: "Soporte",
     chatsMenu: "Chats",
     activeChats: "Chats activos",
@@ -689,6 +711,7 @@ const dictionary = {
 dictionary.fr = {
   appName: "MoAssist",
   dashboard: "Tableau de bord",
+  settings: "Parametres",
   signOut: "Se deconnecter",
   signIn: "Se connecter",
   tryNow: "Essayer",
@@ -703,6 +726,7 @@ dictionary.fr = {
 dictionary.it = {
   appName: "MoAssist",
   dashboard: "Dashboard",
+  settings: "Impostazioni",
   signOut: "Esci",
   signIn: "Accedi",
   tryNow: "Prova ora",
@@ -717,6 +741,7 @@ dictionary.it = {
 dictionary.ru = {
   appName: "MoAssist",
   dashboard: "Панель",
+  settings: "Настройки",
   signOut: "Выйти",
   signIn: "Войти",
   tryNow: "Попробовать",
@@ -731,6 +756,7 @@ dictionary.ru = {
 dictionary.ua = {
   appName: "MoAssist",
   dashboard: "Панель",
+  settings: "Налаштування",
   signOut: "Вийти",
   signIn: "Увійти",
   tryNow: "Спробувати",
