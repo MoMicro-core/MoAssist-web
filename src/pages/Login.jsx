@@ -52,7 +52,7 @@ const SocialButton = ({ icon, label, dark = false, ...props }) => (
 );
 
 export const Login = () => {
-  const { user, signIn, register, signInWithGoogle, signInWithApple } =
+  const { user, authReady, signIn, register, signInWithGoogle, signInWithApple } =
     useAuth();
   const navigate = useNavigate();
   const { t } = useI18n();
@@ -98,6 +98,8 @@ export const Login = () => {
   };
 
   const loading = Boolean(loadingAction);
+  const authLoading = !authReady;
+  const disabled = loading || authLoading;
 
   return (
     <div className="min-h-screen">
@@ -118,13 +120,13 @@ export const Login = () => {
               icon={<GoogleIcon />}
               label={t("continueWithGoogle")}
               onClick={() => handleSocial("google")}
-              disabled={loading}
+              disabled={disabled}
             />
             <SocialButton
               icon={<AppleIcon />}
               label={t("continueWithApple")}
               onClick={() => handleSocial("apple")}
-              disabled={loading}
+              disabled={disabled}
               dark
             />
           </div>
@@ -142,7 +144,12 @@ export const Login = () => {
               {mode === "register" ? (
                 <Field>
                   <Label>{t("fullNameLabel")}</Label>
-                  <Input value={form.name} onChange={update("name")} required />
+                  <Input
+                    value={form.name}
+                    onChange={update("name")}
+                    disabled={disabled}
+                    required
+                  />
                 </Field>
               ) : null}
               <Field>
@@ -151,6 +158,7 @@ export const Login = () => {
                   type="email"
                   value={form.email}
                   onChange={update("email")}
+                  disabled={disabled}
                   required
                 />
               </Field>
@@ -160,6 +168,7 @@ export const Login = () => {
                   type="password"
                   value={form.password}
                   onChange={update("password")}
+                  disabled={disabled}
                   required
                 />
               </Field>
@@ -174,10 +183,12 @@ export const Login = () => {
             <Button
               color="sky"
               type="submit"
-              disabled={loading}
+              disabled={disabled}
               className="w-full"
             >
-              {loadingAction === "signin" || loadingAction === "register"
+              {authLoading
+                ? t("pleaseWait")
+                : loadingAction === "signin" || loadingAction === "register"
                 ? t("pleaseWait")
                 : mode === "signin"
                   ? t("signIn")
@@ -186,7 +197,7 @@ export const Login = () => {
 
             <button
               type="button"
-              disabled={loading}
+              disabled={disabled}
               onClick={() =>
                 setMode((prev) => (prev === "signin" ? "register" : "signin"))
               }

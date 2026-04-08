@@ -58,9 +58,12 @@
     />
     <meta name="twitter:image" content="/preview/logo.svg" />
     <meta name="theme-color" content="#099ad9" />
-    <link rel="icon" type="image/svg+xml" href="/preview/logo.svg" />
-    <link rel="shortcut icon" href="/preview/logo.svg" />
-    <link rel="apple-touch-icon" href="/preview/logo.svg" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MoAssist" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -85,20 +88,6 @@
           "uk-UA"
         ]
       }
-    </script>
-    <script>
-      window.__MOMICRO_BASE__ = "%VITE_API_URL%";
-    </script>
-    <script type="module">
-      const raw = window.__MOMICRO_BASE__ || "";
-      const base = raw && !raw.startsWith("%") ? raw.replace(/\/$/, "") : "";
-      const src = base
-        ? `${base}/v1/public/runtime-config.js`
-        : "/v1/public/runtime-config.js";
-      const script = document.createElement("script");
-      script.src = src;
-      script.defer = true;
-      document.head.appendChild(script);
     </script>
   </head>
   <body class="min-h-screen">

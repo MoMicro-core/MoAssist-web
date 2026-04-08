@@ -17,21 +17,31 @@ import {
 } from "firebase/auth";
 import { api } from "../lib/api";
 import { initFirebase } from "../lib/firebase";
-import { getRuntime } from "../lib/runtime";
+import { loadFirebaseConfig } from "../lib/runtime";
 import { getSessionToken, setSessionToken } from "../lib/session";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [authClient, setAuthClient] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
   const [sessionToken, setSessionTokenState] = useState(getSessionToken());
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const runtime = getRuntime();
-    const auth = initFirebase(runtime.firebase);
-    setAuthClient(auth);
+    let cancelled = false;
+    loadFirebaseConfig()
+      .then((runtime) => {
+        if (cancelled) return;
+        setAuthClient(initFirebase(runtime.firebase));
+      })
+      .finally(() => {
+        if (!cancelled) setAuthReady(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const refreshSession = useCallback(async () => {
@@ -59,10 +69,10 @@ export const AuthProvider = ({ children }) => {
   }, [refreshSession]);
 
   const getFirebaseAuth = useCallback(() => {
-    const auth = authClient || initFirebase(getRuntime().firebase);
-    if (!auth) throw new Error("Auth is not configured");
-    return auth;
-  }, [authClient]);
+    if (!authReady) throw new Error("Auth is still loading");
+    if (!authClient) throw new Error("Auth is not configured");
+    return authClient;
+  }, [authClient, authReady]);
 
   const exchangeFirebaseSession = useCallback(async (firebaseUser) => {
     const idToken = await firebaseUser.getIdToken(true);
@@ -137,6 +147,7 @@ export const AuthProvider = ({ children }) => {
       user,
       sessionToken,
       ready,
+      authReady,
       signIn,
       register,
       signInWithGoogle,
@@ -148,6 +159,7 @@ export const AuthProvider = ({ children }) => {
       user,
       sessionToken,
       ready,
+      authReady,
       signIn,
       register,
       signInWithGoogle,
