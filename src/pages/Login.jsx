@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Button } from "../ui/button";
 import { Field, FieldGroup, Label } from "../ui/fieldset";
@@ -8,6 +8,7 @@ import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
 import { useI18n } from "../context/I18nContext";
 import { PublicHeader } from "../components/PublicHeader";
+import { readEnumParam, updateSearchParams } from "../lib/urlState";
 
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
@@ -55,8 +56,11 @@ export const Login = () => {
   const { user, authReady, signIn, register, signInWithGoogle, signInWithApple } =
     useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useI18n();
-  const [mode, setMode] = useState("signin");
+  const [mode, setMode] = useState(() =>
+    readEnumParam(searchParams, "mode", ["signin", "register"], "signin"),
+  );
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [loadingAction, setLoadingAction] = useState("");
   const [error, setError] = useState("");
@@ -64,6 +68,27 @@ export const Login = () => {
   useEffect(() => {
     if (user) navigate("/chatbots");
   }, [user, navigate]);
+
+  useEffect(() => {
+    const nextMode = readEnumParam(
+      searchParams,
+      "mode",
+      ["signin", "register"],
+      "signin",
+    );
+    setMode((prev) => (prev === nextMode ? prev : nextMode));
+  }, [searchParams]);
+
+  useEffect(() => {
+    const next = updateSearchParams(
+      searchParams,
+      { mode },
+      { mode: "signin" },
+    );
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
+  }, [mode, searchParams, setSearchParams]);
 
   const update = (key) => (event) => {
     setForm((prev) => ({ ...prev, [key]: event.target.value }));

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { api } from "../lib/api";
 import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
@@ -7,6 +7,11 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Loading } from "../components/Loading";
 import { useI18n } from "../context/I18nContext";
+import {
+  readEnumParam,
+  readTextParam,
+  updateSearchParams,
+} from "../lib/urlState";
 
 const formatTime = (value) => {
   if (!value) return "";
@@ -23,15 +28,43 @@ const getStatusMeta = (status, t) => {
   return { color: "sky", label: t("activeLabel") };
 };
 
+const statusOptions = ["all", "active", "pending", "closed"];
+
 export const Chats = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useI18n();
   const [conversations, setConversations] = useState([]);
   const [chatbots, setChatbots] = useState([]);
-  const [status, setStatus] = useState("active");
-  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState(() =>
+    readEnumParam(searchParams, "status", statusOptions, "active"),
+  );
+  const [search, setSearch] = useState(() => readTextParam(searchParams, "q"));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const nextStatus = readEnumParam(
+      searchParams,
+      "status",
+      statusOptions,
+      "active",
+    );
+    const nextSearch = readTextParam(searchParams, "q");
+    setStatus((prev) => (prev === nextStatus ? prev : nextStatus));
+    setSearch((prev) => (prev === nextSearch ? prev : nextSearch));
+  }, [searchParams]);
+
+  useEffect(() => {
+    const next = updateSearchParams(
+      searchParams,
+      { status, q: search.trim() },
+      { status: "active", q: "" },
+    );
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
+  }, [search, searchParams, setSearchParams, status]);
 
   useEffect(() => {
     let active = true;

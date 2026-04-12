@@ -111,6 +111,15 @@ export default function App() {
             <Route path={`/${locale}/pricing`} element={<Pricing />} />
             <Route path={`/${locale}/contacts`} element={<Contacts />} />
             <Route
+              path={`/${locale}/privacy-policy`}
+              element={<PrivacyPolicy />}
+            />
+            <Route path={`/${locale}/imprint`} element={<Imprint />} />
+            <Route
+              path={`/${locale}/terms-and-conditions`}
+              element={<TermsConditions />}
+            />
+            <Route
               path={`/${locale}/contants`}
               element={<Navigate to={`/${locale}/contacts`} replace />}
             />

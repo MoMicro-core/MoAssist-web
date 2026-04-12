@@ -101,13 +101,13 @@ export const Pricing = () => {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: content.breadcrumbHome,
         item: siteUrl ? buildLocaleUrl(siteUrl, "/", localeConfig.key) : undefined,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Pricing",
+        name: content.breadcrumbCurrent,
         item: siteUrl
           ? buildLocaleUrl(siteUrl, "/pricing", localeConfig.key)
           : undefined,
@@ -199,24 +199,20 @@ export const Pricing = () => {
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button color="teal" href="/login">
-                  Start 7-day free trial
+                  {content.hero.primaryLabel}
                 </Button>
                 <Button outline href="/chatbots">
-                  Open dashboard
+                  {content.hero.secondaryLabel}
                 </Button>
               </div>
             </div>
 
             <div className="brand-panel rounded-[2rem] p-6">
               <div className="text-xs font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-                Why this page exists
+                {content.sideNoteTitle}
               </div>
               <p className="mt-4 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                This pricing page is here to make the difference obvious: the Free
-                tier covers basic website chat, the $20 Connected tier adds
-                signed-in customer workflows, and the $50 Full AI tier is the
-                main, most used plan for businesses that want AI to automate
-                routine customer answers at scale.
+                {content.sideNoteBody}
               </p>
             </div>
           </div>
@@ -288,7 +284,7 @@ export const Pricing = () => {
                 <thead>
                   <tr className="border-b border-zinc-200/70 dark:border-white/10">
                     <th className="px-5 py-4 text-left text-sm font-semibold text-zinc-900 dark:text-white">
-                      Capability
+                      {content.comparison.tableLabel}
                     </th>
                     {content.tiers.map((tier) => (
                       <th
@@ -329,7 +325,7 @@ export const Pricing = () => {
           <SectionHeading
             eyebrow={content.faq.eyebrow}
             title={content.faq.title}
-            body="These answers are written for buyers who want a direct summary before they start the free plan or a 7-day trial."
+            body={content.faq.body}
           />
 
           <div className="grid gap-5 md:grid-cols-2">
@@ -352,7 +348,7 @@ export const Pricing = () => {
         <section className="brand-stage rounded-[2.4rem] p-7 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr,0.72fr] lg:items-end">
             <div className="space-y-4">
-              <TonePill>Next Step</TonePill>
+              <TonePill>{content.cta.eyebrow}</TonePill>
               <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
                 {content.cta.title}
               </h2>
@@ -373,7 +369,7 @@ export const Pricing = () => {
       </main>
 
       <PublicFooter
-        tagline="Pricing for MoAssist, the chatbot product built by MoMicro."
+        tagline={content.footerTagline}
         companyNote={COMPANY_INFO.companyNote}
       />
     </div>

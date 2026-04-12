@@ -147,7 +147,15 @@ export const buildLocaleUrl = (
   key = DEFAULT_LOCALE_KEY,
 ) => new URL(buildLocalizedPath(pathname, key), origin).toString();
 
-export const PUBLIC_MARKETING_PATHS = ["/", "/pricing", "/momicro", "/contacts"];
+export const PUBLIC_MARKETING_PATHS = [
+  "/",
+  "/pricing",
+  "/momicro",
+  "/contacts",
+  "/privacy-policy",
+  "/imprint",
+  "/terms-and-conditions",
+];
 
 export const isPublicLandingPath = (pathname = "/") =>
   PUBLIC_MARKETING_PATHS.includes(stripLocalePrefix(pathname) || "/");

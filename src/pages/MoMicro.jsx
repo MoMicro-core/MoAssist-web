@@ -127,7 +127,7 @@ export const MoMicro = () => {
         <section className="brand-stage rounded-[2.4rem] p-7 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr,0.72fr] lg:items-end">
             <div className="space-y-4">
-              <TonePill>Explore</TonePill>
+              <TonePill>{content.exploreLabel}</TonePill>
               <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
                 {content.cta.title}
               </h2>
@@ -148,7 +148,7 @@ export const MoMicro = () => {
       </main>
 
       <PublicFooter
-        tagline="MoAssist is one of the products built by MoMicro."
+        tagline={content.footerTagline}
         companyNote={COMPANY_INFO.companyNote}
       />
     </div>

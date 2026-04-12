@@ -21,16 +21,209 @@ import {
 } from "../components/chatbot-settings/shared";
 
 const widgetLocationOptions = [
-  { value: "right", label: "Bottom right" },
-  { value: "left", label: "Bottom left" },
-  { value: "top-left", label: "Top left" },
-  { value: "top-right", label: "Top right" },
+  { value: "right" },
+  { value: "left" },
+  { value: "top-left" },
+  { value: "top-right" },
 ];
 
 export const ChatbotAppearance = () => {
   const { chatbotId } = useParams();
   const { chatbot, loading, reload } = useChatbot();
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+  const copy =
+    {
+      de: {
+        uiTitle: "UI-Anpassung",
+        uiBody:
+          "Bearbeiten Sie das exakte Widget, das Ihre Besucher sehen, nicht nur ein Mockup. Die mittlere Vorschau wird vom Backend-Widget gerendert und aktualisiert sich aus Ihrem lokalen Entwurf, bevor Sie speichern.",
+        bottomRight: "Unten rechts",
+        bottomLeft: "Unten links",
+        topLeft: "Oben links",
+        topRight: "Oben rechts",
+        headerBg: "Header-Hintergrund",
+        headerText: "Header-Text",
+        bubbleSurface: "Blasenfläche",
+        bubbleText: "Blasentext",
+        bubbleBorder: "Blasenrand",
+        accent: "Akzent",
+        accentText: "Akzenttext",
+        chipSurface: "Chip-Fläche",
+        chipBorder: "Chip-Rand",
+        composerBorder: "Composer-Rand",
+        sendAccent: "Sende-Akzent",
+        sendText: "Sende-Text",
+        launcherAccent: "Launcher-Akzent",
+        canvasBg: "Canvas-Hintergrund",
+        panelSurface: "Panel-Fläche",
+        border: "Rand",
+        previewControls: "Vorschau-Steuerung",
+        previewControlsBody:
+          "Wechseln Sie zuerst den Darstellungsmodus und platzieren Sie den Launcher dann in derselben Ecke, die Ihre Besucher auf der Website sehen.",
+        previewControlsHint:
+          "Positionen unten verhalten sich wie ein klassischer schwebender Chat. Positionen oben halten den Launcher an den oberen Ecken.",
+        brandLauncher: "Branding und Launcher",
+        brandLauncherBody:
+          "Steuern Sie das Logo, den Hintergrund dahinter und die Launcher-Grafik, die vor dem Öffnen des Chats sichtbar ist.",
+        logoAlt: "Chatbot-Logo",
+        bubbleIconHint:
+          "Verwenden Sie hier ein anderes Bild, wenn der Launcher-Button ein anderes Icon als das Hauptlogo nutzen soll.",
+        studioTitle: "Live-Widget-Studio",
+        studioBody:
+          "Klicken Sie auf einen Bereich des Chats, um dessen Farben zu fokussieren. Sichtbare Texte wie Bot-Name, Begrüßung, Schnellantworten und Composer-Text lassen sich direkt in der Vorschau bearbeiten.",
+        refreshing: "Aktualisiert",
+        livePreviewTitle: "Live-Chatbot-Vorschau",
+        loadingPreview: "Live-Widget-Vorschau wird geladen...",
+        focusedEditor: "Fokussierter Editor",
+        focusedEditorBody:
+          "Wählen Sie in der Live-Vorschau einen Bereich aus und passen Sie dann nur die Farben und visuellen Einstellungen an, die zu diesem Bereich gehören.",
+        fullThemeTitle: "Vollständige Theme-Tokens",
+        fullThemeBody:
+          "Feinabstimmung der gesamten Palette, sobald der ausgewählte Vorschau-Bereich bereits richtig aussieht.",
+        unableRender: "Live-Widget-Vorschau konnte nicht gerendert werden",
+        unableSave: "Appearance konnte nicht gespeichert werden",
+        unableUpload: "Logo konnte nicht hochgeladen werden",
+        parts: {
+          header: "Header",
+          assistantBubble: "Assistentenblase",
+          visitorBubble: "Besucherblase",
+          suggested: "Vorschlags-Chips",
+          composer: "Composer",
+          launcher: "Launcher",
+          canvas: "Canvas",
+        },
+      },
+      es: {
+        uiTitle: "Personalización UI",
+        uiBody:
+          "Edita el widget exacto que verán tus visitantes, no una maqueta. La vista previa central se renderiza con la plantilla real del backend y se actualiza desde tu borrador local antes de guardar.",
+        bottomRight: "Abajo a la derecha",
+        bottomLeft: "Abajo a la izquierda",
+        topLeft: "Arriba a la izquierda",
+        topRight: "Arriba a la derecha",
+        headerBg: "Fondo del encabezado",
+        headerText: "Texto del encabezado",
+        bubbleSurface: "Superficie del globo",
+        bubbleText: "Texto del globo",
+        bubbleBorder: "Borde del globo",
+        accent: "Acento",
+        accentText: "Texto de acento",
+        chipSurface: "Superficie del chip",
+        chipBorder: "Borde del chip",
+        composerBorder: "Borde del composer",
+        sendAccent: "Acento de enviar",
+        sendText: "Texto de enviar",
+        launcherAccent: "Acento del launcher",
+        canvasBg: "Fondo del canvas",
+        panelSurface: "Superficie del panel",
+        border: "Borde",
+        previewControls: "Controles de vista previa",
+        previewControlsBody:
+          "Primero cambia el modo visual y luego coloca el launcher en la misma esquina en la que tus visitantes lo verán en el sitio web.",
+        previewControlsHint:
+          "Las posiciones inferiores se comportan como un chat flotante clásico. Las superiores mantienen el launcher fijado en las esquinas de arriba.",
+        brandLauncher: "Branding y launcher",
+        brandLauncherBody:
+          "Controla el logo, el fondo detrás de él y el arte del launcher que la gente ve antes de abrir el chat.",
+        logoAlt: "Logo del chatbot",
+        bubbleIconHint:
+          "Usa una imagen distinta aquí si quieres que el botón launcher use otro icono diferente al logo principal del chatbot.",
+        studioTitle: "Estudio del widget en vivo",
+        studioBody:
+          "Haz clic en cualquier parte del chat para centrarte en sus colores. El texto visible como nombre del bot, bienvenida, respuestas rápidas y composer se puede editar directamente dentro de la vista previa.",
+        refreshing: "Actualizando",
+        livePreviewTitle: "Vista previa en vivo del chatbot",
+        loadingPreview: "Cargando la vista previa del widget en vivo...",
+        focusedEditor: "Editor enfocado",
+        focusedEditorBody:
+          "Usa la vista previa en vivo para elegir una parte y ajusta solo los colores y controles visuales que pertenecen a esa zona.",
+        fullThemeTitle: "Tokens completos del tema",
+        fullThemeBody:
+          "Ajusta toda la paleta cuando la parte seleccionada ya se vea correcta.",
+        unableRender: "No se pudo renderizar la vista previa en vivo",
+        unableSave: "No se pudo guardar la apariencia",
+        unableUpload: "No se pudo subir el logo",
+        parts: {
+          header: "Encabezado",
+          assistantBubble: "Globo del asistente",
+          visitorBubble: "Globo del visitante",
+          suggested: "Chips sugeridos",
+          composer: "Composer",
+          launcher: "Launcher",
+          canvas: "Canvas",
+        },
+      },
+    }[language] || {
+      uiTitle: "UI customization",
+      uiBody:
+        "Edit the exact widget your visitors receive, not a mock. The center preview is rendered by the backend widget template and updates from your local draft settings before you save.",
+      bottomRight: "Bottom right",
+      bottomLeft: "Bottom left",
+      topLeft: "Top left",
+      topRight: "Top right",
+      headerBg: "Header background",
+      headerText: "Header text",
+      bubbleSurface: "Bubble surface",
+      bubbleText: "Bubble text",
+      bubbleBorder: "Bubble border",
+      accent: "Accent",
+      accentText: "Accent text",
+      chipSurface: "Chip surface",
+      chipBorder: "Chip border",
+      composerBorder: "Composer border",
+      sendAccent: "Send accent",
+      sendText: "Send text",
+      launcherAccent: "Launcher accent",
+      canvasBg: "Canvas background",
+      panelSurface: "Panel surface",
+      border: "Border",
+      previewControls: "Preview controls",
+      previewControlsBody:
+        "Switch the visual mode first, then place the launcher in the same corner your visitors will see on the website.",
+      previewControlsHint:
+        "Bottom positions behave like a classic floating chat. Top positions keep the launcher pinned to the upper corners.",
+      brandLauncher: "Brand and launcher",
+      brandLauncherBody:
+        "Control the logo, the background behind it, and the launcher artwork people see before the chat opens.",
+      logoAlt: "Chatbot logo",
+      bubbleIconHint:
+        "Use a different image here if you want the launcher button to use another icon than the main chatbot logo.",
+      studioTitle: "Live widget studio",
+      studioBody:
+        "Click any part of the chat to focus its colors. Edit visible text directly inside the preview: bot name, welcome message, quick replies, and the composer text.",
+      refreshing: "Refreshing",
+      livePreviewTitle: "Live chatbot preview",
+      loadingPreview: "Loading live widget preview...",
+      focusedEditor: "Focused editor",
+      focusedEditorBody:
+        "Use the live preview to pick a part, then adjust only the colors and visual controls that belong to that area.",
+      fullThemeTitle: "Full theme tokens",
+      fullThemeBody:
+        "Fine-tune the complete palette once the selected preview part already looks right.",
+      unableRender: "Unable to render live widget preview",
+      unableSave: "Unable to save appearance",
+      unableUpload: "Unable to upload logo",
+      parts: {
+        header: "Header",
+        assistantBubble: "Assistant bubble",
+        visitorBubble: "Visitor bubble",
+        suggested: "Suggested chips",
+        composer: "Composer",
+        launcher: "Launcher",
+        canvas: "Canvas",
+      },
+    };
+  const localizedWidgetLocationOptions = widgetLocationOptions.map((option) => ({
+    value: option.value,
+    label:
+      option.value === "right"
+        ? copy.bottomRight
+        : option.value === "left"
+          ? copy.bottomLeft
+          : option.value === "top-left"
+            ? copy.topLeft
+            : copy.topRight,
+  }));
   const logoInputRef = useRef(null);
   const previewFrameRef = useRef(null);
   const previewRequestRef = useRef(0);
@@ -84,7 +277,7 @@ export const ChatbotAppearance = () => {
         setPreviewError("");
       } catch (err) {
         if (previewRequestRef.current !== requestId) return;
-        setPreviewError(err?.message || "Unable to render live widget preview");
+        setPreviewError(err?.message || copy.unableRender);
       } finally {
         if (previewRequestRef.current === requestId) {
           setPreviewLoading(false);
@@ -95,7 +288,7 @@ export const ChatbotAppearance = () => {
     return () => {
       window.clearTimeout(timeoutId);
     };
-  }, [chatbotId, draft, previewMode]);
+  }, [chatbotId, copy.unableRender, draft, previewMode]);
 
   useEffect(() => {
     const handleMessage = (event) => {
@@ -204,7 +397,7 @@ export const ChatbotAppearance = () => {
       await api.chatbots.update(chatbotId, draft);
       await reload();
     } catch (err) {
-      setError(err?.message || "Unable to save appearance");
+      setError(err?.message || copy.unableSave);
     } finally {
       setSaving(false);
     }
@@ -222,7 +415,7 @@ export const ChatbotAppearance = () => {
       }
       await reload();
     } catch (err) {
-      setError(err?.message || "Unable to upload logo");
+      setError(err?.message || copy.unableUpload);
     } finally {
       setLogoUploading(false);
       event.target.value = "";
@@ -240,9 +433,7 @@ export const ChatbotAppearance = () => {
 
   if (loading || !draft) return <Loading />;
 
-  const selectedPreviewLabel =
-    previewTargets.find((part) => part.id === selectedPreviewPart)?.label ||
-    "Launcher";
+  const selectedPreviewLabel = copy.parts[selectedPreviewPart] || copy.parts.launcher;
 
   const renderFocusedUiControls = () => {
     switch (selectedPreviewPart) {
@@ -250,7 +441,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Header background"
+              label={copy.headerBg}
               value={draft.theme?.[previewMode]?.backgroundColor || ""}
               onTextChange={updateTheme(previewMode, "backgroundColor")}
               onColorChange={(value) =>
@@ -259,7 +450,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.backgroundColor}
             />
             <ColorField
-              label="Header text"
+              label={copy.headerText}
               value={draft.theme?.[previewMode]?.textColor || ""}
               onTextChange={updateTheme(previewMode, "textColor")}
               onColorChange={(value) =>
@@ -273,7 +464,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Bubble surface"
+              label={copy.bubbleSurface}
               value={draft.theme?.[previewMode]?.surfaceColor || ""}
               onTextChange={updateTheme(previewMode, "surfaceColor")}
               onColorChange={(value) =>
@@ -282,7 +473,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.surfaceColor}
             />
             <ColorField
-              label="Bubble text"
+              label={copy.bubbleText}
               value={draft.theme?.[previewMode]?.textColor || ""}
               onTextChange={updateTheme(previewMode, "textColor")}
               onColorChange={(value) =>
@@ -291,7 +482,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.textColor}
             />
             <ColorField
-              label="Bubble border"
+              label={copy.bubbleBorder}
               value={draft.theme?.[previewMode]?.borderColor || ""}
               onTextChange={updateTheme(previewMode, "borderColor")}
               onColorChange={(value) =>
@@ -305,7 +496,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Accent"
+              label={copy.accent}
               value={draft.theme?.[previewMode]?.accentColor || ""}
               onTextChange={updateTheme(previewMode, "accentColor")}
               onColorChange={(value) =>
@@ -314,7 +505,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.accentColor}
             />
             <ColorField
-              label="Accent text"
+              label={copy.accentText}
               value={draft.theme?.[previewMode]?.accentTextColor || ""}
               onTextChange={updateTheme(previewMode, "accentTextColor")}
               onColorChange={(value) =>
@@ -328,7 +519,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Chip surface"
+              label={copy.chipSurface}
               value={draft.theme?.[previewMode]?.surfaceColor || ""}
               onTextChange={updateTheme(previewMode, "surfaceColor")}
               onColorChange={(value) =>
@@ -337,7 +528,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.surfaceColor}
             />
             <ColorField
-              label="Chip border"
+              label={copy.chipBorder}
               value={draft.theme?.[previewMode]?.borderColor || ""}
               onTextChange={updateTheme(previewMode, "borderColor")}
               onColorChange={(value) =>
@@ -351,7 +542,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Composer border"
+              label={copy.composerBorder}
               value={draft.theme?.[previewMode]?.borderColor || ""}
               onTextChange={updateTheme(previewMode, "borderColor")}
               onColorChange={(value) =>
@@ -360,7 +551,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.borderColor}
             />
             <ColorField
-              label="Send accent"
+              label={copy.sendAccent}
               value={draft.theme?.[previewMode]?.accentColor || ""}
               onTextChange={updateTheme(previewMode, "accentColor")}
               onColorChange={(value) =>
@@ -369,7 +560,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.accentColor}
             />
             <ColorField
-              label="Send text"
+              label={copy.sendText}
               value={draft.theme?.[previewMode]?.accentTextColor || ""}
               onTextChange={updateTheme(previewMode, "accentTextColor")}
               onColorChange={(value) =>
@@ -385,7 +576,7 @@ export const ChatbotAppearance = () => {
             <Field>
               <Label>{t("widgetLocationLabel")}</Label>
               <WidgetLocationButtonGroup
-                options={widgetLocationOptions}
+                options={localizedWidgetLocationOptions}
                 value={draft.widgetLocation || "right"}
                 onChange={setWidgetLocation}
               />
@@ -406,7 +597,7 @@ export const ChatbotAppearance = () => {
               />
             </Field>
             <ColorField
-              label="Launcher accent"
+              label={copy.launcherAccent}
               value={draft.theme?.[previewMode]?.accentColor || ""}
               onTextChange={updateTheme(previewMode, "accentColor")}
               onColorChange={(value) =>
@@ -421,7 +612,7 @@ export const ChatbotAppearance = () => {
         return (
           <FieldGroup>
             <ColorField
-              label="Canvas background"
+              label={copy.canvasBg}
               value={draft.theme?.[previewMode]?.backgroundColor || ""}
               onTextChange={updateTheme(previewMode, "backgroundColor")}
               onColorChange={(value) =>
@@ -430,7 +621,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.backgroundColor}
             />
             <ColorField
-              label="Panel surface"
+              label={copy.panelSurface}
               value={draft.theme?.[previewMode]?.surfaceColor || ""}
               onTextChange={updateTheme(previewMode, "surfaceColor")}
               onColorChange={(value) =>
@@ -439,7 +630,7 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.surfaceColor}
             />
             <ColorField
-              label="Border"
+              label={copy.border}
               value={draft.theme?.[previewMode]?.borderColor || ""}
               onTextChange={updateTheme(previewMode, "borderColor")}
               onColorChange={(value) =>
@@ -457,12 +648,10 @@ export const ChatbotAppearance = () => {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
           <Heading level={3} className="font-display text-lg">
-            UI customization
+            {copy.uiTitle}
           </Heading>
           <Text className="text-sm text-zinc-500 dark:text-zinc-400">
-            Edit the exact widget your visitors receive, not a mock. The center
-            preview is rendered by the backend widget template and updates from
-            your local draft settings before you save.
+            {copy.uiBody}
           </Text>
         </div>
         <Button color="sky" onClick={handleSave} disabled={saving}>
@@ -479,8 +668,8 @@ export const ChatbotAppearance = () => {
       <div className="grid gap-6 xl:grid-cols-[320px_minmax(0,1fr)_360px] xl:items-start">
         <div className="space-y-6">
           <SettingsCard
-            title="Preview controls"
-            description="Switch the visual mode first, then place the launcher in the same corner your visitors will see on the website."
+            title={copy.previewControls}
+            description={copy.previewControlsBody}
             actions={
               <div className="flex items-center gap-2">
                 <PartButton
@@ -500,14 +689,11 @@ export const ChatbotAppearance = () => {
               <Field>
                 <Label>{t("widgetLocationLabel")}</Label>
                 <WidgetLocationButtonGroup
-                  options={widgetLocationOptions}
+                  options={localizedWidgetLocationOptions}
                   value={draft.widgetLocation || "right"}
                   onChange={setWidgetLocation}
                 />
-                <PreviewHint>
-                  Bottom positions behave like a classic floating chat. Top
-                  positions keep the launcher pinned to the upper corners.
-                </PreviewHint>
+                <PreviewHint>{copy.previewControlsHint}</PreviewHint>
               </Field>
               <Field>
                 <Label>{t("roundedCornersLabel")}</Label>
@@ -521,8 +707,8 @@ export const ChatbotAppearance = () => {
           </SettingsCard>
 
           <SettingsCard
-            title="Brand and launcher"
-            description="Control the logo, the background behind it, and the launcher artwork people see before the chat opens."
+            title={copy.brandLauncher}
+            description={copy.brandLauncherBody}
             actions={
               <Button outline href={`/chatbots/${chatbotId}/billing`}>
                 {currentTier?.name || chatbot?.premiumPlan || t("openBilling")}
@@ -548,7 +734,7 @@ export const ChatbotAppearance = () => {
                       {draft.brand?.logoUrl ? (
                         <img
                           src={draft.brand.logoUrl}
-                          alt={draft.botName || "Chatbot logo"}
+                          alt={draft.botName || copy.logoAlt}
                           className="h-full w-full object-contain p-2"
                         />
                       ) : (
@@ -601,10 +787,7 @@ export const ChatbotAppearance = () => {
                   value={draft.brand?.bubbleIconUrl || ""}
                   onChange={updateBrand("bubbleIconUrl")}
                 />
-                <PreviewHint>
-                  Use a different image here if you want the launcher button to
-                  use another icon than the main chatbot logo.
-                </PreviewHint>
+                <PreviewHint>{copy.bubbleIconHint}</PreviewHint>
               </Field>
             </FieldGroup>
           </SettingsCard>
@@ -616,19 +799,15 @@ export const ChatbotAppearance = () => {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="space-y-1">
                 <Text className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                  Live widget studio
+                  {copy.studioTitle}
                 </Text>
-                <PreviewHint>
-                  Click any part of the chat to focus its colors. Edit visible
-                  text directly inside the preview: bot name, welcome message,
-                  quick replies, and the composer text.
-                </PreviewHint>
+                <PreviewHint>{copy.studioBody}</PreviewHint>
               </div>
               <div className="flex items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300">
                 <span>{selectedPreviewLabel}</span>
                 {previewLoading ? (
                   <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-semibold text-sky-700 dark:bg-sky-950/40 dark:text-sky-100">
-                    Refreshing
+                    {copy.refreshing}
                   </span>
                 ) : null}
               </div>
@@ -643,7 +822,7 @@ export const ChatbotAppearance = () => {
             ) : previewHtml ? (
               <iframe
                 ref={previewFrameRef}
-                title="Live chatbot preview"
+                title={copy.livePreviewTitle}
                 srcDoc={previewHtml}
                 className="h-[760px] w-full max-w-[520px] border-0 bg-transparent"
                 onLoad={() => {
@@ -655,7 +834,7 @@ export const ChatbotAppearance = () => {
               />
             ) : (
               <div className="flex min-h-[560px] w-full items-center justify-center text-center text-sm text-zinc-500 dark:text-zinc-400">
-                Loading live widget preview...
+                {copy.loadingPreview}
               </div>
             )}
           </div>
@@ -663,8 +842,8 @@ export const ChatbotAppearance = () => {
 
         <div className="space-y-6">
           <SettingsCard
-            title="Focused editor"
-            description="Use the live preview to pick a part, then adjust only the colors and visual controls that belong to that area."
+            title={copy.focusedEditor}
+            description={copy.focusedEditorBody}
           >
             <div className="space-y-4">
               <div className="flex flex-wrap gap-2">
@@ -672,7 +851,7 @@ export const ChatbotAppearance = () => {
                   <PartButton
                     key={part.id}
                     active={selectedPreviewPart === part.id}
-                    label={part.label}
+                    label={copy.parts[part.id] || part.label}
                     onClick={() => {
                       setSelectedPreviewPart(part.id);
                       window.setTimeout(() => {
@@ -687,12 +866,12 @@ export const ChatbotAppearance = () => {
           </SettingsCard>
 
           <SettingsCard
-            title={`Full ${previewMode} theme tokens`}
-            description="Fine-tune the complete palette once the selected preview part already looks right."
+            title={`${copy.fullThemeTitle} (${previewMode})`}
+            description={copy.fullThemeBody}
           >
             <div className="grid gap-4">
               <ColorField
-                label="Accent"
+                label={copy.accent}
                 value={draft.theme?.[previewMode]?.accentColor || ""}
                 onTextChange={updateTheme(previewMode, "accentColor")}
                 onColorChange={(value) =>
@@ -701,7 +880,7 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.accentColor}
               />
               <ColorField
-                label="Accent text"
+                label={copy.accentText}
                 value={draft.theme?.[previewMode]?.accentTextColor || ""}
                 onTextChange={updateTheme(previewMode, "accentTextColor")}
                 onColorChange={(value) =>
@@ -710,7 +889,7 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.accentTextColor}
               />
               <ColorField
-                label="Background"
+                label={copy.canvasBg}
                 value={draft.theme?.[previewMode]?.backgroundColor || ""}
                 onTextChange={updateTheme(previewMode, "backgroundColor")}
                 onColorChange={(value) =>
@@ -719,7 +898,7 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.backgroundColor}
               />
               <ColorField
-                label="Surface"
+                label={copy.panelSurface}
                 value={draft.theme?.[previewMode]?.surfaceColor || ""}
                 onTextChange={updateTheme(previewMode, "surfaceColor")}
                 onColorChange={(value) =>
@@ -728,7 +907,7 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.surfaceColor}
               />
               <ColorField
-                label="Text"
+                label={copy.headerText}
                 value={draft.theme?.[previewMode]?.textColor || ""}
                 onTextChange={updateTheme(previewMode, "textColor")}
                 onColorChange={(value) =>
@@ -737,7 +916,7 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.textColor}
               />
               <ColorField
-                label="Border"
+                label={copy.border}
                 value={draft.theme?.[previewMode]?.borderColor || ""}
                 onTextChange={updateTheme(previewMode, "borderColor")}
                 onColorChange={(value) =>

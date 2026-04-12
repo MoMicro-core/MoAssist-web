@@ -178,13 +178,30 @@ const SectionHeading = ({ eyebrow, title, body }) => (
   </div>
 );
 
-const PlaceholderImage = ({
-  title,
+const LANDING_VISUALS = {
+  hero: "/preview/chatbot-appearance-shot.png",
+  featureSections: [
+    "/preview/chatbots-overview-shot.png",
+    "/preview/chatbot-settings-shot.png",
+    "/preview/chatbot-conversations-shot.png",
+    "/preview/chatbot-dashboard-shot.png",
+    "/preview/chatbot-appearance-shot.png",
+    "/preview/chatbots-overview-shot.png",
+  ],
+  workflowSteps: [
+    "/preview/chatbots-overview-shot.png",
+    "/preview/chatbot-settings-shot.png",
+    "/preview/chatbot-appearance-shot.png",
+    "/preview/chatbot-conversations-shot.png",
+  ],
+};
+
+const ShowcaseImage = ({
+  src,
   alt,
-  placeholderLabel,
-  placeholderBody,
   className = "",
   aspectClass = "aspect-[4/3]",
+  priority = false,
 }) => (
   <div
     data-reveal
@@ -194,67 +211,33 @@ const PlaceholderImage = ({
       className={`relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88 ${aspectClass}`}
     >
       <img
-        src="/preview/logo.svg"
+        src={src}
         alt={alt}
-        loading="lazy"
-        className="h-full w-full object-contain p-12 opacity-20"
+        loading={priority ? "eager" : "lazy"}
+        className="h-full w-full object-cover object-top"
       />
-      <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(160deg,rgba(255,255,255,0.88),rgba(239,248,255,0.78))] p-6 text-center dark:bg-[linear-gradient(160deg,rgba(10,28,44,0.9),rgba(8,21,33,0.88))]">
-        <div>
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/80 bg-white/90 shadow-sm dark:border-white/10 dark:bg-white/10">
-            <img
-              src="/preview/logo.svg"
-              alt=""
-              aria-hidden="true"
-              className="h-10 w-10 object-contain"
-            />
-          </div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-            {placeholderLabel}
-          </div>
-          <div className="mt-3 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
-            {title}
-          </div>
-          <p className="mt-3 max-w-sm text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-            {placeholderBody}
-          </p>
-        </div>
-      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),transparent_28%,transparent_74%,rgba(7,25,37,0.12))]"
+      />
     </div>
   </div>
 );
 
-const WorkflowCardImage = ({ title, alt, placeholderLabel, placeholderBody }) => (
+const WorkflowCardImage = ({ src, alt }) => (
   <div className="relative overflow-hidden rounded-[1.65rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88">
     <div className="aspect-[4/3]">
       <img
-        src="/preview/logo.svg"
+        src={src}
         alt={alt}
         loading="lazy"
-        className="h-full w-full object-contain p-12 opacity-20"
+        className="h-full w-full object-cover object-top"
       />
     </div>
-    <div className="absolute inset-0 grid place-items-center bg-[linear-gradient(160deg,rgba(255,255,255,0.88),rgba(239,248,255,0.78))] p-6 text-center dark:bg-[linear-gradient(160deg,rgba(10,28,44,0.9),rgba(8,21,33,0.88))]">
-      <div>
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-white/80 bg-white/90 shadow-sm dark:border-white/10 dark:bg-white/10">
-          <img
-            src="/preview/logo.svg"
-            alt=""
-            aria-hidden="true"
-            className="h-10 w-10 object-contain"
-          />
-        </div>
-        <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-          {placeholderLabel}
-        </div>
-        <div className="mt-3 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
-          {title}
-        </div>
-        <p className="mt-3 max-w-sm text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-          {placeholderBody}
-        </p>
-      </div>
-    </div>
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_26%,transparent_74%,rgba(7,25,37,0.14))]"
+    />
   </div>
 );
 
@@ -342,10 +325,12 @@ const HowItWorksSection = ({ activeStep, content, sectionRef }) => {
                   </div>
                   <div className="flex-1">
                     <WorkflowCardImage
-                      title={item.title}
+                      src={
+                        LANDING_VISUALS.workflowSteps[
+                          index % LANDING_VISUALS.workflowSteps.length
+                        ]
+                      }
                       alt={item.title}
-                      placeholderLabel={content.stepPlaceholderLabel}
-                      placeholderBody={content.stepPlaceholderBody}
                     />
                   </div>
                 </div>
@@ -552,12 +537,11 @@ export const Landing = () => {
             </div>
           </div>
 
-          <PlaceholderImage
-            title={content.heroImageTitle}
+          <ShowcaseImage
+            src={LANDING_VISUALS.hero}
             alt={content.heroImageAlt}
-            placeholderLabel={content.imagePlaceholderLabel}
-            placeholderBody={content.imagePlaceholderBody}
             aspectClass="aspect-[1.08/1]"
+            priority
           />
         </section>
 
@@ -618,20 +602,24 @@ export const Landing = () => {
                         ))}
                       </ul>
                     </div>
-                    <PlaceholderImage
-                      title={section.imageTitle}
+                    <ShowcaseImage
+                      src={
+                        LANDING_VISUALS.featureSections[
+                          index % LANDING_VISUALS.featureSections.length
+                        ]
+                      }
                       alt={section.imageAlt}
-                      placeholderLabel={content.imagePlaceholderLabel}
-                      placeholderBody={content.imagePlaceholderBody}
                     />
                   </>
                 ) : (
                   <>
-                    <PlaceholderImage
-                      title={section.imageTitle}
+                    <ShowcaseImage
+                      src={
+                        LANDING_VISUALS.featureSections[
+                          index % LANDING_VISUALS.featureSections.length
+                        ]
+                      }
                       alt={section.imageAlt}
-                      placeholderLabel={content.imagePlaceholderLabel}
-                      placeholderBody={content.imagePlaceholderBody}
                     />
                     <div className="space-y-4">
                       <TonePill>{section.eyebrow}</TonePill>

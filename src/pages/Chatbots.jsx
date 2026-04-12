@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { api } from "../lib/api";
@@ -14,6 +14,7 @@ import { Select } from "../ui/select";
 import { Loading } from "../components/Loading";
 import { EmptyState } from "../components/EmptyState";
 import { useI18n } from "../context/I18nContext";
+import { readEnumParam, updateSearchParams } from "../lib/urlState";
 
 const CHATBOT_ORDER_KEY = "moassist-chatbots-order";
 const CHATBOT_PINNED_KEY = "moassist-chatbots-pinned";
@@ -74,8 +75,11 @@ const getStatusMeta = (status, t) => {
   return { color: "sky", label: t("activeLabel") };
 };
 
+const conversationStatusOptions = ["all", "active", "pending", "closed"];
+
 export const Chatbots = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { t } = useI18n();
   const [chatbots, setChatbots] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -102,7 +106,14 @@ export const Chatbots = () => {
   const [dragOverId, setDragOverId] = useState("");
   const [allConversations, setAllConversations] = useState([]);
   const [loadingConversations, setLoadingConversations] = useState(false);
-  const [conversationStatus, setConversationStatus] = useState("all");
+  const [conversationStatus, setConversationStatus] = useState(() =>
+    readEnumParam(
+      searchParams,
+      "conversationStatus",
+      conversationStatusOptions,
+      "all",
+    ),
+  );
 
   const loadChatbots = async () => {
     setLoading(true);
@@ -159,6 +170,29 @@ export const Chatbots = () => {
   useEffect(() => {
     writeStoredIds(CHATBOT_PINNED_KEY, pinnedIds);
   }, [pinnedIds]);
+
+  useEffect(() => {
+    const nextStatus = readEnumParam(
+      searchParams,
+      "conversationStatus",
+      conversationStatusOptions,
+      "all",
+    );
+    setConversationStatus((prev) =>
+      prev === nextStatus ? prev : nextStatus,
+    );
+  }, [searchParams]);
+
+  useEffect(() => {
+    const next = updateSearchParams(
+      searchParams,
+      { conversationStatus },
+      { conversationStatus: "all" },
+    );
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
+  }, [conversationStatus, searchParams, setSearchParams]);
 
   useEffect(() => {
     const loadConversations = async () => {

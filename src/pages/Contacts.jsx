@@ -1,5 +1,6 @@
 import { PublicFooter } from "../components/PublicFooter";
 import { PublicHeader } from "../components/PublicHeader";
+import { getContactsPageContent } from "../content/publicPagesContent";
 import {
   COMPANY_INFO,
   buildCeoStructuredData,
@@ -20,64 +21,43 @@ const TonePill = ({ children }) => (
   </span>
 );
 
-const contactCards = [
-  {
-    title: "Support",
-    body: "Product support, onboarding help, and MoAssist setup questions.",
-    value: COMPANY_INFO.supportEmail,
-    actionHref: `mailto:${COMPANY_INFO.supportEmail}`,
-    buttonLabel: "Email support",
-  },
-  {
-    title: "General info",
-    body: "Company questions, partnerships, and general requests.",
-    value: COMPANY_INFO.infoEmail,
-    actionHref: `mailto:${COMPANY_INFO.infoEmail}`,
-    buttonLabel: "Email info",
-  },
-  {
-    title: "Phone line 1",
-    body: "Direct phone contact for primary support and business communication.",
-    value: COMPANY_INFO.primaryPhoneDisplay,
-    actionHref: `tel:${COMPANY_INFO.primaryPhone}`,
-    buttonLabel: "Call",
-  },
-  {
-    title: "Phone line 2",
-    body: "Additional direct number for support and general contact.",
-    value: COMPANY_INFO.secondaryPhoneDisplay,
-    actionHref: `tel:${COMPANY_INFO.secondaryPhone}`,
-    buttonLabel: "Call",
-  },
-  {
-    title: "Leadership",
-    body: `${COMPANY_INFO.ceoName} is the CEO of MoMicro, the organization behind MoAssist.`,
-    value: COMPANY_INFO.ceoName,
-    actionHref: "/pricing",
-    buttonLabel: "View pricing",
-    internal: true,
-  },
-];
-
 export const Contacts = () => {
   const { language, t } = useI18n();
   const localeConfig = resolveLocale(language);
   const pricingPath = buildLocalizedPath("/pricing", language);
+  const content = getContactsPageContent(localeConfig.key);
+  const contactCards = [
+    {
+      ...content.cards[0],
+      value: COMPANY_INFO.supportEmail,
+      actionHref: `mailto:${COMPANY_INFO.supportEmail}`,
+    },
+    {
+      ...content.cards[1],
+      value: COMPANY_INFO.infoEmail,
+      actionHref: `mailto:${COMPANY_INFO.infoEmail}`,
+    },
+    {
+      ...content.cards[2],
+      value: COMPANY_INFO.primaryPhoneDisplay,
+      actionHref: `tel:${COMPANY_INFO.primaryPhone}`,
+    },
+    {
+      ...content.cards[3],
+      value: COMPANY_INFO.secondaryPhoneDisplay,
+      actionHref: `tel:${COMPANY_INFO.secondaryPhone}`,
+    },
+    {
+      ...content.cards[4],
+      value: COMPANY_INFO.ceoName,
+      actionHref: "/pricing",
+      internal: true,
+    },
+  ];
 
   usePublicSeo({
     localeConfig,
-    seo: {
-      title: "MoAssist Contacts | Support, Info, and MoMicro Contact Details",
-      description:
-        "Contact MoMicro and MoAssist through the dedicated contacts page. Find support and info emails, phone numbers, and company leadership details.",
-      keywords:
-        "MoAssist contacts, MoMicro contacts, support email, chatbot support, company phone number, MoAssist contact page",
-      ogDescription:
-        "Find MoAssist and MoMicro support, info, phone, and leadership contact details on one dedicated contacts page.",
-      twitterDescription:
-        "MoAssist contacts page with support and info emails, phone numbers, and MoMicro leadership details.",
-      imageAlt: "MoAssist contacts page",
-    },
+    seo: content.seo,
     pathname: "/contacts",
   });
 
@@ -92,7 +72,7 @@ export const Contacts = () => {
   const contactPageStructuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
-    name: "MoAssist Contacts",
+    name: content.breadcrumbCurrent,
     url: siteUrl
       ? buildLocaleUrl(siteUrl, "/contacts", localeConfig.key)
       : undefined,
@@ -111,13 +91,13 @@ export const Contacts = () => {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Home",
+        name: content.breadcrumbHome,
         item: siteUrl ? buildLocaleUrl(siteUrl, "/", localeConfig.key) : undefined,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "Contacts",
+        name: content.breadcrumbCurrent,
         item: siteUrl
           ? buildLocaleUrl(siteUrl, "/contacts", localeConfig.key)
           : undefined,
@@ -164,28 +144,24 @@ export const Contacts = () => {
               <TonePill>{t("contactsNav")}</TonePill>
               <div className="space-y-4">
                 <h1 className="font-display text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
-                  One clean place for support, info, and leadership contact details.
+                  {content.heroTitle}
                 </h1>
                 <p className="max-w-3xl text-base leading-8 text-zinc-600 sm:text-lg dark:text-zinc-300">
-                  Use this page when you need product support, general company
-                  information, or direct phone contact for MoMicro and MoAssist.
+                  {content.heroBody}
                 </p>
               </div>
             </div>
 
             <div className="brand-panel rounded-[2rem] p-6">
               <div className="text-xs font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-                Company
+                {content.companyLabel}
               </div>
               <div className="mt-4 space-y-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
                 <p>{COMPANY_INFO.companyNote}</p>
-                <p>
-                  If you are evaluating MoAssist first, start on pricing and then
-                  reach out here when you need help.
-                </p>
+                <p>{content.companyBody}</p>
               </div>
               <Button color="teal" href={pricingPath} className="mt-6">
-                {t("pricingNav")}
+                {content.companyCtaLabel}
               </Button>
             </div>
           </div>

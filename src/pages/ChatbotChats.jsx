@@ -10,6 +10,11 @@ import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
 import { Loading } from "../components/Loading";
 import { useI18n } from "../context/I18nContext";
+import {
+  readEnumParam,
+  readTextParam,
+  updateSearchParams,
+} from "../lib/urlState";
 
 const formatTime = (value) => {
   if (!value) return "";
@@ -75,9 +80,11 @@ const mergeConversationList = (items, incoming) => {
   return sortConversations(next);
 };
 
+const filterOptions = ["all", "active", "pending", "closed"];
+
 export const ChatbotChats = () => {
   const { chatbotId } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const {
     connected,
     on,
@@ -90,8 +97,10 @@ export const ChatbotChats = () => {
   const [activeId, setActiveId] = useState("");
   const [activeConversation, setActiveConversation] = useState(null);
   const [message, setMessage] = useState("");
-  const [filter, setFilter] = useState("all");
-  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState(() =>
+    readEnumParam(searchParams, "filter", filterOptions, "all"),
+  );
+  const [search, setSearch] = useState(() => readTextParam(searchParams, "q"));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionError, setActionError] = useState("");
@@ -113,6 +122,18 @@ export const ChatbotChats = () => {
   };
 
   useEffect(() => {
+    const nextFilter = readEnumParam(
+      searchParams,
+      "filter",
+      filterOptions,
+      "all",
+    );
+    const nextSearch = readTextParam(searchParams, "q");
+    setFilter((prev) => (prev === nextFilter ? prev : nextFilter));
+    setSearch((prev) => (prev === nextSearch ? prev : nextSearch));
+  }, [searchParams]);
+
+  useEffect(() => {
     let active = true;
 
     const loadConversations = async () => {
@@ -124,22 +145,6 @@ export const ChatbotChats = () => {
 
         const items = sortConversations(data || []);
         setConversations(items);
-
-        if (!items.length) {
-          setActiveId("");
-          setActiveConversation(null);
-          return;
-        }
-
-        const initialId =
-          requestedId && items.some((item) => item.id === requestedId)
-            ? requestedId
-            : items[0].id;
-        setActiveId((prev) =>
-          prev && items.some((item) => item.id === prev) && !requestedId
-            ? prev
-            : initialId,
-        );
       } catch (err) {
         if (!active) return;
         setError(err?.message || "Unable to load conversations");
@@ -155,7 +160,45 @@ export const ChatbotChats = () => {
     return () => {
       active = false;
     };
-  }, [chatbotId, requestedId]);
+  }, [chatbotId]);
+
+  useEffect(() => {
+    if (!conversations.length) {
+      setActiveId("");
+      setActiveConversation(null);
+      return;
+    }
+
+    if (requestedId && conversations.some((item) => item.id === requestedId)) {
+      setActiveId((prev) => (prev === requestedId ? prev : requestedId));
+      return;
+    }
+
+    setActiveId((prev) =>
+      prev && conversations.some((item) => item.id === prev)
+        ? prev
+        : conversations[0].id,
+    );
+  }, [conversations, requestedId]);
+
+  useEffect(() => {
+    const next = updateSearchParams(
+      searchParams,
+      {
+        conversation: activeId,
+        filter,
+        q: search.trim(),
+      },
+      {
+        conversation: "",
+        filter: "all",
+        q: "",
+      },
+    );
+    if (next.toString() !== searchParams.toString()) {
+      setSearchParams(next, { replace: true });
+    }
+  }, [activeId, filter, search, searchParams, setSearchParams]);
 
   useEffect(() => {
     if (!activeId) {

@@ -12,7 +12,24 @@ import { useI18n } from '../context/I18nContext'
 
 export const Profile = () => {
   const { user, refreshSession, signOut } = useAuth()
-  const { t } = useI18n()
+  const { t, language } = useI18n()
+  const copy =
+    {
+      de: {
+        nameLabel: 'Name',
+        emailLabel: 'E-Mail',
+        signOutBody: 'Melden Sie sich von Ihrer aktuellen Dashboard-Sitzung ab.',
+      },
+      es: {
+        nameLabel: 'Nombre',
+        emailLabel: 'Correo electrónico',
+        signOutBody: 'Cierra la sesión actual de tu panel.',
+      },
+    }[language] || {
+      nameLabel: 'Name',
+      emailLabel: 'Email',
+      signOutBody: 'Sign out from your current dashboard session.',
+    }
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -63,11 +80,11 @@ export const Profile = () => {
         </Heading>
         <FieldGroup>
           <Field>
-            <Label>Name</Label>
+            <Label>{copy.nameLabel}</Label>
             <Input value={name} onChange={(event) => setName(event.target.value)} />
           </Field>
           <Field>
-            <Label>Email</Label>
+            <Label>{copy.emailLabel}</Label>
             <Input value={user?.email || ''} disabled />
           </Field>
         </FieldGroup>
@@ -81,7 +98,7 @@ export const Profile = () => {
           {t('profile')}
         </Heading>
         <Text className="text-sm text-zinc-600 dark:text-zinc-300">
-          Sign out from your current dashboard session.
+          {copy.signOutBody}
         </Text>
         <Button
           color="sky"

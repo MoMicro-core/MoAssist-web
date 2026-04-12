@@ -100,8 +100,9 @@ const ChatbotShell = () => {
         <Navbar className="glass-panel min-w-max rounded-2xl border-zinc-200/70 px-3 py-1.5 dark:border-white/10">
           <NavbarSection className="flex-nowrap">
             {tabs.map((tab) => {
-              const href = `/chatbots/${chatbotId}/${tab.path}`
-              const current = location.pathname === href
+              const pathname = `/chatbots/${chatbotId}/${tab.path}`
+              const href = `${pathname}${location.search}`
+              const current = location.pathname === pathname
               return (
                 <NavbarItem key={tab.path} href={href} current={current}>
                   <NavbarLabel>{tab.label}</NavbarLabel>

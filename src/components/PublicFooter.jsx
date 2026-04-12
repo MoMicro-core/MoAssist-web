@@ -9,40 +9,105 @@ const isExternalOrAnchor = (href = "") =>
   href.startsWith("mailto:") ||
   href.startsWith("tel:");
 
-const defaultColumns = [
-  {
-    title: "Product",
-    links: [
-      { label: "Home", href: "/" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Login", href: "/login" },
+const footerCopy = {
+  en: {
+    columns: [
+      {
+        title: "Product",
+        links: [
+          { label: "Home", href: "/" },
+          { label: "Pricing", href: "/pricing" },
+          { label: "Login", href: "/login" },
+        ],
+      },
+      {
+        title: "Company",
+        links: [
+          { label: "MoMicro", href: "/momicro" },
+          { label: "Contacts", href: "/contacts" },
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          { label: "Privacy Policy", href: "/privacy-policy" },
+          { label: "Imprint", href: "/imprint" },
+          { label: "Terms & Conditions", href: "/terms-and-conditions" },
+        ],
+      },
     ],
+    supportNote: "Detailed support, info, and phone contacts are on the contacts page.",
   },
-  {
-    title: "Company",
-    links: [
-      { label: "MoMicro", href: "/momicro" },
-      { label: "Contacts", href: "/contacts" },
+  de: {
+    columns: [
+      {
+        title: "Produkt",
+        links: [
+          { label: "Startseite", href: "/" },
+          { label: "Preise", href: "/pricing" },
+          { label: "Login", href: "/login" },
+        ],
+      },
+      {
+        title: "Unternehmen",
+        links: [
+          { label: "MoMicro", href: "/momicro" },
+          { label: "Kontakt", href: "/contacts" },
+        ],
+      },
+      {
+        title: "Rechtliches",
+        links: [
+          { label: "Datenschutz", href: "/privacy-policy" },
+          { label: "Impressum", href: "/imprint" },
+          { label: "AGB", href: "/terms-and-conditions" },
+        ],
+      },
     ],
+    supportNote:
+      "Detaillierte Support-, Info- und Telefonkontakte finden Sie auf der Kontaktseite.",
   },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Imprint", href: "/imprint" },
-      { label: "Terms & Conditions", href: "/terms-and-conditions" },
+  es: {
+    columns: [
+      {
+        title: "Producto",
+        links: [
+          { label: "Inicio", href: "/" },
+          { label: "Precios", href: "/pricing" },
+          { label: "Login", href: "/login" },
+        ],
+      },
+      {
+        title: "Empresa",
+        links: [
+          { label: "MoMicro", href: "/momicro" },
+          { label: "Contactos", href: "/contacts" },
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          { label: "Política de privacidad", href: "/privacy-policy" },
+          { label: "Aviso legal", href: "/imprint" },
+          { label: "Términos y condiciones", href: "/terms-and-conditions" },
+        ],
+      },
     ],
+    supportNote:
+      "Los contactos detallados de soporte, información y teléfono están en la página de contactos.",
   },
-];
+};
 
 export const PublicFooter = ({
   tagline,
-  columns = defaultColumns,
+  columns,
   companyNote,
 }) => {
   const { language, t } = useI18n();
   const contactsPath = buildLocalizedPath("/contacts", language);
   const pricingPath = buildLocalizedPath("/pricing", language);
+  const localizedFooter = footerCopy[language] || footerCopy.en;
+  const resolvedColumns = columns || localizedFooter.columns;
 
   const resolveHref = (href) => {
     if (!href || isExternalOrAnchor(href)) {
@@ -75,7 +140,7 @@ export const PublicFooter = ({
             <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
               <p>{companyNote || COMPANY_INFO.companyNote}</p>
               <p className="text-zinc-500 dark:text-zinc-400">
-                Detailed support, info, and phone contacts are on the contacts page.
+                {localizedFooter.supportNote}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -92,7 +157,7 @@ export const PublicFooter = ({
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3">
-            {columns.map((column) => (
+            {resolvedColumns.map((column) => (
               <div key={column.title} className="space-y-3">
                 <div className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
                   {column.title}
