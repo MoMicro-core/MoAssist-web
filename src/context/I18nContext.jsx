@@ -143,7 +143,7 @@ const dictionary = {
     uploadingLogo: "Uploading logo",
     logoUploadHelp:
       "Upload a PNG, JPG, WEBP, or SVG logo up to 10 MB. The file is stored for this chatbot and MoAssist manages the saved logo link.",
-    logoBackgroundColorLabel: "Logo background",
+    logoBackgroundColorLabel: "Logo border",
     customBranding: "Custom branding",
     customBrandingUpgradeHint:
       "Move to any paid plan to upload your own chatbot logo, upload a custom launcher icon, and choose the background behind the logo.",
@@ -397,7 +397,7 @@ const dictionary = {
     uploadingLogo: "Logo wird hochgeladen",
     logoUploadHelp:
       "Lade ein PNG-, JPG-, WEBP- oder SVG-Logo bis 10 MB hoch. Die Datei wird fuer diesen Chatbot gespeichert und MoAssist verwaltet den gespeicherten Logo-Link.",
-    logoBackgroundColorLabel: "Logo-Hintergrund",
+    logoBackgroundColorLabel: "Logo-Rahmen",
     customBranding: "Eigenes Branding",
     customBrandingUpgradeHint:
       "Wechsle zu einem kostenpflichtigen Tarif, um ein eigenes Chatbot-Logo, ein eigenes Launcher-Icon und den Hintergrund hinter dem Logo festzulegen.",
@@ -629,7 +629,7 @@ const dictionary = {
     uploadingLogo: "Subiendo logo",
     logoUploadHelp:
       "Sube un logo PNG, JPG, WEBP o SVG de hasta 10 MB. El archivo se guarda para este chatbot y MoAssist gestiona el enlace guardado del logo.",
-    logoBackgroundColorLabel: "Fondo del logo",
+    logoBackgroundColorLabel: "Borde del logo",
     customBranding: "Marca personalizada",
     customBrandingUpgradeHint:
       "Pasa a cualquier plan de pago para subir tu propio logo del chatbot, un icono personalizado del launcher y elegir el fondo detras del logo.",
@@ -851,7 +851,7 @@ dictionary.fr = {
   replaceLogoAction: "Remplacer le logo",
   uploadingLogo: "Téléchargement du logo",
   logoUploadHelp: "Téléchargez un logo PNG, JPG, WEBP ou SVG jusqu'à 10 Mo.",
-  logoBackgroundColorLabel: "Fond du logo",
+  logoBackgroundColorLabel: "Bordure du logo",
   customBranding: "Branding personnalisé",
   customBrandingUpgradeHint: "Passez à un plan payant pour télécharger votre propre logo, icône et choisir le fond du logo.",
   bubbleIconUrlLabel: "URL de l'icône du lanceur",
@@ -1076,7 +1076,7 @@ dictionary.it = {
   replaceLogoAction: "Sostituisci logo",
   uploadingLogo: "Caricamento logo",
   logoUploadHelp: "Carica un logo PNG, JPG, WEBP o SVG fino a 10 MB.",
-  logoBackgroundColorLabel: "Sfondo logo",
+  logoBackgroundColorLabel: "Bordo logo",
   customBranding: "Branding personalizzato",
   customBrandingUpgradeHint: "Passa a un piano a pagamento per caricare il tuo logo, icona e scegliere lo sfondo del logo.",
   bubbleIconUrlLabel: "URL icona launcher",
@@ -1301,7 +1301,7 @@ dictionary.ru = {
   replaceLogoAction: "Заменить логотип",
   uploadingLogo: "Загрузка логотипа",
   logoUploadHelp: "Загрузите логотип PNG, JPG, WEBP или SVG до 10 МБ.",
-  logoBackgroundColorLabel: "Фон логотипа",
+  logoBackgroundColorLabel: "Рамка логотипа",
   customBranding: "Фирменный стиль",
   customBrandingUpgradeHint: "Перейдите на платный план для загрузки логотипа, иконки и выбора фона.",
   bubbleIconUrlLabel: "URL иконки кнопки",
@@ -1526,7 +1526,7 @@ dictionary.ua = {
   replaceLogoAction: "Замінити логотип",
   uploadingLogo: "Завантаження логотипу",
   logoUploadHelp: "Завантажте логотип PNG, JPG, WEBP або SVG до 10 МБ.",
-  logoBackgroundColorLabel: "Фон логотипу",
+  logoBackgroundColorLabel: "Рамка логотипу",
   customBranding: "Фірмовий стиль",
   customBrandingUpgradeHint: "Перейдіть на платний план для завантаження логотипу, іконки та вибору фону.",
   bubbleIconUrlLabel: "URL іконки кнопки",

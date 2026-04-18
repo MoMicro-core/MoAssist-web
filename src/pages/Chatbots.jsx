@@ -507,7 +507,7 @@ export const Chatbots = () => {
               } ${dragOverId === chatbot.id ? "ring-2 ring-sky-400" : ""}`}
             >
               <div
-                className={`surface-card group flex h-full flex-col justify-between p-5 ${
+                className={`surface-card group flex h-full flex-col justify-between p-5 hover:bg-zinc-100/80 dark:hover:bg-zinc-800 ${
                   pinnedSet.has(chatbot.id)
                     ? "border-sky-300/80 dark:border-cyan-400/50"
                     : ""
@@ -544,6 +544,9 @@ export const Chatbots = () => {
                       >
                         <StarIcon className="size-4" />
                       </button>
+                      {chatbot.currentTier?.name ? (
+                        <Badge color="amber">{chatbot.currentTier.name}</Badge>
+                      ) : null}
                       <Badge color={statusColor(chatbot.settings?.status)}>
                         {chatbot.settings?.status || "draft"}
                       </Badge>

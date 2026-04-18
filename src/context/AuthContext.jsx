@@ -10,8 +10,10 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
   createUserWithEmailAndPassword,
+  getRedirectResult,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
   signOut as firebaseSignOut,
   updateProfile,
 } from "firebase/auth";
@@ -84,6 +86,17 @@ export const AuthProvider = ({ children }) => {
     return me;
   }, []);
 
+  useEffect(() => {
+    if (!authClient) return;
+    getRedirectResult(authClient)
+      .then(async (result) => {
+        if (result?.user) {
+          await exchangeFirebaseSession(result.user);
+        }
+      })
+      .catch(() => {});
+  }, [authClient, exchangeFirebaseSession]);
+
   const signIn = useCallback(
     async (email, password) => {
       const auth = getFirebaseAuth();
@@ -124,8 +137,19 @@ export const AuthProvider = ({ children }) => {
     const provider = new OAuthProvider("apple.com");
     provider.addScope("email");
     provider.addScope("name");
-    const credential = await signInWithPopup(auth, provider);
-    return exchangeFirebaseSession(credential.user);
+    try {
+      const credential = await signInWithPopup(auth, provider);
+      return exchangeFirebaseSession(credential.user);
+    } catch (err) {
+      if (
+        err.code === "auth/popup-blocked" ||
+        err.code === "auth/popup-closed-by-user"
+      ) {
+        await signInWithRedirect(auth, provider);
+        return;
+      }
+      throw err;
+    }
   }, [exchangeFirebaseSession, getFirebaseAuth]);
 
   const signOut = useCallback(async () => {

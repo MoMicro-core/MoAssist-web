@@ -88,6 +88,16 @@ const TermsConditions = lazy(() =>
     default: module.TermsConditions,
   })),
 );
+const BillingSuccess = lazy(() =>
+  import("./pages/BillingSuccess").then((module) => ({
+    default: module.BillingSuccess,
+  })),
+);
+const BillingFailure = lazy(() =>
+  import("./pages/BillingFailure").then((module) => ({
+    default: module.BillingFailure,
+  })),
+);
 
 const RequireAuth = ({ children }) => {
   const { user, ready } = useAuth();
@@ -132,6 +142,8 @@ export default function App() {
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/terms-and-conditions" element={<TermsConditions />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/billing/success" element={<BillingSuccess />} />
+        <Route path="/billing/failure" element={<BillingFailure />} />
         <Route
           element={
             <RequireAuth>

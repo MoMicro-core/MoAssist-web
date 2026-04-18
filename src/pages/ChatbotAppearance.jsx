@@ -239,13 +239,11 @@ export const ChatbotAppearance = () => {
             : copy.topRight,
   }));
   const logoInputRef = useRef(null);
-  const bubbleIconInputRef = useRef(null);
   const previewFrameRef = useRef(null);
   const previewRequestRef = useRef(0);
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
   const [logoUploading, setLogoUploading] = useState(false);
-  const [bubbleIconUploading, setBubbleIconUploading] = useState(false);
   const [error, setError] = useState("");
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(false);
@@ -450,25 +448,6 @@ export const ChatbotAppearance = () => {
     }
   };
 
-  const handleBubbleIconUpload = async (event) => {
-    const [file] = Array.from(event.target.files || []);
-    if (!file) return;
-    setBubbleIconUploading(true);
-    setError("");
-    try {
-      const updatedChatbot = await api.chatbots.uploadBubbleIcon(chatbotId, file);
-      if (updatedChatbot?.settings) {
-        setDraft(updatedChatbot.settings);
-      }
-      await reload();
-    } catch (err) {
-      setError(err?.message || copy.unableUploadBubbleIcon);
-    } finally {
-      setBubbleIconUploading(false);
-      event.target.value = "";
-    }
-  };
-
   const featureAccess = chatbot?.featureAccess || {
     customBranding: false,
   };
@@ -477,8 +456,6 @@ export const ChatbotAppearance = () => {
   const paletteFallback = themeFallbacks[previewMode];
   const logoBackgroundFallback =
     draft?.theme?.[previewMode]?.surfaceColor || paletteFallback.surfaceColor;
-  const launcherIconPreview =
-    draft?.brand?.bubbleIconUrl || draft?.brand?.logoUrl || "";
 
   if (loading || !draft) return <Loading />;
 
@@ -749,38 +726,7 @@ export const ChatbotAppearance = () => {
                 />
               </div>
             }
-          >
-            <FieldGroup>
-              <Field>
-                <Label>{t("widgetLocationLabel")}</Label>
-                <WidgetLocationButtonGroup
-                  options={localizedWidgetLocationOptions}
-                  value={draft.widgetLocation || "right"}
-                  onChange={setWidgetLocation}
-                />
-                <PreviewHint>{copy.previewControlsHint}</PreviewHint>
-              </Field>
-              <Field>
-                <Label>{t("roundedCornersLabel")}</Label>
-                <Switch
-                  checked={Boolean(draft.rounded)}
-                  onChange={updateBoolean("rounded")}
-                  color="sky"
-                />
-              </Field>
-              <Field>
-                <Label>{t("cornerRadiusLabel")}</Label>
-                <Input
-                  type="number"
-                  min="0"
-                  max="40"
-                  value={draft.cornerRadius ?? 24}
-                  onChange={updateCornerRadius}
-                  disabled={!draft.rounded}
-                />
-              </Field>
-            </FieldGroup>
-          </SettingsCard>
+          />
 
           <SettingsCard
             title={copy.brandLauncher}
@@ -857,70 +803,6 @@ export const ChatbotAppearance = () => {
                 fallback={logoBackgroundFallback}
                 disabled={!canCustomizeBranding}
               />
-              <Field>
-                <Label>{t("uploadBubbleIconLabel")}</Label>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border"
-                      style={{
-                        backgroundColor:
-                          draft.theme?.[previewMode]?.launcherBackgroundColor ||
-                          paletteFallback.accentColor,
-                        borderColor:
-                          draft.theme?.[previewMode]?.borderColor ||
-                          paletteFallback.borderColor,
-                      }}
-                    >
-                      {launcherIconPreview ? (
-                        <img
-                          src={launcherIconPreview}
-                          alt={copy.launcherIconAlt}
-                          className="h-full w-full object-contain p-2"
-                        />
-                      ) : (
-                        <span className="text-sm font-semibold text-white">
-                          {(draft.botName || "M").slice(0, 1)}
-                        </span>
-                      )}
-                    </div>
-                    <input
-                      ref={bubbleIconInputRef}
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
-                      className="hidden"
-                      onChange={handleBubbleIconUpload}
-                      disabled={!canCustomizeBranding || bubbleIconUploading}
-                    />
-                    <Button
-                      type="button"
-                      color="sky"
-                      disabled={!canCustomizeBranding || bubbleIconUploading}
-                      onClick={() => bubbleIconInputRef.current?.click()}
-                    >
-                      {bubbleIconUploading
-                        ? t("uploadingBubbleIcon")
-                        : draft.brand?.bubbleIconUrl
-                          ? t("replaceBubbleIconAction")
-                          : t("uploadBubbleIconAction")}
-                    </Button>
-                  </div>
-                  <PreviewHint>
-                    {canCustomizeBranding
-                      ? t("bubbleIconUploadHelp")
-                      : t("customBrandingUpgradeHint")}
-                  </PreviewHint>
-                </div>
-              </Field>
-              <Field>
-                <Label>{t("bubbleIconUrlLabel")}</Label>
-                <Input
-                  value={draft.brand?.bubbleIconUrl || ""}
-                  onChange={updateBrand("bubbleIconUrl")}
-                  disabled={!canCustomizeBranding}
-                />
-                <PreviewHint>{copy.bubbleIconHint}</PreviewHint>
-              </Field>
             </FieldGroup>
           </SettingsCard>
 
@@ -957,6 +839,9 @@ export const ChatbotAppearance = () => {
                 title={copy.livePreviewTitle}
                 srcDoc={previewHtml}
                 className="h-[760px] w-full max-w-[520px] border-0 bg-transparent"
+                style={{
+                  borderRadius: draft.rounded ? `${draft.cornerRadius ?? 24}px` : undefined,
+                }}
                 onLoad={() => {
                   window.setTimeout(
                     () => postPreviewHighlight(selectedPreviewPart),

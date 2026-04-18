@@ -147,6 +147,7 @@ export const Login = () => {
               onClick={() => handleSocial("google")}
               disabled={disabled}
             />
+            {/* Apple Sign-In temporarily disabled — pending Firebase + Apple Developer Portal configuration
             <SocialButton
               icon={<AppleIcon />}
               label={t("continueWithApple")}
@@ -154,6 +155,7 @@ export const Login = () => {
               disabled={disabled}
               dark
             />
+            */}
           </div>
 
           <div className="mt-6 flex items-center gap-3">

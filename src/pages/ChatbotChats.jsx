@@ -304,7 +304,9 @@ export const ChatbotChats = () => {
                 ...prev,
                 lastMessagePreview: payload.message.content,
                 lastMessageAt: payload.message.createdAt,
-                messages: [...(prev.messages || []), payload.message],
+                messages: (prev.messages || []).some((m) => m.id === payload.message.id)
+                  ? prev.messages
+                  : [...(prev.messages || []), payload.message],
               }
             : prev,
         );
