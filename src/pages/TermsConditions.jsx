@@ -31,7 +31,15 @@ export const TermsConditions = () => {
           <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
             {section.title}
           </h2>
-          <p>{section.body}</p>
+          {section.body && <p>{section.body}</p>}
+          {section.subsections?.map((subsection) => (
+            <div key={subsection.subtitle} className="space-y-2 ml-4">
+              <h3 className="font-display text-lg font-semibold text-zinc-900 dark:text-white">
+                {subsection.subtitle}
+              </h3>
+              <p>{subsection.body}</p>
+            </div>
+          ))}
         </section>
       ))}
     </main>

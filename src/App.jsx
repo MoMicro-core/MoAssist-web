@@ -2,6 +2,7 @@ import { Fragment, lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Loading } from "./components/Loading";
+import { CookieBanner } from "./components/CookieBanner";
 import { PUBLIC_LOCALE_KEYS } from "./lib/siteLocales";
 
 const AuthenticatedLayout = lazy(() =>
@@ -169,6 +170,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <CookieBanner />
     </Suspense>
   );
 }

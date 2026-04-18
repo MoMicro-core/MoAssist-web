@@ -14,89 +14,165 @@ const privacyContent = {
     updatedValue: "April 9, 2026",
     sections: [
       {
-        title: "1. Who this policy covers",
+        title: "1. Controller (Art. 4 Nr. 7 DSGVO / Art. 4(7) GDPR)",
         paragraphs: [
-          "This Policy applies to MoAssist account owners, team members, website visitors who interact with chatbots powered by MoAssist, and end users who use a customer's signed-in area where MoAssist chat is available.",
+          "MoAssist is operated by MoMicro ('we', 'us').",
+          "Email: info@momicro.com",
+          "Support: support@momicro.com",
+          "Phone: +49 160 8417916",
         ],
       },
       {
-        title: "2. Roles and responsibilities",
+        title: "2. Scope",
         paragraphs: [
-          "MoAssist acts as the data controller for account creation, billing, security, support, and platform administration data.",
-          "When a customer uses MoAssist on its own website or customer area to collect messages, lead details, or support requests from its users, that customer will usually be responsible for the privacy information shown to its own visitors and customers. In those cases, MoAssist usually acts as a service provider or processor on that customer's instructions.",
+          "This Privacy Policy applies to:",
+          "• Users of the website and dashboard",
+          "• Customers (account owners and team members)",
+          "• Visitors interacting with chatbots",
+          "• End users of customer platforms",
         ],
       },
       {
-        title: "3. Data we may process",
-        intro: "Depending on how the service is used, we may process:",
+        title: "3. Roles under GDPR",
+        subsections: [
+          {
+            subtitle: "3.1 Controller",
+            paragraphs: [
+              "MoMicro acts as controller for:",
+              "• Account and contract management",
+              "• Billing",
+              "• Security and fraud prevention",
+              "• Support",
+            ],
+          },
+          {
+            subtitle: "3.2 Processor (Art. 28 GDPR)",
+            paragraphs: [
+              "When customers deploy chatbots:",
+              "• Customer = controller",
+              "• MoMicro = processor",
+              "• Processing occurs only on documented instructions under a Data Processing Agreement (DPA).",
+            ],
+          },
+        ],
+      },
+      {
+        title: "4. Categories of Data",
         items: [
-          "account data such as name, email address, and login details;",
-          "chatbot setup data such as chatbot name, prompts, themes, branding, language settings, and allowed domains;",
-          "conversation data such as chat messages, timestamps, message status, and whether a reply came from AI or a human;",
-          "lead capture data such as name, email address, and other custom fields configured by the customer;",
-          "signed-in user identifiers when a customer chooses to connect the chatbot to its own logged-in users;",
-          "uploaded files and documents used to improve chatbot answers;",
-          "technical and device data such as IP address, browser data, session identifiers, and security logs;",
-          "billing, subscription, and support request data.",
+          "Account data (Name, Email, Login)",
+          "Configuration data (Bot settings, prompts)",
+          "Communication data (messages, timestamps)",
+          "Lead data (name, email, custom fields)",
+          "Uploaded content (files, documents)",
+          "Technical data (IP, browser, logs)",
+          "Billing data",
         ],
       },
       {
-        title: "4. Why we process data",
-        intro: "We process data to:",
+        title: "5. Purposes and Legal Bases",
+        table: [
+          {
+            purpose: "Provide platform",
+            basis: "Art. 6(1)(b)",
+          },
+          {
+            purpose: "Chatbot operation",
+            basis: "Art. 6(1)(b), (f)",
+          },
+          {
+            purpose: "Lead capture",
+            basis: "Art. 6(1)(b), (f)",
+          },
+          {
+            purpose: "Support",
+            basis: "Art. 6(1)(b), (f)",
+          },
+          {
+            purpose: "Security",
+            basis: "Art. 6(1)(f)",
+          },
+          {
+            purpose: "Billing",
+            basis: "Art. 6(1)(b), (c)",
+          },
+          {
+            purpose: "Cookies/tracking",
+            basis: "Art. 6(1)(a)",
+          },
+        ],
+        paragraphs: [
+          "Legitimate interest: security, abuse prevention, service improvement",
+        ],
+      },
+      {
+        title: "6. Cookies & Device Access (§ 25 TTDSG)",
+        paragraphs: [
+          "Necessary technologies: no consent required",
+          "Non-essential technologies: prior consent required",
+          "Consent can be withdrawn at any time.",
+        ],
+      },
+      {
+        title: "7. Data Recipients",
+        paragraphs: [
+          "We use service providers (hosting, payments, etc.) under DPAs.",
+        ],
+      },
+      {
+        title: "8. International Transfers",
+        paragraphs: [
+          "Transfers outside the EU/EEA rely on appropriate safeguards (e.g., SCCs).",
+        ],
+      },
+      {
+        title: "9. Retention",
+        paragraphs: [
+          "Data is retained only as long as necessary (contract, legal obligations, security).",
+        ],
+      },
+      {
+        title: "10. Customer Responsibilities",
+        paragraphs: [
+          "Customers must provide their own privacy notice and disclose chatbot usage.",
+        ],
+      },
+      {
+        title: "11. Data Subject Rights",
         items: [
-          "provide the MoAssist website, dashboard, and chatbot platform;",
-          "run chat conversations and lead capture flows;",
-          "generate AI replies based on chatbot settings and uploaded files;",
-          "support customer service and signed-in user help flows;",
-          "secure the platform and prevent abuse or fraud;",
-          "manage billing, subscriptions, and support requests;",
-          "comply with legal obligations.",
+          "Access (Art. 15)",
+          "Rectification (Art. 16)",
+          "Erasure (Art. 17)",
+          "Restriction (Art. 18)",
+          "Portability (Art. 20)",
+          "Objection (Art. 21)",
+        ],
+        paragraphs: ["Contact: info@momicro.com"],
+      },
+      {
+        title: "12. Right to Lodge a Complaint",
+        paragraphs: [
+          "You may lodge a complaint with a supervisory authority.",
         ],
       },
       {
-        title: "5. Legal basis",
-        paragraphs: [
-          "Where applicable, we rely on contract performance, legitimate interests, legal obligations, and consent where consent is required by law.",
-        ],
-      },
-      {
-        title: "6. Sharing of data",
-        paragraphs: [
-          "We may share data with infrastructure, hosting, authentication, storage, payment, and support providers that help us operate the service. We may also disclose data where required by law or to protect rights, security, and the integrity of the platform.",
-          "Customers using MoAssist on their own websites or customer portals can access the conversations and lead data collected through their own chatbots.",
-        ],
-      },
-      {
-        title: "7. Retention",
-        paragraphs: [
-          "We keep personal data only for as long as needed to provide the service, maintain security, resolve disputes, comply with legal obligations, or follow customer instructions where MoAssist acts on a customer's behalf.",
-        ],
-      },
-      {
-        title: "8. Customer responsibilities",
-        paragraphs: [
-          "If you use MoAssist to collect personal data from your own visitors or customers, you should make sure your own website privacy notice explains that clearly.",
-        ],
-        intro: "Your notice should usually cover:",
+        title: "13. Security (Art. 32 GDPR)",
         items: [
-          "that a chatbot is used on the site or in the customer area;",
-          "what data may be collected in chat or lead forms;",
-          "why that data is collected and how it is used;",
-          "who receives access to the data, including MoAssist;",
-          "whether the chat can be linked to a signed-in user or customer account;",
-          "whether cookies or similar technologies are used and whether consent is required.",
+          "Access controls",
+          "Encryption (where appropriate)",
+          "Monitoring / Logging",
+          "Data minimization",
         ],
       },
       {
-        title: "9. Your rights",
+        title: "14. Automated Decision-Making",
         paragraphs: [
-          "Depending on applicable law, data subjects may have rights such as access, correction, deletion, restriction, objection, and data portability.",
+          "No solely automated decisions with legal or similarly significant effects.",
         ],
       },
       {
-        title: "10. Contact",
+        title: "15. Updates",
         paragraphs: [
-          "For privacy and general requests, contact the MoMicro team through the details listed below.",
+          "We may update this Privacy Policy.",
         ],
       },
     ],
@@ -116,89 +192,143 @@ const privacyContent = {
     updatedValue: "9. April 2026",
     sections: [
       {
-        title: "1. Für wen diese Erklärung gilt",
+        title: "1. Verantwortlicher / Controller (Art. 4 Nr. 7 DSGVO)",
         paragraphs: [
-          "Diese Erklärung gilt für MoAssist Kontoinhaber, Teammitglieder, Website-Besucher, die mit von MoAssist betriebenen Chatbots interagieren, sowie Endnutzer, die einen angemeldeten Kundenbereich nutzen, in dem MoAssist Chat verfügbar ist.",
+          "MoAssist wird betrieben von MoMicro ('wir', 'uns').",
+          "E-Mail: info@momicro.com",
+          "Support: support@momicro.com",
+          "Telefon: +49 160 8417916",
         ],
       },
       {
-        title: "2. Rollen und Verantwortlichkeiten",
+        title: "2. Geltungsbereich / Scope",
         paragraphs: [
-          "MoAssist ist Verantwortlicher für Daten aus Kontoerstellung, Abrechnung, Sicherheit, Support und Plattformverwaltung.",
-          "Wenn ein Kunde MoAssist auf der eigenen Website oder im eigenen Kundenbereich nutzt, um Nachrichten, Lead-Daten oder Supportanfragen zu erfassen, ist dieser Kunde in der Regel für die Datenschutzinformationen gegenüber den eigenen Besuchern und Kunden verantwortlich. In diesen Fällen handelt MoAssist üblicherweise als Dienstleister oder Auftragsverarbeiter auf Weisung des Kunden.",
+          "Diese Datenschutzerklärung gilt für:",
+          "• Nutzer der Website und des Dashboards",
+          "• Kunden (Account-Inhaber und Teammitglieder)",
+          "• Besucher, die mit Chatbots interagieren",
+          "• Endnutzer in Kundenportalen",
         ],
       },
       {
-        title: "3. Welche Daten wir verarbeiten können",
-        intro: "Je nach Nutzung des Dienstes können wir verarbeiten:",
+        title: "3. Rollen nach DSGVO / Roles under GDPR",
+        subsections: [
+          {
+            subtitle: "3.1 Verantwortlicher / Controller",
+            paragraphs: [
+              "MoMicro ist Verantwortlicher für:",
+              "• Konto- und Vertragsverwaltung",
+              "• Abrechnung",
+              "• Sicherheit und Missbrauchsprävention",
+              "• Support",
+            ],
+          },
+          {
+            subtitle: "3.2 Auftragsverarbeiter / Processor (Art. 28 GDPR)",
+            paragraphs: [
+              "Beim Einsatz von Chatbots gilt:",
+              "• Kunde = Verantwortlicher",
+              "• MoMicro = Auftragsverarbeiter",
+              "• Verarbeitung erfolgt nur auf dokumentierte Weisung im Rahmen eines AVV.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "4. Datenkategorien / Categories of Data",
         items: [
-          "Kontodaten wie Name, E-Mail-Adresse und Anmeldedaten;",
-          "Chatbot-Einrichtungsdaten wie Chatbot-Name, Prompts, Themes, Branding, Spracheinstellungen und erlaubte Domains;",
-          "Gesprächsdaten wie Chatnachrichten, Zeitstempel, Nachrichtenstatus und ob eine Antwort von KI oder einem Menschen kam;",
-          "Lead-Daten wie Name, E-Mail-Adresse und weitere vom Kunden konfigurierte Felder;",
-          "Kennungen angemeldeter Nutzer, wenn ein Kunde den Chatbot mit eigenen eingeloggten Nutzern verbindet;",
-          "hochgeladene Dateien und Dokumente zur Verbesserung der Chatbot-Antworten;",
-          "technische und Gerätedaten wie IP-Adresse, Browserdaten, Sitzungskennungen und Sicherheitsprotokolle;",
-          "Abrechnungs-, Abo- und Supportdaten.",
+          "Kontodaten / Account data (Name, Email, Login)",
+          "Konfigurationsdaten / Configuration data (Bot settings, prompts)",
+          "Kommunikationsdaten / Communication data (messages, timestamps)",
+          "Lead-Daten / Lead data (name, email, custom fields)",
+          "Inhaltsdaten / Uploaded content (files, documents)",
+          "Technische Daten / Technical data (IP, browser, logs)",
+          "Abrechnungsdaten / Billing data",
         ],
       },
       {
-        title: "4. Warum wir Daten verarbeiten",
-        intro: "Wir verarbeiten Daten, um:",
+        title: "5. Zwecke und Rechtsgrundlagen / Purposes and Legal Bases",
+        paragraphs: [
+          "Plattform bereitstellen / Provide platform: Art. 6(1)(b)",
+          "Chatbot-Funktion / Chatbot operation: Art. 6(1)(b), (f)",
+          "Lead-Erfassung / Lead capture: Art. 6(1)(b), (f)",
+          "Support / Support: Art. 6(1)(b), (f)",
+          "Sicherheit / Security: Art. 6(1)(f)",
+          "Abrechnung / Billing: Art. 6(1)(b), (c)",
+          "Cookies/Tracking / Cookies/tracking: Art. 6(1)(a)",
+          "",
+          "Berechtigtes Interesse / Legitimate interest: Sicherheit, Missbrauchsprävention, Verbesserung / security, abuse prevention, service improvement",
+        ],
+      },
+      {
+        title: "6. Cookies & Endgerätezugriff / Cookies & Device Access (§ 25 TTDSG)",
+        paragraphs: [
+          "Notwendige Technologien: keine Einwilligung erforderlich",
+          "Nicht notwendige Technologien: Einwilligung erforderlich",
+          "Einwilligung kann jederzeit widerrufen werden / Consent can be withdrawn at any time.",
+        ],
+      },
+      {
+        title: "7. Empfänger / Data Recipients",
+        paragraphs: [
+          "Einsatz von Dienstleistern (Hosting, Payment, etc.) mit AVV.",
+        ],
+      },
+      {
+        title: "8. Drittlandübermittlung / International Transfers",
+        paragraphs: [
+          "Übermittlungen außerhalb EU/EWR nur mit geeigneten Garantien (z. B. SCCs).",
+        ],
+      },
+      {
+        title: "9. Speicherdauer / Retention",
+        paragraphs: [
+          "Speicherung nur so lange wie erforderlich (Vertrag, Rechtspflichten, Sicherheit).",
+        ],
+      },
+      {
+        title: "10. Pflichten der Kunden / Customer Responsibilities",
+        paragraphs: [
+          "Kunden müssen eigene Datenschutzhinweise bereitstellen und Chatbot-Nutzung offenlegen.",
+        ],
+      },
+      {
+        title: "11. Betroffenenrechte / Data Subject Rights",
         items: [
-          "die MoAssist Website, das Dashboard und die Chatbot-Plattform bereitzustellen;",
-          "Chat-Gespräche und Lead-Flows auszuführen;",
-          "KI-Antworten auf Basis der Chatbot-Einstellungen und hochgeladener Dateien zu erzeugen;",
-          "Support für Kunden und angemeldete Nutzer bereitzustellen;",
-          "die Plattform zu sichern und Missbrauch oder Betrug zu verhindern;",
-          "Abrechnung, Abonnements und Supportanfragen zu verwalten;",
-          "gesetzliche Pflichten zu erfüllen.",
+          "Auskunft / Access (Art. 15)",
+          "Berichtigung / Rectification (Art. 16)",
+          "Löschung / Erasure (Art. 17)",
+          "Einschränkung / Restriction (Art. 18)",
+          "Datenübertragbarkeit / Portability (Art. 20)",
+          "Widerspruch / Objection (Art. 21)",
+        ],
+        paragraphs: ["Kontakt / Contact: info@momicro.com"],
+      },
+      {
+        title: "12. Beschwerderecht / Right to Lodge a Complaint",
+        paragraphs: [
+          "Beschwerde bei einer Datenschutzaufsichtsbehörde möglich. / You may lodge a complaint with a supervisory authority.",
         ],
       },
       {
-        title: "5. Rechtsgrundlagen",
-        paragraphs: [
-          "Soweit anwendbar, stützen wir uns auf Vertragserfüllung, berechtigte Interessen, gesetzliche Pflichten und Einwilligung, sofern eine Einwilligung gesetzlich erforderlich ist.",
-        ],
-      },
-      {
-        title: "6. Weitergabe von Daten",
-        paragraphs: [
-          "Wir können Daten an Infrastruktur-, Hosting-, Authentifizierungs-, Speicher-, Zahlungs- und Supportanbieter weitergeben, die uns beim Betrieb des Dienstes helfen. Daten können auch offengelegt werden, wenn dies gesetzlich vorgeschrieben ist oder zum Schutz von Rechten, Sicherheit und Integrität der Plattform erforderlich ist.",
-          "Kunden, die MoAssist auf ihren eigenen Websites oder Kundenportalen nutzen, können auf die über ihre eigenen Chatbots erfassten Gesprächs- und Lead-Daten zugreifen.",
-        ],
-      },
-      {
-        title: "7. Speicherfristen",
-        paragraphs: [
-          "Wir speichern personenbezogene Daten nur so lange, wie es für die Bereitstellung des Dienstes, die Sicherheit, die Klärung von Streitigkeiten, die Erfüllung gesetzlicher Pflichten oder die Weisungen eines Kunden erforderlich ist, wenn MoAssist im Auftrag des Kunden handelt.",
-        ],
-      },
-      {
-        title: "8. Pflichten des Kunden",
-        paragraphs: [
-          "Wenn Sie MoAssist nutzen, um personenbezogene Daten Ihrer eigenen Besucher oder Kunden zu erfassen, sollten Sie sicherstellen, dass Ihre eigene Datenschutzerklärung dies klar erklärt.",
-        ],
-        intro: "Ihre Hinweise sollten in der Regel Folgendes abdecken:",
+        title: "13. Sicherheit / Security (Art. 32 GDPR)",
         items: [
-          "dass ein Chatbot auf der Website oder im Kundenbereich eingesetzt wird;",
-          "welche Daten im Chat oder in Lead-Formularen erfasst werden können;",
-          "warum diese Daten erhoben werden und wie sie verwendet werden;",
-          "wer Zugriff auf die Daten erhält, einschließlich MoAssist;",
-          "ob der Chat mit einem angemeldeten Nutzer oder Kundenkonto verknüpft werden kann;",
-          "ob Cookies oder ähnliche Technologien genutzt werden und ob dafür eine Einwilligung erforderlich ist.",
+          "Zugriffskontrollen / Access controls",
+          "Verschlüsselung / Encryption (where appropriate)",
+          "Monitoring / Logging",
+          "Datenminimierung / Data minimization",
         ],
       },
       {
-        title: "9. Ihre Rechte",
+        title: "14. Automatisierte Entscheidungen / Automated Decision-Making",
         paragraphs: [
-          "Je nach anwendbarem Recht können betroffene Personen Rechte wie Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch und Datenübertragbarkeit haben.",
+          "Keine Entscheidungen mit rechtlicher Wirkung ausschließlich automatisiert. / No solely automated decisions with legal or similarly significant effects.",
         ],
       },
       {
-        title: "10. Kontakt",
+        title: "15. Änderungen / Updates",
         paragraphs: [
-          "Für Datenschutz- und allgemeine Anfragen kontaktieren Sie bitte das MoMicro Team über die unten aufgeführten Kontaktdaten.",
+          "Änderungen dieser Datenschutzerklärung bleiben vorbehalten. / We may update this Privacy Policy.",
         ],
       },
     ],
@@ -385,9 +515,9 @@ const termsContent = {
           "Billing is managed per chatbot subscription. Fees, trials, and renewal terms are shown during checkout.",
       },
       {
-        title: "4. Acceptable use",
+        title: "4. Acceptable Use",
         body:
-          "Users must not use the service for unlawful, harmful, or abusive behavior, including unauthorized data collection.",
+          "Users must not use the service for unlawful, harmful, or abusive behavior, including unauthorized or unlawful processing of personal data.",
       },
       {
         title: "5. Availability",
@@ -400,9 +530,69 @@ const termsContent = {
           "To the extent permitted by law, liability for indirect or consequential damages is excluded.",
       },
       {
-        title: "7. Governing law",
+        title: "7. Governing Law",
         body:
           "These terms are governed by the laws of the Federal Republic of Germany unless mandatory law provides otherwise.",
+      },
+      {
+        title: "8. Data Processing Agreement (Art. 28 GDPR)",
+        subsections: [
+          {
+            subtitle: "8.1 Roles",
+            body:
+              "To the extent that MoAssist processes personal data on behalf of the customer: The customer acts as Data Controller, MoMicro (MoAssist) acts as Data Processor within the meaning of Art. 28 GDPR",
+          },
+          {
+            subtitle: "8.2 Subject Matter and Duration",
+            body:
+              "Processing is carried out for the purpose of providing the MoAssist services for the duration of the agreement.",
+          },
+          {
+            subtitle: "8.3 Nature and Purpose of Processing",
+            body:
+              "Processing includes: storage and handling of chatbot conversations, processing of user inputs and lead data, generation of automated responses, hosting and technical operation of the platform",
+          },
+          {
+            subtitle: "8.4 Types of Personal Data",
+            body:
+              "Depending on customer use: names, email addresses, chat messages, user identifiers, other data submitted via chatbot",
+          },
+          {
+            subtitle: "8.5 Categories of Data Subjects",
+            body:
+              "website visitors, customers and end users of the customer, employees or representatives of the customer",
+          },
+          {
+            subtitle: "8.6 Obligations of MoMicro (Processor)",
+            body:
+              "MoMicro shall: process personal data only on documented instructions of the customer, ensure persons authorized to process data are bound by confidentiality, implement appropriate technical and organizational measures (Art. 32 GDPR), assist the customer in fulfilling data subject rights, notify the customer without undue delay in case of a personal data breach, delete or return personal data upon termination, unless legally required to retain it",
+          },
+          {
+            subtitle: "8.7 Subprocessors",
+            body:
+              "MoMicro may engage subprocessors (e.g., hosting, infrastructure, AI providers). Subprocessors are contractually bound in accordance with Art. 28 GDPR. A current list of subprocessors will be made available upon request or via the website",
+          },
+          {
+            subtitle: "8.8 Customer Obligations",
+            body:
+              "The customer shall: ensure that processing is lawful, provide required privacy notices to data subjects, obtain any necessary consents, not submit unlawful or sensitive data unless permitted by law",
+          },
+          {
+            subtitle: "8.9 Audit and Information Rights",
+            body:
+              "The customer may request information necessary to demonstrate compliance with this agreement.",
+          },
+          {
+            subtitle: "8.10 International Transfers",
+            body:
+              "Where data is transferred outside the EU/EEA, appropriate safeguards (e.g. Standard Contractual Clauses) will be applied.",
+          },
+          {
+            subtitle: "8.11 Priority",
+            body:
+              "In case of conflict between this section and other provisions, this Data Processing Agreement shall prevail with respect to data protection matters.",
+          },
+        ],
       },
     ],
   },

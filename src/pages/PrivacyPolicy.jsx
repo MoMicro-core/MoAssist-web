@@ -50,7 +50,29 @@ export const PrivacyPolicy = () => {
               ))}
             </ul>
           ) : null}
-          {section.title.startsWith("10.") ? (
+          {section.table?.length ? (
+            <table className="w-full border-collapse border border-zinc-300 dark:border-zinc-700">
+              <tbody>
+                {section.table.map((row) => (
+                  <tr key={row.purpose} className="border border-zinc-300 dark:border-zinc-700">
+                    <td className="border border-zinc-300 dark:border-zinc-700 px-3 py-2">{row.purpose}</td>
+                    <td className="border border-zinc-300 dark:border-zinc-700 px-3 py-2">{row.basis}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : null}
+          {section.subsections?.map((subsection) => (
+            <div key={subsection.subtitle} className="space-y-2 ml-4">
+              <h3 className="font-display text-lg font-semibold text-zinc-900 dark:text-white">
+                {subsection.subtitle}
+              </h3>
+              {subsection.paragraphs?.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          ))}
+          {section.title.startsWith("1.") && section.title.includes("Controller") ? (
             <div className="space-y-1">
               <p>{COMPANY_INFO.infoEmail}</p>
               <p>{COMPANY_INFO.supportEmail}</p>
