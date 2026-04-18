@@ -51,12 +51,14 @@ export const ChatbotAppearance = () => {
         chipSurface: "Chip-Fläche",
         chipBorder: "Chip-Rand",
         composerBorder: "Composer-Rand",
+        composerInput: "Eingabe-Hintergrund",
         sendAccent: "Sende-Akzent",
         sendText: "Sende-Text",
-        launcherAccent: "Launcher-Akzent",
+        launcherAccent: "Launcher-Hintergrund",
         canvasBg: "Canvas-Hintergrund",
         panelSurface: "Panel-Fläche",
         border: "Rand",
+        cornerRadius: "Eckenradius",
         previewControls: "Vorschau-Steuerung",
         previewControlsBody:
           "Wechseln Sie zuerst den Darstellungsmodus und platzieren Sie den Launcher dann in derselben Ecke, die Ihre Besucher auf der Website sehen.",
@@ -64,10 +66,11 @@ export const ChatbotAppearance = () => {
           "Positionen unten verhalten sich wie ein klassischer schwebender Chat. Positionen oben halten den Launcher an den oberen Ecken.",
         brandLauncher: "Branding und Launcher",
         brandLauncherBody:
-          "Steuern Sie das Logo, den Hintergrund dahinter und die Launcher-Grafik, die vor dem Öffnen des Chats sichtbar ist.",
+          "Steuern Sie das Logo, den Hintergrund dahinter und das Launcher-Icon, das vor dem Öffnen des Chats sichtbar ist.",
         logoAlt: "Chatbot-Logo",
         bubbleIconHint:
-          "Verwenden Sie hier ein anderes Bild, wenn der Launcher-Button ein anderes Icon als das Hauptlogo nutzen soll.",
+          "Nutzen Sie optional einen direkten Bild-Link, wenn der Launcher ein anderes Icon als das Hauptlogo verwenden soll.",
+        launcherIconAlt: "Launcher-Icon",
         studioTitle: "Live-Widget-Studio",
         studioBody:
           "Klicken Sie auf einen Bereich des Chats, um dessen Farben zu fokussieren. Sichtbare Texte wie Bot-Name, Begrüßung, Schnellantworten und Composer-Text lassen sich direkt in der Vorschau bearbeiten.",
@@ -83,6 +86,8 @@ export const ChatbotAppearance = () => {
         unableRender: "Live-Widget-Vorschau konnte nicht gerendert werden",
         unableSave: "Appearance konnte nicht gespeichert werden",
         unableUpload: "Logo konnte nicht hochgeladen werden",
+        unableUploadBubbleIcon:
+          "Launcher-Icon konnte nicht hochgeladen werden",
         parts: {
           header: "Header",
           assistantBubble: "Assistentenblase",
@@ -111,12 +116,14 @@ export const ChatbotAppearance = () => {
         chipSurface: "Superficie del chip",
         chipBorder: "Borde del chip",
         composerBorder: "Borde del composer",
+        composerInput: "Fondo del campo",
         sendAccent: "Acento de enviar",
         sendText: "Texto de enviar",
-        launcherAccent: "Acento del launcher",
+        launcherAccent: "Fondo del launcher",
         canvasBg: "Fondo del canvas",
         panelSurface: "Superficie del panel",
         border: "Borde",
+        cornerRadius: "Radio de esquina",
         previewControls: "Controles de vista previa",
         previewControlsBody:
           "Primero cambia el modo visual y luego coloca el launcher en la misma esquina en la que tus visitantes lo verán en el sitio web.",
@@ -124,10 +131,11 @@ export const ChatbotAppearance = () => {
           "Las posiciones inferiores se comportan como un chat flotante clásico. Las superiores mantienen el launcher fijado en las esquinas de arriba.",
         brandLauncher: "Branding y launcher",
         brandLauncherBody:
-          "Controla el logo, el fondo detrás de él y el arte del launcher que la gente ve antes de abrir el chat.",
+          "Controla el logo, el fondo detrás de él y el icono del launcher que la gente ve antes de abrir el chat.",
         logoAlt: "Logo del chatbot",
         bubbleIconHint:
-          "Usa una imagen distinta aquí si quieres que el botón launcher use otro icono diferente al logo principal del chatbot.",
+          "Usa aquí un enlace de imagen si quieres que el botón launcher use otro icono distinto al logo principal del chatbot.",
+        launcherIconAlt: "Icono del launcher",
         studioTitle: "Estudio del widget en vivo",
         studioBody:
           "Haz clic en cualquier parte del chat para centrarte en sus colores. El texto visible como nombre del bot, bienvenida, respuestas rápidas y composer se puede editar directamente dentro de la vista previa.",
@@ -143,6 +151,8 @@ export const ChatbotAppearance = () => {
         unableRender: "No se pudo renderizar la vista previa en vivo",
         unableSave: "No se pudo guardar la apariencia",
         unableUpload: "No se pudo subir el logo",
+        unableUploadBubbleIcon:
+          "No se pudo subir el icono del launcher",
         parts: {
           header: "Encabezado",
           assistantBubble: "Globo del asistente",
@@ -171,12 +181,14 @@ export const ChatbotAppearance = () => {
       chipSurface: "Chip surface",
       chipBorder: "Chip border",
       composerBorder: "Composer border",
+      composerInput: "Input background",
       sendAccent: "Send accent",
       sendText: "Send text",
-      launcherAccent: "Launcher accent",
+      launcherAccent: "Launcher background",
       canvasBg: "Canvas background",
       panelSurface: "Panel surface",
       border: "Border",
+      cornerRadius: "Corner radius",
       previewControls: "Preview controls",
       previewControlsBody:
         "Switch the visual mode first, then place the launcher in the same corner your visitors will see on the website.",
@@ -184,10 +196,11 @@ export const ChatbotAppearance = () => {
         "Bottom positions behave like a classic floating chat. Top positions keep the launcher pinned to the upper corners.",
       brandLauncher: "Brand and launcher",
       brandLauncherBody:
-        "Control the logo, the background behind it, and the launcher artwork people see before the chat opens.",
+        "Control the logo, the background behind it, and the launcher icon people see before the chat opens.",
       logoAlt: "Chatbot logo",
       bubbleIconHint:
-        "Use a different image here if you want the launcher button to use another icon than the main chatbot logo.",
+        "Use a direct image link here if you want the launcher button to use another icon than the main chatbot logo.",
+      launcherIconAlt: "Launcher icon",
       studioTitle: "Live widget studio",
       studioBody:
         "Click any part of the chat to focus its colors. Edit visible text directly inside the preview: bot name, welcome message, quick replies, and the composer text.",
@@ -203,6 +216,7 @@ export const ChatbotAppearance = () => {
       unableRender: "Unable to render live widget preview",
       unableSave: "Unable to save appearance",
       unableUpload: "Unable to upload logo",
+      unableUploadBubbleIcon: "Unable to upload launcher icon",
       parts: {
         header: "Header",
         assistantBubble: "Assistant bubble",
@@ -225,11 +239,13 @@ export const ChatbotAppearance = () => {
             : copy.topRight,
   }));
   const logoInputRef = useRef(null);
+  const bubbleIconInputRef = useRef(null);
   const previewFrameRef = useRef(null);
   const previewRequestRef = useRef(0);
   const [draft, setDraft] = useState(null);
   const [saving, setSaving] = useState(false);
   const [logoUploading, setLogoUploading] = useState(false);
+  const [bubbleIconUploading, setBubbleIconUploading] = useState(false);
   const [error, setError] = useState("");
   const [previewHtml, setPreviewHtml] = useState("");
   const [previewLoading, setPreviewLoading] = useState(false);
@@ -390,6 +406,18 @@ export const ChatbotAppearance = () => {
     setThemeValue(mode, field, event.target.value);
   };
 
+  const setCornerRadius = (value) => {
+    const numeric = Number.parseInt(value, 10);
+    const nextValue = Number.isNaN(numeric)
+      ? 0
+      : Math.min(40, Math.max(0, numeric));
+    setDraft((prev) => ({ ...prev, cornerRadius: nextValue }));
+  };
+
+  const updateCornerRadius = (event) => {
+    setCornerRadius(event.target.value);
+  };
+
   const handleSave = async () => {
     setSaving(true);
     setError("");
@@ -422,6 +450,25 @@ export const ChatbotAppearance = () => {
     }
   };
 
+  const handleBubbleIconUpload = async (event) => {
+    const [file] = Array.from(event.target.files || []);
+    if (!file) return;
+    setBubbleIconUploading(true);
+    setError("");
+    try {
+      const updatedChatbot = await api.chatbots.uploadBubbleIcon(chatbotId, file);
+      if (updatedChatbot?.settings) {
+        setDraft(updatedChatbot.settings);
+      }
+      await reload();
+    } catch (err) {
+      setError(err?.message || copy.unableUploadBubbleIcon);
+    } finally {
+      setBubbleIconUploading(false);
+      event.target.value = "";
+    }
+  };
+
   const featureAccess = chatbot?.featureAccess || {
     customBranding: false,
   };
@@ -430,6 +477,8 @@ export const ChatbotAppearance = () => {
   const paletteFallback = themeFallbacks[previewMode];
   const logoBackgroundFallback =
     draft?.theme?.[previewMode]?.surfaceColor || paletteFallback.surfaceColor;
+  const launcherIconPreview =
+    draft?.brand?.bubbleIconUrl || draft?.brand?.logoUrl || "";
 
   if (loading || !draft) return <Loading />;
 
@@ -442,12 +491,12 @@ export const ChatbotAppearance = () => {
           <FieldGroup>
             <ColorField
               label={copy.headerBg}
-              value={draft.theme?.[previewMode]?.backgroundColor || ""}
-              onTextChange={updateTheme(previewMode, "backgroundColor")}
+              value={draft.theme?.[previewMode]?.surfaceColor || ""}
+              onTextChange={updateTheme(previewMode, "surfaceColor")}
               onColorChange={(value) =>
-                setThemeValue(previewMode, "backgroundColor", value)
+                setThemeValue(previewMode, "surfaceColor", value)
               }
-              fallback={paletteFallback.backgroundColor}
+              fallback={paletteFallback.surfaceColor}
             />
             <ColorField
               label={copy.headerText}
@@ -551,6 +600,15 @@ export const ChatbotAppearance = () => {
               fallback={paletteFallback.borderColor}
             />
             <ColorField
+              label={copy.composerInput}
+              value={draft.theme?.[previewMode]?.inputBackgroundColor || ""}
+              onTextChange={updateTheme(previewMode, "inputBackgroundColor")}
+              onColorChange={(value) =>
+                setThemeValue(previewMode, "inputBackgroundColor", value)
+              }
+              fallback={paletteFallback.surfaceColor}
+            />
+            <ColorField
               label={copy.sendAccent}
               value={draft.theme?.[previewMode]?.accentColor || ""}
               onTextChange={updateTheme(previewMode, "accentColor")}
@@ -582,13 +640,6 @@ export const ChatbotAppearance = () => {
               />
             </Field>
             <Field>
-              <Label>{t("bubbleIconUrlLabel")}</Label>
-              <Input
-                value={draft.brand?.bubbleIconUrl || ""}
-                onChange={updateBrand("bubbleIconUrl")}
-              />
-            </Field>
-            <Field>
               <Label>{t("roundedCornersLabel")}</Label>
               <Switch
                 checked={Boolean(draft.rounded)}
@@ -596,12 +647,26 @@ export const ChatbotAppearance = () => {
                 color="sky"
               />
             </Field>
+            <Field>
+              <Label>{t("cornerRadiusLabel")}</Label>
+              <Input
+                type="number"
+                min="0"
+                max="40"
+                value={draft.cornerRadius ?? 24}
+                onChange={updateCornerRadius}
+                disabled={!draft.rounded}
+              />
+            </Field>
             <ColorField
               label={copy.launcherAccent}
-              value={draft.theme?.[previewMode]?.accentColor || ""}
-              onTextChange={updateTheme(previewMode, "accentColor")}
+              value={draft.theme?.[previewMode]?.launcherBackgroundColor || ""}
+              onTextChange={updateTheme(
+                previewMode,
+                "launcherBackgroundColor",
+              )}
               onColorChange={(value) =>
-                setThemeValue(previewMode, "accentColor", value)
+                setThemeValue(previewMode, "launcherBackgroundColor", value)
               }
               fallback={paletteFallback.accentColor}
             />
@@ -703,6 +768,17 @@ export const ChatbotAppearance = () => {
                   color="sky"
                 />
               </Field>
+              <Field>
+                <Label>{t("cornerRadiusLabel")}</Label>
+                <Input
+                  type="number"
+                  min="0"
+                  max="40"
+                  value={draft.cornerRadius ?? 24}
+                  onChange={updateCornerRadius}
+                  disabled={!draft.rounded}
+                />
+              </Field>
             </FieldGroup>
           </SettingsCard>
 
@@ -782,10 +858,66 @@ export const ChatbotAppearance = () => {
                 disabled={!canCustomizeBranding}
               />
               <Field>
+                <Label>{t("uploadBubbleIconLabel")}</Label>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border"
+                      style={{
+                        backgroundColor:
+                          draft.theme?.[previewMode]?.launcherBackgroundColor ||
+                          paletteFallback.accentColor,
+                        borderColor:
+                          draft.theme?.[previewMode]?.borderColor ||
+                          paletteFallback.borderColor,
+                      }}
+                    >
+                      {launcherIconPreview ? (
+                        <img
+                          src={launcherIconPreview}
+                          alt={copy.launcherIconAlt}
+                          className="h-full w-full object-contain p-2"
+                        />
+                      ) : (
+                        <span className="text-sm font-semibold text-white">
+                          {(draft.botName || "M").slice(0, 1)}
+                        </span>
+                      )}
+                    </div>
+                    <input
+                      ref={bubbleIconInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                      className="hidden"
+                      onChange={handleBubbleIconUpload}
+                      disabled={!canCustomizeBranding || bubbleIconUploading}
+                    />
+                    <Button
+                      type="button"
+                      color="sky"
+                      disabled={!canCustomizeBranding || bubbleIconUploading}
+                      onClick={() => bubbleIconInputRef.current?.click()}
+                    >
+                      {bubbleIconUploading
+                        ? t("uploadingBubbleIcon")
+                        : draft.brand?.bubbleIconUrl
+                          ? t("replaceBubbleIconAction")
+                          : t("uploadBubbleIconAction")}
+                    </Button>
+                  </div>
+                  <PreviewHint>
+                    {canCustomizeBranding
+                      ? t("bubbleIconUploadHelp")
+                      : t("customBrandingUpgradeHint")}
+                  </PreviewHint>
+                </div>
+              </Field>
+              <Field>
                 <Label>{t("bubbleIconUrlLabel")}</Label>
                 <Input
                   value={draft.brand?.bubbleIconUrl || ""}
                   onChange={updateBrand("bubbleIconUrl")}
+                  disabled={!canCustomizeBranding}
                 />
                 <PreviewHint>{copy.bubbleIconHint}</PreviewHint>
               </Field>
@@ -880,6 +1012,18 @@ export const ChatbotAppearance = () => {
                 fallback={paletteFallback.accentColor}
               />
               <ColorField
+                label={t("launcherBackgroundColorLabel")}
+                value={draft.theme?.[previewMode]?.launcherBackgroundColor || ""}
+                onTextChange={updateTheme(
+                  previewMode,
+                  "launcherBackgroundColor",
+                )}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "launcherBackgroundColor", value)
+                }
+                fallback={paletteFallback.accentColor}
+              />
+              <ColorField
                 label={copy.accentText}
                 value={draft.theme?.[previewMode]?.accentTextColor || ""}
                 onTextChange={updateTheme(previewMode, "accentTextColor")}
@@ -903,6 +1047,15 @@ export const ChatbotAppearance = () => {
                 onTextChange={updateTheme(previewMode, "surfaceColor")}
                 onColorChange={(value) =>
                   setThemeValue(previewMode, "surfaceColor", value)
+                }
+                fallback={paletteFallback.surfaceColor}
+              />
+              <ColorField
+                label={t("inputBackgroundColorLabel")}
+                value={draft.theme?.[previewMode]?.inputBackgroundColor || ""}
+                onTextChange={updateTheme(previewMode, "inputBackgroundColor")}
+                onColorChange={(value) =>
+                  setThemeValue(previewMode, "inputBackgroundColor", value)
                 }
                 fallback={paletteFallback.surfaceColor}
               />

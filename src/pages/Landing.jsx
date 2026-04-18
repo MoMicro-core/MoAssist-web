@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { PublicFooter } from "../components/PublicFooter";
 import { PublicHeader } from "../components/PublicHeader";
 import { useI18n } from "../context/I18nContext";
+import { useTheme } from "../context/ThemeContext";
 import { getMarketingContent } from "../content/marketingContent";
 import {
   COMPANY_INFO,
@@ -179,22 +180,63 @@ const SectionHeading = ({ eyebrow, title, body }) => (
 );
 
 const LANDING_VISUALS = {
-  hero: "/preview/chatbot-appearance-shot.png",
+  hero: {
+    light: "/preview/ready-chatbot-hero-light.png",
+    dark: "/preview/ready-chatbot-hero-dark.png",
+  },
   featureSections: [
-    "/preview/chatbots-overview-shot.png",
-    "/preview/chatbot-settings-shot.png",
-    "/preview/chatbot-conversations-shot.png",
-    "/preview/chatbot-dashboard-shot.png",
-    "/preview/chatbot-appearance-shot.png",
-    "/preview/chatbots-overview-shot.png",
+    {
+      light: "/preview/ready-chatbot-feature-light.png",
+      dark: "/preview/ready-chatbot-feature-dark.png",
+    },
+    {
+      light: "/preview/knowledge-files-focused-light.png",
+      dark: "/preview/knowledge-files-focused-dark.png",
+      aspectClass: "aspect-[2/1]",
+    },
+    {
+      light: "/preview/lead-capture-focused-light.png",
+      dark: "/preview/lead-capture-focused-dark.png",
+    },
+    {
+      light: "/preview/auth-support-focused-light.png",
+      dark: "/preview/auth-support-focused-dark.png",
+    },
+    {
+      light: "/preview/ai-handoff-focused-light.png",
+      dark: "/preview/ai-handoff-focused-dark.png",
+    },
+    {
+      light: "/preview/install-scripts-focused-light.png",
+      dark: "/preview/install-scripts-focused-dark.png",
+    },
   ],
   workflowSteps: [
-    "/preview/chatbots-overview-shot.png",
-    "/preview/chatbot-settings-shot.png",
-    "/preview/chatbot-appearance-shot.png",
-    "/preview/chatbot-conversations-shot.png",
+    {
+      light: "/preview/chatbots-overview-focused-light.png",
+      dark: "/preview/chatbots-overview-focused-dark.png",
+    },
+    {
+      light: "/preview/knowledge-files-focused-light.png",
+      dark: "/preview/knowledge-files-focused-dark.png",
+      aspectClass: "aspect-[2/1]",
+    },
+    {
+      light: "/preview/ui-customization-focused-light.png",
+      dark: "/preview/ui-customization-focused-dark.png",
+    },
+    {
+      light: "/preview/ai-handoff-focused-light.png",
+      dark: "/preview/ai-handoff-focused-dark.png",
+    },
   ],
 };
+
+const resolveLandingVisual = (visual, theme) =>
+  theme === "dark" ? visual.dark || visual.light : visual.light;
+
+const resolveLandingAspect = (visual, fallback = "aspect-[4/3]") =>
+  visual.aspectClass || fallback;
 
 const ShowcaseImage = ({
   src,
@@ -214,7 +256,7 @@ const ShowcaseImage = ({
         src={src}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
-        className="h-full w-full object-cover object-top"
+        className="h-full w-full object-cover object-center"
       />
       <div
         aria-hidden="true"
@@ -224,14 +266,14 @@ const ShowcaseImage = ({
   </div>
 );
 
-const WorkflowCardImage = ({ src, alt }) => (
+const WorkflowCardImage = ({ src, alt, aspectClass = "aspect-[4/3]" }) => (
   <div className="relative overflow-hidden rounded-[1.65rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88">
-    <div className="aspect-[4/3]">
+    <div className={aspectClass}>
       <img
         src={src}
         alt={alt}
         loading="lazy"
-        className="h-full w-full object-cover object-top"
+        className="h-full w-full object-cover object-center"
       />
     </div>
     <div
@@ -241,7 +283,7 @@ const WorkflowCardImage = ({ src, alt }) => (
   </div>
 );
 
-const HowItWorksSection = ({ activeStep, content, sectionRef }) => {
+const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
   const workflowSteps = content.workflowSteps;
 
   return (
@@ -296,6 +338,10 @@ const HowItWorksSection = ({ activeStep, content, sectionRef }) => {
     <div className="relative min-h-[320vh]" data-workflow-stack>
       <div className="sticky top-24 h-[80vh]">
         {workflowSteps.map((item, index) => {
+          const visual =
+            LANDING_VISUALS.workflowSteps[
+              index % LANDING_VISUALS.workflowSteps.length
+            ];
           const stateClass =
             index === activeStep
               ? "is-active"
@@ -325,11 +371,8 @@ const HowItWorksSection = ({ activeStep, content, sectionRef }) => {
                   </div>
                   <div className="flex-1">
                     <WorkflowCardImage
-                      src={
-                        LANDING_VISUALS.workflowSteps[
-                          index % LANDING_VISUALS.workflowSteps.length
-                        ]
-                      }
+                      src={resolveLandingVisual(visual, theme)}
+                      aspectClass={resolveLandingAspect(visual)}
                       alt={item.title}
                     />
                   </div>
@@ -354,6 +397,7 @@ const HowItWorksSection = ({ activeStep, content, sectionRef }) => {
 
 export const Landing = () => {
   const { language, t } = useI18n();
+  const { theme } = useTheme();
   const [openFaq, setOpenFaq] = useState(0);
   const [activeWorkflowStep, setActiveWorkflowStep] = useState(0);
   const workflowSectionRef = useRef(null);
@@ -538,7 +582,7 @@ export const Landing = () => {
           </div>
 
           <ShowcaseImage
-            src={LANDING_VISUALS.hero}
+            src={resolveLandingVisual(LANDING_VISUALS.hero, theme)}
             alt={content.heroImageAlt}
             aspectClass="aspect-[1.08/1]"
             priority
@@ -573,77 +617,78 @@ export const Landing = () => {
           </div>
 
           <div className="space-y-8">
-            {content.featureSections.map((section, index) => (
-              <article
-                key={section.title}
-                id={section.id}
-                data-reveal
-                style={{ transitionDelay: `${index * 50}ms` }}
-                className="landing-reveal scroll-mt-28 grid gap-6 rounded-[2.25rem] border border-white/75 bg-white/74 p-6 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
-              >
-                {index % 2 === 0 ? (
-                  <>
-                    <div className="space-y-4">
-                      <TonePill>{section.eyebrow}</TonePill>
-                      <h3 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
-                        {section.title}
-                      </h3>
-                      <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
-                        {section.body}
-                      </p>
-                      <ul className="grid gap-2 sm:grid-cols-2">
-                        {section.points.map((point) => (
-                          <li
-                            key={point}
-                            className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
-                          >
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <ShowcaseImage
-                      src={
-                        LANDING_VISUALS.featureSections[
-                          index % LANDING_VISUALS.featureSections.length
-                        ]
-                      }
-                      alt={section.imageAlt}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <ShowcaseImage
-                      src={
-                        LANDING_VISUALS.featureSections[
-                          index % LANDING_VISUALS.featureSections.length
-                        ]
-                      }
-                      alt={section.imageAlt}
-                    />
-                    <div className="space-y-4">
-                      <TonePill>{section.eyebrow}</TonePill>
-                      <h3 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
-                        {section.title}
-                      </h3>
-                      <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
-                        {section.body}
-                      </p>
-                      <ul className="grid gap-2 sm:grid-cols-2">
-                        {section.points.map((point) => (
-                          <li
-                            key={point}
-                            className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
-                          >
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </>
-                )}
-              </article>
-            ))}
+            {content.featureSections.map((section, index) => {
+              const visual =
+                LANDING_VISUALS.featureSections[
+                  index % LANDING_VISUALS.featureSections.length
+                ];
+
+              return (
+                <article
+                  key={section.title}
+                  id={section.id}
+                  data-reveal
+                  style={{ transitionDelay: `${index * 50}ms` }}
+                  className="landing-reveal scroll-mt-28 grid gap-6 rounded-[2.25rem] border border-white/75 bg-white/74 p-6 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
+                >
+                  {index % 2 === 0 ? (
+                    <>
+                      <div className="space-y-4">
+                        <TonePill>{section.eyebrow}</TonePill>
+                        <h3 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+                          {section.title}
+                        </h3>
+                        <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
+                          {section.body}
+                        </p>
+                        <ul className="grid gap-2 sm:grid-cols-2">
+                          {section.points.map((point) => (
+                            <li
+                              key={point}
+                              className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
+                            >
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <ShowcaseImage
+                        src={resolveLandingVisual(visual, theme)}
+                        alt={section.imageAlt}
+                        aspectClass={resolveLandingAspect(visual)}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <ShowcaseImage
+                        src={resolveLandingVisual(visual, theme)}
+                        alt={section.imageAlt}
+                        aspectClass={resolveLandingAspect(visual)}
+                      />
+                      <div className="space-y-4">
+                        <TonePill>{section.eyebrow}</TonePill>
+                        <h3 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+                          {section.title}
+                        </h3>
+                        <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
+                          {section.body}
+                        </p>
+                        <ul className="grid gap-2 sm:grid-cols-2">
+                          {section.points.map((point) => (
+                            <li
+                              key={point}
+                              className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
+                            >
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  )}
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -679,6 +724,7 @@ export const Landing = () => {
           activeStep={activeWorkflowStep}
           content={content}
           sectionRef={workflowSectionRef}
+          theme={theme}
         />
 
         <section className="space-y-10">
