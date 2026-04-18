@@ -50,7 +50,7 @@ export const Imprint = () => {
         <h2 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
           {content.responsibleTitle}
         </h2>
-        <p>{COMPANY_INFO.ceoName}, CEO</p>
+        <p>MoAssist is powered by MoMicro.</p>
       </section>
 
       <section className="space-y-2">

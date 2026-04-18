@@ -7,10 +7,7 @@ export const COMPANY_INFO = {
   primaryPhoneDisplay: "+49 160 8417916",
   secondaryPhone: "+380661394645",
   secondaryPhoneDisplay: "+380 66 139 4645",
-  ceoName: "Oleksii (Alex) Buglak",
-  ceoAlternateName: "Alex Buglak",
-  ceoJobTitle: "CEO",
-  companyNote: "MoAssist is the chatbot product by MoMicro. CEO: Oleksii (Alex) Buglak.",
+  companyNote: "MoAssist is powered by MoMicro.",
 };
 
 export const buildOrganizationStructuredData = ({
@@ -44,27 +41,4 @@ export const buildOrganizationStructuredData = ({
       availableLanguage: availableLanguages.length ? availableLanguages : undefined,
     },
   ],
-  employee: [
-    {
-      "@type": "Person",
-      name: COMPANY_INFO.ceoName,
-      alternateName: COMPANY_INFO.ceoAlternateName,
-      jobTitle: COMPANY_INFO.ceoJobTitle,
-    },
-  ],
-});
-
-export const buildCeoStructuredData = ({ siteUrl }) => ({
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: COMPANY_INFO.ceoName,
-  alternateName: COMPANY_INFO.ceoAlternateName,
-  jobTitle: COMPANY_INFO.ceoJobTitle,
-  email: COMPANY_INFO.infoEmail,
-  telephone: COMPANY_INFO.primaryPhone,
-  worksFor: {
-    "@type": "Organization",
-    name: COMPANY_INFO.organizationName,
-    url: siteUrl || undefined,
-  },
 });

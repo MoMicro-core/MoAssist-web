@@ -4,7 +4,7 @@ import { useI18n } from "../context/I18nContext";
 import { getMoMicroPageContent } from "../content/publicPagesContent";
 import {
   COMPANY_INFO,
-  buildCeoStructuredData,
+
   buildOrganizationStructuredData,
 } from "../lib/companyInfo";
 import { usePublicSeo } from "../lib/publicSeo";
@@ -51,7 +51,6 @@ export const MoMicro = () => {
       },
     },
   };
-  const ceoStructuredData = buildCeoStructuredData({ siteUrl });
   const webPageStructuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -66,9 +65,8 @@ export const MoMicro = () => {
       name: COMPANY_INFO.organizationName,
     },
     mainEntity: {
-      "@type": "Person",
-      name: COMPANY_INFO.ceoName,
-      jobTitle: COMPANY_INFO.ceoJobTitle,
+      "@type": "Organization",
+      name: COMPANY_INFO.organizationName,
     },
   };
 
@@ -78,12 +76,6 @@ export const MoMicro = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ceoStructuredData),
         }}
       />
       <script

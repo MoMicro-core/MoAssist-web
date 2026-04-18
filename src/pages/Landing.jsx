@@ -6,7 +6,7 @@ import { useTheme } from "../context/ThemeContext";
 import { getMarketingContent } from "../content/marketingContent";
 import {
   COMPANY_INFO,
-  buildCeoStructuredData,
+
   buildOrganizationStructuredData,
 } from "../lib/companyInfo";
 import { usePublicSeo } from "../lib/publicSeo";
@@ -283,6 +283,147 @@ const WorkflowCardImage = ({ src, alt, aspectClass = "aspect-[4/3]" }) => (
   </div>
 );
 
+const ProblemSection = ({ content }) => {
+  const ps = content.problemSection;
+  if (!ps) return null;
+  return (
+    <section
+      id="problem"
+      data-reveal
+      className="landing-reveal scroll-mt-28 brand-stage rounded-[2.4rem] p-7 sm:p-10"
+    >
+      <div className="space-y-4">
+        <TonePill>{ps.eyebrow}</TonePill>
+        <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
+          {ps.title}
+        </h2>
+        <p className="max-w-3xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+          {ps.body}
+        </p>
+      </div>
+      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {ps.items.map((item) => (
+          <div
+            key={item.stat}
+            className="rounded-[1.75rem] border border-red-200/60 bg-red-50/60 p-6 dark:border-red-900/30 dark:bg-red-950/20"
+          >
+            <div className="font-display text-4xl font-semibold text-red-600 dark:text-red-400">
+              {item.stat}
+            </div>
+            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+              {item.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const SocialProofSection = ({ content }) => {
+  const sp = content.socialProof;
+  if (!sp) return null;
+  return (
+    <section id="social-proof" className="space-y-10">
+      <div data-reveal className="landing-reveal">
+        <SectionHeading eyebrow={sp.eyebrow} title={sp.title} body="" />
+      </div>
+
+      <div className="grid gap-5 md:grid-cols-3">
+        {sp.testimonials.map((item, index) => (
+          <article
+            key={item.name}
+            data-reveal
+            style={{ transitionDelay: `${index * 70}ms` }}
+            className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6 flex flex-col justify-between gap-6"
+          >
+            <blockquote className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+              &ldquo;{item.quote}&rdquo;
+            </blockquote>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <div className="text-sm font-semibold text-zinc-900 dark:text-white">
+                  {item.name}
+                </div>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400">{item.role}</div>
+              </div>
+              <span className="rounded-full border border-[#099ad9]/16 bg-[#099ad9]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10435f] dark:border-[#1bb1d4]/20 dark:bg-[#1bb1d4]/14 dark:text-[#def1f2]">
+                {item.result}
+              </span>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {sp.stats.map((item, index) => (
+          <div
+            key={item.value}
+            data-reveal
+            style={{ transitionDelay: `${index * 55}ms` }}
+            className="landing-reveal landing-hover-lift brand-panel rounded-[1.75rem] p-6 text-center"
+          >
+            <div className="font-display text-4xl font-semibold text-[#099ad9] dark:text-[#5dd3df]">
+              {item.value}
+            </div>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{item.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const ComparisonSection = ({ content }) => {
+  const cmp = content.comparison;
+  if (!cmp) return null;
+  return (
+    <section
+      id="comparison"
+      data-reveal
+      className="landing-reveal scroll-mt-28 space-y-8"
+    >
+      <SectionHeading eyebrow={cmp.eyebrow} title={cmp.title} body="" />
+
+      <div className="grid gap-5 md:grid-cols-2">
+        <div className="rounded-[2rem] border border-red-200/60 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-950/20">
+          <div className="mb-5 flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-red-400" />
+            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-red-600 dark:text-red-400">
+              {cmp.withoutLabel}
+            </span>
+          </div>
+          <ul className="space-y-3">
+            {cmp.withoutItems.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="rounded-[2rem] border border-[#099ad9]/20 bg-[#099ad9]/6 p-6 dark:border-[#5dd3df]/20 dark:bg-[#1bb1d4]/8">
+          <div className="mb-5 flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#099ad9] dark:bg-[#5dd3df]" />
+            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[#10435f] dark:text-[#def1f2]">
+              {cmp.withLabel}
+            </span>
+          </div>
+          <ul className="space-y-3">
+            {cmp.withItems.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#099ad9] dark:bg-[#5dd3df]" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
   const workflowSteps = content.workflowSteps;
 
@@ -429,7 +570,6 @@ export const Landing = () => {
     description: "MoMicro is the organization behind the MoAssist product.",
     availableLanguages: SITE_LOCALES.map((locale) => locale.htmlLang),
   });
-  const ceoStructuredData = buildCeoStructuredData({ siteUrl });
   const productStructuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -499,12 +639,6 @@ export const Landing = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ceoStructuredData),
         }}
       />
       <script
@@ -588,6 +722,8 @@ export const Landing = () => {
             priority
           />
         </section>
+
+        <ProblemSection content={content} />
 
         <section className="grid gap-5 md:grid-cols-3">
           {content.coreBenefits.map((item, index) => (
@@ -720,6 +856,8 @@ export const Landing = () => {
           </div>
         </section>
 
+        <SocialProofSection content={content} />
+
         <HowItWorksSection
           activeStep={activeWorkflowStep}
           content={content}
@@ -754,6 +892,8 @@ export const Landing = () => {
             ))}
           </div>
         </section>
+
+        <ComparisonSection content={content} />
 
         <section
           id="faq"

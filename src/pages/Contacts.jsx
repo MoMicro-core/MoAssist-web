@@ -3,7 +3,7 @@ import { PublicHeader } from "../components/PublicHeader";
 import { getContactsPageContent } from "../content/publicPagesContent";
 import {
   COMPANY_INFO,
-  buildCeoStructuredData,
+
   buildOrganizationStructuredData,
 } from "../lib/companyInfo";
 import { usePublicSeo } from "../lib/publicSeo";
@@ -49,7 +49,7 @@ export const Contacts = () => {
     },
     {
       ...content.cards[4],
-      value: COMPANY_INFO.ceoName,
+      value: COMPANY_INFO.organizationName,
       actionHref: "/pricing",
       internal: true,
     },
@@ -68,7 +68,6 @@ export const Contacts = () => {
     description:
       "Dedicated MoAssist and MoMicro contacts page for support, general information, and leadership details.",
   });
-  const ceoStructuredData = buildCeoStructuredData({ siteUrl });
   const contactPageStructuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -111,12 +110,6 @@ export const Contacts = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ceoStructuredData),
         }}
       />
       <script

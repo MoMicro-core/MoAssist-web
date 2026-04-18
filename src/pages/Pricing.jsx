@@ -4,7 +4,7 @@ import { useI18n } from "../context/I18nContext";
 import { getPricingPageContent } from "../content/publicPagesContent";
 import {
   COMPANY_INFO,
-  buildCeoStructuredData,
+
   buildOrganizationStructuredData,
 } from "../lib/companyInfo";
 import { usePublicSeo } from "../lib/publicSeo";
@@ -54,7 +54,6 @@ export const Pricing = () => {
     description:
       "MoMicro operates MoAssist pricing, onboarding, support, and product information.",
   });
-  const ceoStructuredData = buildCeoStructuredData({ siteUrl });
   const softwareStructuredData = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -140,12 +139,6 @@ export const Pricing = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(organizationStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ceoStructuredData),
         }}
       />
       <script

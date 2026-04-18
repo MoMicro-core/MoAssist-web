@@ -96,7 +96,7 @@ export const usePublicSeo = ({
     upsertMeta("name", "keywords", seo.keywords);
     upsertMeta("name", "application-name", siteName);
     upsertMeta("name", "language", localeConfig.languageName);
-    upsertMeta("name", "author", COMPANY_INFO.ceoName);
+    upsertMeta("name", "author", COMPANY_INFO.organizationName);
     upsertMeta("name", "publisher", COMPANY_INFO.organizationName);
     upsertMeta("name", "creator", COMPANY_INFO.organizationName);
     upsertMeta("name", "theme-color", "#f4fbff");
