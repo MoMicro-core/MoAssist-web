@@ -1,0 +1,390 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, -apple-system, 'Segoe UI', sans-serif">
+  <defs>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#081521"/>
+      <stop offset="100%" stop-color="#0b1d2d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1bb1d4"/>
+      <stop offset="100%" stop-color="#5dd3df"/>
+    </linearGradient>
+    <linearGradient id="widgetHeader" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1bb1d4"/>
+      <stop offset="100%" stop-color="#5dd3df"/>
+    </linearGradient>
+    <linearGradient id="previewBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2a3d"/>
+      <stop offset="100%" stop-color="#13354b"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+      <feOffset dy="4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#pageBg)"/>
+
+  <!-- Top bar -->
+  <rect x="0" y="0" width="1600" height="64" fill="#0c2234"/>
+  <rect x="0" y="63" width="1600" height="1" fill="#173148"/>
+  <rect x="24" y="18" width="28" height="28" rx="8" fill="url(#accent)"/>
+  <text x="62" y="38" font-size="18" font-weight="700" fill="#eaf6fb">MoAssist</text>
+  <rect x="240" y="16" width="420" height="32" rx="16" fill="#10263a"/>
+  <circle cx="260" cy="32" r="6" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+  <line x1="265" y1="37" x2="271" y2="43" stroke="#5f7e94" stroke-width="1.6" stroke-linecap="round"/>
+  <text x="282" y="37" font-size="13" fill="#6b8aa0">Search settings, pages, docs…</text>
+  <rect x="1380" y="16" width="64" height="32" rx="16" fill="#10263a"/>
+  <circle cx="1396" cy="32" r="7" fill="#5dd3df"/>
+  <circle cx="1428" cy="32" r="7" fill="#2a4863"/>
+  <circle cx="1478" cy="32" r="18" fill="#173148"/>
+  <text x="1470" y="37" font-size="12" font-weight="700" fill="#9fc2d8">AB</text>
+  <rect x="1510" y="20" width="70" height="24" rx="12" fill="#0f3a4d"/>
+  <text x="1520" y="35" font-size="11" font-weight="600" fill="#5dd3df">Live</text>
+  <circle cx="1565" cy="32" r="4" fill="#28c76f"/>
+
+  <!-- Sidebar -->
+  <rect x="0" y="64" width="220" height="1136" fill="#0c2234"/>
+  <rect x="219" y="64" width="1" height="1136" fill="#173148"/>
+  <text x="24" y="100" font-size="11" font-weight="700" fill="#5f7e94" letter-spacing="1.4">WORKSPACE</text>
+
+  <g font-size="13" fill="#9fc2d8">
+    <g transform="translate(16,118)">
+      <rect x="12" y="10" width="16" height="16" rx="3" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Dashboard</text>
+    </g>
+    <g transform="translate(16,158)">
+      <circle cx="20" cy="18" r="8" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Chatbots</text>
+    </g>
+    <g transform="translate(16,198)">
+      <rect x="12" y="10" width="16" height="16" rx="2" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Conversations</text>
+      <rect x="150" y="10" width="30" height="16" rx="8" fill="#0f3a4d"/>
+      <text x="156" y="21" font-size="10" font-weight="700" fill="#5dd3df">12</text>
+    </g>
+    <g transform="translate(16,238)">
+      <path d="M13 16 L20 10 L27 16 L27 26 L13 26 Z" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Knowledge base</text>
+    </g>
+    <g transform="translate(16,278)">
+      <rect x="12" y="10" width="16" height="16" rx="2" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Leads</text>
+    </g>
+  </g>
+
+  <text x="24" y="340" font-size="11" font-weight="700" fill="#5f7e94" letter-spacing="1.4">CONFIGURE</text>
+
+  <g font-size="13" fill="#9fc2d8">
+    <g transform="translate(16,358)">
+      <rect width="188" height="36" rx="10" fill="url(#accent)" opacity="0.18"/>
+      <rect width="3" height="36" rx="1.5" fill="#5dd3df"/>
+      <path d="M20 14 Q26 8 32 14 L32 20 Q26 26 20 20 Z" fill="#5dd3df"/>
+      <text x="44" y="23" font-weight="700" fill="#eaf6fb">Appearance</text>
+    </g>
+    <g transform="translate(16,398)">
+      <circle cx="20" cy="18" r="8" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <path d="M20 14 V18 L23 20" stroke="#5f7e94" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <text x="40" y="23">Behavior</text>
+    </g>
+    <g transform="translate(16,438)">
+      <rect x="12" y="10" width="16" height="16" rx="2" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Routing &amp; handoff</text>
+    </g>
+    <g transform="translate(16,478)">
+      <path d="M14 14 H26 M14 18 H26 M14 22 H22" stroke="#5f7e94" stroke-width="1.6" stroke-linecap="round"/>
+      <text x="40" y="23">Install &amp; embed</text>
+    </g>
+    <g transform="translate(16,518)">
+      <circle cx="20" cy="18" r="7" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Integrations</text>
+    </g>
+    <g transform="translate(16,558)">
+      <rect x="12" y="10" width="16" height="16" rx="2" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Team</text>
+    </g>
+    <g transform="translate(16,598)">
+      <circle cx="20" cy="18" r="7" fill="none" stroke="#5f7e94" stroke-width="1.6"/>
+      <text x="40" y="23">Billing</text>
+    </g>
+  </g>
+
+  <rect x="16" y="1120" width="188" height="56" rx="12" fill="#10263a" stroke="#173148"/>
+  <circle cx="40" cy="1148" r="16" fill="url(#accent)"/>
+  <text x="40" y="1153" font-size="13" font-weight="700" fill="#0b1d2d" text-anchor="middle">A</text>
+  <text x="64" y="1144" font-size="12" font-weight="700" fill="#eaf6fb">Aria · Nordic Bloom</text>
+  <text x="64" y="1160" font-size="10" fill="#6b8aa0">Shopify · EN · Live</text>
+
+  <!-- Main content -->
+  <g transform="translate(220,64)">
+    <text x="40" y="56" font-size="12" fill="#6b8aa0">Chatbots  ›  Aria  ›  Appearance</text>
+    <text x="40" y="96" font-size="28" font-weight="700" fill="#eaf6fb">Appearance &amp; branding</text>
+    <text x="40" y="124" font-size="14" fill="#9fc2d8">Make the widget feel like a native part of your store. Changes apply instantly.</text>
+
+    <g transform="translate(40,148)" font-size="13">
+      <rect x="0" y="0" width="112" height="36" rx="10" fill="#10263a" stroke="#1b3a54"/>
+      <text x="56" y="22" font-weight="700" fill="#5dd3df" text-anchor="middle">Style</text>
+      <rect x="2" y="33" width="108" height="3" rx="1.5" fill="#5dd3df"/>
+
+      <text x="140" y="22" fill="#6b8aa0" text-anchor="middle">Layout</text>
+      <text x="220" y="22" fill="#6b8aa0" text-anchor="middle">Messages</text>
+      <text x="320" y="22" fill="#6b8aa0" text-anchor="middle">Advanced</text>
+    </g>
+
+    <g transform="translate(960,140)">
+      <rect x="0" y="0" width="120" height="40" rx="10" fill="#10263a" stroke="#1b3a54"/>
+      <text x="60" y="26" font-size="13" font-weight="600" fill="#9fc2d8" text-anchor="middle">Preview</text>
+
+      <rect x="130" y="0" width="100" height="40" rx="10" fill="#10263a" stroke="#1b3a54"/>
+      <text x="180" y="26" font-size="13" font-weight="600" fill="#9fc2d8" text-anchor="middle">Discard</text>
+
+      <rect x="240" y="0" width="140" height="40" rx="10" fill="url(#accent)"/>
+      <text x="310" y="26" font-size="13" font-weight="700" fill="#0b1d2d" text-anchor="middle">Save changes</text>
+    </g>
+
+    <g transform="translate(40,210)">
+      <rect x="0" y="0" width="700" height="240" rx="16" fill="#10263a" stroke="#1b3a54" filter="url(#softShadow)"/>
+      <text x="24" y="40" font-size="16" font-weight="700" fill="#eaf6fb">Brand colors</text>
+      <text x="24" y="62" font-size="12" fill="#9fc2d8">Pick a primary. We'll build the gradient and hover states for you.</text>
+
+      <text x="24" y="100" font-size="11" font-weight="700" fill="#9fc2d8">PRIMARY</text>
+      <rect x="24" y="112" width="56" height="56" rx="14" fill="#1bb1d4"/>
+      <rect x="22" y="110" width="60" height="60" rx="16" fill="none" stroke="#5dd3df" stroke-width="2" stroke-dasharray="3 3" opacity="0.6"/>
+      <text x="24" y="190" font-size="13" font-weight="700" fill="#eaf6fb">#1BB1D4</text>
+
+      <g font-size="10" fill="#9fc2d8">
+        <circle cx="112" cy="140" r="16" fill="#5dd3df"/>
+        <circle cx="158" cy="140" r="16" fill="#099ad9"/>
+        <circle cx="204" cy="140" r="16" fill="#ff6f91"/>
+        <circle cx="250" cy="140" r="16" fill="#9b5de5"/>
+        <circle cx="296" cy="140" r="16" fill="#28c76f"/>
+        <circle cx="342" cy="140" r="16" fill="#ffb347"/>
+        <g transform="translate(378,124)">
+          <rect width="32" height="32" rx="16" fill="#0b1d2d" stroke="#1b3a54" stroke-dasharray="3 2"/>
+          <text x="16" y="21" font-size="16" fill="#6b8aa0" text-anchor="middle">+</text>
+        </g>
+      </g>
+
+      <text x="440" y="100" font-size="11" font-weight="700" fill="#9fc2d8">ACCENT</text>
+      <rect x="440" y="112" width="56" height="56" rx="14" fill="#5dd3df"/>
+      <text x="440" y="190" font-size="13" font-weight="700" fill="#eaf6fb">#5DD3DF</text>
+
+      <text x="540" y="100" font-size="11" font-weight="700" fill="#9fc2d8">BACKGROUND</text>
+      <rect x="540" y="112" width="56" height="56" rx="14" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="540" y="190" font-size="13" font-weight="700" fill="#eaf6fb">#0B1D2D</text>
+
+      <text x="640" y="100" font-size="11" font-weight="700" fill="#9fc2d8">TEXT</text>
+      <rect x="640" y="112" width="40" height="56" rx="14" fill="#eaf6fb"/>
+      <text x="640" y="190" font-size="13" font-weight="700" fill="#eaf6fb">#EAF6FB</text>
+
+      <text x="24" y="216" font-size="11" font-weight="700" fill="#9fc2d8">GENERATED GRADIENT</text>
+      <rect x="160" y="202" width="516" height="20" rx="10" fill="url(#accent)"/>
+
+      <rect x="0" y="260" width="700" height="260" rx="16" fill="#10263a" stroke="#1b3a54" filter="url(#softShadow)"/>
+      <text x="24" y="300" font-size="16" font-weight="700" fill="#eaf6fb">Logo &amp; avatar</text>
+      <text x="24" y="322" font-size="12" fill="#9fc2d8">PNG or SVG, up to 2 MB. Displayed in the header and agent bubbles.</text>
+
+      <text x="24" y="356" font-size="11" font-weight="700" fill="#9fc2d8">HEADER LOGO</text>
+      <rect x="24" y="368" width="200" height="104" rx="12" fill="#0b2638" stroke="#1e405c" stroke-dasharray="4 4"/>
+      <rect x="60" y="400" width="128" height="40" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+      <circle cx="80" cy="420" r="10" fill="url(#accent)"/>
+      <text x="100" y="425" font-size="12" font-weight="700" fill="#eaf6fb">Nordic Bloom</text>
+      <text x="24" y="494" font-size="11" fill="#5dd3df" font-weight="600">Replace  ·  Remove</text>
+
+      <text x="244" y="356" font-size="11" font-weight="700" fill="#9fc2d8">AGENT AVATAR</text>
+      <circle cx="300" cy="418" r="44" fill="url(#accent)"/>
+      <text x="300" y="426" font-size="28" font-weight="700" fill="#0b1d2d" text-anchor="middle">A</text>
+      <text x="360" y="410" font-size="12" font-weight="600" fill="#cfe4f0">aria-avatar.png</text>
+      <text x="360" y="430" font-size="11" fill="#6b8aa0">256×256 · 42 KB</text>
+      <rect x="360" y="444" width="84" height="28" rx="8" fill="#0f3a4d"/>
+      <text x="402" y="462" font-size="11" font-weight="700" fill="#5dd3df" text-anchor="middle">Upload new</text>
+
+      <text x="500" y="356" font-size="11" font-weight="700" fill="#9fc2d8">DISPLAY NAME</text>
+      <rect x="500" y="368" width="176" height="40" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="514" y="392" font-size="13" font-weight="600" fill="#eaf6fb">Aria</text>
+      <rect x="670" y="380" width="4" height="16" rx="1" fill="#5dd3df"/>
+
+      <text x="500" y="428" font-size="11" font-weight="700" fill="#9fc2d8">TAGLINE</text>
+      <rect x="500" y="440" width="176" height="40" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="514" y="464" font-size="12" fill="#cfe4f0">Shopping concierge</text>
+
+      <rect x="0" y="540" width="340" height="200" rx="16" fill="#10263a" stroke="#1b3a54" filter="url(#softShadow)"/>
+      <text x="24" y="580" font-size="15" font-weight="700" fill="#eaf6fb">Typography</text>
+
+      <text x="24" y="612" font-size="11" font-weight="700" fill="#9fc2d8">FONT FAMILY</text>
+      <rect x="24" y="624" width="292" height="40" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="40" y="648" font-size="13" font-weight="600" fill="#eaf6fb">Inter</text>
+      <text x="120" y="648" font-size="11" fill="#6b8aa0">· System stack fallback</text>
+      <path d="M296 640 L304 648 L312 640" stroke="#6b8aa0" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+      <text x="24" y="686" font-size="11" font-weight="700" fill="#9fc2d8">BASE SIZE</text>
+      <rect x="24" y="698" width="140" height="32" rx="8" fill="#0b1d2d"/>
+      <text x="94" y="719" font-size="12" font-weight="700" fill="#eaf6fb" text-anchor="middle">14 px</text>
+      <line x1="40" y1="714" x2="150" y2="714" stroke="#1b3a54" stroke-width="2"/>
+      <circle cx="84" cy="714" r="6" fill="#5dd3df"/>
+
+      <text x="184" y="686" font-size="11" font-weight="700" fill="#9fc2d8">WEIGHT</text>
+      <rect x="184" y="698" width="132" height="32" rx="8" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="198" y="719" font-size="12" fill="#eaf6fb">Medium (500)</text>
+
+      <rect x="360" y="540" width="340" height="200" rx="16" fill="#10263a" stroke="#1b3a54" filter="url(#softShadow)"/>
+      <text x="384" y="580" font-size="15" font-weight="700" fill="#eaf6fb">Launcher &amp; position</text>
+
+      <text x="384" y="612" font-size="11" font-weight="700" fill="#9fc2d8">PLACEMENT</text>
+      <rect x="384" y="624" width="140" height="90" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+      <circle cx="398" cy="638" r="5" fill="#2a4863"/>
+      <circle cx="510" cy="638" r="5" fill="#2a4863"/>
+      <circle cx="398" cy="700" r="5" fill="#2a4863"/>
+      <circle cx="510" cy="700" r="7" fill="#5dd3df"/>
+      <circle cx="510" cy="700" r="11" fill="none" stroke="#5dd3df" stroke-width="2" opacity="0.5"/>
+      <text x="454" y="704" font-size="10" fill="#6b8aa0" text-anchor="middle">Bottom-right</text>
+
+      <text x="544" y="612" font-size="11" font-weight="700" fill="#9fc2d8">LAUNCHER</text>
+      <g transform="translate(544,624)">
+        <rect width="46" height="46" rx="23" fill="url(#accent)"/>
+        <path d="M14 22 Q23 14 32 22 Q27 32 23 32 L16 36 L18 30 Q14 26 14 22 Z" fill="#0b1d2d"/>
+      </g>
+      <g transform="translate(596,624)">
+        <rect width="46" height="46" rx="12" fill="#0b1d2d" stroke="#1b3a54"/>
+        <rect x="10" y="14" width="26" height="18" rx="4" fill="none" stroke="#6b8aa0" stroke-width="1.6"/>
+      </g>
+      <g transform="translate(648,624)">
+        <rect width="46" height="46" rx="10" fill="#0b1d2d" stroke="#1b3a54"/>
+        <circle cx="23" cy="23" r="10" fill="none" stroke="#6b8aa0" stroke-width="1.6"/>
+      </g>
+      <text x="620" y="698" font-size="11" fill="#6b8aa0">With "Chat with us" label</text>
+      <rect x="544" y="680" width="20" height="12" rx="6" fill="#5dd3df"/>
+      <circle cx="560" cy="686" r="4" fill="#0b1d2d"/>
+    </g>
+
+    <!-- Right preview column -->
+    <g transform="translate(780,210)">
+      <rect x="0" y="0" width="560" height="790" rx="18" fill="url(#previewBg)" stroke="#1e405c"/>
+      <text x="24" y="38" font-size="13" font-weight="700" fill="#5dd3df">LIVE PREVIEW</text>
+      <text x="24" y="58" font-size="11" fill="#9fc2d8">nordicbloom.com — Desktop · Dark</text>
+
+      <g transform="translate(400,24)" font-size="11">
+        <rect width="136" height="28" rx="8" fill="#0b1d2d" stroke="#1e405c"/>
+        <rect x="2" y="2" width="44" height="24" rx="6" fill="url(#accent)"/>
+        <text x="24" y="18" font-weight="700" fill="#0b1d2d" text-anchor="middle">Desk</text>
+        <text x="68" y="18" fill="#9fc2d8" text-anchor="middle">Tab</text>
+        <text x="110" y="18" fill="#9fc2d8" text-anchor="middle">Mob</text>
+      </g>
+
+      <rect x="24" y="78" width="512" height="680" rx="14" fill="#0a1924" stroke="#1b3a54"/>
+      <rect x="24" y="78" width="512" height="44" rx="14" fill="#0e2537"/>
+      <rect x="24" y="108" width="512" height="14" fill="#0e2537"/>
+      <text x="44" y="104" font-size="12" font-weight="700" fill="#eaf6fb">Nordic Bloom</text>
+      <g font-size="10" fill="#9fc2d8">
+        <text x="180" y="104">Shop</text>
+        <text x="222" y="104">Collections</text>
+        <text x="286" y="104">Journal</text>
+        <text x="340" y="104">About</text>
+      </g>
+      <circle cx="500" cy="100" r="8" fill="#10263a"/>
+      <text x="500" y="104" font-size="9" fill="#9fc2d8" text-anchor="middle">0</text>
+      <rect x="440" y="88" width="48" height="24" rx="8" fill="#0f3a4d"/>
+      <text x="464" y="104" font-size="10" font-weight="700" fill="#5dd3df" text-anchor="middle">Sign in</text>
+
+      <rect x="44" y="140" width="220" height="280" rx="10" fill="#132f44"/>
+      <rect x="64" y="308" width="160" height="14" rx="7" fill="#1e405c"/>
+      <rect x="64" y="334" width="110" height="10" rx="5" fill="#173148"/>
+      <rect x="64" y="360" width="80" height="30" rx="8" fill="#eaf6fb"/>
+      <text x="104" y="380" font-size="10" font-weight="700" fill="#0b1d2d" text-anchor="middle">Shop now</text>
+
+      <rect x="284" y="140" width="232" height="134" rx="10" fill="#132f44"/>
+      <rect x="284" y="286" width="112" height="134" rx="10" fill="#132f44"/>
+      <rect x="404" y="286" width="112" height="134" rx="10" fill="#132f44"/>
+
+      <rect x="44" y="436" width="472" height="100" rx="10" fill="#0f2a3d"/>
+      <rect x="44" y="548" width="472" height="40" rx="8" fill="#0e2537"/>
+      <rect x="44" y="600" width="472" height="40" rx="8" fill="#0e2537"/>
+      <rect x="44" y="652" width="472" height="40" rx="8" fill="#0e2537"/>
+      <rect x="44" y="704" width="472" height="40" rx="8" fill="#0e2537"/>
+
+      <!-- Widget preview -->
+      <g transform="translate(180,400)" filter="url(#softShadow)">
+        <rect width="340" height="380" rx="20" fill="#0e2537"/>
+        <path d="M0 20 Q0 0 20 0 L320 0 Q340 0 340 20 L340 82 L0 82 Z" fill="url(#widgetHeader)"/>
+        <circle cx="32" cy="42" r="18" fill="#0b1d2d"/>
+        <text x="32" y="48" font-size="16" font-weight="700" fill="#5dd3df" text-anchor="middle">A</text>
+        <circle cx="46" cy="54" r="5" fill="#28c76f" stroke="#0b1d2d" stroke-width="2"/>
+        <text x="62" y="40" font-size="14" font-weight="700" fill="#0b1d2d">Aria · Nordic Bloom</text>
+        <text x="62" y="58" font-size="11" fill="#0b1d2d" opacity="0.75">Shopping concierge · replies instantly</text>
+        <g transform="translate(302,26)" fill="#0b1d2d" opacity="0.85">
+          <circle cx="0" cy="6" r="2"/>
+          <circle cx="8" cy="6" r="2"/>
+          <circle cx="16" cy="6" r="2"/>
+        </g>
+
+        <rect x="16" y="102" width="200" height="40" rx="14" fill="#13354b"/>
+        <text x="30" y="120" font-size="11" fill="#cfe4f0">Hi! I'm looking for a linen dress</text>
+        <text x="30" y="134" font-size="11" fill="#cfe4f0">for a wedding in July.</text>
+
+        <rect x="124" y="152" width="200" height="40" rx="14" fill="url(#widgetHeader)"/>
+        <text x="138" y="170" font-size="11" fill="#0b1d2d" font-weight="600">Gorgeous! Ivory or blush?</text>
+        <text x="138" y="184" font-size="11" fill="#0b1d2d" font-weight="600">Midi or maxi length?</text>
+
+        <rect x="16" y="202" width="308" height="96" rx="14" fill="#0b1d2d" stroke="#1b3a54"/>
+        <rect x="28" y="214" width="72" height="72" rx="10" fill="#132f44"/>
+        <text x="112" y="232" font-size="12" font-weight="700" fill="#eaf6fb">Ivory Linen Midi</text>
+        <text x="112" y="248" font-size="10" fill="#6b8aa0">Relaxed fit · sizes XS–XL</text>
+        <text x="112" y="272" font-size="13" font-weight="700" fill="#5dd3df">€129.00</text>
+        <rect x="212" y="260" width="96" height="24" rx="8" fill="url(#accent)"/>
+        <text x="260" y="276" font-size="10" font-weight="700" fill="#0b1d2d" text-anchor="middle">Add to cart</text>
+
+        <rect x="16" y="310" width="120" height="28" rx="14" fill="#0f3a4d"/>
+        <text x="76" y="328" font-size="11" font-weight="600" fill="#5dd3df" text-anchor="middle">Show blush</text>
+        <rect x="144" y="310" width="118" height="28" rx="14" fill="#0f3a4d"/>
+        <text x="203" y="328" font-size="11" font-weight="600" fill="#5dd3df" text-anchor="middle">Size guide</text>
+
+        <rect x="16" y="346" width="308" height="22" rx="11" fill="#13354b"/>
+        <text x="30" y="361" font-size="11" fill="#6b8aa0">Reply to Aria…</text>
+        <circle cx="308" cy="357" r="10" fill="url(#accent)"/>
+        <path d="M304 357 L308 353 L312 357 L308 361 Z" fill="#0b1d2d"/>
+      </g>
+
+      <g transform="translate(480,720)">
+        <circle cx="0" cy="0" r="26" fill="url(#accent)"/>
+        <path d="M-10 -2 Q0 -12 10 -2 Q6 8 4 8 L-4 12 L-2 6 Q-10 2 -10 -2 Z" fill="#0b1d2d"/>
+        <circle cx="14" cy="-14" r="7" fill="#ff6f91" stroke="#0e2537" stroke-width="2"/>
+        <text x="14" y="-11" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+      </g>
+
+      <g transform="translate(24,766)" font-size="10">
+        <rect width="112" height="24" rx="12" fill="#0e2537" stroke="#1e405c"/>
+        <circle cx="12" cy="12" r="4" fill="#28c76f"/>
+        <text x="22" y="16" fill="#cfe4f0">Contrast AA · Pass</text>
+
+        <g transform="translate(124,0)">
+          <rect width="104" height="24" rx="12" fill="#0e2537" stroke="#1e405c"/>
+          <circle cx="12" cy="12" r="4" fill="#28c76f"/>
+          <text x="22" y="16" fill="#cfe4f0">Mobile ready</text>
+        </g>
+
+        <g transform="translate(236,0)">
+          <rect width="140" height="24" rx="12" fill="#0e2537" stroke="#1e405c"/>
+          <circle cx="12" cy="12" r="4" fill="#ffb347"/>
+          <text x="22" y="16" fill="#cfe4f0">Greeting unsaved · edit</text>
+        </g>
+      </g>
+    </g>
+
+    <g transform="translate(40,970)">
+      <rect x="0" y="0" width="700" height="170" rx="16" fill="#10263a" stroke="#1b3a54" filter="url(#softShadow)"/>
+      <text x="24" y="40" font-size="15" font-weight="700" fill="#eaf6fb">Greeting message</text>
+      <text x="24" y="60" font-size="12" fill="#9fc2d8">Shown after 6 seconds on cart and product pages.</text>
+
+      <rect x="24" y="80" width="652" height="70" rx="12" fill="#0b1d2d" stroke="#1b3a54"/>
+      <text x="40" y="106" font-size="13" fill="#eaf6fb">Hi! I'm Aria — I can help with sizing, shipping to</text>
+      <text x="40" y="126" font-size="13" fill="#eaf6fb">Sweden, or finding the perfect piece for an event. What are you shopping for?</text>
+      <rect x="40" y="138" width="3" height="16" rx="1" fill="#5dd3df"/>
+
+      <g transform="translate(560,96)" font-size="10" font-weight="700">
+        <rect width="100" height="24" rx="12" fill="#0f3a4d"/>
+        <text x="50" y="16" fill="#5dd3df" text-anchor="middle">Insert variable</text>
+      </g>
+    </g>
+  </g>
+</svg>

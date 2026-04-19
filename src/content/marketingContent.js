@@ -98,8 +98,8 @@ export const marketingContent = {
           "Product info & sizing",
           "Order status inquiries",
         ],
-        "MoAssist ecommerce chatbot answering customer questions",
-        "MoAssist AI chatbot handling ecommerce customer support questions",
+        "MoAssist dashboard showing individual AI chatbots for different ecommerce stores and sales channels",
+        "MoAssist AI chatbot widget answering shipping, returns, and product questions for Shopify store customers",
       ),
       createFeature(
         "feature-knowledge-ai",
@@ -113,8 +113,8 @@ export const marketingContent = {
           "Consistent brand voice",
           "Auto-updated knowledge base",
         ],
-        "MoAssist knowledge upload for ecommerce chatbot",
-        "MoAssist trained on ecommerce store data",
+        "MoAssist knowledge base uploading ecommerce product documents and FAQs",
+        "MoAssist AI trained on Shopify store data including policies, products, and customer FAQs",
       ),
       createFeature(
         "feature-lead-capture",
@@ -127,8 +127,8 @@ export const marketingContent = {
           "Buying intent qualification",
           "Abandoned cart recovery assist",
         ],
-        "MoAssist lead capture for ecommerce conversion",
-        "MoAssist ecommerce lead capture and conversion chatbot",
+        "MoAssist chatbot capturing leads and recovering abandoned carts in ecommerce store",
+        "MoAssist AI chatbot increasing ecommerce conversions with smart lead capture and product recommendations",
       ),
       createFeature(
         "feature-logged-in-users",
@@ -141,8 +141,8 @@ export const marketingContent = {
           "Return & refund guidance",
           "Post-purchase account support",
         ],
-        "MoAssist post-purchase order tracking chatbot",
-        "MoAssist handling order tracking and post-purchase support",
+        "MoAssist chatbot showing order tracking and shipping status for logged-in ecommerce customers",
+        "MoAssist AI handling post-purchase customer support with order tracking and return management",
       ),
       createFeature(
         "feature-support-workflow",
@@ -155,8 +155,8 @@ export const marketingContent = {
           "Read/unread and conversation status",
           "Smooth AI-to-human handoff",
         ],
-        "MoAssist AI and human team inbox for ecommerce",
-        "MoAssist shared inbox with AI and human support agents",
+        "MoAssist shared inbox showing AI and human agent conversation management for ecommerce support",
+        "MoAssist unified inbox with seamless AI-to-human handoff for customer support teams",
       ),
       createFeature(
         "feature-install-launch",
@@ -170,8 +170,8 @@ export const marketingContent = {
           "Multilingual (20+ languages)",
           "Custom domain controls",
         ],
-        "MoAssist one-line Shopify chatbot installation",
-        "MoAssist easy Shopify chatbot installation in under 5 minutes",
+        "MoAssist one-line code snippet for Shopify chatbot installation",
+        "MoAssist 5-minute chatbot setup showing dark and light mode widgets on ecommerce store",
       ),
     ],
     reasonsSection: {
@@ -268,24 +268,28 @@ export const marketingContent = {
         label: "Connect",
         title: "Connect your store",
         body: "Sign up, create a chatbot, and paste one line of code into your Shopify theme or website. That's it. Your chatbot is installed and ready to go live.",
+        imageAlt: "MoAssist dashboard showing chatbot creation and one-line code snippet for Shopify installation",
       },
       {
         step: "Step 02",
         label: "Upload",
         title: "Upload your store data",
         body: "Add your shipping policy, return terms, product FAQs, and any other documents. The AI reads them and starts answering from your actual business information.",
+        imageAlt: "MoAssist knowledge base interface uploading shipping policies, return terms, and product FAQs for AI training",
       },
       {
         step: "Step 03",
         label: "Go Live",
         title: "AI handles customer conversations automatically",
         body: "Publish your chatbot. From that moment, it answers shipping questions, handles return inquiries, guides buyers, and collects leads — 24/7, without any manual work.",
+        imageAlt: "MoAssist AI chatbot widget live on ecommerce store answering customer questions in real-time",
       },
       {
         step: "Step 04",
         label: "Optimize",
         title: "Review conversations and refine over time",
         body: "Monitor chat history, spot gaps in your knowledge base, update your policies, and watch your support costs drop further each week.",
+        imageAlt: "MoAssist analytics dashboard showing conversation history, support metrics, and chatbot performance optimization",
       },
     ],
     useCasesSection: {
@@ -400,7 +404,7 @@ export const marketingContent = {
     stepPlaceholderLabel: "Step Placeholder",
     stepPlaceholderBody: "Replace this placeholder with your final workflow image.",
     heroImageTitle: "MoAssist AI chatbot for ecommerce stores",
-    heroImageAlt: "MoAssist AI chatbot handling customer support for an ecommerce store",
+    heroImageAlt: "MoAssist AI chatbot widget on Shopify store answering customer questions about shipping and returns in real-time",
   },
   at: {
     seo: {

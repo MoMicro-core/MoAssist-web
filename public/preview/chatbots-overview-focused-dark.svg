@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#061322"/>
+      <stop offset="100%" stop-color="#0a1f30"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1bb1d4"/>
+      <stop offset="100%" stop-color="#5dd3df"/>
+    </linearGradient>
+    <linearGradient id="card1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b1f1f"/>
+      <stop offset="100%" stop-color="#26110f"/>
+    </linearGradient>
+    <linearGradient id="card2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f3a2c"/>
+      <stop offset="100%" stop-color="#0e2418"/>
+    </linearGradient>
+    <linearGradient id="card3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e3247"/>
+      <stop offset="100%" stop-color="#06192a"/>
+    </linearGradient>
+    <linearGradient id="card4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3a2e1a"/>
+      <stop offset="100%" stop-color="#221808"/>
+    </linearGradient>
+    <linearGradient id="card5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#241e3e"/>
+      <stop offset="100%" stop-color="#120e25"/>
+    </linearGradient>
+    <linearGradient id="card6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3e1a30"/>
+      <stop offset="100%" stop-color="#26101e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+
+  <rect x="0" y="0" width="1600" height="56" fill="#0b1d2d"/>
+  <line x1="0" y1="56" x2="1600" y2="56" stroke="#142c41"/>
+  <rect x="20" y="16" width="22" height="22" rx="6" fill="url(#ac)"/>
+  <text x="50" y="34" font-size="15" font-weight="700" fill="#ffffff">MoAssist</text>
+  <text x="160" y="34" font-size="12" fill="#7a90a8">Workspace · Nordic Bloom Group</text>
+  <circle cx="1564" cy="28" r="14" fill="#1bb1d4"/>
+  <text x="1556" y="32" font-size="11" font-weight="700" fill="#0b1d2d">AB</text>
+
+  <rect x="0" y="56" width="200" height="1144" fill="#0b1d2d"/>
+  <line x1="200" y1="56" x2="200" y2="1200" stroke="#142c41"/>
+  <g font-size="13" fill="#94a8bd">
+    <text x="24" y="100">Dashboard</text>
+    <rect x="14" y="118" width="172" height="32" rx="9" fill="#112b3f"/>
+    <text x="24" y="138" font-weight="600" fill="#def1f2">Chatbots</text>
+    <text x="160" y="138" font-size="11" font-weight="700" fill="#5dd3df">6</text>
+    <text x="24" y="178">Inbox</text>
+    <text x="24" y="218">Knowledge</text>
+    <text x="24" y="258">Leads</text>
+    <text x="24" y="298">Analytics</text>
+    <text x="24" y="338">Integrations</text>
+    <text x="24" y="378">Team</text>
+    <text x="24" y="418">Billing</text>
+    <text x="24" y="458">Settings</text>
+  </g>
+
+  <text x="232" y="116" font-size="28" font-weight="700" fill="#ffffff">Your chatbots</text>
+  <text x="232" y="146" font-size="13" fill="#94a8bd">6 chatbots across 4 stores · 18,420 conversations this month</text>
+
+  <rect x="1080" y="92" width="180" height="44" rx="12" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="1100" y="119" font-size="13" fill="#94a8bd">🔍 Filter chatbots…</text>
+  <rect x="1280" y="92" width="120" height="44" rx="12" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="1300" y="119" font-size="13" fill="#94a8bd">⊞ Grid ▾</text>
+  <rect x="1416" y="92" width="160" height="44" rx="12" fill="#5dd3df"/>
+  <text x="1436" y="119" font-size="13" font-weight="700" fill="#0b1d2d">+ New chatbot</text>
+
+  <rect x="232" y="180" width="1336" height="80" rx="16" fill="#5dd3df"/>
+  <g>
+    <text x="260" y="212" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">CONVERSATIONS · TODAY</text>
+    <text x="260" y="244" font-size="22" font-weight="700" fill="#0b1d2d">2,148</text>
+    <line x1="430" y1="200" x2="430" y2="240" stroke="#0e3247"/>
+
+    <text x="460" y="212" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="460" y="244" font-size="22" font-weight="700" fill="#0b1d2d">87.2%</text>
+    <line x1="630" y1="200" x2="630" y2="240" stroke="#0e3247"/>
+
+    <text x="660" y="212" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">LEADS CAPTURED</text>
+    <text x="660" y="244" font-size="22" font-weight="700" fill="#0b1d2d">312</text>
+    <line x1="830" y1="200" x2="830" y2="240" stroke="#0e3247"/>
+
+    <text x="860" y="212" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">REVENUE INFLUENCED</text>
+    <text x="860" y="244" font-size="22" font-weight="700" fill="#0b1d2d">€42,180</text>
+    <line x1="1090" y1="200" x2="1090" y2="240" stroke="#0e3247"/>
+
+    <text x="1120" y="212" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">TEAM HOURS SAVED</text>
+    <text x="1120" y="244" font-size="22" font-weight="700" fill="#0b1d2d">68 hrs</text>
+  </g>
+
+  <g>
+    <rect x="232" y="288" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="232" y="288" width="424" height="92" rx="22" fill="url(#card1)"/>
+    <rect x="232" y="358" width="424" height="22" fill="url(#card1)"/>
+    <text x="260" y="318" font-size="11" font-weight="700" fill="#fda4af" letter-spacing="0.6">FASHION · SHOPIFY</text>
+    <text x="260" y="350" font-size="22" font-weight="700" fill="#ffffff">Aria</text>
+    <rect x="552" y="304" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="568" y="322" font-size="11" font-weight="700" fill="#34d399">● Live</text>
+    <text x="260" y="406" font-size="12" fill="#94a8bd">nordicbloom.store</text>
+
+    <line x1="260" y1="424" x2="628" y2="424" stroke="#142c41"/>
+
+    <text x="260" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="260" y="478" font-size="20" font-weight="700" fill="#ffffff">1,247</text>
+    <text x="260" y="496" font-size="11" fill="#34d399">▲ 18%</text>
+
+    <text x="440" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="440" y="478" font-size="20" font-weight="700" fill="#ffffff">89%</text>
+
+    <text x="560" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="560" y="478" font-size="20" font-weight="700" fill="#ffffff">38</text>
+
+    <rect x="260" y="514" width="178" height="36" rx="11" fill="#5dd3df"/>
+    <text x="290" y="538" font-size="12" font-weight="600" fill="#0b1d2d">Open dashboard →</text>
+    <rect x="450" y="514" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="478" y="538" font-size="12" fill="#def1f2">Edit</text>
+    <rect x="540" y="514" width="88" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="568" y="538" font-size="12" fill="#def1f2">⌐ Embed</text>
+
+    <rect x="676" y="288" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="676" y="288" width="424" height="92" rx="22" fill="url(#card2)"/>
+    <rect x="676" y="358" width="424" height="22" fill="url(#card2)"/>
+    <text x="704" y="318" font-size="11" font-weight="700" fill="#86efac" letter-spacing="0.6">SKINCARE · SHOPIFY</text>
+    <text x="704" y="350" font-size="22" font-weight="700" fill="#ffffff">Iris</text>
+    <rect x="996" y="304" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="1012" y="322" font-size="11" font-weight="700" fill="#34d399">● Live</text>
+    <text x="704" y="406" font-size="12" fill="#94a8bd">glowedge.com</text>
+
+    <line x1="704" y1="424" x2="1072" y2="424" stroke="#142c41"/>
+
+    <text x="704" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="704" y="478" font-size="20" font-weight="700" fill="#ffffff">428</text>
+    <text x="704" y="496" font-size="11" fill="#34d399">▲ 6%</text>
+
+    <text x="884" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="884" y="478" font-size="20" font-weight="700" fill="#ffffff">92%</text>
+
+    <text x="1004" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="1004" y="478" font-size="20" font-weight="700" fill="#ffffff">62</text>
+
+    <rect x="704" y="514" width="178" height="36" rx="11" fill="#5dd3df"/>
+    <text x="734" y="538" font-size="12" font-weight="600" fill="#0b1d2d">Open dashboard →</text>
+    <rect x="894" y="514" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="922" y="538" font-size="12" fill="#def1f2">Edit</text>
+    <rect x="984" y="514" width="88" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="1012" y="538" font-size="12" fill="#def1f2">⌐ Embed</text>
+
+    <rect x="1120" y="288" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="1120" y="288" width="424" height="92" rx="22" fill="url(#card3)"/>
+    <rect x="1120" y="358" width="424" height="22" fill="url(#card3)"/>
+    <text x="1148" y="318" font-size="11" font-weight="700" fill="#5dd3df" letter-spacing="0.6">ELECTRONICS · SHOPIFY</text>
+    <text x="1148" y="350" font-size="22" font-weight="700" fill="#ffffff">Volt</text>
+    <rect x="1440" y="304" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="1456" y="322" font-size="11" font-weight="700" fill="#34d399">● Live</text>
+    <text x="1148" y="406" font-size="12" fill="#94a8bd">voltdrop.io</text>
+
+    <line x1="1148" y1="424" x2="1516" y2="424" stroke="#142c41"/>
+
+    <text x="1148" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="1148" y="478" font-size="20" font-weight="700" fill="#ffffff">312</text>
+    <text x="1148" y="496" font-size="11" fill="#fda4af">▼ 4%</text>
+
+    <text x="1328" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="1328" y="478" font-size="20" font-weight="700" fill="#ffffff">81%</text>
+
+    <text x="1448" y="450" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="1448" y="478" font-size="20" font-weight="700" fill="#ffffff">24</text>
+
+    <rect x="1148" y="514" width="178" height="36" rx="11" fill="#5dd3df"/>
+    <text x="1178" y="538" font-size="12" font-weight="600" fill="#0b1d2d">Open dashboard →</text>
+    <rect x="1338" y="514" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="1366" y="538" font-size="12" fill="#def1f2">Edit</text>
+    <rect x="1428" y="514" width="88" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="1456" y="538" font-size="12" fill="#def1f2">⌐ Embed</text>
+  </g>
+
+  <g>
+    <rect x="232" y="588" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="232" y="588" width="424" height="92" rx="22" fill="url(#card4)"/>
+    <rect x="232" y="658" width="424" height="22" fill="url(#card4)"/>
+    <text x="260" y="618" font-size="11" font-weight="700" fill="#fcd34d" letter-spacing="0.6">FOOD · WOOCOMMERCE</text>
+    <text x="260" y="650" font-size="22" font-weight="700" fill="#ffffff">Crumb</text>
+    <rect x="552" y="604" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="568" y="622" font-size="11" font-weight="700" fill="#34d399">● Live</text>
+    <text x="260" y="706" font-size="12" fill="#94a8bd">artisanflour.eu</text>
+
+    <line x1="260" y1="724" x2="628" y2="724" stroke="#142c41"/>
+
+    <text x="260" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="260" y="778" font-size="20" font-weight="700" fill="#ffffff">96</text>
+    <text x="260" y="796" font-size="11" fill="#34d399">▲ 22%</text>
+
+    <text x="440" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="440" y="778" font-size="20" font-weight="700" fill="#ffffff">85%</text>
+
+    <text x="560" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="560" y="778" font-size="20" font-weight="700" fill="#ffffff">14</text>
+
+    <rect x="260" y="814" width="178" height="36" rx="11" fill="#5dd3df"/>
+    <text x="290" y="838" font-size="12" font-weight="600" fill="#0b1d2d">Open dashboard →</text>
+    <rect x="450" y="814" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="478" y="838" font-size="12" fill="#def1f2">Edit</text>
+    <rect x="540" y="814" width="88" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="568" y="838" font-size="12" fill="#def1f2">⌐ Embed</text>
+
+    <rect x="676" y="588" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="676" y="588" width="424" height="92" rx="22" fill="url(#card5)"/>
+    <rect x="676" y="658" width="424" height="22" fill="url(#card5)"/>
+    <text x="704" y="618" font-size="11" font-weight="700" fill="#c4b5fd" letter-spacing="0.6">HOME · CUSTOM</text>
+    <text x="704" y="650" font-size="22" font-weight="700" fill="#ffffff">Nest</text>
+    <rect x="996" y="604" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="1014" y="622" font-size="11" font-weight="700" fill="#fcd34d">● Draft</text>
+    <text x="704" y="706" font-size="12" fill="#94a8bd">linenroom.no</text>
+
+    <line x1="704" y1="724" x2="1072" y2="724" stroke="#142c41"/>
+
+    <text x="704" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="704" y="778" font-size="20" font-weight="700" fill="#ffffff">—</text>
+
+    <text x="884" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="884" y="778" font-size="20" font-weight="700" fill="#ffffff">—</text>
+
+    <text x="1004" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="1004" y="778" font-size="20" font-weight="700" fill="#ffffff">—</text>
+
+    <rect x="704" y="814" width="178" height="36" rx="11" fill="#1bb1d4"/>
+    <text x="744" y="838" font-size="12" font-weight="600" fill="#0b1d2d">Finish setup →</text>
+    <rect x="894" y="814" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="922" y="838" font-size="12" fill="#def1f2">Edit</text>
+
+    <rect x="1120" y="588" width="424" height="280" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="1120" y="588" width="424" height="92" rx="22" fill="url(#card6)"/>
+    <rect x="1120" y="658" width="424" height="22" fill="url(#card6)"/>
+    <text x="1148" y="618" font-size="11" font-weight="700" fill="#f0a3d0" letter-spacing="0.6">BEAUTY · SHOPIFY</text>
+    <text x="1148" y="650" font-size="22" font-weight="700" fill="#ffffff">Bloom</text>
+    <rect x="1440" y="604" width="84" height="26" rx="13" fill="#0b1d2d"/>
+    <text x="1456" y="622" font-size="11" font-weight="700" fill="#34d399">● Live</text>
+    <text x="1148" y="706" font-size="12" fill="#94a8bd">amorebeauty.co</text>
+
+    <line x1="1148" y1="724" x2="1516" y2="724" stroke="#142c41"/>
+
+    <text x="1148" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">CONVERSATIONS · 24H</text>
+    <text x="1148" y="778" font-size="20" font-weight="700" fill="#ffffff">186</text>
+    <text x="1148" y="796" font-size="11" fill="#34d399">▲ 9%</text>
+
+    <text x="1328" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">AUTO-RESOLVED</text>
+    <text x="1328" y="778" font-size="20" font-weight="700" fill="#ffffff">88%</text>
+
+    <text x="1448" y="750" font-size="10" font-weight="700" fill="#7a90a8" letter-spacing="0.6">LEADS</text>
+    <text x="1448" y="778" font-size="20" font-weight="700" fill="#ffffff">28</text>
+
+    <rect x="1148" y="814" width="178" height="36" rx="11" fill="#5dd3df"/>
+    <text x="1178" y="838" font-size="12" font-weight="600" fill="#0b1d2d">Open dashboard →</text>
+    <rect x="1338" y="814" width="78" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="1366" y="838" font-size="12" fill="#def1f2">Edit</text>
+    <rect x="1428" y="814" width="88" height="36" rx="11" fill="#10263a" stroke="#1a334a"/>
+    <text x="1456" y="838" font-size="12" fill="#def1f2">⌐ Embed</text>
+  </g>
+
+  <text x="232" y="922" font-size="16" font-weight="700" fill="#ffffff">Start from a template</text>
+  <text x="232" y="944" font-size="12" fill="#94a8bd">Pre-built behaviors and prompts tuned for your industry. Customize anytime.</text>
+
+  <g>
+    <rect x="232" y="970" width="320" height="180" rx="18" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="252" y="990" width="44" height="44" rx="11" fill="#3b1f1f"/>
+    <text x="263" y="1020" font-size="20">👗</text>
+    <text x="252" y="1066" font-size="14" font-weight="700" fill="#ffffff">Fashion &amp; Apparel</text>
+    <text x="252" y="1086" font-size="11" fill="#94a8bd">Sizing, returns, restocks, lookbook help</text>
+    <rect x="252" y="1100" width="120" height="32" rx="11" fill="#0e3247"/>
+    <text x="276" y="1121" font-size="11" font-weight="700" fill="#5dd3df">Use template →</text>
+
+    <rect x="572" y="970" width="320" height="180" rx="18" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="592" y="990" width="44" height="44" rx="11" fill="#1f3a2c"/>
+    <text x="603" y="1020" font-size="20">🧴</text>
+    <text x="592" y="1066" font-size="14" font-weight="700" fill="#ffffff">Beauty &amp; Skincare</text>
+    <text x="592" y="1086" font-size="11" fill="#94a8bd">Routine builder, ingredient match, samples</text>
+    <rect x="592" y="1100" width="120" height="32" rx="11" fill="#0e3247"/>
+    <text x="616" y="1121" font-size="11" font-weight="700" fill="#5dd3df">Use template →</text>
+
+    <rect x="912" y="970" width="320" height="180" rx="18" fill="#0b1d2d" stroke="#1a334a"/>
+    <rect x="932" y="990" width="44" height="44" rx="11" fill="#0e3247"/>
+    <text x="943" y="1020" font-size="20">📦</text>
+    <text x="932" y="1066" font-size="14" font-weight="700" fill="#ffffff">Dropshipping</text>
+    <text x="932" y="1086" font-size="11" fill="#94a8bd">Long-shipping FAQs, tracking, ETA tuning</text>
+    <rect x="932" y="1100" width="120" height="32" rx="11" fill="#0e3247"/>
+    <text x="956" y="1121" font-size="11" font-weight="700" fill="#5dd3df">Use template →</text>
+
+    <rect x="1252" y="970" width="316" height="180" rx="18" fill="#5dd3df"/>
+    <text x="1272" y="1014" font-size="11" font-weight="700" fill="#0b1d2d" letter-spacing="0.6">START FROM SCRATCH</text>
+    <text x="1272" y="1056" font-size="20" font-weight="700" fill="#0b1d2d">Build your own ✨</text>
+    <text x="1272" y="1080" font-size="11" fill="#0e3247">Blank chatbot you can shape any way you like.</text>
+    <rect x="1272" y="1100" width="160" height="32" rx="11" fill="#0b1d2d"/>
+    <text x="1294" y="1121" font-size="11" font-weight="700" fill="#5dd3df">+ Create chatbot</text>
+  </g>
+</svg>

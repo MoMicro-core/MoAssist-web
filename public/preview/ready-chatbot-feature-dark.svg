@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#061322"/>
+      <stop offset="100%" stop-color="#0a1f30"/>
+    </linearGradient>
+    <linearGradient id="accentBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1bb1d4"/>
+      <stop offset="100%" stop-color="#5dd3df"/>
+    </linearGradient>
+    <linearGradient id="prod" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2418"/>
+      <stop offset="100%" stop-color="#4a3a24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+
+  <rect x="40" y="40" width="1520" height="1120" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+  <rect x="40" y="40" width="1520" height="56" rx="22" fill="#10263a"/>
+  <rect x="40" y="80" width="1520" height="16" fill="#10263a"/>
+  <circle cx="74" cy="68" r="7" fill="#ff5f56"/>
+  <circle cx="98" cy="68" r="7" fill="#ffbd2e"/>
+  <circle cx="122" cy="68" r="7" fill="#27c93f"/>
+  <rect x="180" y="52" width="900" height="32" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="200" y="73" font-size="13" fill="#94a8bd">🔒  nordicbloom.store/products/linen-summer-dress</text>
+
+  <line x1="40" y1="96" x2="1560" y2="96" stroke="#1a334a"/>
+  <text x="80" y="138" font-size="18" font-weight="700" fill="#ffffff">NORDIC BLOOM</text>
+  <g font-size="13" fill="#94a8bd">
+    <text x="600" y="138">Shop</text>
+    <text x="680" y="138">Collections</text>
+    <text x="790" y="138">Journal</text>
+    <text x="870" y="138">About</text>
+  </g>
+  <text x="1390" y="138" font-size="13" fill="#94a8bd">Search</text>
+  <text x="1450" y="138" font-size="13" fill="#94a8bd">Account</text>
+  <text x="1510" y="138" font-size="13" fill="#94a8bd">Cart (1)</text>
+
+  <rect x="80" y="180" width="640" height="760" rx="20" fill="url(#prod)"/>
+  <text x="380" y="580" font-size="42" font-weight="300" fill="#ffffff" opacity="0.40" text-anchor="middle">LINEN DRESS</text>
+  <rect x="80" y="960" width="148" height="148" rx="14" fill="#3a2f1e"/>
+  <rect x="244" y="960" width="148" height="148" rx="14" fill="#5a4628"/>
+  <rect x="408" y="960" width="148" height="148" rx="14" fill="#3a2f1e"/>
+  <rect x="572" y="960" width="148" height="148" rx="14" fill="#2a1f12"/>
+
+  <text x="780" y="218" font-size="11" font-weight="600" fill="#94a8bd" letter-spacing="1.4">SUMMER 2025</text>
+  <text x="780" y="276" font-size="36" font-weight="700" fill="#ffffff">Linen Summer Dress</text>
+  <text x="780" y="318" font-size="22" fill="#ffffff">€129</text>
+  <text x="844" y="318" font-size="14" fill="#7a90a8" text-decoration="line-through">€159</text>
+
+  <text x="780" y="372" font-size="11" font-weight="600" fill="#94a8bd" letter-spacing="1">COLOR</text>
+  <circle cx="792" cy="402" r="14" fill="#5a4628" stroke="#5dd3df" stroke-width="2"/>
+  <circle cx="828" cy="402" r="14" fill="#3a2f1e"/>
+  <circle cx="864" cy="402" r="14" fill="#22150c"/>
+  <circle cx="900" cy="402" r="14" fill="#3a4a4d"/>
+
+  <text x="780" y="448" font-size="11" font-weight="600" fill="#94a8bd" letter-spacing="1">SIZE</text>
+  <g>
+    <rect x="780" y="464" width="48" height="40" rx="8" fill="#10263a" stroke="#1a334a"/>
+    <text x="797" y="490" font-size="13" fill="#94a8bd">XS</text>
+    <rect x="836" y="464" width="48" height="40" rx="8" fill="#5dd3df"/>
+    <text x="855" y="490" font-size="13" font-weight="700" fill="#0b1d2d">S</text>
+    <rect x="892" y="464" width="48" height="40" rx="8" fill="#10263a" stroke="#1a334a"/>
+    <text x="911" y="490" font-size="13" fill="#94a8bd">M</text>
+    <rect x="948" y="464" width="48" height="40" rx="8" fill="#10263a" stroke="#1a334a"/>
+    <text x="966" y="490" font-size="13" fill="#94a8bd">L</text>
+  </g>
+
+  <rect x="780" y="544" width="280" height="56" rx="14" fill="#5dd3df"/>
+  <text x="852" y="580" font-size="14" font-weight="700" fill="#0b1d2d">Add to cart — €129</text>
+
+  <text x="780" y="650" font-size="13" fill="#94a8bd" font-weight="600">Free shipping over €60 · 30-day returns</text>
+
+  <text x="780" y="710" font-size="11" font-weight="600" fill="#94a8bd" letter-spacing="1">DESCRIPTION</text>
+  <text x="780" y="738" font-size="13" fill="#94a8bd">Crafted from 100% European linen, the Linen</text>
+  <text x="780" y="758" font-size="13" fill="#94a8bd">Summer Dress drapes effortlessly with a relaxed</text>
+  <text x="780" y="778" font-size="13" fill="#94a8bd">silhouette. Made in Portugal. Pre-washed for</text>
+  <text x="780" y="798" font-size="13" fill="#94a8bd">softness from day one.</text>
+
+  <!-- Chat widget -->
+  <rect x="1080" y="500" width="448" height="608" rx="24" fill="#0b1d2d" stroke="#1a334a"/>
+  <rect x="1080" y="500" width="448" height="86" rx="24" fill="url(#accentBar)"/>
+  <rect x="1080" y="560" width="448" height="26" fill="url(#accentBar)"/>
+  <circle cx="1118" cy="544" r="22" fill="#0b1d2d"/>
+  <text x="1108" y="551" font-size="20">🤖</text>
+  <circle cx="1132" cy="558" r="6" fill="#34d399" stroke="#0b1d2d" stroke-width="2"/>
+  <text x="1156" y="536" font-size="15" font-weight="700" fill="#0b1d2d">Aria</text>
+  <text x="1156" y="556" font-size="11" fill="#0e3247">Nordic Bloom · usually replies instantly</text>
+  <text x="1496" y="544" font-size="20" fill="#0b1d2d">×</text>
+
+  <text x="1100" y="616" font-size="10" fill="#7a90a8" text-anchor="middle" transform="translate(204,0)">Today, 14:23</text>
+
+  <rect x="1100" y="630" width="280" height="48" rx="14" fill="#10263a"/>
+  <text x="1116" y="660" font-size="13" fill="#def1f2">Will the size S fit a UK 8?</text>
+
+  <rect x="1228" y="694" width="280" height="64" rx="14" fill="#1bb1d4"/>
+  <text x="1244" y="720" font-size="13" fill="#0b1d2d">Yes — our S fits UK 8 / EU 36.</text>
+  <text x="1244" y="740" font-size="13" fill="#0b1d2d">It runs slightly relaxed for a</text>
+  <text x="1244" y="760" font-size="13" fill="#0b1d2d">flowy summer fit.</text>
+
+  <rect x="1100" y="776" width="320" height="48" rx="14" fill="#10263a"/>
+  <text x="1116" y="806" font-size="13" fill="#def1f2">Perfect. How long is shipping to UK?</text>
+
+  <rect x="1208" y="840" width="300" height="80" rx="14" fill="#1bb1d4"/>
+  <text x="1224" y="866" font-size="13" fill="#0b1d2d">UK orders ship in 2–4 business</text>
+  <text x="1224" y="886" font-size="13" fill="#0b1d2d">days via DPD. Free over £55,</text>
+  <text x="1224" y="906" font-size="13" fill="#0b1d2d">£4.50 otherwise. 🇬🇧</text>
+
+  <rect x="1100" y="938" width="320" height="48" rx="14" fill="#10263a"/>
+  <text x="1116" y="968" font-size="13" fill="#def1f2">Great, adding to cart now 🙌</text>
+
+  <rect x="1100" y="1004" width="84" height="34" rx="17" fill="#10263a"/>
+  <circle cx="1124" cy="1021" r="4" fill="#94a8bd"/>
+  <circle cx="1142" cy="1021" r="4" fill="#94a8bd" opacity="0.6"/>
+  <circle cx="1160" cy="1021" r="4" fill="#94a8bd" opacity="0.4"/>
+
+  <rect x="1100" y="1052" width="408" height="42" rx="21" fill="#10263a" stroke="#1a334a"/>
+  <text x="1118" y="1078" font-size="13" fill="#7a90a8">Type your message…</text>
+  <circle cx="1488" cy="1073" r="14" fill="#5dd3df"/>
+  <text x="1482" y="1077" font-size="11" fill="#0b1d2d">➤</text>
+
+  <rect x="1280" y="450" width="218" height="34" rx="17" fill="#10263a" stroke="#1a334a"/>
+  <circle cx="1297" cy="467" r="6" fill="#5dd3df"/>
+  <text x="1310" y="471" font-size="11" font-weight="600" fill="#def1f2">Powered by MoAssist · 0.6s reply</text>
+</svg>

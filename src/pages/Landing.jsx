@@ -181,53 +181,53 @@ const SectionHeading = ({ eyebrow, title, body }) => (
 
 const LANDING_VISUALS = {
   hero: {
-    light: "/preview/ready-chatbot-hero-light.png",
-    dark: "/preview/ready-chatbot-hero-dark.png",
+    light: "/preview/ready-chatbot-hero-light.svg",
+    dark: "/preview/ready-chatbot-hero-dark.svg",
   },
   featureSections: [
     {
-      light: "/preview/ready-chatbot-feature-light.png",
-      dark: "/preview/ready-chatbot-feature-dark.png",
+      light: "/preview/ready-chatbot-feature-light.svg",
+      dark: "/preview/ready-chatbot-feature-dark.svg",
     },
     {
-      light: "/preview/knowledge-files-focused-light.png",
-      dark: "/preview/knowledge-files-focused-dark.png",
+      light: "/preview/knowledge-files-focused-light.svg",
+      dark: "/preview/knowledge-files-focused-dark.svg",
       aspectClass: "aspect-[2/1]",
     },
     {
-      light: "/preview/lead-capture-focused-light.png",
-      dark: "/preview/lead-capture-focused-dark.png",
+      light: "/preview/lead-capture-focused-light.svg",
+      dark: "/preview/lead-capture-focused-dark.svg",
     },
     {
-      light: "/preview/auth-support-focused-light.png",
-      dark: "/preview/auth-support-focused-dark.png",
+      light: "/preview/auth-support-focused-light.svg",
+      dark: "/preview/auth-support-focused-dark.svg",
     },
     {
-      light: "/preview/ai-handoff-focused-light.png",
-      dark: "/preview/ai-handoff-focused-dark.png",
+      light: "/preview/ai-handoff-focused-light.svg",
+      dark: "/preview/ai-handoff-focused-dark.svg",
     },
     {
-      light: "/preview/install-scripts-focused-light.png",
-      dark: "/preview/install-scripts-focused-dark.png",
+      light: "/preview/install-scripts-focused-light.svg",
+      dark: "/preview/install-scripts-focused-dark.svg",
     },
   ],
   workflowSteps: [
     {
-      light: "/preview/chatbots-overview-focused-light.png",
-      dark: "/preview/chatbots-overview-focused-dark.png",
+      light: "/preview/chatbots-overview-focused-light.svg",
+      dark: "/preview/chatbots-overview-focused-dark.svg",
     },
     {
-      light: "/preview/knowledge-files-focused-light.png",
-      dark: "/preview/knowledge-files-focused-dark.png",
+      light: "/preview/knowledge-files-focused-light.svg",
+      dark: "/preview/knowledge-files-focused-dark.svg",
       aspectClass: "aspect-[2/1]",
     },
     {
-      light: "/preview/ui-customization-focused-light.png",
-      dark: "/preview/ui-customization-focused-dark.png",
+      light: "/preview/ui-customization-focused-light.svg",
+      dark: "/preview/ui-customization-focused-dark.svg",
     },
     {
-      light: "/preview/ai-handoff-focused-light.png",
-      dark: "/preview/ai-handoff-focused-dark.png",
+      light: "/preview/ai-handoff-focused-light.svg",
+      dark: "/preview/ai-handoff-focused-dark.svg",
     },
   ],
 };
@@ -514,7 +514,7 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
                     <WorkflowCardImage
                       src={resolveLandingVisual(visual, theme)}
                       aspectClass={resolveLandingAspect(visual)}
-                      alt={item.title}
+                      alt={item.imageAlt || item.title}
                     />
                   </div>
                 </div>

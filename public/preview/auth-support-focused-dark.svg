@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" font-family="Inter, system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#061322"/>
+      <stop offset="100%" stop-color="#0a1f30"/>
+    </linearGradient>
+    <linearGradient id="ac" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1bb1d4"/>
+      <stop offset="100%" stop-color="#5dd3df"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+
+  <rect x="0" y="0" width="1600" height="56" fill="#0b1d2d"/>
+  <line x1="0" y1="56" x2="1600" y2="56" stroke="#142c41"/>
+  <rect x="20" y="16" width="22" height="22" rx="6" fill="url(#ac)"/>
+  <text x="50" y="34" font-size="15" font-weight="700" fill="#ffffff">MoAssist</text>
+  <text x="160" y="34" font-size="12" fill="#7a90a8">Inbox / Emma Lindqvist · Order #4821</text>
+  <circle cx="1564" cy="28" r="14" fill="#1bb1d4"/>
+  <text x="1556" y="32" font-size="11" font-weight="700" fill="#0b1d2d">AB</text>
+
+  <rect x="40" y="84" width="1520" height="120" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+  <circle cx="100" cy="144" r="36" fill="#3b1f1f"/>
+  <text x="84" y="152" font-size="20" font-weight="700" fill="#fda4af">EM</text>
+  <text x="156" y="134" font-size="22" font-weight="700" fill="#ffffff">Emma Lindqvist</text>
+  <rect x="356" y="116" width="98" height="24" rx="12" fill="#1f3a2c"/>
+  <text x="370" y="132" font-size="11" font-weight="700" fill="#86efac">● Logged in</text>
+  <rect x="464" y="116" width="118" height="24" rx="12" fill="#0e3247"/>
+  <text x="478" y="132" font-size="11" font-weight="700" fill="#5dd3df">VIP · 4 orders</text>
+  <text x="156" y="160" font-size="12" fill="#94a8bd">emma.lindqvist@gmail.com · Stockholm, Sweden · joined Mar 2024</text>
+  <text x="156" y="180" font-size="12" fill="#94a8bd">Lifetime value: €486 · Last order: 3 days ago · Avg. order: €121</text>
+
+  <rect x="1320" y="124" width="100" height="40" rx="11" fill="#10263a" stroke="#1a334a"/>
+  <text x="1346" y="148" font-size="12" fill="#94a8bd">View profile</text>
+  <rect x="1432" y="124" width="118" height="40" rx="11" fill="#5dd3df"/>
+  <text x="1452" y="148" font-size="12" font-weight="600" fill="#0b1d2d">Take over chat</text>
+
+  <rect x="40" y="224" width="700" height="896" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="68" y="262" font-size="11" font-weight="700" fill="#94a8bd" letter-spacing="0.6">ORDER #4821 · IN TRANSIT</text>
+  <text x="68" y="296" font-size="20" font-weight="700" fill="#ffffff">2 items · €184.00</text>
+  <text x="68" y="318" font-size="12" fill="#94a8bd">Placed Apr 16 · Paid via Klarna · Shipping to Vasagatan 12, Stockholm</text>
+
+  <rect x="68" y="340" width="644" height="92" rx="14" fill="#10263a"/>
+  <rect x="84" y="356" width="60" height="60" rx="10" fill="#3a2f1e"/>
+  <text x="160" y="378" font-size="13" font-weight="700" fill="#ffffff">Linen Summer Dress · Size S</text>
+  <text x="160" y="398" font-size="11" fill="#94a8bd">Color: Sand · SKU LD-S-SAND</text>
+  <text x="160" y="418" font-size="11" fill="#94a8bd">€129.00</text>
+  <text x="668" y="382" font-size="12" font-weight="600" fill="#ffffff" text-anchor="end">×1</text>
+
+  <rect x="68" y="444" width="644" height="92" rx="14" fill="#10263a"/>
+  <rect x="84" y="460" width="60" height="60" rx="10" fill="#3a4a4d"/>
+  <text x="160" y="482" font-size="13" font-weight="700" fill="#ffffff">Cotton Sun Hat</text>
+  <text x="160" y="502" font-size="11" fill="#94a8bd">Color: Off-white · SKU SH-OW</text>
+  <text x="160" y="522" font-size="11" fill="#94a8bd">€55.00</text>
+  <text x="668" y="486" font-size="12" font-weight="600" fill="#ffffff" text-anchor="end">×1</text>
+
+  <text x="68" y="582" font-size="14" font-weight="700" fill="#ffffff">Shipment timeline</text>
+  <text x="68" y="602" font-size="11" fill="#94a8bd">PostNord · tracking PN9418272SE · ETA Apr 22</text>
+
+  <line x1="92" y1="640" x2="92" y2="940" stroke="#1a334a" stroke-width="2"/>
+
+  <circle cx="92" cy="650" r="10" fill="#34d399"/>
+  <text x="120" y="648" font-size="13" font-weight="700" fill="#ffffff">Order placed</text>
+  <text x="120" y="668" font-size="11" fill="#94a8bd">Apr 16, 14:08 — paid via Klarna</text>
+
+  <circle cx="92" cy="708" r="10" fill="#34d399"/>
+  <text x="120" y="706" font-size="13" font-weight="700" fill="#ffffff">Picked &amp; packed</text>
+  <text x="120" y="726" font-size="11" fill="#94a8bd">Apr 17, 09:42 — Stockholm warehouse</text>
+
+  <circle cx="92" cy="766" r="10" fill="#34d399"/>
+  <text x="120" y="764" font-size="13" font-weight="700" fill="#ffffff">Handed to courier</text>
+  <text x="120" y="784" font-size="11" fill="#94a8bd">Apr 17, 16:20 — PostNord pickup</text>
+
+  <circle cx="92" cy="824" r="11" fill="#5dd3df" stroke="#0e3247" stroke-width="6"/>
+  <text x="120" y="822" font-size="13" font-weight="700" fill="#ffffff">In transit · Stockholm hub</text>
+  <text x="120" y="842" font-size="11" fill="#94a8bd">Apr 19, 08:14 — out for last-mile sorting</text>
+  <rect x="120" y="852" width="98" height="22" rx="11" fill="#0e3247"/>
+  <text x="132" y="867" font-size="10" font-weight="700" fill="#5dd3df">● Now · Live</text>
+
+  <circle cx="92" cy="886" r="10" fill="#0b1d2d" stroke="#1a334a" stroke-width="2"/>
+  <text x="120" y="884" font-size="13" font-weight="600" fill="#7a90a8">Out for delivery</text>
+  <text x="120" y="904" font-size="11" fill="#7a90a8">Estimated Apr 21</text>
+
+  <circle cx="92" cy="940" r="10" fill="#0b1d2d" stroke="#1a334a" stroke-width="2"/>
+  <text x="120" y="938" font-size="13" font-weight="600" fill="#7a90a8">Delivered</text>
+  <text x="120" y="958" font-size="11" fill="#7a90a8">Estimated Apr 22</text>
+
+  <rect x="68" y="996" width="644" height="100" rx="14" fill="#10263a"/>
+  <text x="88" y="1024" font-size="11" font-weight="700" fill="#94a8bd" letter-spacing="0.6">QUICK ACTIONS · AVAILABLE TO ARIA</text>
+  <rect x="88" y="1040" width="148" height="36" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="116" y="1063" font-size="12" fill="#def1f2">📦 Track package</text>
+  <rect x="248" y="1040" width="148" height="36" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="276" y="1063" font-size="12" fill="#def1f2">↻ Email return label</text>
+  <rect x="408" y="1040" width="148" height="36" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="438" y="1063" font-size="12" fill="#def1f2">✎ Edit address</text>
+  <rect x="568" y="1040" width="148" height="36" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="600" y="1063" font-size="12" fill="#def1f2">⟳ Reorder items</text>
+
+  <rect x="760" y="224" width="800" height="896" rx="22" fill="#0b1d2d" stroke="#1a334a"/>
+  <rect x="760" y="224" width="800" height="76" rx="22" fill="#10263a"/>
+  <rect x="760" y="280" width="800" height="20" fill="#10263a"/>
+  <line x1="760" y1="300" x2="1560" y2="300" stroke="#142c41"/>
+  <text x="784" y="262" font-size="14" font-weight="700" fill="#ffffff">Aria · live conversation</text>
+  <text x="784" y="282" font-size="11" fill="#94a8bd">Authenticated session · order context auto-loaded · 2 min duration</text>
+  <rect x="1450" y="248" width="86" height="28" rx="14" fill="#0e3247"/>
+  <text x="1466" y="266" font-size="11" font-weight="700" fill="#5dd3df">AI handling</text>
+
+  <text x="1160" y="334" font-size="10" fill="#7a90a8" text-anchor="middle">Today, 18:42</text>
+
+  <rect x="784" y="350" width="320" height="48" rx="14" fill="#10263a"/>
+  <text x="800" y="380" font-size="13" fill="#def1f2">Hi! Where is my order #4821?</text>
+
+  <rect x="900" y="414" width="640" height="160" rx="16" fill="#0e3247"/>
+  <text x="920" y="442" font-size="13" font-weight="700" fill="#5dd3df">Hi Emma! I see it right here 👋</text>
+  <text x="920" y="466" font-size="13" fill="#def1f2">Your order is in transit and just left the Stockholm</text>
+  <text x="920" y="486" font-size="13" fill="#def1f2">sorting hub this morning. Estimated delivery is</text>
+  <text x="920" y="506" font-size="13" fill="#def1f2">Wednesday, April 22 by 18:00.</text>
+  <rect x="920" y="522" width="600" height="40" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="940" y="546" font-size="12" font-weight="600" fill="#ffffff">PostNord · PN9418272SE → live tracking link 🔗</text>
+
+  <rect x="784" y="586" width="380" height="48" rx="14" fill="#10263a"/>
+  <text x="800" y="616" font-size="13" fill="#def1f2">Can I change the delivery address still?</text>
+
+  <rect x="780" y="650" width="760" height="180" rx="16" fill="#0e3247"/>
+  <text x="800" y="678" font-size="13" font-weight="700" fill="#5dd3df">Yes — package is still at the sorting hub, so I can update it now.</text>
+  <text x="800" y="702" font-size="13" fill="#def1f2">Current address on file:</text>
+  <rect x="800" y="714" width="720" height="46" rx="10" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="816" y="734" font-size="12" font-weight="600" fill="#ffffff">Vasagatan 12, 111 20 Stockholm, Sweden</text>
+  <text x="816" y="751" font-size="11" fill="#94a8bd">Default · added Mar 2024</text>
+  <text x="800" y="788" font-size="13" fill="#def1f2">Want to send it to a different address? Just paste it 👇</text>
+  <rect x="800" y="800" width="720" height="22" rx="11" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="816" y="816" font-size="11" fill="#7a90a8">Type new address (street, postcode, city)…</text>
+
+  <rect x="784" y="846" width="320" height="48" rx="14" fill="#10263a"/>
+  <text x="800" y="876" font-size="13" fill="#def1f2">Send it to my office instead 📦</text>
+
+  <rect x="780" y="908" width="760" height="120" rx="16" fill="#0e3247"/>
+  <text x="800" y="936" font-size="13" font-weight="700" fill="#5dd3df">Done ✓ — address updated to Sveavägen 44, Stockholm.</text>
+  <text x="800" y="960" font-size="13" fill="#def1f2">PostNord notified. New ETA: still Wed Apr 22.</text>
+  <text x="800" y="984" font-size="13" fill="#def1f2">I've also emailed you a confirmation. Anything else?</text>
+  <rect x="800" y="996" width="92" height="22" rx="11" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="816" y="1011" font-size="10" font-weight="700" fill="#5dd3df">📧 Emailed</text>
+  <rect x="900" y="996" width="118" height="22" rx="11" fill="#0b1d2d" stroke="#1a334a"/>
+  <text x="916" y="1011" font-size="10" font-weight="700" fill="#5dd3df">✓ Address synced</text>
+
+  <rect x="784" y="1052" width="752" height="48" rx="24" fill="#10263a" stroke="#1a334a"/>
+  <text x="804" y="1082" font-size="13" fill="#7a90a8">Reply as Aria · or take over to send a human message…</text>
+  <circle cx="1500" cy="1076" r="16" fill="#5dd3df"/>
+  <text x="1493" y="1081" font-size="12" fill="#0b1d2d">➤</text>
+</svg>
