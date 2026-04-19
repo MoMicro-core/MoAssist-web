@@ -23,7 +23,13 @@ export const WebSocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false)
   const socketRef = useRef(null)
   const listenersRef = useRef(new Map())
-  const reconnectRef = useRef(null)
+  const reconnectTimeoutRef = useRef(null)
+  const shouldReconnectRef = useRef(true)
+  const sessionTokenRef = useRef(sessionToken)
+
+  useEffect(() => {
+    sessionTokenRef.current = sessionToken
+  }, [sessionToken])
 
   const sendAction = useCallback((action, payload) => {
     const socket = socketRef.current
@@ -32,24 +38,49 @@ export const WebSocketProvider = ({ children }) => {
   }, [])
 
   const connect = useCallback(() => {
+    const existingSocket = socketRef.current
+    if (
+      existingSocket &&
+      (existingSocket.readyState === WebSocket.OPEN ||
+        existingSocket.readyState === WebSocket.CONNECTING)
+    ) {
+      return
+    }
+
     const socket = new WebSocket(getWsUrl())
     socketRef.current = socket
 
     socket.onopen = () => {
-      setConnected(true)
-      if (reconnectRef.current) {
-        clearInterval(reconnectRef.current)
-        reconnectRef.current = null
+      if (socketRef.current !== socket) {
+        socket.close()
+        return
       }
-      if (sessionToken) {
-        sendAction('user.authenticate', { token: sessionToken })
+      setConnected(true)
+      if (reconnectTimeoutRef.current) {
+        window.clearTimeout(reconnectTimeoutRef.current)
+        reconnectTimeoutRef.current = null
+      }
+      if (sessionTokenRef.current) {
+        socket.send(
+          JSON.stringify({
+            action: 'user.authenticate',
+            payload: { token: sessionTokenRef.current },
+          }),
+        )
       }
     }
 
     socket.onclose = () => {
+      if (socketRef.current === socket) {
+        socketRef.current = null
+      }
       setConnected(false)
-      if (!reconnectRef.current) {
-        reconnectRef.current = setInterval(() => {
+      if (
+        shouldReconnectRef.current &&
+        !reconnectTimeoutRef.current
+      ) {
+        reconnectTimeoutRef.current = window.setTimeout(() => {
+          reconnectTimeoutRef.current = null
           connect()
         }, 1500)
       }
@@ -60,7 +91,12 @@ export const WebSocketProvider = ({ children }) => {
     }
 
     socket.onmessage = (event) => {
-      const data = JSON.parse(event.data || '{}')
+      let data = {}
+      try {
+        data = JSON.parse(event.data || '{}')
+      } catch {
+        return
+      }
       const eventName = data.event
       const payload = data.payload
       if (!eventName) return
@@ -68,13 +104,22 @@ export const WebSocketProvider = ({ children }) => {
       if (!handlers) return
       handlers.forEach((handler) => handler(payload))
     }
-  }, [sendAction, sessionToken])
+  }, [])
 
   useEffect(() => {
+    shouldReconnectRef.current = true
     connect()
     return () => {
-      if (reconnectRef.current) clearInterval(reconnectRef.current)
-      if (socketRef.current) socketRef.current.close()
+      shouldReconnectRef.current = false
+      if (reconnectTimeoutRef.current) {
+        window.clearTimeout(reconnectTimeoutRef.current)
+        reconnectTimeoutRef.current = null
+      }
+      if (socketRef.current) {
+        const socket = socketRef.current
+        socketRef.current = null
+        socket.close()
+      }
     }
   }, [connect])
 
