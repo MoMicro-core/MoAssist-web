@@ -129,10 +129,10 @@ export const Login = () => {
   return (
     <div className="min-h-screen">
       <PublicHeader showActions={false} />
-      <div className="mx-auto flex w-full max-w-lg items-center px-6 py-10 sm:py-12">
-        <div className="glass-panel fade-up w-full rounded-3xl p-8">
+      <div className="mx-auto flex w-full max-w-lg items-center px-4 py-8 sm:px-6 sm:py-12">
+        <div className="glass-panel fade-up w-full rounded-2xl p-5 sm:rounded-3xl sm:p-8">
           <div className="space-y-2">
-            <Heading level={1} className="font-display text-3xl">
+            <Heading level={1} className="font-display text-2xl sm:text-3xl">
               {mode === "signin" ? t("signIn") : t("register")}
             </Heading>
             <Text className="text-sm text-zinc-600 dark:text-zinc-300">

@@ -244,8 +244,8 @@ export const ChatbotDashboard = () => {
             exit={{ opacity: 0, y: -8 }}
             className={`grid gap-3 ${
               preferences.compactMode
-                ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-6"
-                : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"
+                : "grid-cols-2 sm:grid-cols-2 lg:grid-cols-3"
             }`}
           >
             {metrics.map((item, index) => {

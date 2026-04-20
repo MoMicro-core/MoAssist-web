@@ -452,7 +452,7 @@ export const ChatbotChats = () => {
   const composerLocked = activeConversation?.status === "closed";
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[320px,1fr]">
+    <div className="grid gap-5 sm:gap-6 lg:grid-cols-[320px,1fr]">
       <div className="space-y-4">
         <Heading level={3} className="font-display text-lg">
           {t("conversations")}
@@ -532,10 +532,10 @@ export const ChatbotChats = () => {
         </div>
       </div>
 
-      <div className="glass-panel flex min-h-[520px] flex-col rounded-3xl">
+      <div className="glass-panel flex min-h-[60svh] flex-col rounded-2xl sm:min-h-[520px] sm:rounded-3xl">
         {activeConversation ? (
           <>
-            <div className="border-b border-zinc-100 px-6 py-5 dark:border-white/10">
+            <div className="border-b border-zinc-100 px-4 py-4 dark:border-white/10 sm:px-6 sm:py-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
@@ -581,7 +581,7 @@ export const ChatbotChats = () => {
               </div>
             ) : null}
 
-            <div className="flex-1 space-y-3 overflow-y-auto px-6 py-5">
+            <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4 sm:px-6 sm:py-5">
               {activeMessages.map((msg) => {
                 const isVisitor = msg.authorType === "visitor";
                 const isAi = msg.author === "ai";
@@ -589,7 +589,7 @@ export const ChatbotChats = () => {
                 return (
                   <div
                     key={msg.id}
-                    className={`max-w-[85%] rounded-[1.4rem] border px-4 py-3 text-sm shadow-sm ${
+                    className={`max-w-[88%] rounded-[1.2rem] border px-3.5 py-2.5 text-sm shadow-sm sm:max-w-[85%] sm:rounded-[1.4rem] sm:px-4 sm:py-3 ${
                       isVisitor
                         ? "bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white"
                         : isAi

@@ -74,7 +74,7 @@ export const Profile = () => {
         </div>
       ) : null}
 
-      <section className="glass-panel space-y-4 p-6">
+      <section className="glass-panel space-y-4 p-5 sm:p-6">
         <Heading level={3} className="font-display text-lg">
           {t('accountDetails')}
         </Heading>
@@ -88,12 +88,12 @@ export const Profile = () => {
             <Input value={user?.email || ''} disabled />
           </Field>
         </FieldGroup>
-        <Button color="teal" onClick={handleSave} disabled={saving}>
+        <Button color="teal" onClick={handleSave} disabled={saving} className="w-full justify-center sm:w-auto">
           {saving ? t('saving') : t('saveChanges')}
         </Button>
       </section>
 
-      <section className="glass-panel space-y-4 p-6">
+      <section className="glass-panel space-y-4 p-5 sm:p-6">
         <Heading level={3} className="font-display text-lg">
           {t('profile')}
         </Heading>

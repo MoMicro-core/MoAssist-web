@@ -130,22 +130,22 @@ export const Contacts = () => {
 
       <PublicHeader />
 
-      <main className="mx-auto mt-8 w-full max-w-7xl space-y-14 px-5 sm:px-8">
-        <section className="brand-stage rounded-[2.6rem] px-6 py-8 sm:px-10 sm:py-12">
-          <div className="grid gap-10 lg:grid-cols-[1fr,0.72fr] lg:items-end">
-            <div className="space-y-6">
+      <main className="mx-auto mt-6 w-full max-w-7xl space-y-10 px-4 sm:mt-8 sm:space-y-14 sm:px-8">
+        <section className="brand-stage rounded-[1.75rem] px-5 py-7 sm:rounded-[2.6rem] sm:px-10 sm:py-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr,0.72fr] lg:gap-10 lg:items-end">
+            <div className="space-y-5 sm:space-y-6">
               <TonePill>{t("contactsNav")}</TonePill>
               <div className="space-y-4">
-                <h1 className="font-display text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
+                <h1 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
                   {content.heroTitle}
                 </h1>
-                <p className="max-w-3xl text-base leading-8 text-zinc-600 sm:text-lg dark:text-zinc-300">
+                <p className="max-w-3xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
                   {content.heroBody}
                 </p>
               </div>
             </div>
 
-            <div className="brand-panel rounded-[2rem] p-6">
+            <div className="brand-panel rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-6">
               <div className="text-xs font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
                 {content.companyLabel}
               </div>
@@ -160,13 +160,13 @@ export const Contacts = () => {
           </div>
         </section>
 
-        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid gap-4 sm:gap-5 md:grid-cols-2 xl:grid-cols-3">
           {contactCards.map((card) => (
-            <article key={card.title} className="brand-stage rounded-[2rem] p-6">
-              <div className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500 dark:text-zinc-400">
+            <article key={card.title} className="brand-stage rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-6">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500 sm:text-xs dark:text-zinc-400">
                 {card.title}
               </div>
-              <h2 className="mt-3 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+              <h2 className="mt-3 font-display text-xl font-semibold text-zinc-900 sm:text-2xl dark:text-white">
                 {card.value}
               </h2>
               <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">

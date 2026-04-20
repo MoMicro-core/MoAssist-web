@@ -377,15 +377,15 @@ export const Chatbots = () => {
     .slice(0, 3);
 
   return (
-    <div className="space-y-8">
-      <div className="grid gap-6 lg:grid-cols-[1.6fr,1fr]">
-        <div className="glass-panel rounded-3xl border-sky-200/60 bg-gradient-to-br from-sky-50 via-white/90 to-cyan-50 p-8 dark:border-sky-900/30 dark:from-sky-950/35 dark:via-zinc-950 dark:to-cyan-950/15">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="space-y-3">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-[1.6fr,1fr]">
+        <div className="glass-panel rounded-2xl border-sky-200/60 bg-gradient-to-br from-sky-50 via-white/90 to-cyan-50 p-5 sm:rounded-3xl sm:p-8 dark:border-sky-900/30 dark:from-sky-950/35 dark:via-zinc-950 dark:to-cyan-950/15">
+          <div className="flex flex-wrap items-start justify-between gap-4 sm:gap-6">
+            <div className="min-w-0 space-y-2.5 sm:space-y-3">
               <Badge color="sky" className="uppercase tracking-wide">
                 {t("dashboard")}
               </Badge>
-              <Heading level={2} className="font-display text-3xl">
+              <Heading level={2} className="font-display text-2xl sm:text-3xl">
                 {t("chatbots")}
               </Heading>
               <Text className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -393,29 +393,29 @@ export const Chatbots = () => {
                 surface.
               </Text>
             </div>
-            <Button color="sky" onClick={openCreate}>
+            <Button color="sky" onClick={openCreate} className="w-full sm:w-auto justify-center">
               {t("newChatbot")}
             </Button>
           </div>
-          <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/80">
-              <div className="text-xl font-semibold text-zinc-900 dark:text-white">
+          <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-6 sm:gap-3">
+            <div className="rounded-xl border border-white/60 bg-white/70 p-3 shadow-sm sm:rounded-2xl sm:p-4 dark:border-white/10 dark:bg-zinc-900/80">
+              <div className="text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
                 {activeChatbotsCount}
               </div>
               <Text className="text-xs text-zinc-600 dark:text-zinc-300">
                 {t("activeChatbots")}
               </Text>
             </div>
-            <div className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/80">
-              <div className="text-xl font-semibold text-zinc-900 dark:text-white">
+            <div className="rounded-xl border border-white/60 bg-white/70 p-3 shadow-sm sm:rounded-2xl sm:p-4 dark:border-white/10 dark:bg-zinc-900/80">
+              <div className="text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
                 {totalConversations}
               </div>
               <Text className="text-xs text-zinc-600 dark:text-zinc-300">
                 {t("totalConversations")}
               </Text>
             </div>
-            <div className="rounded-2xl border border-white/60 bg-white/70 p-4 shadow-sm dark:border-white/10 dark:bg-zinc-900/80">
-              <div className="text-xl font-semibold text-zinc-900 dark:text-white">
+            <div className="rounded-xl border border-white/60 bg-white/70 p-3 shadow-sm sm:rounded-2xl sm:p-4 dark:border-white/10 dark:bg-zinc-900/80">
+              <div className="text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
                 {totalUnread}
               </div>
               <Text className="text-xs text-zinc-600 dark:text-zinc-300">
@@ -424,7 +424,7 @@ export const Chatbots = () => {
             </div>
           </div>
         </div>
-        <div className="glass-panel rounded-3xl p-6">
+        <div className="glass-panel rounded-2xl p-5 sm:rounded-3xl sm:p-6">
           <Heading level={3} className="font-display text-lg">
             {t("recentChatbotUpdates")}
           </Heading>
@@ -526,7 +526,7 @@ export const Chatbots = () => {
                           event.stopPropagation();
                           togglePin(chatbot.id);
                         }}
-                        className={`ui-pressable rounded-full p-1.5 ${
+                        className={`ui-pressable inline-flex h-9 w-9 items-center justify-center rounded-full sm:h-8 sm:w-8 ${
                           pinnedSet.has(chatbot.id)
                             ? "bg-sky-500 text-white"
                             : "bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300"
@@ -587,7 +587,7 @@ export const Chatbots = () => {
           ))}
         </div>
       )}
-      <div className="glass-panel rounded-3xl p-6">
+      <div className="glass-panel rounded-2xl p-5 sm:rounded-3xl sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <Heading level={3} className="font-display text-lg">

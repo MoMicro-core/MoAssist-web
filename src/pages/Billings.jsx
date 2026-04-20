@@ -153,7 +153,7 @@ export const Billings = () => {
         </div>
       ) : null}
 
-      <section className="glass-panel space-y-5 p-6">
+      <section className="glass-panel space-y-5 p-5 sm:p-6">
         {!isChatbotBilling ? (
           <Field>
             <Label>{t('billingChatbot')}</Label>
@@ -191,7 +191,7 @@ export const Billings = () => {
           </div>
         )}
 
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {sortedTiers.map((tier) => {
             const isCurrent = tier.id === currentTierId
             const capabilities =

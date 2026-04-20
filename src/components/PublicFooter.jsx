@@ -118,21 +118,21 @@ export const PublicFooter = ({
   };
 
   return (
-    <footer className="mx-auto mt-16 w-full max-w-7xl px-5 sm:px-8">
-      <div className="brand-stage rounded-[2.4rem] px-6 py-8 sm:px-8 sm:py-10">
-        <div className="grid gap-10 lg:grid-cols-[1.08fr,0.92fr]">
-          <div className="space-y-6">
+    <footer className="mx-auto mt-12 w-full max-w-7xl px-4 sm:mt-16 sm:px-8">
+      <div className="brand-stage rounded-[1.75rem] px-5 py-7 sm:rounded-[2.4rem] sm:px-8 sm:py-10">
+        <div className="grid gap-8 lg:grid-cols-[1.08fr,0.92fr] lg:gap-10">
+          <div className="space-y-5 sm:space-y-6">
             <a href="/chatbots" className="flex items-center gap-3">
               <img
                 src="/preview/logo.svg"
                 alt="MoAssist"
-                className="h-14 w-14 rounded-[1.4rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 dark:bg-white/10"
+                className="h-12 w-12 rounded-[1.1rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 sm:rounded-[1.4rem] dark:bg-white/10"
               />
-              <div>
-                <div className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
+              <div className="min-w-0">
+                <div className="truncate font-display text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
                   MoAssist
                 </div>
-                <div className="text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="truncate text-sm text-zinc-500 dark:text-zinc-400">
                   {tagline || t("marketingTagline")}
                 </div>
               </div>
@@ -156,18 +156,18 @@ export const PublicFooter = ({
             </div>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8">
             {resolvedColumns.map((column) => (
               <div key={column.title} className="space-y-3">
-                <div className="text-xs font-semibold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400">
                   {column.title}
                 </div>
-                <div className="space-y-2 text-sm text-zinc-600 dark:text-zinc-300">
+                <div className="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300">
                   {column.links.map((link) => (
                     <a
                       key={link.label}
                       href={resolveHref(link.href)}
-                      className="block transition hover:text-zinc-900 dark:hover:text-white"
+                      className="block py-1 transition hover:text-zinc-900 dark:hover:text-white"
                     >
                       {link.label}
                     </a>

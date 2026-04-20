@@ -105,7 +105,7 @@ export const SidebarItem = forwardRef(function SidebarItem(
   ref,
 ) {
   const classes = clsx(
-    "ui-pressable flex w-full items-center gap-3 rounded-xl px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5",
+    "ui-pressable flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-base/6 font-medium text-zinc-950 sm:px-2 sm:py-2 sm:text-sm/5",
     "transition-all duration-300 ease-out data-[hover]:-translate-y-[1px]",
     "data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:text-zinc-500 sm:data-[slot=icon]:*:size-5",
     "data-[slot=icon]:last:*:ml-auto data-[slot=icon]:last:*:size-5 sm:data-[slot=icon]:last:*:size-4 data-[slot=icon]:*:stroke-[1.8]",

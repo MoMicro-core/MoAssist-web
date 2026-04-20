@@ -38,14 +38,14 @@ function MobileSidebar({ open, close, children }) {
     <Headless.Dialog open={open} onClose={close} className="lg:hidden">
       <Headless.DialogBackdrop
         transition
-        className="fixed inset-0 z-40 bg-zinc-950/45 backdrop-blur-sm transition data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+        className="fixed inset-0 z-40 bg-zinc-950/55 backdrop-blur-sm transition data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
       />
       <Headless.DialogPanel
         transition
-        className="fixed inset-y-0 z-50 w-full max-w-80 p-2 transition duration-300 ease-in-out data-[closed]:-translate-x-full"
+        className="fixed inset-y-0 z-50 w-[88vw] max-w-[20rem] p-2 pt-safe pb-safe transition duration-300 ease-in-out data-[closed]:-translate-x-full"
       >
         <div className="glass-panel flex h-full flex-col overflow-hidden rounded-2xl">
-          <div className="-mb-3 px-4 pt-3">
+          <div className="-mb-3 flex items-center justify-end px-3 pt-3">
             <Headless.CloseButton
               as="button"
               type="button"
@@ -99,8 +99,8 @@ export function SidebarLayout({
       <MobileSidebar open={showSidebar} close={() => setShowSidebar(false)}>
         {sidebar}
       </MobileSidebar>
-      <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-zinc-200/60 bg-white/75 px-4 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/70 lg:hidden">
-        <div className="py-3">
+      <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-zinc-200/60 bg-white/80 px-3 pt-safe backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/80 sm:px-4 lg:hidden">
+        <div className="py-2.5 sm:py-3">
           <button
             type="button"
             onClick={() => setShowSidebar(true)}
@@ -114,12 +114,12 @@ export function SidebarLayout({
       </header>
       <main
         className={clsx(
-          "flex flex-1 flex-col pb-3 transition-[padding] duration-500 ease-out lg:min-w-0 lg:pr-3 lg:pt-3",
+          "flex flex-1 flex-col px-2 pb-3 pb-safe transition-[padding] duration-500 ease-out sm:px-3 lg:min-w-0 lg:px-0 lg:pr-3 lg:pt-3",
           sidebarHidden ? "lg:pl-3" : "lg:pl-[18.75rem]",
         )}
       >
-        <div className="glass-panel grow ml-1 p-4 sm:p-6 lg:rounded-[1.75rem] lg:p-8">
-          <div className="mx-auto max-w-full h-[90vh] overflow-y-scroll overflow-x-hidden no-scrollbar scroll-smooth">
+        <div className="glass-panel grow rounded-2xl p-3 sm:p-5 lg:rounded-[1.75rem] lg:p-8">
+          <div className="mx-auto max-w-full overflow-x-hidden no-scrollbar scroll-smooth lg:h-[90vh] lg:overflow-y-auto">
             {children}
           </div>
         </div>

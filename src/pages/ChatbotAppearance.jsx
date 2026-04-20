@@ -707,13 +707,13 @@ export const ChatbotAppearance = () => {
         </div>
       ) : null}
 
-      <div className="grid gap-6 xl:grid-cols-[320px_minmax(0,1fr)_360px] xl:items-start">
+      <div className="grid gap-5 sm:gap-6 xl:grid-cols-[320px_minmax(0,1fr)_360px] xl:items-start">
         <div className="space-y-6">
           <SettingsCard
             title={copy.previewControls}
             description={copy.previewControlsBody}
             actions={
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <PartButton
                   active={previewMode === "light"}
                   label={t("light")}
@@ -828,9 +828,9 @@ export const ChatbotAppearance = () => {
             </div>
           </div>
 
-          <div className="flex min-h-[760px] items-center justify-center">
+          <div className="flex min-h-[380px] items-center justify-center sm:min-h-[560px] xl:min-h-[760px]">
             {previewError ? (
-              <div className="flex min-h-[560px] w-full items-center justify-center rounded-[1.75rem] border border-red-200 bg-red-50 p-6 text-center text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+              <div className="flex min-h-[340px] w-full items-center justify-center rounded-[1.5rem] border border-red-200 bg-red-50 p-5 text-center text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400 sm:min-h-[500px] sm:rounded-[1.75rem] sm:p-6 xl:min-h-[560px]">
                 {previewError}
               </div>
             ) : previewHtml ? (
@@ -838,7 +838,7 @@ export const ChatbotAppearance = () => {
                 ref={previewFrameRef}
                 title={copy.livePreviewTitle}
                 srcDoc={previewHtml}
-                className="h-[760px] w-full max-w-[520px] border-0 bg-transparent"
+                className="h-[380px] w-full max-w-[520px] border-0 bg-transparent sm:h-[560px] xl:h-[760px]"
                 style={{
                   borderRadius: draft.rounded ? `${draft.cornerRadius ?? 24}px` : undefined,
                 }}
@@ -850,7 +850,7 @@ export const ChatbotAppearance = () => {
                 }}
               />
             ) : (
-              <div className="flex min-h-[560px] w-full items-center justify-center text-center text-sm text-zinc-500 dark:text-zinc-400">
+              <div className="flex min-h-[340px] w-full items-center justify-center text-center text-sm text-zinc-500 dark:text-zinc-400 sm:min-h-[500px] xl:min-h-[560px]">
                 {copy.loadingPreview}
               </div>
             )}

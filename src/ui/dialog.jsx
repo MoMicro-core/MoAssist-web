@@ -29,7 +29,7 @@ export function Dialog({ size = "lg", className, children, ...props }) {
             className={clsx(
               className,
               sizes[size],
-              "row-start-2 w-full min-w-0 rounded-t-3xl bg-white p-[--gutter] shadow-[0_30px_80px_-28px_rgba(11,28,42,0.55)] ring-1 ring-zinc-950/10 [--gutter:theme(spacing.8)] sm:mb-auto sm:rounded-3xl dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline",
+              "row-start-2 w-full min-w-0 rounded-t-3xl bg-white p-[--gutter] pb-[max(theme(spacing.5),env(safe-area-inset-bottom))] shadow-[0_30px_80px_-28px_rgba(11,28,42,0.55)] ring-1 ring-zinc-950/10 [--gutter:theme(spacing.5)] sm:mb-auto sm:rounded-3xl sm:[--gutter:theme(spacing.8)] dark:bg-zinc-900 dark:ring-white/10 forced-colors:outline",
               "transition duration-100 will-change-transform data-[closed]:translate-y-12 data-[closed]:opacity-0 data-[enter]:ease-out data-[leave]:ease-in sm:data-[closed]:translate-y-0 sm:data-[closed]:data-[enter]:scale-95",
             )}
           >

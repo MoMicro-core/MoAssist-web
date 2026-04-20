@@ -171,16 +171,16 @@ export const Pricing = () => {
 
       <PublicHeader />
 
-      <main className="mx-auto mt-8 w-full max-w-7xl space-y-16 px-5 sm:px-8">
-        <section className="brand-stage rounded-[2.6rem] px-6 py-8 sm:px-10 sm:py-12">
-          <div className="grid gap-10 lg:grid-cols-[1fr,0.72fr] lg:items-end">
-            <div className="space-y-6">
+      <main className="mx-auto mt-6 w-full max-w-7xl space-y-12 px-4 sm:mt-8 sm:space-y-16 sm:px-8">
+        <section className="brand-stage rounded-[1.75rem] px-5 py-7 sm:rounded-[2.6rem] sm:px-10 sm:py-12">
+          <div className="grid gap-8 lg:grid-cols-[1fr,0.72fr] lg:gap-10 lg:items-end">
+            <div className="space-y-5 sm:space-y-6">
               <TonePill>{content.hero.eyebrow}</TonePill>
               <div className="space-y-4">
-                <h1 className="font-display text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
+                <h1 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl dark:text-white">
                   {content.hero.title}
                 </h1>
-                <p className="max-w-3xl text-base leading-8 text-zinc-600 sm:text-lg dark:text-zinc-300">
+                <p className="max-w-3xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
                   {content.hero.body}
                 </p>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#10435f] dark:text-[#def1f2]">
@@ -190,17 +190,17 @@ export const Pricing = () => {
                   {t("brandRelationshipLabel")}
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3">
-                <Button color="teal" href="/login">
+              <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap">
+                <Button color="teal" href="/login" className="w-full min-w-0 justify-center sm:w-auto">
                   {content.hero.primaryLabel}
                 </Button>
-                <Button outline href="/chatbots">
+                <Button outline href="/chatbots" className="w-full min-w-0 justify-center sm:w-auto">
                   {content.hero.secondaryLabel}
                 </Button>
               </div>
             </div>
 
-            <div className="brand-panel rounded-[2rem] p-6">
+            <div className="brand-panel rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-6">
               <div className="text-xs font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
                 {content.sideNoteTitle}
               </div>
@@ -211,30 +211,30 @@ export const Pricing = () => {
           </div>
         </section>
 
-        <section className="grid gap-5 lg:grid-cols-3">
+        <section className="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {content.tiers.map((tier) => (
             <article
               key={tier.name}
-              className={`rounded-[2rem] border p-6 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] ${
+              className={`rounded-[1.5rem] border p-5 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] sm:rounded-[2rem] sm:p-6 ${
                 tier.featured
                   ? "border-[#1bb1d4]/35 bg-[linear-gradient(160deg,rgba(230,251,255,0.92),rgba(255,255,255,0.9))] dark:border-[#5dd3df]/30 dark:bg-[linear-gradient(160deg,rgba(11,29,45,0.96),rgba(8,21,33,0.92))]"
                   : "border-white/75 bg-white/84 dark:border-white/10 dark:bg-[#091725]/82"
               }`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-display text-xl font-semibold text-zinc-900 sm:text-2xl dark:text-white">
                     {tier.name}
                   </div>
-                  <div className="mt-2 text-sm uppercase tracking-[0.24em] text-zinc-500 dark:text-zinc-400">
+                  <div className="mt-2 text-[11px] uppercase tracking-[0.24em] text-zinc-500 sm:text-sm dark:text-zinc-400">
                     {tier.badge}
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="font-display text-4xl font-semibold text-zinc-900 dark:text-white">
+                  <div className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
                     {tier.priceLabel}
                   </div>
-                  <div className="text-sm text-zinc-500 dark:text-zinc-400">
+                  <div className="text-xs text-zinc-500 sm:text-sm dark:text-zinc-400">
                     {tier.period}
                   </div>
                 </div>
@@ -271,18 +271,18 @@ export const Pricing = () => {
             body={content.comparison.body}
           />
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/75 bg-white/86 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-white/10 dark:bg-[#091725]/82">
-            <div className="overflow-x-auto">
+          <div className="overflow-hidden rounded-[1.5rem] border border-white/75 bg-white/86 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-white/10 dark:bg-[#091725]/82 sm:rounded-[2rem]">
+            <div className="overflow-x-auto no-scrollbar">
               <table className="min-w-full border-collapse">
                 <thead>
                   <tr className="border-b border-zinc-200/70 dark:border-white/10">
-                    <th className="px-5 py-4 text-left text-sm font-semibold text-zinc-900 dark:text-white">
+                    <th className="sticky left-0 bg-white/86 px-3 py-3 text-left text-xs font-semibold text-zinc-900 sm:px-5 sm:py-4 sm:text-sm dark:bg-[#091725]/82 dark:text-white">
                       {content.comparison.tableLabel}
                     </th>
                     {content.tiers.map((tier) => (
                       <th
                         key={tier.name}
-                        className="px-5 py-4 text-left text-sm font-semibold text-zinc-900 dark:text-white"
+                        className="px-3 py-3 text-left text-xs font-semibold text-zinc-900 sm:px-5 sm:py-4 sm:text-sm dark:text-white"
                       >
                         {tier.name}
                       </th>
@@ -295,13 +295,13 @@ export const Pricing = () => {
                       key={row.label}
                       className="border-b border-zinc-200/60 last:border-b-0 dark:border-white/10"
                     >
-                      <td className="px-5 py-4 text-sm text-zinc-600 dark:text-zinc-300">
+                      <td className="sticky left-0 bg-white/86 px-3 py-3 text-xs text-zinc-600 sm:px-5 sm:py-4 sm:text-sm dark:bg-[#091725]/82 dark:text-zinc-300">
                         {row.label}
                       </td>
                       {row.values.map((value) => (
                         <td
                           key={`${row.label}-${value}`}
-                          className="px-5 py-4 text-sm text-zinc-700 dark:text-zinc-200"
+                          className="px-3 py-3 text-xs text-zinc-700 sm:px-5 sm:py-4 sm:text-sm dark:text-zinc-200"
                         >
                           {value}
                         </td>
@@ -321,11 +321,11 @@ export const Pricing = () => {
             body={content.faq.body}
           />
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
             {content.faq.items.map((item) => (
               <article
                 key={item.question}
-                className="brand-stage rounded-[2rem] p-6"
+                className="brand-stage rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-6"
               >
                 <h3 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
                   {item.question}
@@ -338,22 +338,22 @@ export const Pricing = () => {
           </div>
         </section>
 
-        <section className="brand-stage rounded-[2.4rem] p-7 sm:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr,0.72fr] lg:items-end">
+        <section className="brand-stage rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10">
+          <div className="grid gap-6 lg:grid-cols-[1fr,0.72fr] lg:items-end">
             <div className="space-y-4">
               <TonePill>{content.cta.eyebrow}</TonePill>
-              <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
+              <h2 className="font-display text-2xl font-semibold leading-tight text-zinc-900 sm:text-4xl dark:text-white">
                 {content.cta.title}
               </h2>
-              <p className="max-w-2xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+              <p className="max-w-2xl text-base leading-7 text-zinc-600 sm:leading-8 dark:text-zinc-300">
                 {content.cta.body}
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 lg:justify-end">
-              <Button color="teal" href={resolveHref(content.cta.primaryHref)}>
+            <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap lg:justify-end">
+              <Button color="teal" href={resolveHref(content.cta.primaryHref)} className="w-full min-w-0 justify-center sm:w-auto">
                 {content.cta.primaryLabel}
               </Button>
-              <Button outline href={resolveHref(content.cta.secondaryHref)}>
+              <Button outline href={resolveHref(content.cta.secondaryHref)} className="w-full min-w-0 justify-center sm:w-auto">
                 {content.cta.secondaryLabel}
               </Button>
             </div>

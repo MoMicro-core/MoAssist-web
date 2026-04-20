@@ -247,15 +247,17 @@ const ShowcaseImage = ({
 }) => (
   <div
     data-reveal
-    className={`landing-reveal landing-hover-lift landing-image-shell brand-stage p-4 sm:p-5 ${className}`}
+    className={`landing-reveal landing-hover-lift landing-image-shell brand-stage p-3 sm:p-5 ${className}`}
   >
     <div
-      className={`relative overflow-hidden rounded-[1.75rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88 ${aspectClass}`}
+      className={`relative overflow-hidden rounded-[1.4rem] border border-white/75 bg-white/88 dark:border-white/10 dark:bg-[#0b1d2d]/88 sm:rounded-[1.75rem] ${aspectClass}`}
     >
       <img
         src={src}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
+        decoding={priority ? "sync" : "async"}
+        fetchpriority={priority ? "high" : "auto"}
         className="h-full w-full object-cover object-center"
       />
       <div
@@ -290,7 +292,7 @@ const ProblemSection = ({ content }) => {
     <section
       id="problem"
       data-reveal
-      className="landing-reveal scroll-mt-28 brand-stage rounded-[2.4rem] p-7 sm:p-10"
+      className="landing-reveal scroll-mt-28 brand-stage rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10"
     >
       <div className="space-y-4">
         <TonePill>{ps.eyebrow}</TonePill>
@@ -301,13 +303,13 @@ const ProblemSection = ({ content }) => {
           {ps.body}
         </p>
       </div>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {ps.items.map((item) => (
           <div
             key={item.stat}
-            className="rounded-[1.75rem] border border-red-200/60 bg-red-50/60 p-6 dark:border-red-900/30 dark:bg-red-950/20"
+            className="rounded-[1.4rem] border border-red-200/60 bg-red-50/60 p-5 dark:border-red-900/30 dark:bg-red-950/20 sm:rounded-[1.75rem] sm:p-6"
           >
-            <div className="font-display text-4xl font-semibold text-red-600 dark:text-red-400">
+            <div className="font-display text-3xl font-semibold text-red-600 sm:text-4xl dark:text-red-400">
               {item.stat}
             </div>
             <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
@@ -428,111 +430,158 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
   const workflowSteps = content.workflowSteps;
 
   return (
-  <section
-    ref={sectionRef}
-    id="how-it-works"
-    className="relative grid gap-12 lg:grid-cols-[0.9fr_1.1fr]"
-  >
-    <div className="pointer-events-none absolute right-0 top-12 hidden h-56 w-56 rounded-full bg-[radial-gradient(circle,_rgba(92,215,211,0.18),_transparent_68%)] blur-2xl lg:block" />
+    <section ref={sectionRef} id="how-it-works" className="relative">
+      <div className="grid gap-8 lg:hidden">
+        <div data-reveal className="landing-reveal space-y-6">
+          <p className="text-xs uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-400">
+            {content.workflowSection.processLabel}
+          </p>
+          <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
+            {content.workflowSection.title}
+          </h2>
+          <p className="text-base leading-8 text-zinc-600 dark:text-zinc-300">
+            {content.workflowSection.body}
+          </p>
+        </div>
 
-    <div
-      data-reveal
-      className="landing-reveal space-y-6 lg:sticky lg:top-24 lg:self-start"
-    >
-      <p className="text-xs uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-400">
-        {content.workflowSection.processLabel}
-      </p>
-      <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
-        {content.workflowSection.title}
-      </h2>
-      <p className="max-w-xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
-        {content.workflowSection.body}
-      </p>
-      <div className="space-y-4 text-sm text-zinc-500 dark:text-zinc-400">
-        {workflowSteps.map((item, index) => {
-          const isActive = activeStep === index;
-          return (
-            <div
-              key={item.step}
-              data-step-indicator={index}
-              className={`landing-step-indicator ${isActive ? "is-active" : ""}`}
-            >
-              <span className="landing-step-indicator-dot" />
-              {item.label}
+        <div className="grid gap-5">
+          {workflowSteps.map((item, index) => {
+            const visual =
+              LANDING_VISUALS.workflowSteps[
+                index % LANDING_VISUALS.workflowSteps.length
+              ];
+
+            return (
+              <article
+                key={item.title}
+                data-reveal
+                className="landing-reveal brand-stage rounded-[2rem] p-5"
+              >
+                <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.28em] text-zinc-500 dark:text-zinc-400">
+                  <span>{item.step}</span>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <h3 className="mt-4 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                  {item.body}
+                </p>
+                <div className="mt-5">
+                  <WorkflowCardImage
+                    src={resolveLandingVisual(visual, theme)}
+                    aspectClass={resolveLandingAspect(visual)}
+                    alt={item.imageAlt || item.title}
+                  />
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="relative hidden gap-12 lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="pointer-events-none absolute right-0 top-12 hidden h-56 w-56 rounded-full bg-[radial-gradient(circle,_rgba(92,215,211,0.18),_transparent_68%)] blur-2xl lg:block" />
+
+        <div
+          data-reveal
+          className="landing-reveal space-y-6 lg:sticky lg:top-24 lg:self-start"
+        >
+          <p className="text-xs uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-400">
+            {content.workflowSection.processLabel}
+          </p>
+          <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
+            {content.workflowSection.title}
+          </h2>
+          <p className="max-w-xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+            {content.workflowSection.body}
+          </p>
+          <div className="space-y-4 text-sm text-zinc-500 dark:text-zinc-400">
+            {workflowSteps.map((item, index) => {
+              const isActive = activeStep === index;
+              return (
+                <div
+                  key={item.step}
+                  data-step-indicator={index}
+                  className={`landing-step-indicator ${isActive ? "is-active" : ""}`}
+                >
+                  <span className="landing-step-indicator-dot" />
+                  {item.label}
+                </div>
+              );
+            })}
+          </div>
+          <div className="brand-panel rounded-[1.5rem] p-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
+              {workflowSteps[activeStep].step}
             </div>
-          );
-        })}
-      </div>
-      <div className="brand-panel rounded-[1.5rem] p-4">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-          {workflowSteps[activeStep].step}
+            <div className="mt-2 font-display text-lg font-semibold text-zinc-900 dark:text-white">
+              {workflowSteps[activeStep].title}
+            </div>
+            <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+              {workflowSteps[activeStep].body}
+            </p>
+          </div>
         </div>
-        <div className="mt-2 font-display text-lg font-semibold text-zinc-900 dark:text-white">
-          {workflowSteps[activeStep].title}
-        </div>
-        <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-          {workflowSteps[activeStep].body}
-        </p>
-      </div>
-    </div>
 
-    <div className="relative min-h-[320vh]" data-workflow-stack>
-      <div className="sticky top-24 h-[80vh]">
-        {workflowSteps.map((item, index) => {
-          const visual =
-            LANDING_VISUALS.workflowSteps[
-              index % LANDING_VISUALS.workflowSteps.length
-            ];
-          const stateClass =
-            index === activeStep
-              ? "is-active"
-              : index > activeStep
-                ? "is-next"
-                : "is-past";
+        <div className="relative min-h-[320vh]" data-workflow-stack>
+          <div className="sticky top-24 h-[80vh]">
+            {workflowSteps.map((item, index) => {
+              const visual =
+                LANDING_VISUALS.workflowSteps[
+                  index % LANDING_VISUALS.workflowSteps.length
+                ];
+              const stateClass =
+                index === activeStep
+                  ? "is-active"
+                  : index > activeStep
+                    ? "is-next"
+                    : "is-past";
 
-          return (
-            <div
-              key={item.title}
-              data-step-card={index}
-              className={`landing-step-card ${stateClass}`}
-            >
-              <div className="brand-stage h-full rounded-[2rem] p-6 sm:p-7">
-                <div className="flex h-full flex-col gap-6">
-                  <div>
-                    <div className="flex items-center justify-between text-xs uppercase tracking-[0.28em] text-zinc-500 dark:text-zinc-400">
-                      <span>{item.step}</span>
-                      <span>{String(index + 1).padStart(2, "0")}</span>
+              return (
+                <div
+                  key={item.title}
+                  data-step-card={index}
+                  className={`landing-step-card ${stateClass}`}
+                >
+                  <div className="brand-stage h-full rounded-[2rem] p-6 sm:p-7">
+                    <div className="flex h-full flex-col gap-6">
+                      <div>
+                        <div className="flex items-center justify-between text-xs uppercase tracking-[0.28em] text-zinc-500 dark:text-zinc-400">
+                          <span>{item.step}</span>
+                          <span>{String(index + 1).padStart(2, "0")}</span>
+                        </div>
+                        <h3 className="mt-4 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+                          {item.title}
+                        </h3>
+                        <p className="mt-3 max-w-xl text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                          {item.body}
+                        </p>
+                      </div>
+                      <div className="flex-1">
+                        <WorkflowCardImage
+                          src={resolveLandingVisual(visual, theme)}
+                          aspectClass={resolveLandingAspect(visual)}
+                          alt={item.imageAlt || item.title}
+                        />
+                      </div>
                     </div>
-                    <h3 className="mt-4 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-3 max-w-xl text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                      {item.body}
-                    </p>
-                  </div>
-                  <div className="flex-1">
-                    <WorkflowCardImage
-                      src={resolveLandingVisual(visual, theme)}
-                      aspectClass={resolveLandingAspect(visual)}
-                      alt={item.imageAlt || item.title}
-                    />
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
 
-      {workflowSteps.map((item, index) => (
-        <div
-          key={`${item.step}-trigger`}
-          className="h-[80vh]"
-          data-step-trigger={index}
-        />
-      ))}
-    </div>
-  </section>
+          {workflowSteps.map((item, index) => (
+            <div
+              key={`${item.step}-trigger`}
+              className="h-[80vh]"
+              data-step-trigger={index}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -628,7 +677,7 @@ export const Landing = () => {
   };
 
   return (
-    <div className="relative min-h-screen pb-12">
+    <div className="relative min-h-screen pb-28 sm:pb-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -671,25 +720,25 @@ export const Landing = () => {
 
       <PublicHeader />
 
-      <main className="mx-auto mt-8 w-full max-w-7xl space-y-24 px-5 sm:px-8">
-        <section className="grid items-center gap-10 xl:grid-cols-[0.92fr,1.08fr]">
-          <div data-reveal className="landing-reveal space-y-8">
+      <main className="mx-auto mt-6 w-full max-w-7xl space-y-16 px-4 sm:mt-8 sm:space-y-24 sm:px-8">
+        <section className="grid items-center gap-8 sm:gap-10 xl:grid-cols-[0.92fr,1.08fr]">
+          <div data-reveal className="landing-reveal space-y-6 sm:space-y-8">
             <TonePill>{content.heroPill}</TonePill>
 
-            <div className="space-y-5">
-              <h1 className="font-display text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl xl:text-[4rem] xl:leading-[1.02] dark:text-white">
+            <div className="space-y-4 sm:space-y-5">
+              <h1 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl xl:text-[4rem] xl:leading-[1.02] dark:text-white">
                 {content.heroTitle}
               </h1>
-              <p className="max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg dark:text-zinc-300">
+              <p className="max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
                 {content.heroBody}
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <Button color="teal" href="/chatbots">
+            <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
+              <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center sm:w-auto">
                 {t("tryNow")}
               </Button>
-              <Button outline href="/login">
+              <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
                 {t("signIn")}
               </Button>
             </div>
@@ -698,14 +747,14 @@ export const Landing = () => {
               {t("brandRelationshipLabel")}
             </p>
 
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 xl:grid-cols-4">
               {content.heroHighlights.map((item, index) => (
                 <a
                   key={item.title}
                   href={item.href}
                   data-reveal
                   style={{ transitionDelay: `${index * 60}ms` }}
-                  className="landing-reveal landing-hover-lift brand-panel rounded-[1.45rem] p-4 text-center"
+                  className="landing-reveal landing-hover-lift brand-panel rounded-[1.25rem] p-3 text-center sm:rounded-[1.45rem] sm:p-4"
                 >
                   <div className="text-sm font-semibold text-zinc-900 dark:text-white">
                     {item.title}
@@ -765,7 +814,7 @@ export const Landing = () => {
                   id={section.id}
                   data-reveal
                   style={{ transitionDelay: `${index * 50}ms` }}
-                  className="landing-reveal scroll-mt-28 grid gap-6 rounded-[2.25rem] border border-white/75 bg-white/74 p-6 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
+                  className="landing-reveal scroll-mt-28 grid gap-5 rounded-[1.5rem] border border-white/75 bg-white/74 p-4 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:gap-6 sm:rounded-[2.25rem] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
                 >
                   {index % 2 === 0 ? (
                     <>
@@ -898,7 +947,7 @@ export const Landing = () => {
         <section
           id="faq"
           data-reveal
-          className="landing-reveal brand-stage rounded-[2.4rem] p-7 sm:p-10"
+          className="landing-reveal brand-stage rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10"
         >
           <SectionHeading
             eyebrow={content.faqSection.eyebrow}
@@ -939,23 +988,23 @@ export const Landing = () => {
 
         <section
           data-reveal
-          className="landing-reveal brand-stage rounded-[2.4rem] p-7 sm:p-10"
+          className="landing-reveal brand-stage rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10"
         >
-          <div className="grid gap-8 lg:grid-cols-[1.02fr,0.98fr] lg:items-end">
+          <div className="grid gap-6 lg:grid-cols-[1.02fr,0.98fr] lg:items-end">
             <div className="space-y-4">
               <TonePill>{content.ctaSection.eyebrow}</TonePill>
-              <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
+              <h2 className="font-display text-2xl font-semibold leading-tight text-zinc-900 sm:text-4xl dark:text-white">
                 {content.ctaSection.title}
               </h2>
-              <p className="max-w-2xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+              <p className="max-w-2xl text-base leading-7 text-zinc-600 sm:leading-8 dark:text-zinc-300">
                 {content.ctaSection.body}
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 lg:justify-end">
-              <Button color="teal" href="/chatbots">
+            <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap lg:justify-end">
+              <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center sm:w-auto">
                 {t("tryNow")}
               </Button>
-              <Button outline href="/login">
+              <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
                 {t("signIn")}
               </Button>
             </div>
@@ -987,12 +1036,12 @@ export const Landing = () => {
         ]}
       />
 
-      <div className="fixed inset-x-0 bottom-3 z-30 px-4 sm:hidden">
-        <div className="brand-stage flex items-center gap-2 rounded-2xl p-2">
-          <Button outline href="/login" className="flex-1">
+      <div className="fixed inset-x-0 bottom-0 z-30 max-w-full px-3 pb-3 mb-safe sm:hidden">
+        <div className="brand-stage grid grid-cols-2 items-center gap-2 rounded-2xl p-2 shadow-[0_18px_44px_-22px_rgba(13,34,51,0.45)] backdrop-blur-xl">
+          <Button outline href="/login" className="w-full min-w-0 justify-center">
             {t("signIn")}
           </Button>
-          <Button color="teal" href="/chatbots" className="flex-1">
+          <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center">
             {t("tryNow")}
           </Button>
         </div>
