@@ -77,12 +77,31 @@ const replaceAlternateOgLocales = (activeLocale) => {
   );
 };
 
+const replacePreloadImages = (sources = []) => {
+  document.head
+    .querySelectorAll('link[rel="preload"][data-moassist-preload="image"]')
+    .forEach((node) => node.remove());
+
+  sources
+    .filter((src) => typeof src === "string" && src.length > 0)
+    .forEach((src) => {
+      const link = document.createElement("link");
+      link.setAttribute("rel", "preload");
+      link.setAttribute("as", "image");
+      link.setAttribute("href", src);
+      link.setAttribute("fetchpriority", "high");
+      link.dataset.moassistPreload = "image";
+      document.head.appendChild(link);
+    });
+};
+
 export const usePublicSeo = ({
   localeConfig,
   seo,
   pathname = "/",
   siteName = "MoAssist",
   ogImagePath = "/preview/logo.svg",
+  preloadImages = [],
 }) => {
   useEffect(() => {
     if (!localeConfig || !seo) {
@@ -91,6 +110,7 @@ export const usePublicSeo = ({
 
     document.documentElement.lang = localeConfig.htmlLang;
     document.title = seo.title;
+    replacePreloadImages(preloadImages);
 
     upsertMeta("name", "description", seo.description);
     upsertMeta("name", "keywords", seo.keywords);
@@ -133,5 +153,6 @@ export const usePublicSeo = ({
       replaceAlternateLinks(window.location.origin, pathname);
       replaceAlternateOgLocales(localeConfig);
     }
-  }, [localeConfig, ogImagePath, pathname, seo, siteName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localeConfig, ogImagePath, pathname, seo, siteName, preloadImages.join("|")]);
 };

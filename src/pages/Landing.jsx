@@ -285,6 +285,74 @@ const WorkflowCardImage = ({ src, alt, aspectClass = "aspect-[4/3]" }) => (
   </div>
 );
 
+const HERO_FLOAT_POSITION_CLASSES = ["hero-float-a", "hero-float-b", "hero-float-c"];
+
+const HeroPill = ({ children }) => (
+  <span className="inline-flex items-center gap-2 rounded-full border border-[#099ad9]/16 bg-[#099ad9]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#10435f] dark:border-[#1bb1d4]/20 dark:bg-[#1bb1d4]/14 dark:text-[#def1f2]">
+    <span className="hero-pill-dot" aria-hidden="true" />
+    {children}
+  </span>
+);
+
+const HeroShowcase = ({ src, alt, content }) => {
+  const stats = content.socialProof?.stats?.slice(0, 3) ?? [];
+  return (
+    <div className="hero-showcase">
+      <div className="hero-mesh" aria-hidden="true">
+        <span className="hero-mesh-blob hero-mesh-blob-a" />
+        <span className="hero-mesh-blob hero-mesh-blob-b" />
+        <span className="hero-mesh-blob hero-mesh-blob-c" />
+      </div>
+      <ShowcaseImage
+        src={src}
+        alt={alt}
+        aspectClass="aspect-[1.08/1]"
+        priority
+      />
+      {stats.map((stat, index) => (
+        <div
+          key={stat.value}
+          className={`hero-float ${HERO_FLOAT_POSITION_CLASSES[index]}`}
+          aria-hidden="true"
+        >
+          <span className="hero-float-dot" />
+          <span className="hero-float-value">{stat.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const BrandMarquee = ({ content }) => {
+  const stats = content.socialProof?.stats ?? [];
+  if (stats.length === 0) {
+    return null;
+  }
+
+  const trackItems = [...stats, ...stats];
+
+  return (
+    <section
+      data-reveal
+      className="landing-reveal brand-marquee"
+      aria-hidden="true"
+    >
+      <div className="brand-marquee-track">
+        {trackItems.map((stat, index) => (
+          <span
+            key={`${stat.value}-${index}`}
+            className="brand-marquee-item"
+          >
+            <span className="brand-marquee-value">{stat.value}</span>
+            <span>{stat.label}</span>
+            <span className="brand-marquee-divider" />
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const ProblemSection = ({ content }) => {
   const ps = content.problemSection;
   if (!ps) return null;
@@ -511,17 +579,6 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
               );
             })}
           </div>
-          <div className="brand-panel rounded-[1.5rem] p-4">
-            <div className="text-[10px] font-semibold uppercase tracking-[0.32em] text-zinc-500 dark:text-zinc-400">
-              {workflowSteps[activeStep].step}
-            </div>
-            <div className="mt-2 font-display text-lg font-semibold text-zinc-900 dark:text-white">
-              {workflowSteps[activeStep].title}
-            </div>
-            <p className="mt-2 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-              {workflowSteps[activeStep].body}
-            </p>
-          </div>
         </div>
 
         <div className="relative min-h-[320vh]" data-workflow-stack>
@@ -595,12 +652,24 @@ export const Landing = () => {
   const localeConfig = resolveLocale(language);
   const content = getMarketingContent(localeConfig.key);
 
-  usePublicSeo({ localeConfig, seo: content.seo, pathname: "/" });
+  const heroImageSrc = resolveLandingVisual(LANDING_VISUALS.hero, theme);
+
+  usePublicSeo({
+    localeConfig,
+    seo: content.seo,
+    pathname: "/",
+    preloadImages: [heroImageSrc],
+  });
   useRevealOnScroll();
   useWorkflowStepObserver(workflowSectionRef, setActiveWorkflowStep);
   usePointerLight(mouseLightRef);
 
   const siteUrl = typeof window !== "undefined" ? window.location.origin : "";
+  const homeUrl = siteUrl ? buildLocaleUrl(siteUrl, "/", localeConfig.key) : undefined;
+  const heroImageUrl = siteUrl ? new URL(heroImageSrc, siteUrl).toString() : undefined;
+  const featureScreenshotUrl = siteUrl
+    ? new URL("/preview/ready-chatbot-feature-light.svg", siteUrl).toString()
+    : undefined;
   const faqStructuredData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -624,8 +693,18 @@ export const Landing = () => {
     "@type": "SoftwareApplication",
     name: COMPANY_INFO.productName,
     applicationCategory: "BusinessApplication",
+    applicationSubCategory: "Customer Support Software",
     operatingSystem: "Web",
+    url: homeUrl,
     description: content.appDescription,
+    inLanguage: SITE_LOCALES.map((locale) => locale.htmlLang),
+    image: heroImageUrl,
+    screenshot: [heroImageUrl, featureScreenshotUrl].filter(Boolean),
+    featureList: content.featureSections?.map((section) => section.title),
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: "Online stores, Shopify brands, ecommerce support teams",
+    },
     brand: {
       "@type": "Brand",
       name: COMPANY_INFO.productName,
@@ -635,6 +714,46 @@ export const Landing = () => {
       name: COMPANY_INFO.organizationName,
       url: siteUrl || undefined,
     },
+    review: content.socialProof?.testimonials?.map((testimonial) => ({
+      "@type": "Review",
+      reviewBody: testimonial.quote,
+      author: {
+        "@type": "Person",
+        name: testimonial.name,
+      },
+      itemReviewed: {
+        "@type": "SoftwareApplication",
+        name: COMPANY_INFO.productName,
+      },
+    })),
+  };
+  const howToStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: content.workflowSection.title,
+    description: content.workflowSection.body,
+    totalTime: "PT5M",
+    inLanguage: localeConfig.htmlLang,
+    image: heroImageUrl,
+    step: content.workflowSteps.map((item, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: item.title,
+      text: item.body,
+      url: homeUrl ? `${homeUrl}#how-it-works` : undefined,
+    })),
+  };
+  const breadcrumbStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: COMPANY_INFO.productName,
+        item: homeUrl,
+      },
+    ],
   };
   const websiteStructuredData = {
     "@context": "https://schema.org",
@@ -648,16 +767,38 @@ export const Landing = () => {
       name: COMPANY_INFO.organizationName,
       email: COMPANY_INFO.infoEmail,
     },
+    potentialAction: siteUrl
+      ? {
+          "@type": "SearchAction",
+          target: `${siteUrl}/?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        }
+      : undefined,
   };
   const webPageStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: content.seo.title,
-    url: siteUrl
-      ? buildLocaleUrl(siteUrl, "/", localeConfig.key)
-      : undefined,
+    url: homeUrl,
     inLanguage: localeConfig.htmlLang,
     description: content.seo.description,
+    primaryImageOfPage: heroImageUrl
+      ? {
+          "@type": "ImageObject",
+          url: heroImageUrl,
+          contentUrl: heroImageUrl,
+        }
+      : undefined,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "#hero-body", "#problem h2"],
+    },
+    mainEntity: {
+      "@type": "SoftwareApplication",
+      name: COMPANY_INFO.productName,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+    },
     about: {
       "@type": "SoftwareApplication",
       name: COMPANY_INFO.productName,
@@ -708,6 +849,18 @@ export const Landing = () => {
           __html: JSON.stringify(webPageStructuredData),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToStructuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
 
       <div
         ref={mouseLightRef}
@@ -723,19 +876,22 @@ export const Landing = () => {
       <main className="mx-auto mt-6 w-full max-w-7xl space-y-16 px-4 sm:mt-8 sm:space-y-24 sm:px-8">
         <section className="grid items-center gap-8 sm:gap-10 xl:grid-cols-[0.92fr,1.08fr]">
           <div data-reveal className="landing-reveal space-y-6 sm:space-y-8">
-            <TonePill>{content.heroPill}</TonePill>
+            <HeroPill>{content.heroPill}</HeroPill>
 
             <div className="space-y-4 sm:space-y-5">
               <h1 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl xl:text-[4rem] xl:leading-[1.02] dark:text-white">
                 {content.heroTitle}
               </h1>
-              <p className="max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300">
+              <p
+                id="hero-body"
+                className="max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300"
+              >
                 {content.heroBody}
               </p>
             </div>
 
             <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
-              <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center sm:w-auto">
+              <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center sm:w-auto">
                 {t("tryNow")}
               </Button>
               <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
@@ -764,13 +920,14 @@ export const Landing = () => {
             </div>
           </div>
 
-          <ShowcaseImage
-            src={resolveLandingVisual(LANDING_VISUALS.hero, theme)}
+          <HeroShowcase
+            src={heroImageSrc}
             alt={content.heroImageAlt}
-            aspectClass="aspect-[1.08/1]"
-            priority
+            content={content}
           />
         </section>
+
+        <BrandMarquee content={content} />
 
         <ProblemSection content={content} />
 
@@ -782,7 +939,10 @@ export const Landing = () => {
               style={{ transitionDelay: `${index * 70}ms` }}
               className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6"
             >
-              <h2 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+              <span className="benefit-number" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h2 className="mt-5 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
                 {item.title}
               </h2>
               <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
@@ -955,31 +1115,49 @@ export const Landing = () => {
             body={content.faqSection.body}
           />
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-8 space-y-3" itemScope itemType="https://schema.org/FAQPage">
             {content.faqItems.map((item, index) => {
               const isOpen = openFaq === index;
+              const panelId = `faq-panel-${index}`;
+              const buttonId = `faq-button-${index}`;
               return (
                 <div
                   key={item.question}
+                  itemProp="mainEntity"
+                  itemScope
+                  itemType="https://schema.org/Question"
                   className="overflow-hidden rounded-[1.5rem] border border-zinc-200/80 bg-white/82 dark:border-white/10 dark:bg-[#0b1d2d]/82"
                 >
                   <button
+                    id={buttonId}
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? -1 : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
                     className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                   >
-                    <span className="text-sm font-semibold text-zinc-900 dark:text-white">
+                    <span itemProp="name" className="text-sm font-semibold text-zinc-900 dark:text-white">
                       {item.question}
                     </span>
-                    <span className="grid h-8 w-8 place-items-center rounded-full border border-[#099ad9]/16 bg-[#eef8ff] text-lg text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]">
+                    <span
+                      aria-hidden="true"
+                      className="grid h-8 w-8 place-items-center rounded-full border border-[#099ad9]/16 bg-[#eef8ff] text-lg text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
+                    >
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
-                  {isOpen ? (
-                    <div className="border-t border-zinc-200/80 px-5 py-4 text-sm leading-7 text-zinc-600 dark:border-white/10 dark:text-zinc-300">
-                      {item.answer}
-                    </div>
-                  ) : null}
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={buttonId}
+                    itemProp="acceptedAnswer"
+                    itemScope
+                    itemType="https://schema.org/Answer"
+                    hidden={!isOpen}
+                    className="border-t border-zinc-200/80 px-5 py-4 text-sm leading-7 text-zinc-600 dark:border-white/10 dark:text-zinc-300"
+                  >
+                    <span itemProp="text">{item.answer}</span>
+                  </div>
                 </div>
               );
             })}
@@ -988,7 +1166,7 @@ export const Landing = () => {
 
         <section
           data-reveal
-          className="landing-reveal brand-stage rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10"
+          className="landing-reveal brand-stage cta-burst rounded-[1.75rem] p-5 sm:rounded-[2.4rem] sm:p-10"
         >
           <div className="grid gap-6 lg:grid-cols-[1.02fr,0.98fr] lg:items-end">
             <div className="space-y-4">
@@ -1001,7 +1179,7 @@ export const Landing = () => {
               </p>
             </div>
             <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap lg:justify-end">
-              <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center sm:w-auto">
+              <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center sm:w-auto">
                 {t("tryNow")}
               </Button>
               <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
