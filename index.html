@@ -6,6 +6,8 @@
     <title>
       MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses
     </title>
+
+    <!-- ─── SEO ─────────────────────────────────────────────────────────── -->
     <meta
       name="description"
       content="MoAssist helps online shops and sales-driven businesses build branded chatbots, answer with business knowledge, collect leads, support signed-in customers, and manage AI plus human conversations from one dashboard."
@@ -21,15 +23,19 @@
       name="robots"
       content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     />
-    <link rel="canonical" href="/" />
-    <link rel="alternate" hreflang="x-default" href="/" />
-    <link rel="alternate" hreflang="en" href="/" />
-    <link rel="alternate" hreflang="de-DE" href="/de" />
-    <link rel="alternate" hreflang="es-ES" href="/es" />
-    <link rel="alternate" hreflang="fr-FR" href="/fr" />
-    <link rel="alternate" hreflang="it-IT" href="/it" />
-    <link rel="alternate" hreflang="ru-RU" href="/ru" />
-    <link rel="alternate" hreflang="uk-UA" href="/ua" />
+
+    <!-- Canonical & hreflang are updated by usePublicSeo on every navigation -->
+    <link rel="canonical" href="https://moassist.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://moassist.com/" />
+    <link rel="alternate" hreflang="en"    href="https://moassist.com/" />
+    <link rel="alternate" hreflang="de-DE" href="https://moassist.com/de" />
+    <link rel="alternate" hreflang="es-ES" href="https://moassist.com/es" />
+    <link rel="alternate" hreflang="fr-FR" href="https://moassist.com/fr" />
+    <link rel="alternate" hreflang="it-IT" href="https://moassist.com/it" />
+    <link rel="alternate" hreflang="ru-RU" href="https://moassist.com/ru" />
+    <link rel="alternate" hreflang="uk-UA" href="https://moassist.com/ua" />
+
+    <!-- ─── Open Graph ───────────────────────────────────────────────────── -->
     <meta
       property="og:title"
       content="MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses"
@@ -39,41 +45,72 @@
       property="og:description"
       content="Build a branded chatbot for each store or sales flow, train it with your documents, collect customer details, and manage AI plus team replies from one dashboard."
     />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale"           content="en_US" />
     <meta property="og:locale:alternate" content="de_DE" />
     <meta property="og:locale:alternate" content="es_ES" />
     <meta property="og:locale:alternate" content="fr_FR" />
     <meta property="og:locale:alternate" content="it_IT" />
     <meta property="og:locale:alternate" content="ru_RU" />
     <meta property="og:locale:alternate" content="uk_UA" />
-    <meta property="og:image" content="/preview/logo.svg" />
-    <meta property="og:image:alt" content="MoAssist logo" />
-    <meta property="og:image:width" content="1200" />
+    <!-- JPEG OG image (SVG is not supported by most social crawlers) -->
+    <meta property="og:image"        content="https://moassist.com/preview/og-image.jpg" />
+    <meta property="og:image:type"   content="image/jpeg" />
+    <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses"
-    />
-    <meta
-      name="twitter:description"
-      content="AI chatbots for online shops and sales teams. Train with documents, collect leads, support customers, and manage AI plus human replies in one place."
-    />
-    <meta name="twitter:image" content="/preview/logo.svg" />
+    <meta property="og:image:alt"    content="MoAssist – AI Chatbot for Ecommerce" />
+    <meta property="og:type"         content="website" />
+    <meta property="og:url"          content="https://moassist.com/" />
+
+    <!-- ─── Twitter Card ────────────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses" />
+    <meta name="twitter:description" content="AI chatbots for online shops and sales teams. Train with documents, collect leads, support customers, and manage AI plus human replies in one place." />
+    <meta name="twitter:image"       content="https://moassist.com/preview/og-image.jpg" />
+
+    <!-- ─── PWA / Icons ─────────────────────────────────────────────────── -->
     <meta name="theme-color" content="#099ad9" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- SVG favicon removed — it contained a 345 KB embedded PNG; use .png/.ico instead -->
+    <link rel="icon"             type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon"    href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"  href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MoAssist" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- ─── Fonts ───────────────────────────────────────────────────────── -->
+    <!-- Step 1: open the TCP connection early -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Step 2: load font CSS non-blocking (display=swap is already in the URL) -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
-      rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap"
+      />
+    </noscript>
+
+    <!-- ─── Critical resource hints ─────────────────────────────────────── -->
+    <!-- Hero image: preloaded before React boots so LCP is not delayed -->
+    <link
+      rel="preload"
+      as="image"
+      href="/preview/ready-chatbot-hero-light.svg"
+      fetchpriority="high"
+    />
+    <!-- DNS prefetch for analytics (lower priority than preconnect) -->
+    <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+
+    <!-- ─── Structured Data ──────────────────────────────────────────────── -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -81,16 +118,21 @@
         "name": "MoAssist",
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
+        "url": "https://moassist.com/",
         "description": "MoAssist is a platform for online shops and sales-driven businesses to create branded AI chatbots with document uploads, lead capture, signed-in customer support, and AI plus human conversation management.",
-        "availableLanguage": [
-          "en",
-          "de-DE",
-          "es-ES",
-          "fr-FR",
-          "it-IT",
-          "ru-RU",
-          "uk-UA"
-        ]
+        "image": "https://moassist.com/preview/og-image.jpg",
+        "availableLanguage": ["en", "de-DE", "es-ES", "fr-FR", "it-IT", "ru-RU", "uk-UA"],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free to get started"
+        },
+        "provider": {
+          "@type": "Organization",
+          "name": "MoMicro",
+          "url": "https://moassist.com/"
+        }
       }
     </script>
   </head>

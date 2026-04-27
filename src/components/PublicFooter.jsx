@@ -123,16 +123,23 @@ export const PublicFooter = ({
         <div className="grid gap-8 lg:grid-cols-[1.08fr,0.92fr] lg:gap-10">
           <div className="space-y-5 sm:space-y-6">
             <a href="/chatbots" className="flex items-center gap-3">
-              <img
-                src="/preview/logo.svg"
-                alt="MoAssist"
-                className="h-12 w-12 rounded-[1.1rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 sm:rounded-[1.4rem] dark:bg-white/10"
-              />
+              <picture>
+                <source srcSet="/preview/logo.webp" type="image/webp" />
+                <img
+                  src="/preview/logo-opt.png"
+                  alt="MoAssist"
+                  width="64"
+                  height="64"
+                  className="h-12 w-12 rounded-[1.1rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 sm:rounded-[1.4rem] dark:bg-white/10"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="min-w-0">
                 <div className="truncate font-display text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
                   MoAssist
                 </div>
-                <div className="truncate text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="text-sm text-zinc-500 dark:text-zinc-400">
                   {tagline || t("marketingTagline")}
                 </div>
               </div>

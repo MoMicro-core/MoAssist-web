@@ -26,11 +26,18 @@ export const PublicHeader = ({ showActions = true }) => {
     <>
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between gap-2 px-4 pt-3 pt-safe sm:gap-3 sm:px-8 sm:pt-6">
         <a href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-          <img
-            src="/preview/logo.svg"
-            alt="MoAssist"
-            className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm sm:h-14 sm:w-14 sm:rounded-2xl dark:bg-white/10"
-          />
+          <picture>
+            <source srcSet="/preview/logo.webp" type="image/webp" />
+            <img
+              src="/preview/logo-opt.png"
+              alt="MoAssist"
+              width="56"
+              height="56"
+              className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm sm:h-14 sm:w-14 sm:rounded-2xl dark:bg-white/10"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </picture>
           <div className="min-w-0">
             <div className="truncate font-display text-[15px] font-semibold text-zinc-900 sm:text-lg dark:text-white">
               MoAssist

@@ -1,4 +1,22 @@
 import { useEffect, useRef, useState } from "react";
+import {
+  ArrowTrendingUpIcon,
+  BoltIcon,
+  ChartBarIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  CurrencyDollarIcon,
+  LanguageIcon,
+  PaintBrushIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+  SparklesIcon,
+  TruckIcon,
+  UserGroupIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { StarIcon as StarSolidIcon } from "@heroicons/react/24/solid";
 import { PublicFooter } from "../components/PublicFooter";
 import { PublicHeader } from "../components/PublicHeader";
 import { useI18n } from "../context/I18nContext";
@@ -167,15 +185,50 @@ const TonePill = ({ children, className = "" }) => (
   </span>
 );
 
+const FeaturePoints = ({ points }) => (
+  <ul className="grid gap-2.5 sm:grid-cols-2">
+    {points.map((point) => (
+      <li key={point} className="flex items-start gap-2.5 text-sm text-zinc-700 dark:text-zinc-300">
+        <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#099ad9] dark:text-[#5dd3df]" />
+        {point}
+      </li>
+    ))}
+  </ul>
+);
+
+const Stars = () => (
+  <div className="flex gap-0.5" aria-label="5 out of 5 stars">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <StarSolidIcon key={i} className="h-3.5 w-3.5 text-amber-400" />
+    ))}
+  </div>
+);
+
+const REASON_ICONS = [
+  CurrencyDollarIcon,
+  ArrowTrendingUpIcon,
+  PaintBrushIcon,
+  LanguageIcon,
+  WrenchScrewdriverIcon,
+  ChartBarIcon,
+];
+
+const USE_CASE_ICONS = [ShoppingBagIcon, TruckIcon, SparklesIcon, UserGroupIcon];
+
 const SectionHeading = ({ eyebrow, title, body }) => (
   <div className="space-y-4">
     <TonePill>{eyebrow}</TonePill>
-    <h2 className="font-display text-3xl font-semibold text-zinc-900 sm:text-4xl dark:text-white">
-      {title}
-    </h2>
-    <p className="max-w-3xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
-      {body}
-    </p>
+    <div className="space-y-2.5">
+      <h2 className="font-display text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">
+        {title}
+      </h2>
+      <div className="section-heading-accent" aria-hidden="true" />
+    </div>
+    {body && (
+      <p className="max-w-3xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
+        {body}
+      </p>
+    )}
   </div>
 );
 
@@ -291,6 +344,7 @@ const HeroPill = ({ children }) => (
   <span className="inline-flex items-center gap-2 rounded-full border border-[#099ad9]/16 bg-[#099ad9]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#10435f] dark:border-[#1bb1d4]/20 dark:bg-[#1bb1d4]/14 dark:text-[#def1f2]">
     <span className="hero-pill-dot" aria-hidden="true" />
     {children}
+    <SparklesIcon className="h-3 w-3 text-[#099ad9] dark:text-[#5dd3df]" aria-hidden="true" />
   </span>
 );
 
@@ -306,7 +360,7 @@ const HeroShowcase = ({ src, alt, content }) => {
       <ShowcaseImage
         src={src}
         alt={alt}
-        aspectClass="aspect-[1.08/1]"
+        aspectClass="aspect-[3/2] sm:aspect-[1.08/1]"
         priority
       />
       {stats.map((stat, index) => (
@@ -371,16 +425,16 @@ const ProblemSection = ({ content }) => {
           {ps.body}
         </p>
       </div>
-      <div className="mt-6 grid gap-3 sm:mt-8 sm:gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-5 xl:grid-cols-4">
         {ps.items.map((item) => (
           <div
             key={item.stat}
-            className="rounded-[1.4rem] border border-red-200/60 bg-red-50/60 p-5 dark:border-red-900/30 dark:bg-red-950/20 sm:rounded-[1.75rem] sm:p-6"
+            className="rounded-[1.25rem] border border-red-200/60 bg-red-50/60 p-4 dark:border-red-900/30 dark:bg-red-950/20 sm:rounded-[1.75rem] sm:p-6"
           >
-            <div className="font-display text-3xl font-semibold text-red-600 sm:text-4xl dark:text-red-400">
+            <div className="font-display text-2xl font-semibold text-red-600 sm:text-4xl dark:text-red-400">
               {item.stat}
             </div>
-            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">
+            <p className="mt-1.5 text-xs leading-5 text-zinc-600 sm:mt-2 sm:text-sm sm:leading-6 dark:text-zinc-300">
               {item.label}
             </p>
           </div>
@@ -394,22 +448,25 @@ const SocialProofSection = ({ content }) => {
   const sp = content.socialProof;
   if (!sp) return null;
   return (
-    <section id="social-proof" className="space-y-10">
+    <section id="social-proof" className="space-y-8 sm:space-y-10">
       <div data-reveal className="landing-reveal">
         <SectionHeading eyebrow={sp.eyebrow} title={sp.title} body="" />
       </div>
 
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 no-scrollbar">
         {sp.testimonials.map((item, index) => (
           <article
             key={item.name}
             data-reveal
-            style={{ transitionDelay: `${index * 70}ms` }}
-            className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6 flex flex-col justify-between gap-6"
+            style={{ transitionDelay: `${index * 90}ms` }}
+            className="landing-reveal landing-hover-lift brand-stage w-[82vw] shrink-0 rounded-[1.5rem] p-5 flex flex-col justify-between gap-5 sm:w-auto sm:rounded-[2rem] sm:p-6 sm:gap-6"
           >
-            <blockquote className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-              &ldquo;{item.quote}&rdquo;
-            </blockquote>
+            <div className="space-y-3">
+              <Stars />
+              <blockquote className="text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                &ldquo;{item.quote}&rdquo;
+              </blockquote>
+            </div>
             <div className="flex items-center justify-between gap-4">
               <div>
                 <div className="text-sm font-semibold text-zinc-900 dark:text-white">
@@ -417,7 +474,7 @@ const SocialProofSection = ({ content }) => {
                 </div>
                 <div className="text-xs text-zinc-500 dark:text-zinc-400">{item.role}</div>
               </div>
-              <span className="rounded-full border border-[#099ad9]/16 bg-[#099ad9]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10435f] dark:border-[#1bb1d4]/20 dark:bg-[#1bb1d4]/14 dark:text-[#def1f2]">
+              <span className="shrink-0 rounded-full border border-[#099ad9]/16 bg-[#099ad9]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#10435f] dark:border-[#1bb1d4]/20 dark:bg-[#1bb1d4]/14 dark:text-[#def1f2]">
                 {item.result}
               </span>
             </div>
@@ -425,18 +482,18 @@ const SocialProofSection = ({ content }) => {
         ))}
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:gap-5 xl:grid-cols-4">
         {sp.stats.map((item, index) => (
           <div
             key={item.value}
             data-reveal
             style={{ transitionDelay: `${index * 55}ms` }}
-            className="landing-reveal landing-hover-lift brand-panel rounded-[1.75rem] p-6 text-center"
+            className="landing-reveal landing-hover-lift brand-panel rounded-[1.5rem] p-4 text-center sm:rounded-[1.75rem] sm:p-6"
           >
-            <div className="font-display text-4xl font-semibold text-[#099ad9] dark:text-[#5dd3df]">
+            <div className="font-display text-3xl font-semibold text-[#099ad9] sm:text-4xl dark:text-[#5dd3df]">
               {item.value}
             </div>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{item.label}</p>
+            <p className="mt-1.5 text-xs text-zinc-600 sm:mt-2 sm:text-sm dark:text-zinc-300">{item.label}</p>
           </div>
         ))}
       </div>
@@ -455,35 +512,35 @@ const ComparisonSection = ({ content }) => {
     >
       <SectionHeading eyebrow={cmp.eyebrow} title={cmp.title} body="" />
 
-      <div className="grid gap-5 md:grid-cols-2">
-        <div className="rounded-[2rem] border border-red-200/60 bg-red-50/50 p-6 dark:border-red-900/30 dark:bg-red-950/20">
-          <div className="mb-5 flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-red-400" />
-            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-red-600 dark:text-red-400">
+      <div className="grid gap-3 sm:gap-5 md:grid-cols-2">
+        <div className="rounded-[1.5rem] border border-red-200/60 bg-red-50/50 p-4 sm:rounded-[2rem] sm:p-6 dark:border-red-900/30 dark:bg-red-950/20">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-red-600 sm:text-sm dark:text-red-400">
               {cmp.withoutLabel}
             </span>
           </div>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5 sm:space-y-3">
             {cmp.withoutItems.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-300">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-red-400" />
+              <li key={item} className="flex items-start gap-2.5 text-xs text-zinc-600 sm:text-sm dark:text-zinc-300">
+                <XMarkIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-red-400 sm:h-4 sm:w-4" />
                 {item}
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="rounded-[2rem] border border-[#099ad9]/20 bg-[#099ad9]/6 p-6 dark:border-[#5dd3df]/20 dark:bg-[#1bb1d4]/8">
-          <div className="mb-5 flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-[#099ad9] dark:bg-[#5dd3df]" />
-            <span className="text-sm font-semibold uppercase tracking-[0.22em] text-[#10435f] dark:text-[#def1f2]">
+        <div className="rounded-[1.5rem] border border-[#099ad9]/20 bg-[#099ad9]/6 p-4 sm:rounded-[2rem] sm:p-6 dark:border-[#5dd3df]/20 dark:bg-[#1bb1d4]/8">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#099ad9] dark:bg-[#5dd3df]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#10435f] sm:text-sm dark:text-[#def1f2]">
               {cmp.withLabel}
             </span>
           </div>
-          <ul className="space-y-3">
+          <ul className="space-y-2.5 sm:space-y-3">
             {cmp.withItems.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-300">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#099ad9] dark:bg-[#5dd3df]" />
+              <li key={item} className="flex items-start gap-2.5 text-xs text-zinc-600 sm:text-sm dark:text-zinc-300">
+                <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#099ad9] sm:h-4 sm:w-4 dark:text-[#5dd3df]" />
                 {item}
               </li>
             ))}
@@ -499,8 +556,8 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
 
   return (
     <section ref={sectionRef} id="how-it-works" className="relative">
-      <div className="grid gap-8 lg:hidden">
-        <div data-reveal className="landing-reveal space-y-6">
+      <div className="grid gap-6 lg:hidden">
+        <div data-reveal className="landing-reveal space-y-5">
           <p className="text-xs uppercase tracking-[0.4em] text-zinc-500 dark:text-zinc-400">
             {content.workflowSection.processLabel}
           </p>
@@ -523,7 +580,7 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
               <article
                 key={item.title}
                 data-reveal
-                className="landing-reveal brand-stage rounded-[2rem] p-5"
+                className="landing-reveal brand-stage rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-5"
               >
                 <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.28em] text-zinc-500 dark:text-zinc-400">
                   <span>{item.step}</span>
@@ -564,7 +621,7 @@ const HowItWorksSection = ({ activeStep, content, sectionRef, theme }) => {
           <p className="max-w-xl text-base leading-8 text-zinc-600 dark:text-zinc-300">
             {content.workflowSection.body}
           </p>
-          <div className="space-y-4 text-sm text-zinc-500 dark:text-zinc-400">
+          <div className="space-y-1 text-sm">
             {workflowSteps.map((item, index) => {
               const isActive = activeStep === index;
               return (
@@ -873,24 +930,24 @@ export const Landing = () => {
 
       <PublicHeader />
 
-      <main className="mx-auto mt-6 w-full max-w-7xl space-y-16 px-4 sm:mt-8 sm:space-y-24 sm:px-8">
-        <section className="grid items-center gap-8 sm:gap-10 xl:grid-cols-[0.92fr,1.08fr]">
-          <div data-reveal className="landing-reveal space-y-6 sm:space-y-8">
+      <main className="mx-auto mt-4 w-full max-w-7xl space-y-12 px-4 sm:mt-8 sm:space-y-24 sm:px-8">
+        <section className="grid items-center gap-6 sm:gap-10 xl:grid-cols-[0.92fr,1.08fr]">
+          <div data-reveal className="landing-reveal space-y-5 sm:space-y-8">
             <HeroPill>{content.heroPill}</HeroPill>
 
-            <div className="space-y-4 sm:space-y-5">
-              <h1 className="font-display text-[2rem] font-semibold leading-[1.1] tracking-tight text-zinc-900 sm:text-5xl xl:text-[4rem] xl:leading-[1.02] dark:text-white">
+            <div className="space-y-3 sm:space-y-5">
+              <h1 className="font-display text-[1.95rem] font-semibold leading-[1.09] tracking-tight text-zinc-900 sm:text-5xl lg:text-[3.75rem] lg:leading-[1.04] xl:text-[4.25rem] xl:leading-[1.02] dark:text-white">
                 {content.heroTitle}
               </h1>
               <p
                 id="hero-body"
-                className="max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg sm:leading-8 dark:text-zinc-300"
+                className="max-w-2xl text-[0.9375rem] leading-[1.75] text-zinc-600 sm:text-[1.0625rem] sm:leading-8 dark:text-zinc-300"
               >
                 {content.heroBody}
               </p>
             </div>
 
-            <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
+            <div className="grid w-full grid-cols-2 gap-2.5 sm:flex sm:w-auto sm:flex-wrap sm:items-center sm:gap-3">
               <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center sm:w-auto">
                 {t("tryNow")}
               </Button>
@@ -899,24 +956,37 @@ export const Landing = () => {
               </Button>
             </div>
 
-            <p className="max-w-2xl text-sm leading-7 text-zinc-500 dark:text-zinc-400">
+            <p className="text-xs leading-6 text-zinc-500 sm:text-sm sm:leading-7 dark:text-zinc-400">
               {t("brandRelationshipLabel")}
             </p>
 
             <div className="grid grid-cols-2 gap-2.5 sm:gap-3 xl:grid-cols-4">
-              {content.heroHighlights.map((item, index) => (
-                <a
-                  key={item.title}
-                  href={item.href}
-                  data-reveal
-                  style={{ transitionDelay: `${index * 60}ms` }}
-                  className="landing-reveal landing-hover-lift brand-panel rounded-[1.25rem] p-3 text-center sm:rounded-[1.45rem] sm:p-4"
-                >
-                  <div className="text-sm font-semibold text-zinc-900 dark:text-white">
-                    {item.title}
-                  </div>
-                </a>
-              ))}
+              {content.heroHighlights.map((item, index) => {
+                const parts = item.title.split(" ");
+                const firstWord = parts[0];
+                const rest = parts.slice(1).join(" ");
+                const isMetric = /[\d%<>]/.test(firstWord);
+                return (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    data-reveal
+                    style={{ transitionDelay: `${120 + index * 70}ms` }}
+                    className="landing-reveal landing-hover-lift brand-panel rounded-[1.25rem] p-3 text-center sm:rounded-[1.45rem] sm:p-4"
+                  >
+                    {isMetric ? (
+                      <>
+                        <div className="font-display text-base font-bold tracking-tight text-brand-gradient sm:text-lg">{firstWord}</div>
+                        <div className="mt-0.5 text-[11px] font-medium leading-snug text-zinc-600 dark:text-zinc-300">{rest}</div>
+                      </>
+                    ) : (
+                      <div className="text-[0.8125rem] font-semibold leading-snug text-zinc-900 dark:text-white sm:text-sm">
+                        {item.title}
+                      </div>
+                    )}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -931,28 +1001,30 @@ export const Landing = () => {
 
         <ProblemSection content={content} />
 
-        <section className="grid gap-5 md:grid-cols-3">
+        <section className="grid gap-4 sm:gap-5 md:grid-cols-3">
           {content.coreBenefits.map((item, index) => (
             <article
               key={item.title}
               data-reveal
               style={{ transitionDelay: `${index * 70}ms` }}
-              className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6"
+              className="landing-reveal landing-hover-lift brand-stage rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-6"
             >
-              <span className="benefit-number" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h2 className="mt-5 font-display text-2xl font-semibold text-zinc-900 dark:text-white">
+              <div className="flex items-center gap-3">
+                <span className="benefit-number" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <h2 className="mt-4 font-display text-xl font-semibold text-zinc-900 sm:mt-5 sm:text-2xl dark:text-white">
                 {item.title}
               </h2>
-              <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+              <p className="mt-2.5 text-sm leading-7 text-zinc-600 sm:mt-3 dark:text-zinc-300">
                 {item.body}
               </p>
             </article>
           ))}
         </section>
 
-        <section id="features" className="space-y-10">
+        <section id="features" className="space-y-8 sm:space-y-10">
           <div data-reveal className="landing-reveal">
             <SectionHeading
               eyebrow={content.featuresSection.eyebrow}
@@ -974,7 +1046,7 @@ export const Landing = () => {
                   id={section.id}
                   data-reveal
                   style={{ transitionDelay: `${index * 50}ms` }}
-                  className="landing-reveal scroll-mt-28 grid gap-5 rounded-[1.5rem] border border-white/75 bg-white/74 p-4 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:gap-6 sm:rounded-[2.25rem] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
+                  className="landing-reveal scroll-mt-28 grid gap-4 rounded-[1.25rem] border border-white/75 bg-white/74 p-3 shadow-[0_20px_60px_-44px_rgba(13,34,51,0.38)] dark:border-[rgba(93,211,223,0.18)] dark:bg-[#091725]/82 dark:shadow-[0_20px_60px_-38px_rgba(0,0,0,0.72)] sm:gap-6 sm:rounded-[2.25rem] sm:p-7 xl:grid-cols-[0.94fr,1.06fr] xl:items-center"
                 >
                   {index % 2 === 0 ? (
                     <>
@@ -986,16 +1058,7 @@ export const Landing = () => {
                         <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
                           {section.body}
                         </p>
-                        <ul className="grid gap-2 sm:grid-cols-2">
-                          {section.points.map((point) => (
-                            <li
-                              key={point}
-                              className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
-                            >
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
+                        <FeaturePoints points={section.points} />
                       </div>
                       <ShowcaseImage
                         src={resolveLandingVisual(visual, theme)}
@@ -1009,8 +1072,9 @@ export const Landing = () => {
                         src={resolveLandingVisual(visual, theme)}
                         alt={section.imageAlt}
                         aspectClass={resolveLandingAspect(visual)}
+                        className="order-last xl:order-none"
                       />
-                      <div className="space-y-4">
+                      <div className="order-first space-y-4 xl:order-none">
                         <TonePill>{section.eyebrow}</TonePill>
                         <h3 className="font-display text-2xl font-semibold text-zinc-900 dark:text-white">
                           {section.title}
@@ -1018,16 +1082,7 @@ export const Landing = () => {
                         <p className="text-sm leading-8 text-zinc-600 dark:text-zinc-300">
                           {section.body}
                         </p>
-                        <ul className="grid gap-2 sm:grid-cols-2">
-                          {section.points.map((point) => (
-                            <li
-                              key={point}
-                              className="rounded-full border border-[#099ad9]/14 bg-white/86 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
-                            >
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
+                        <FeaturePoints points={section.points} />
                       </div>
                     </>
                   )}
@@ -1037,7 +1092,7 @@ export const Landing = () => {
           </div>
         </section>
 
-        <section className="space-y-10">
+        <section className="space-y-8 sm:space-y-10">
           <div data-reveal className="landing-reveal">
             <SectionHeading
               eyebrow={content.reasonsSection.eyebrow}
@@ -1046,22 +1101,28 @@ export const Landing = () => {
             />
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {content.reasonCards.map((item, index) => (
-              <article
-                key={item.title}
-                data-reveal
-                style={{ transitionDelay: `${index * 45}ms` }}
-                className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6"
-              >
-                <h3 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                  {item.body}
-                </p>
-              </article>
-            ))}
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-3">
+            {content.reasonCards.map((item, index) => {
+              const ReasonIcon = REASON_ICONS[index % REASON_ICONS.length];
+              return (
+                <article
+                  key={item.title}
+                  data-reveal
+                  style={{ transitionDelay: `${index * 55}ms` }}
+                  className="landing-reveal landing-hover-lift brand-stage rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-6"
+                >
+                  <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-[#099ad9]/10 sm:mb-4 sm:h-10 sm:w-10 dark:bg-[#1bb1d4]/14">
+                    <ReasonIcon className="h-4 w-4 text-[#099ad9] sm:h-5 sm:w-5 dark:text-[#5dd3df]" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-display text-[0.9rem] font-semibold leading-snug tracking-tight text-zinc-900 sm:text-[1.05rem] dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-6 text-zinc-600 sm:mt-3 sm:text-sm sm:leading-7 dark:text-zinc-300">
+                    {item.body}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -1074,7 +1135,7 @@ export const Landing = () => {
           theme={theme}
         />
 
-        <section className="space-y-10">
+        <section className="space-y-8 sm:space-y-10">
           <div data-reveal className="landing-reveal">
             <SectionHeading
               eyebrow={content.useCasesSection.eyebrow}
@@ -1083,22 +1144,28 @@ export const Landing = () => {
             />
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {content.useCases.map((item, index) => (
-              <article
-                key={item.title}
-                data-reveal
-                style={{ transitionDelay: `${index * 55}ms` }}
-                className="landing-reveal landing-hover-lift brand-stage rounded-[2rem] p-6"
-              >
-                <h3 className="font-display text-xl font-semibold text-zinc-900 dark:text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
-                  {item.body}
-                </p>
-              </article>
-            ))}
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-4">
+            {content.useCases.map((item, index) => {
+              const UseCaseIcon = USE_CASE_ICONS[index % USE_CASE_ICONS.length];
+              return (
+                <article
+                  key={item.title}
+                  data-reveal
+                  style={{ transitionDelay: `${index * 65}ms` }}
+                  className="landing-reveal landing-hover-lift brand-stage rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-6"
+                >
+                  <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-[#099ad9]/10 sm:mb-4 sm:h-10 sm:w-10 dark:bg-[#1bb1d4]/14">
+                    <UseCaseIcon className="h-4 w-4 text-[#099ad9] sm:h-5 sm:w-5 dark:text-[#5dd3df]" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-display text-[0.9rem] font-semibold leading-snug tracking-tight text-zinc-900 sm:text-[1.05rem] dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-6 text-zinc-600 sm:mt-3 sm:text-sm sm:leading-7 dark:text-zinc-300">
+                    {item.body}
+                  </p>
+                </article>
+              );
+            })}
           </div>
         </section>
 
@@ -1126,7 +1193,7 @@ export const Landing = () => {
                   itemProp="mainEntity"
                   itemScope
                   itemType="https://schema.org/Question"
-                  className="overflow-hidden rounded-[1.5rem] border border-zinc-200/80 bg-white/82 dark:border-white/10 dark:bg-[#0b1d2d]/82"
+                  className={`overflow-hidden rounded-[1.5rem] border transition-colors duration-300 ${isOpen ? "border-[#099ad9]/24 bg-white/94 dark:border-[#5dd3df]/18 dark:bg-[#0b1d2d]/92" : "border-zinc-200/80 bg-white/82 dark:border-white/10 dark:bg-[#0b1d2d]/82"}`}
                 >
                   <button
                     id={buttonId}
@@ -1134,29 +1201,31 @@ export const Landing = () => {
                     onClick={() => setOpenFaq(isOpen ? -1 : index)}
                     aria-expanded={isOpen}
                     aria-controls={panelId}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                    className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors duration-200 hover:bg-black/[0.018] dark:hover:bg-white/[0.018] sm:px-5"
                   >
-                    <span itemProp="name" className="text-sm font-semibold text-zinc-900 dark:text-white">
+                    <span
+                      itemProp="name"
+                      className={`text-sm font-semibold transition-colors duration-200 ${isOpen ? "text-[#099ad9] dark:text-[#5dd3df]" : "text-zinc-900 dark:text-white"}`}
+                    >
                       {item.question}
                     </span>
-                    <span
-                      aria-hidden="true"
-                      className="grid h-8 w-8 place-items-center rounded-full border border-[#099ad9]/16 bg-[#eef8ff] text-lg text-[#173a55] dark:border-[#5dd3df]/12 dark:bg-[#10263a] dark:text-[#def1f2]"
-                    >
-                      {isOpen ? "−" : "+"}
+                    <span aria-hidden="true" className={`faq-chevron${isOpen ? " is-open" : ""}`}>
+                      <ChevronDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </span>
                   </button>
                   <div
                     id={panelId}
                     role="region"
                     aria-labelledby={buttonId}
+                    aria-hidden={!isOpen}
                     itemProp="acceptedAnswer"
                     itemScope
                     itemType="https://schema.org/Answer"
-                    hidden={!isOpen}
-                    className="border-t border-zinc-200/80 px-5 py-4 text-sm leading-7 text-zinc-600 dark:border-white/10 dark:text-zinc-300"
+                    className={`faq-content${isOpen ? " is-open" : ""}`}
                   >
-                    <span itemProp="text">{item.answer}</span>
+                    <div className="faq-content-inner border-t border-zinc-200/80 px-5 py-4 text-sm leading-7 text-zinc-600 dark:border-white/10 dark:text-zinc-300">
+                      <span itemProp="text">{item.answer}</span>
+                    </div>
                   </div>
                 </div>
               );
@@ -1178,13 +1247,19 @@ export const Landing = () => {
                 {content.ctaSection.body}
               </p>
             </div>
-            <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap lg:justify-end">
-              <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center sm:w-auto">
-                {t("tryNow")}
-              </Button>
-              <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
-                {t("signIn")}
-              </Button>
+            <div className="space-y-3 lg:flex lg:flex-col lg:items-end">
+              <div className="grid w-full grid-cols-2 gap-3 sm:flex sm:w-auto sm:flex-wrap lg:justify-end">
+                <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center sm:w-auto">
+                  {t("tryNow")}
+                </Button>
+                <Button outline href="/login" className="w-full min-w-0 justify-center sm:w-auto">
+                  {t("signIn")}
+                </Button>
+              </div>
+              <p className="flex items-center justify-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400 lg:justify-end">
+                <CheckIcon className="h-3.5 w-3.5 text-[#099ad9] dark:text-[#5dd3df]" aria-hidden="true" />
+                No credit card required · Free to get started
+              </p>
             </div>
           </div>
         </section>
@@ -1215,11 +1290,11 @@ export const Landing = () => {
       />
 
       <div className="fixed inset-x-0 bottom-0 z-30 max-w-full px-3 pb-3 mb-safe sm:hidden">
-        <div className="brand-stage grid grid-cols-2 items-center gap-2 rounded-2xl p-2 shadow-[0_18px_44px_-22px_rgba(13,34,51,0.45)] backdrop-blur-xl">
+        <div className="brand-stage grid grid-cols-2 items-center gap-2.5 rounded-[1.25rem] p-2.5 shadow-[0_-2px_0_0_rgba(255,255,255,0.6),0_22px_56px_-18px_rgba(13,34,51,0.52)] backdrop-blur-2xl dark:shadow-[0_-1px_0_0_rgba(93,211,223,0.12),0_22px_56px_-18px_rgba(0,0,0,0.8)]">
           <Button outline href="/login" className="w-full min-w-0 justify-center">
             {t("signIn")}
           </Button>
-          <Button color="teal" href="/chatbots" className="w-full min-w-0 justify-center">
+          <Button color="teal" href="/chatbots" className="cta-sheen w-full min-w-0 justify-center">
             {t("tryNow")}
           </Button>
         </div>

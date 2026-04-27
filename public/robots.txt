@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /chatbots
+Disallow: /chats
+Disallow: /billings
+Disallow: /profile
+Disallow: /settings
+Disallow: /support
+Disallow: /billing/
 
 Sitemap: https://moassist.com/sitemap.xml

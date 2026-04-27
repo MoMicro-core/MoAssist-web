@@ -4,6 +4,9 @@ import { useAuth } from "./context/AuthContext";
 import { Loading } from "./components/Loading";
 import { CookieBanner } from "./components/CookieBanner";
 import { PUBLIC_LOCALE_KEYS } from "./lib/siteLocales";
+import { Landing } from "./pages/Landing";
+import { Pricing } from "./pages/Pricing";
+import { Contacts } from "./pages/Contacts";
 
 const AuthenticatedLayout = lazy(() =>
   import("./layouts/AuthenticatedLayout").then((module) => ({
@@ -63,15 +66,6 @@ const Chats = lazy(() =>
 );
 const Billings = lazy(() =>
   import("./pages/Billings").then((module) => ({ default: module.Billings })),
-);
-const Landing = lazy(() =>
-  import("./pages/Landing").then((module) => ({ default: module.Landing })),
-);
-const Pricing = lazy(() =>
-  import("./pages/Pricing").then((module) => ({ default: module.Pricing })),
-);
-const Contacts = lazy(() =>
-  import("./pages/Contacts").then((module) => ({ default: module.Contacts })),
 );
 const MoMicro = lazy(() =>
   import("./pages/MoMicro").then((module) => ({ default: module.MoMicro })),

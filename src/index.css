@@ -19,6 +19,8 @@
   --ui-accent-surface: rgba(255, 255, 255, 0.92);
   --ui-accent-text: #173a55;
   --ui-accent-shadow: rgba(9, 154, 217, 0.28);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 html.dark {
@@ -182,7 +184,7 @@ html.theme-transition *::after {
     padding-bottom: max(env(safe-area-inset-bottom), 0px);
   }
   .pt-safe {
-    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-top: max(env(safe-area-inset-top), 1.25rem);
   }
   .mb-safe {
     margin-bottom: max(env(safe-area-inset-bottom), 0px);
@@ -265,27 +267,30 @@ html.theme-transition *::after {
 
   .landing-reveal {
     opacity: 0;
-    transform: translate3d(0, var(--reveal-offset, 18px), 0);
+    transform: translate3d(0, var(--reveal-offset, 24px), 0) scale(0.985);
     transition:
-      opacity 520ms ease,
-      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 600ms var(--ease-expo),
+      transform 600ms var(--ease-expo),
       box-shadow 260ms ease;
     will-change: transform, opacity;
   }
 
   .landing-reveal.is-visible {
     opacity: 1;
-    transform: translate3d(0, var(--reveal-target, 0), 0);
+    transform: translate3d(0, var(--reveal-target, 0), 0) scale(1);
   }
 
   .landing-hover-lift {
     transition:
-      transform 240ms ease,
-      box-shadow 260ms ease;
+      transform 280ms var(--ease-expo),
+      box-shadow 280ms ease;
   }
 
-  .landing-hover-lift:hover {
-    transform: translate3d(0, -4px, 0);
+  @media (hover: hover) and (pointer: fine) {
+    .landing-hover-lift:hover {
+      transform: translate3d(0, -5px, 0);
+      box-shadow: 0 28px 64px -28px rgba(9, 154, 217, 0.18);
+    }
   }
 
   .landing-image-shell {
@@ -359,15 +364,22 @@ html.theme-transition *::after {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    padding: 0.6rem 0.875rem;
+    border-radius: 0.75rem;
+    border: 1px solid transparent;
     color: rgb(113 113 122 / 0.92);
     transition:
       color 260ms ease,
-      transform 260ms ease;
+      background-color 260ms ease,
+      border-color 260ms ease,
+      transform 280ms var(--ease-expo);
   }
 
   .landing-step-indicator.is-active {
     color: rgb(23 58 85 / 1);
-    transform: translate3d(4px, 0, 0);
+    background-color: rgba(9, 154, 217, 0.06);
+    border-color: rgba(9, 154, 217, 0.14);
+    transform: translate3d(6px, 0, 0);
   }
 
   .landing-step-indicator-dot {
@@ -380,13 +392,13 @@ html.theme-transition *::after {
     transition:
       background-color 260ms ease,
       box-shadow 260ms ease,
-      transform 260ms ease;
+      transform 280ms var(--ease-expo);
   }
 
   .landing-step-indicator.is-active .landing-step-indicator-dot {
     background: linear-gradient(135deg, #099ad9, #5cd7d3);
-    box-shadow: 0 0 0 4px rgb(9 154 217 / 0.12);
-    transform: scale(1.08);
+    box-shadow: 0 0 0 5px rgb(9 154 217 / 0.14);
+    transform: scale(1.25);
   }
 
   .landing-image-shell:hover::after {
@@ -655,6 +667,86 @@ html.theme-transition *::after {
     z-index: 1;
   }
 
+  .text-brand-gradient {
+    background: linear-gradient(135deg, #099ad9, #5cd7d3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .faq-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows 380ms var(--ease-expo);
+  }
+
+  .faq-content.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-content-inner {
+    overflow: hidden;
+    min-height: 0;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 200ms ease,
+      transform 220ms ease;
+  }
+
+  .faq-content.is-open .faq-content-inner {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 300ms ease 100ms,
+      transform 380ms var(--ease-expo) 60ms;
+  }
+
+  .faq-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.75rem;
+    width: 1.75rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    border: 1px solid rgba(9, 154, 217, 0.16);
+    background: #eef8ff;
+    color: #099ad9;
+    transition:
+      transform 340ms var(--ease-expo),
+      background-color 220ms ease,
+      border-color 220ms ease;
+  }
+
+  @media (min-width: 640px) {
+    .faq-chevron {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  .faq-chevron.is-open {
+    transform: rotate(180deg);
+    background: rgba(9, 154, 217, 0.1);
+    border-color: rgba(9, 154, 217, 0.24);
+  }
+
+  .section-heading-accent {
+    width: 2.5rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #099ad9, #5cd7d3);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms var(--ease-expo) 260ms;
+  }
+
+  .landing-reveal.is-visible .section-heading-accent {
+    transform: scaleX(1);
+  }
+
   .benefit-number {
     display: inline-flex;
     align-items: center;
@@ -738,15 +830,28 @@ html.dark .landing-step-indicator {
 
 html.dark .landing-step-indicator.is-active {
   color: rgb(236 253 255 / 1);
+  background-color: rgba(9, 154, 217, 0.1);
+  border-color: rgba(93, 211, 223, 0.18);
 }
 
 html.dark .landing-step-indicator-dot {
   background: rgb(82 82 91 / 0.9);
 }
 
-  html.dark .landing-step-indicator.is-active .landing-step-indicator-dot {
-    box-shadow: 0 0 0 4px rgb(93 211 223 / 0.12);
-  }
+html.dark .landing-step-indicator.is-active .landing-step-indicator-dot {
+  box-shadow: 0 0 0 5px rgb(93 211 223 / 0.14);
+}
+
+html.dark .faq-chevron {
+  background: rgba(16, 38, 58, 1);
+  border-color: rgba(93, 211, 223, 0.12);
+  color: #5dd3df;
+}
+
+html.dark .faq-chevron.is-open {
+  background: rgba(9, 154, 217, 0.16);
+  border-color: rgba(93, 211, 223, 0.26);
+}
 
 html.dark .surface-card {
   border-color: rgba(93, 211, 223, 0.15);
@@ -825,6 +930,13 @@ html.dark .brand-marquee-item {
 }
 
 html.dark .brand-marquee-value {
+  background: linear-gradient(135deg, #5dd3df, #1bb1d4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html.dark .text-brand-gradient {
   background: linear-gradient(135deg, #5dd3df, #1bb1d4);
   -webkit-background-clip: text;
   background-clip: text;
@@ -974,10 +1086,6 @@ html.dark .benefit-number {
     display: none;
   }
 
-  .landing-hover-lift:hover {
-    transform: none;
-  }
-
   .hero-float {
     font-size: 0.78rem;
     padding: 0.45rem 0.75rem;
@@ -1026,8 +1134,18 @@ html.dark .benefit-number {
   .landing-hover-lift:hover,
   .landing-how-card,
   .landing-step-card,
-  .landing-step-indicator.is-active {
+  .landing-step-indicator.is-active,
+  .faq-content-inner,
+  .faq-content.is-open .faq-content-inner,
+  .faq-chevron,
+  .faq-chevron.is-open {
     opacity: 1;
+    transform: none !important;
+    transition: none;
+  }
+
+  .section-heading-accent,
+  .landing-reveal.is-visible .section-heading-accent {
     transform: none !important;
     transition: none;
   }

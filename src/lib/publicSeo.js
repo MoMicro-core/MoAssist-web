@@ -100,7 +100,7 @@ export const usePublicSeo = ({
   seo,
   pathname = "/",
   siteName = "MoAssist",
-  ogImagePath = "/preview/logo.svg",
+  ogImagePath = "/preview/og-image.jpg",
   preloadImages = [],
 }) => {
   useEffect(() => {
@@ -147,7 +147,9 @@ export const usePublicSeo = ({
       upsertMeta("property", "og:url", canonicalUrl);
       upsertMeta("property", "og:image", imageUrl);
       upsertMeta("property", "og:image:alt", seo.imageAlt || `${siteName} logo`);
-      upsertMeta("property", "og:image:type", "image/svg+xml");
+      upsertMeta("property", "og:image:type", "image/jpeg");
+      upsertMeta("property", "og:image:width", "1200");
+      upsertMeta("property", "og:image:height", "630");
       upsertMeta("name", "twitter:image", imageUrl);
       upsertLink("canonical", canonicalUrl);
       replaceAlternateLinks(window.location.origin, pathname);
