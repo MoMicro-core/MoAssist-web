@@ -32,8 +32,8 @@ export const Imprint = () => {
           {content.providerTitle}
         </h2>
         <p>{COMPANY_INFO.organizationName}</p>
-        <p>Sample Street 1</p>
-        <p>10115 Berlin, Germany</p>
+        <p>Talweg</p>
+        <p>21149 Hamburg, Germany</p>
       </section>
 
       <section className="space-y-2">
