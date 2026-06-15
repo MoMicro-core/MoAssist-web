@@ -2,3 +2,6 @@
 dist
 .env
 .env.*
+CLAUDE.md
+.claude
+.tokensaver

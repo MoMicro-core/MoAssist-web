@@ -114,8 +114,8 @@ export function SidebarLayout({
       </header>
       <main
         className={clsx(
-          "flex flex-1 flex-col px-2 pb-3 pb-safe transition-[padding] duration-500 ease-out sm:px-3 lg:min-w-0 lg:px-0 lg:pr-3 lg:pt-3",
-          sidebarHidden ? "lg:pl-3" : "lg:pl-[18.75rem]",
+          "flex flex-1 flex-col mb-3 px-2 pb-3 pb-safe transition-[padding] duration-500 ease-out sm:px-3 lg:min-w-0 lg:px-0 lg:pr-3 lg:pt-3",
+          sidebarHidden ? "lg:pl-3" : "lg:pl-[19.5rem]",
         )}
       >
         <div className="glass-panel grow rounded-2xl p-3 sm:p-5 lg:rounded-[1.75rem] lg:p-8">

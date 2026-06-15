@@ -99,7 +99,8 @@ export const resolveLocale = (value) => {
 
 export const readLocaleFromSearch = (search = "") => {
   const params = new URLSearchParams(search);
-  return resolveLocale(params.get("lang"));
+  const lang = params.get("lang");
+  return lang ? resolveLocale(lang) : null;
 };
 
 export const readLocaleFromPathname = (pathname = "/") => {
