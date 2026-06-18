@@ -36,7 +36,7 @@ export const marketingContent = {
     seo: {
       title: "AI Chatbot for Ecommerce | Reduce Support Costs 70% | MoAssist",
       description:
-        "MoAssist is the AI chatbot for Shopify stores. Automate customer support, answer shipping & return questions instantly, increase conversion rate, and cut support costs by up to 70%. Setup in under 5 minutes.",
+        "AI chatbot for Shopify & ecommerce stores. Automate support, answer shipping & return questions instantly, and cut support costs up to 70%. Live in 5 min.",
       keywords:
         "AI chatbot for ecommerce, shopify chatbot, customer support automation, increase ecommerce conversion, reduce support costs ecommerce, best chatbot for shopify store, how to reduce customer support cost ecommerce, automate customer service online store",
       ogDescription:

@@ -7,5 +7,6 @@ Disallow: /profile
 Disallow: /settings
 Disallow: /support
 Disallow: /billing/
+Disallow: /login
 
-Sitemap: https://moassist.com/sitemap.xml
+Sitemap: https://momicro.com/sitemap.xml

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useI18n } from '../context/I18nContext'
 import { Button } from '../ui/button'
@@ -7,6 +8,23 @@ import { Text } from '../ui/text'
 export const NotFound = () => {
   const navigate = useNavigate()
   const { language } = useI18n()
+
+  // SPA routes always return HTTP 200, so unknown URLs are "soft 404s".
+  // Tell crawlers explicitly not to index them. usePublicSeo restores
+  // index,follow when a real public page mounts afterwards.
+  useEffect(() => {
+    let tag = document.head.querySelector('meta[name="robots"]')
+    const previous = tag ? tag.getAttribute('content') : null
+    if (!tag) {
+      tag = document.createElement('meta')
+      tag.setAttribute('name', 'robots')
+      document.head.appendChild(tag)
+    }
+    tag.setAttribute('content', 'noindex,follow')
+    return () => {
+      if (previous !== null) tag.setAttribute('content', previous)
+    }
+  }, [])
   const copy =
     {
       de: {

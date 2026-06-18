@@ -7,9 +7,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePluginSitemap({
-      hostname: 'https://moassist.com',
-      routes: [
-        '/',
+      hostname: 'https://momicro.com',
+      dynamicRoutes: [
         '/de',
         '/es',
         '/fr',
@@ -19,8 +18,25 @@ export default defineConfig({
         '/pricing',
         '/contacts',
         '/momicro',
-        '/login',
-        '/chatbots',
+      ],
+      exclude: ['/login', '/chatbots'],
+      // Plugin-generated robots.txt overwrites public/robots.txt, so the
+      // private-route Disallow rules must be declared here too.
+      robots: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: [
+            '/chatbots',
+            '/chats',
+            '/billings',
+            '/profile',
+            '/settings',
+            '/support',
+            '/billing/',
+            '/login',
+          ],
+        },
       ],
     }),
     compression({ algorithm: 'brotliCompress', exclude: [/\.(png|webp|jpg|jpeg|gif|svg|woff2)$/] }),

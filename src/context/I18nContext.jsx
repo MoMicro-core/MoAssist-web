@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   DEFAULT_LOCALE_KEY,
   LANGUAGE_OPTIONS,
@@ -1637,7 +1637,8 @@ dictionary.ua = {
 
 export const I18nProvider = ({ children }) => {
   const location = useLocation();
-  const [language, setLanguage] = useState(() => {
+  const navigate = useNavigate();
+  const [language, setLanguageState] = useState(() => {
     const pathLocale = readLocaleFromPathname(window.location.pathname);
     if (pathLocale?.key && pathLocale.key !== DEFAULT_LOCALE_KEY) {
       return pathLocale.key;
@@ -1652,44 +1653,47 @@ export const I18nProvider = ({ children }) => {
     return resolveLocale(stored).key || DEFAULT_LOCALE_KEY;
   });
 
+  // Keep the active language and the URL in sync via React Router (no full
+  // page reloads, no history.replaceState that would desync the router).
   useEffect(() => {
     const pathLocale = readLocaleFromPathname(location.pathname);
 
+    // 1) A locale prefix in the path always wins (e.g. /de, /de/pricing).
     if (pathLocale?.key && pathLocale.key !== DEFAULT_LOCALE_KEY) {
       if (pathLocale.key !== language) {
-        setLanguage(pathLocale.key);
+        setLanguageState(pathLocale.key);
         localStorage.setItem(LANG_KEY, pathLocale.key);
       }
 
       return;
     }
 
-    const queryLocale = readLocaleFromSearch(location.search);
+    // 2) ?lang= on a public page → adopt it and rewrite to a clean
+    //    locale-prefixed path via SPA navigation.
     const hasQueryLocale = new URLSearchParams(location.search).has("lang");
-
     if (hasQueryLocale && isPublicLandingPath(location.pathname)) {
-      const normalizedUrl = new URL(window.location.href);
-      normalizedUrl.pathname = buildLocalizedPath(
-        location.pathname,
-        queryLocale.key,
-      );
-      normalizedUrl.searchParams.delete("lang");
-      window.history.replaceState({}, "", normalizedUrl.toString());
-
-      if (queryLocale.key !== language) {
-        setLanguage(queryLocale.key);
-        localStorage.setItem(LANG_KEY, queryLocale.key);
+      const queryLocale = readLocaleFromSearch(location.search);
+      if (queryLocale) {
+        if (queryLocale.key !== language) {
+          setLanguageState(queryLocale.key);
+          localStorage.setItem(LANG_KEY, queryLocale.key);
+        }
+        navigate(buildLocalizedPath(location.pathname, queryLocale.key), {
+          replace: true,
+        });
+        return;
       }
-
-      return;
     }
 
-    if (location.pathname === "/" && language !== DEFAULT_LOCALE_KEY) {
-      const localizedUrl = new URL(window.location.href);
-      localizedUrl.pathname = buildLocalizedPath("/", language);
-      window.history.replaceState({}, "", localizedUrl.toString());
+    // 3) No locale in the path but a non-default language is active on a
+    //    public page → reflect it in the URL so path and content match.
+    if (language !== DEFAULT_LOCALE_KEY && isPublicLandingPath(location.pathname)) {
+      const localizedPath = buildLocalizedPath(location.pathname, language);
+      if (localizedPath !== location.pathname) {
+        navigate(localizedPath, { replace: true });
+      }
     }
-  }, [language, location.pathname, location.search]);
+  }, [language, location.pathname, location.search, navigate]);
 
   const t = useMemo(
     () => (key) => dictionary[language]?.[key] || dictionary.en[key] || key,
@@ -1704,26 +1708,24 @@ export const I18nProvider = ({ children }) => {
 
         if (!dictionary[nextLocale.key]) return;
 
-        setLanguage(nextLocale.key);
+        setLanguageState(nextLocale.key);
         localStorage.setItem(LANG_KEY, nextLocale.key);
 
-        const nextUrl = new URL(window.location.href);
-
+        // On public pages, reflect the language in the URL with an SPA
+        // navigation so content updates instantly without a full reload.
+        // On app pages (no locale prefix) the state change alone re-renders.
         if (isPublicLandingPath(location.pathname)) {
-          nextUrl.pathname = buildLocalizedPath(
-            location.pathname,
-            nextLocale.key,
-          );
-          nextUrl.searchParams.delete("lang");
+          const nextPath = buildLocalizedPath(location.pathname, nextLocale.key);
+          if (nextPath !== location.pathname) {
+            navigate(nextPath);
+          }
         }
-
-        window.location.replace(nextUrl.toString());
       },
       t,
       languages: LANGUAGE_OPTIONS.map(({ key }) => key),
       languageOptions: LANGUAGE_OPTIONS,
     }),
-    [language, location.pathname, t],
+    [language, location.pathname, navigate, t],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

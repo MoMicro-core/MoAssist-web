@@ -4,13 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses
+      AI Chatbot for Ecommerce | Reduce Support Costs 70% | MoAssist
     </title>
 
     <!-- ─── SEO ─────────────────────────────────────────────────────────── -->
+    <!-- NOTE: these static values mirror the homepage; usePublicSeo overrides
+         them per-route at runtime. Keep them in sync with the homepage so the
+         pre-render snapshot crawlers/social bots read is already optimal. -->
     <meta
       name="description"
-      content="MoAssist helps online shops and sales-driven businesses build branded chatbots, answer with business knowledge, collect leads, support signed-in customers, and manage AI plus human conversations from one dashboard."
+      content="AI chatbot for Shopify & ecommerce stores. Automate support, answer shipping & return questions instantly, and cut support costs up to 70%. Live in 5 min."
     />
     <meta
       name="keywords"
@@ -25,25 +28,25 @@
     />
 
     <!-- Canonical & hreflang are updated by usePublicSeo on every navigation -->
-    <link rel="canonical" href="https://moassist.com/" />
-    <link rel="alternate" hreflang="x-default" href="https://moassist.com/" />
-    <link rel="alternate" hreflang="en"    href="https://moassist.com/" />
-    <link rel="alternate" hreflang="de-DE" href="https://moassist.com/de" />
-    <link rel="alternate" hreflang="es-ES" href="https://moassist.com/es" />
-    <link rel="alternate" hreflang="fr-FR" href="https://moassist.com/fr" />
-    <link rel="alternate" hreflang="it-IT" href="https://moassist.com/it" />
-    <link rel="alternate" hreflang="ru-RU" href="https://moassist.com/ru" />
-    <link rel="alternate" hreflang="uk-UA" href="https://moassist.com/ua" />
+    <link rel="canonical" href="https://momicro.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://momicro.com/" />
+    <link rel="alternate" hreflang="en"    href="https://momicro.com/" />
+    <link rel="alternate" hreflang="de-DE" href="https://momicro.com/de" />
+    <link rel="alternate" hreflang="es-ES" href="https://momicro.com/es" />
+    <link rel="alternate" hreflang="fr-FR" href="https://momicro.com/fr" />
+    <link rel="alternate" hreflang="it-IT" href="https://momicro.com/it" />
+    <link rel="alternate" hreflang="ru-RU" href="https://momicro.com/ru" />
+    <link rel="alternate" hreflang="uk-UA" href="https://momicro.com/ua" />
 
     <!-- ─── Open Graph ───────────────────────────────────────────────────── -->
     <meta
       property="og:title"
-      content="MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses"
+      content="AI Chatbot for Ecommerce | Reduce Support Costs 70% | MoAssist"
     />
     <meta property="og:site_name" content="MoAssist" />
     <meta
       property="og:description"
-      content="Build a branded chatbot for each store or sales flow, train it with your documents, collect customer details, and manage AI plus team replies from one dashboard."
+      content="Automate 80% of your ecommerce customer questions. MoAssist handles shipping, returns, and product info 24/7 — so you sell more and spend less on support."
     />
     <meta property="og:locale"           content="en_US" />
     <meta property="og:locale:alternate" content="de_DE" />
@@ -53,19 +56,19 @@
     <meta property="og:locale:alternate" content="ru_RU" />
     <meta property="og:locale:alternate" content="uk_UA" />
     <!-- JPEG OG image (SVG is not supported by most social crawlers) -->
-    <meta property="og:image"        content="https://moassist.com/preview/og-image.jpg" />
+    <meta property="og:image"        content="https://momicro.com/preview/og-image.jpg" />
     <meta property="og:image:type"   content="image/jpeg" />
     <meta property="og:image:width"  content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt"    content="MoAssist – AI Chatbot for Ecommerce" />
     <meta property="og:type"         content="website" />
-    <meta property="og:url"          content="https://moassist.com/" />
+    <meta property="og:url"          content="https://momicro.com/" />
 
     <!-- ─── Twitter Card ────────────────────────────────────────────────── -->
     <meta name="twitter:card"        content="summary_large_image" />
-    <meta name="twitter:title"       content="MoAssist | AI Chatbots for Online Shops and Sales-Driven Businesses" />
-    <meta name="twitter:description" content="AI chatbots for online shops and sales teams. Train with documents, collect leads, support customers, and manage AI plus human replies in one place." />
-    <meta name="twitter:image"       content="https://moassist.com/preview/og-image.jpg" />
+    <meta name="twitter:title"       content="AI Chatbot for Ecommerce | Reduce Support Costs 70% | MoAssist" />
+    <meta name="twitter:description" content="AI chatbot for Shopify stores. Reduce support costs by 70%, answer questions instantly, and increase conversions. Setup in under 5 minutes." />
+    <meta name="twitter:image"       content="https://momicro.com/preview/og-image.jpg" />
 
     <!-- ─── PWA / Icons ─────────────────────────────────────────────────── -->
     <meta name="theme-color" content="#099ad9" />
@@ -111,28 +114,30 @@
     <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
 
     <!-- ─── Structured Data ──────────────────────────────────────────────── -->
+    <!-- Static Organization + WebSite for non-JS crawlers. The richer
+         SoftwareApplication + FAQ schema is injected per-page by Landing.jsx;
+         keeping different @types here avoids duplicate-entity confusion. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "MoAssist",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "url": "https://moassist.com/",
-        "description": "MoAssist is a platform for online shops and sales-driven businesses to create branded AI chatbots with document uploads, lead capture, signed-in customer support, and AI plus human conversation management.",
-        "image": "https://moassist.com/preview/og-image.jpg",
-        "availableLanguage": ["en", "de-DE", "es-ES", "fr-FR", "it-IT", "ru-RU", "uk-UA"],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "description": "Free to get started"
-        },
-        "provider": {
-          "@type": "Organization",
-          "name": "MoMicro",
-          "url": "https://moassist.com/"
-        }
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://momicro.com/#organization",
+            "name": "MoMicro",
+            "url": "https://momicro.com/",
+            "logo": "https://momicro.com/preview/logo.svg",
+            "description": "MoMicro is the organization behind MoAssist, the AI chatbot for ecommerce and Shopify stores."
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://momicro.com/#website",
+            "url": "https://momicro.com/",
+            "name": "MoAssist",
+            "publisher": { "@id": "https://momicro.com/#organization" },
+            "inLanguage": ["en", "de-DE", "es-ES", "fr-FR", "it-IT", "ru-RU", "uk-UA"]
+          }
+        ]
       }
     </script>
   </head>
