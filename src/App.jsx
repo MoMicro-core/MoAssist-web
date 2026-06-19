@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import { Loading } from "./components/Loading";
 import { CookieBanner } from "./components/CookieBanner";
+import { ChatWidget } from "./components/ChatWidget";
 import { PUBLIC_LOCALE_KEYS } from "./lib/siteLocales";
 import { Landing } from "./pages/Landing";
 import { Pricing } from "./pages/Pricing";
@@ -165,6 +166,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <CookieBanner />
+      <ChatWidget />
     </Suspense>
   );
 }

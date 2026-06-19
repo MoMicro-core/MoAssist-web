@@ -47,7 +47,7 @@ export const marketingContent = {
     appDescription:
       "MoAssist is an AI chatbot for ecommerce stores and Shopify brands that want to automate customer support, reduce costs by up to 70%, and increase conversion rate.",
     heroPill: "The AI Chatbot Built For Ecommerce",
-    heroTitle: "Stop Losing Sales to Unanswered Customer Questions",
+    heroTitle: "Stop Losing Ecommerce Sales to Unanswered Customer Questions",
     heroBody:
       "MoAssist's AI chatbot answers 80% of customer questions instantly — shipping, returns, order status, product details — so your store converts more visitors into buyers and your team stops wasting hours on repetitive replies. Live in under 5 minutes.",
     heroHighlights: [
@@ -408,15 +408,15 @@ export const marketingContent = {
   },
   at: {
     seo: {
-      title: "MoAssist | KI-Chatbots für Onlineshops und verkaufsstarke Unternehmen",
+      title: "KI-Chatbot für E-Commerce | Supportkosten um 70 % senken | MoAssist",
       description:
-        "MoAssist hilft Onlineshops und verkaufsstarken Unternehmen dabei, gebrandete Chatbots zu erstellen, mit Unternehmenswissen zu antworten, Leads zu sammeln, eingeloggte Kunden zu unterstützen und KI- plus Team-Gespräche in einem Dashboard zu verwalten.",
+        "KI-Chatbot für Shopify- und E-Commerce-Shops. Automatisiere den Support, beantworte Fragen zu Versand & Retouren sofort und senke die Supportkosten um bis zu 70 %. In 5 Minuten live.",
       keywords:
-        "Chatbot für Onlineshop, E-Commerce Chatbot, Sales Chatbot, Support Chatbot, KI Chatbot für Unternehmen, Lead Capture Chatbot, Kundenportal Chatbot, Wissensbasis Chatbot, mehrsprachiger Chatbot, gebrandeter Website Chatbot",
+        "KI-Chatbot für E-Commerce, Shopify Chatbot, Kundensupport automatisieren, Conversion steigern, Supportkosten senken, bester Chatbot für Shopify, Kundenservice für Onlineshop automatisieren",
       ogDescription:
-        "Erstelle für jeden Shop oder Verkaufsprozess einen gebrandeten Chatbot, trainiere ihn mit deinen Dokumenten, sammle Kundendaten und verwalte KI- plus Team-Antworten in einem Dashboard.",
+        "Automatisiere 80 % deiner E-Commerce-Kundenfragen. MoAssist beantwortet Versand, Retouren und Produktinfos rund um die Uhr – du verkaufst mehr und sparst beim Support.",
       twitterDescription:
-        "KI-Chatbots für Onlineshops und Sales-Teams. Mit Dokumenten trainieren, Leads sammeln, Kunden unterstützen und KI- plus Team-Antworten an einem Ort steuern.",
+        "KI-Chatbot für Shopify-Shops. Senke die Supportkosten um 70 %, beantworte Fragen sofort und steigere die Conversion. In unter 5 Minuten eingerichtet.",
     },
     appDescription:
       "MoAssist ist eine Chatbot-Plattform für Onlineshops und verkaufsstarke Unternehmen, die schneller antworten, mehr Leads sammeln und besseren Kundensupport liefern wollen.",
@@ -714,15 +714,15 @@ export const marketingContent = {
   },
   es: {
     seo: {
-      title: "MoAssist | Chatbots con IA para tiendas online y negocios que venden",
+      title: "Chatbot con IA para e-commerce | Reduce costes de soporte 70 % | MoAssist",
       description:
-        "MoAssist ayuda a tiendas online y negocios que venden productos o servicios a crear chatbots con marca propia, responder con conocimiento del negocio, captar leads, asistir a clientes registrados y gestionar conversaciones con IA y equipo desde un solo panel.",
+        "Chatbot con IA para tiendas Shopify y e-commerce. Automatiza el soporte, responde al instante a dudas de envíos y devoluciones y reduce los costes de soporte hasta un 70 %. Activo en 5 minutos.",
       keywords:
-        "chatbot para tienda online, chatbot ecommerce, chatbot de ventas, chatbot de soporte, chatbot IA para negocios, chatbot captacion de leads, chatbot para portal de clientes, chatbot base de conocimiento, chatbot multilingue, chatbot con marca",
+        "chatbot con IA para ecommerce, chatbot para Shopify, automatizar atención al cliente, aumentar conversión ecommerce, reducir costes de soporte, mejor chatbot para Shopify",
       ogDescription:
-        "Crea un chatbot para cada tienda o flujo de ventas, entrénalo con tus documentos, recoge datos de clientes y gestiona respuestas de IA y equipo desde un solo panel.",
+        "Automatiza el 80 % de las preguntas de tus clientes de e-commerce. MoAssist resuelve envíos, devoluciones e información de producto 24/7: vendes más y gastas menos en soporte.",
       twitterDescription:
-        "Chatbots con IA para tiendas online y equipos de ventas. Entrena con documentos, capta leads, ayuda a clientes y gestiona respuestas humanas y automáticas en un solo lugar.",
+        "Chatbot con IA para tiendas Shopify. Reduce los costes de soporte un 70 %, responde al instante y aumenta las conversiones. Listo en menos de 5 minutos.",
     },
     appDescription:
       "MoAssist es una plataforma de chatbots para tiendas online y negocios que venden y quieren responder más rápido, captar más leads y ofrecer mejor soporte.",
@@ -1020,15 +1020,15 @@ export const marketingContent = {
   },
   fr: {
     seo: {
-      title: "MoAssist | Chatbots IA pour boutiques en ligne et entreprises qui vendent",
+      title: "Chatbot IA pour e-commerce | Réduisez les coûts de support de 70 % | MoAssist",
       description:
-        "MoAssist aide les boutiques en ligne et les entreprises qui vendent des produits ou services à créer des chatbots de marque, répondre avec leur propre base de connaissances, collecter des leads, aider les clients connectés et gérer les conversations IA et humaines depuis un seul tableau de bord.",
+        "Chatbot IA pour boutiques Shopify et e-commerce. Automatisez le support, répondez instantanément aux questions de livraison et de retour et réduisez les coûts de support jusqu'à 70 %. En ligne en 5 minutes.",
       keywords:
-        "chatbot boutique en ligne, chatbot ecommerce, chatbot vente, chatbot support, chatbot IA entreprise, chatbot capture de leads, chatbot portail client, chatbot base de connaissances, chatbot multilingue, chatbot marque blanche",
+        "chatbot IA pour e-commerce, chatbot Shopify, automatiser le support client, augmenter la conversion e-commerce, réduire les coûts de support, meilleur chatbot pour Shopify",
       ogDescription:
-        "Créez un chatbot pour chaque boutique ou parcours commercial, entraînez-le avec vos documents, collectez des informations clients et gérez les réponses IA et humaines depuis un seul tableau de bord.",
+        "Automatisez 80 % des questions de vos clients e-commerce. MoAssist gère livraison, retours et infos produit 24/7 : vous vendez plus et dépensez moins en support.",
       twitterDescription:
-        "Chatbots IA pour boutiques en ligne et équipes commerciales. Formez-les avec vos documents, collectez des leads, aidez vos clients et centralisez les réponses humaines et IA.",
+        "Chatbot IA pour boutiques Shopify. Réduisez les coûts de support de 70 %, répondez instantanément et augmentez les conversions. Configuré en moins de 5 minutes.",
     },
     appDescription:
       "MoAssist est une plateforme de chatbots pour les boutiques en ligne et les entreprises commerciales qui veulent répondre plus vite, mieux qualifier les leads et offrir un meilleur support.",
@@ -1632,15 +1632,15 @@ export const marketingContent = {
   },
   it: {
     seo: {
-      title: "MoAssist | Chatbot AI per ecommerce e aziende che vendono",
+      title: "Chatbot AI per ecommerce | Riduci i costi di assistenza del 70 % | MoAssist",
       description:
-        "MoAssist aiuta ecommerce e aziende che vendono prodotti o servizi a creare chatbot brandizzati, rispondere con la propria conoscenza aziendale, raccogliere lead, assistere clienti autenticati e gestire conversazioni AI e umane da un solo dashboard.",
+        "Chatbot AI per negozi Shopify ed ecommerce. Automatizza l'assistenza, rispondi subito a domande su spedizioni e resi e riduci i costi di assistenza fino al 70 %. Online in 5 minuti.",
       keywords:
-        "chatbot ecommerce, chatbot per negozio online, chatbot vendite, chatbot supporto, chatbot AI per aziende, chatbot lead generation, chatbot portale clienti, chatbot knowledge base, chatbot multilingua, chatbot brandizzato",
+        "chatbot AI per ecommerce, chatbot Shopify, automatizzare assistenza clienti, aumentare conversioni ecommerce, ridurre costi di assistenza, miglior chatbot per Shopify",
       ogDescription:
-        "Crea un chatbot per ogni negozio o funnel di vendita, addestralo con i tuoi documenti, raccogli dati clienti e gestisci risposte AI e del team da un solo dashboard.",
+        "Automatizza l'80 % delle domande dei tuoi clienti ecommerce. MoAssist gestisce spedizioni, resi e info prodotto 24/7: vendi di più e spendi meno in assistenza.",
       twitterDescription:
-        "Chatbot AI per ecommerce e team commerciali. Addestramento con documenti, raccolta lead, supporto clienti e gestione di risposte AI e umane in un unico posto.",
+        "Chatbot AI per negozi Shopify. Riduci i costi di assistenza del 70 %, rispondi all'istante e aumenta le conversioni. Pronto in meno di 5 minuti.",
     },
     appDescription:
       "MoAssist è una piattaforma chatbot per ecommerce e aziende commerciali che vogliono rispondere più velocemente, raccogliere più lead e offrire un supporto migliore.",
@@ -1938,15 +1938,15 @@ export const marketingContent = {
   },
   ru: {
     seo: {
-      title: "MoAssist | AI-чатботы для интернет-магазинов и продающих компаний",
+      title: "AI-чатбот для e-commerce | Снизьте расходы на поддержку на 70 % | MoAssist",
       description:
-        "MoAssist помогает интернет-магазинам и компаниям, которые продают товары или услуги, создавать брендированные чатботы, отвечать на основе своих материалов, собирать лиды, поддерживать авторизованных клиентов и управлять AI- и человеческими диалогами из одной панели.",
+        "AI-чатбот для магазинов на Shopify и e-commerce. Автоматизируйте поддержку, мгновенно отвечайте на вопросы о доставке и возвратах и снижайте расходы на поддержку до 70 %. Запуск за 5 минут.",
       keywords:
-        "чатбот для интернет-магазина, ecommerce chatbot, чатбот для продаж, чатбот для поддержки, AI чатбот для бизнеса, чатбот для лидогенерации, чатбот для кабинета клиента, чатбот база знаний, многоязычный чатбот, брендированный чатбот",
+        "AI-чатбот для ecommerce, чатбот для Shopify, автоматизация поддержки клиентов, повышение конверсии, снижение расходов на поддержку, лучший чатбот для Shopify",
       ogDescription:
-        "Создавайте чатбот для каждого магазина или воронки продаж, обучайте его на своих документах, собирайте данные клиентов и управляйте ответами AI и команды из одной панели.",
+        "Автоматизируйте 80 % вопросов клиентов вашего интернет-магазина. MoAssist отвечает о доставке, возвратах и товарах 24/7 — вы продаёте больше и тратите меньше на поддержку.",
       twitterDescription:
-        "AI-чатботы для интернет-магазинов и команд продаж. Обучение на документах, сбор лидов, поддержка клиентов и единое управление AI и живыми ответами.",
+        "AI-чатбот для магазинов на Shopify. Снизьте расходы на поддержку на 70 %, отвечайте мгновенно и повышайте конверсию. Настройка меньше чем за 5 минут.",
     },
     appDescription:
       "MoAssist — это платформа чатботов для интернет-магазинов и коммерческих компаний, которым нужны более быстрые ответы, больше лидов и лучший клиентский сервис.",
@@ -2244,15 +2244,15 @@ export const marketingContent = {
   },
   ua: {
     seo: {
-      title: "MoAssist | AI-чатботи для інтернет-магазинів і бізнесів, що продають",
+      title: "AI-чатбот для e-commerce | Знизьте витрати на підтримку на 70 % | MoAssist",
       description:
-        "MoAssist допомагає інтернет-магазинам і бізнесам, що продають товари або послуги, створювати брендовані чатботи, відповідати на основі власних матеріалів, збирати ліди, підтримувати авторизованих клієнтів і керувати AI- та людськими розмовами з однієї панелі.",
+        "AI-чатбот для магазинів на Shopify та e-commerce. Автоматизуйте підтримку, миттєво відповідайте на запитання про доставку й повернення та знижуйте витрати на підтримку до 70 %. Запуск за 5 хвилин.",
       keywords:
-        "чатбот для інтернет-магазину, ecommerce chatbot, чатбот для продажів, чатбот для підтримки, AI чатбот для бізнесу, чатбот для збору лідів, чатбот для кабінету клієнта, чатбот база знань, багатомовний чатбот, брендований чатбот",
+        "AI-чатбот для ecommerce, чатбот для Shopify, автоматизація підтримки клієнтів, підвищення конверсії, зниження витрат на підтримку, найкращий чатбот для Shopify",
       ogDescription:
-        "Створюйте чатбот для кожного магазину або воронки продажів, навчайте його на своїх документах, збирайте дані клієнтів і керуйте відповідями AI та команди з однієї панелі.",
+        "Автоматизуйте 80 % запитань клієнтів вашого інтернет-магазину. MoAssist відповідає про доставку, повернення та товари 24/7 — ви продаєте більше й витрачаєте менше на підтримку.",
       twitterDescription:
-        "AI-чатботи для інтернет-магазинів і команд продажів. Навчання на документах, збір лідів, підтримка клієнтів і єдине керування AI та живими відповідями.",
+        "AI-чатботи для магазинів на Shopify. Знизьте витрати на підтримку на 70 %, відповідайте миттєво та підвищуйте конверсію. Налаштування менш ніж за 5 хвилин.",
     },
     appDescription:
       "MoAssist — це платформа чатботів для інтернет-магазинів і комерційних бізнесів, яким потрібні швидші відповіді, більше лідів і кращий клієнтський сервіс.",

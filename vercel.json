@@ -6,6 +6,12 @@
       "has": [{ "type": "host", "value": "www.momicro.com" }],
       "destination": "https://momicro.com/$1",
       "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "assist.momicro.com" }],
+      "destination": "https://momicro.com/$1",
+      "permanent": true
     }
   ],
   "headers": [

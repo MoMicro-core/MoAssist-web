@@ -125,6 +125,7 @@
             "@type": "Organization",
             "@id": "https://momicro.com/#organization",
             "name": "MoMicro",
+            "alternateName": "MoAssist",
             "url": "https://momicro.com/",
             "logo": "https://momicro.com/preview/logo.svg",
             "description": "MoMicro is the organization behind MoAssist, the AI chatbot for ecommerce and Shopify stores."
@@ -134,6 +135,7 @@
             "@id": "https://momicro.com/#website",
             "url": "https://momicro.com/",
             "name": "MoAssist",
+            "alternateName": "MoMicro",
             "publisher": { "@id": "https://momicro.com/#organization" },
             "inLanguage": ["en", "de-DE", "es-ES", "fr-FR", "it-IT", "ru-RU", "uk-UA"]
           }
@@ -144,6 +146,7 @@
   <body class="min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-     <script src="https://api.momicro.com/chat/script/f5a65979-17c3-4935-8b6d-1c6e794a8aed?lang=english" defer></script>
+    <!-- The MoAssist chat widget is injected by src/components/ChatWidget.jsx
+         (public pages only, in the visitor's language). Do not re-add it here. -->
   </body>
 </html>
