@@ -127,7 +127,7 @@ export const PublicFooter = ({
                 <source srcSet="/preview/logo.webp" type="image/webp" />
                 <img
                   src="/preview/logo-opt.png"
-                  alt="MoAssist"
+                  alt="MoMicro"
                   width="64"
                   height="64"
                   className="h-12 w-12 rounded-[1.1rem] bg-white/90 p-2 shadow-sm sm:h-16 sm:w-16 sm:rounded-[1.4rem] dark:bg-white/10"
@@ -137,7 +137,7 @@ export const PublicFooter = ({
               </picture>
               <div className="min-w-0">
                 <div className="truncate font-display text-lg font-semibold text-zinc-900 sm:text-xl dark:text-white">
-                  MoAssist
+                  MoMicro
                 </div>
                 <div className="text-sm text-zinc-500 dark:text-zinc-400">
                   {tagline || t("marketingTagline")}

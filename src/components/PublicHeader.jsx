@@ -30,7 +30,7 @@ export const PublicHeader = ({ showActions = true }) => {
             <source srcSet="/preview/logo.webp" type="image/webp" />
             <img
               src="/preview/logo-opt.png"
-              alt="MoAssist"
+              alt="MoMicro"
               width="56"
               height="56"
               className="h-10 w-10 rounded-xl bg-white/80 object-contain p-1 shadow-sm sm:h-14 sm:w-14 sm:rounded-2xl dark:bg-white/10"
@@ -40,7 +40,7 @@ export const PublicHeader = ({ showActions = true }) => {
           </picture>
           <div className="min-w-0">
             <div className="truncate font-display text-[15px] font-semibold text-zinc-900 sm:text-lg dark:text-white">
-              MoAssist
+              MoMicro
             </div>
             <div className="truncate text-[10.5px] text-zinc-500 sm:text-xs dark:text-zinc-400">
               {t("marketingTagline")}
@@ -115,7 +115,7 @@ export const PublicHeader = ({ showActions = true }) => {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="truncate font-display text-base font-semibold text-zinc-900 dark:text-white">
-                  MoAssist
+                  MoMicro
                 </div>
                 <div className="truncate text-xs text-zinc-500 dark:text-zinc-400">
                   {t("marketingTagline")}

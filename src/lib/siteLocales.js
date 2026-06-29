@@ -150,9 +150,13 @@ export const buildLocaleUrl = (
 
 export const PUBLIC_MARKETING_PATHS = [
   "/",
+  "/how-it-works",
+  "/ai-chatbot",
+  "/platform",
   "/pricing",
-  "/momicro",
-  "/contacts",
+  "/news",
+  "/docs",
+  "/contact",
   "/privacy-policy",
   "/imprint",
   "/terms-and-conditions",

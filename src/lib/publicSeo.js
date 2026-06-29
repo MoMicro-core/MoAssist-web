@@ -99,7 +99,7 @@ export const usePublicSeo = ({
   localeConfig,
   seo,
   pathname = "/",
-  siteName = "MoAssist",
+  siteName = "MoMicro",
   ogImagePath = "/preview/og-image.jpg",
   preloadImages = [],
 }) => {

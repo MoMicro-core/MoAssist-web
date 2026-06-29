@@ -1,22 +1,22 @@
 const privacyContent = {
   en: {
     seo: {
-      title: "MoAssist Privacy Policy",
+      title: "MoMicro Privacy Policy",
       description:
-        "Read the MoAssist privacy policy for website, dashboard, chatbot, billing, and support data handling.",
-      imageAlt: "MoAssist privacy policy",
+        "Read the MoMicro privacy policy for website, dashboard, chatbot, billing, and support data handling.",
+      imageAlt: "MoMicro privacy policy",
     },
     backLabel: "Back to home",
     title: "Privacy Policy",
     intro:
-      "This Privacy Policy explains how MoAssist handles personal data when you use the website, dashboard, and chatbot platform.",
+      "This Privacy Policy explains how MoMicro handles personal data when you use the website, dashboard, and chatbot platform.",
     updatedLabel: "Last updated",
     updatedValue: "April 9, 2026",
     sections: [
       {
         title: "1. Controller (Art. 4 Nr. 7 DSGVO / Art. 4(7) GDPR)",
         paragraphs: [
-          "MoAssist is operated by MoMicro ('we', 'us').",
+          "MoMicro is operated by MoMicro ('we', 'us').",
           "Email: info@momicro.com",
           "Support: support@momicro.com",
           "Phone: +49 160 8417916",
@@ -179,22 +179,22 @@ const privacyContent = {
   },
   de: {
     seo: {
-      title: "MoAssist Datenschutzerklärung",
+      title: "MoMicro Datenschutzerklärung",
       description:
-        "Lesen Sie die MoAssist Datenschutzerklärung für Website-, Dashboard-, Chatbot-, Billing- und Supportdaten.",
-      imageAlt: "MoAssist Datenschutzerklärung",
+        "Lesen Sie die MoMicro Datenschutzerklärung für Website-, Dashboard-, Chatbot-, Billing- und Supportdaten.",
+      imageAlt: "MoMicro Datenschutzerklärung",
     },
     backLabel: "Zur Startseite",
     title: "Datenschutzerklärung",
     intro:
-      "Diese Datenschutzerklärung erklärt, wie MoAssist personenbezogene Daten verarbeitet, wenn Sie die Website, das Dashboard und die Chatbot-Plattform nutzen.",
+      "Diese Datenschutzerklärung erklärt, wie MoMicro personenbezogene Daten verarbeitet, wenn Sie die Website, das Dashboard und die Chatbot-Plattform nutzen.",
     updatedLabel: "Letzte Aktualisierung",
     updatedValue: "9. April 2026",
     sections: [
       {
         title: "1. Verantwortlicher / Controller (Art. 4 Nr. 7 DSGVO)",
         paragraphs: [
-          "MoAssist wird betrieben von MoMicro ('wir', 'uns').",
+          "MoMicro wird betrieben von MoMicro ('wir', 'uns').",
           "E-Mail: info@momicro.com",
           "Support: support@momicro.com",
           "Telefon: +49 160 8417916",
@@ -335,29 +335,29 @@ const privacyContent = {
   },
   es: {
     seo: {
-      title: "Política de privacidad de MoAssist",
+      title: "Política de privacidad de MoMicro",
       description:
-        "Lee la política de privacidad de MoAssist sobre el tratamiento de datos del sitio web, panel, chatbot, facturación y soporte.",
-      imageAlt: "Política de privacidad de MoAssist",
+        "Lee la política de privacidad de MoMicro sobre el tratamiento de datos del sitio web, panel, chatbot, facturación y soporte.",
+      imageAlt: "Política de privacidad de MoMicro",
     },
     backLabel: "Volver al inicio",
     title: "Política de privacidad",
     intro:
-      "Esta Política de privacidad explica cómo MoAssist trata los datos personales cuando utilizas el sitio web, el panel y la plataforma de chatbot.",
+      "Esta Política de privacidad explica cómo MoMicro trata los datos personales cuando utilizas el sitio web, el panel y la plataforma de chatbot.",
     updatedLabel: "Última actualización",
     updatedValue: "9 de abril de 2026",
     sections: [
       {
         title: "1. A quién cubre esta política",
         paragraphs: [
-          "Esta Política se aplica a titulares de cuentas de MoAssist, miembros del equipo, visitantes del sitio web que interactúan con chatbots impulsados por MoAssist y usuarios finales que utilizan un área de cliente autenticada donde el chat de MoAssist está disponible.",
+          "Esta Política se aplica a titulares de cuentas de MoMicro, miembros del equipo, visitantes del sitio web que interactúan con chatbots impulsados por MoMicro y usuarios finales que utilizan un área de cliente autenticada donde el chat de MoMicro está disponible.",
         ],
       },
       {
         title: "2. Funciones y responsabilidades",
         paragraphs: [
-          "MoAssist actúa como responsable del tratamiento para los datos de creación de cuentas, facturación, seguridad, soporte y administración de la plataforma.",
-          "Cuando un cliente utiliza MoAssist en su propio sitio web o área de clientes para recoger mensajes, datos de leads o solicitudes de soporte, ese cliente suele ser responsable de la información de privacidad mostrada a sus propios visitantes y clientes. En esos casos, MoAssist suele actuar como proveedor de servicios o encargado del tratamiento siguiendo las instrucciones del cliente.",
+          "MoMicro actúa como responsable del tratamiento para los datos de creación de cuentas, facturación, seguridad, soporte y administración de la plataforma.",
+          "Cuando un cliente utiliza MoMicro en su propio sitio web o área de clientes para recoger mensajes, datos de leads o solicitudes de soporte, ese cliente suele ser responsable de la información de privacidad mostrada a sus propios visitantes y clientes. En esos casos, MoMicro suele actuar como proveedor de servicios o encargado del tratamiento siguiendo las instrucciones del cliente.",
         ],
       },
       {
@@ -378,7 +378,7 @@ const privacyContent = {
         title: "4. Por qué tratamos datos",
         intro: "Tratamos datos para:",
         items: [
-          "proporcionar el sitio web, panel y plataforma de chatbot de MoAssist;",
+          "proporcionar el sitio web, panel y plataforma de chatbot de MoMicro;",
           "ejecutar conversaciones y flujos de captación de leads;",
           "generar respuestas de IA según la configuración del chatbot y los archivos subidos;",
           "dar soporte al servicio al cliente y a flujos de ayuda para usuarios autenticados;",
@@ -397,26 +397,26 @@ const privacyContent = {
         title: "6. Compartición de datos",
         paragraphs: [
           "Podemos compartir datos con proveedores de infraestructura, alojamiento, autenticación, almacenamiento, pagos y soporte que nos ayudan a operar el servicio. También podemos revelar datos cuando la ley lo exija o para proteger derechos, seguridad e integridad de la plataforma.",
-          "Los clientes que utilizan MoAssist en sus propios sitios web o portales de clientes pueden acceder a las conversaciones y a los datos de leads recogidos mediante sus propios chatbots.",
+          "Los clientes que utilizan MoMicro en sus propios sitios web o portales de clientes pueden acceder a las conversaciones y a los datos de leads recogidos mediante sus propios chatbots.",
         ],
       },
       {
         title: "7. Conservación",
         paragraphs: [
-          "Conservamos los datos personales solo el tiempo necesario para prestar el servicio, mantener la seguridad, resolver disputas, cumplir obligaciones legales o seguir instrucciones del cliente cuando MoAssist actúa en su nombre.",
+          "Conservamos los datos personales solo el tiempo necesario para prestar el servicio, mantener la seguridad, resolver disputas, cumplir obligaciones legales o seguir instrucciones del cliente cuando MoMicro actúa en su nombre.",
         ],
       },
       {
         title: "8. Responsabilidades del cliente",
         paragraphs: [
-          "Si utilizas MoAssist para recoger datos personales de tus propios visitantes o clientes, debes asegurarte de que tu propia política de privacidad lo explique de forma clara.",
+          "Si utilizas MoMicro para recoger datos personales de tus propios visitantes o clientes, debes asegurarte de que tu propia política de privacidad lo explique de forma clara.",
         ],
         intro: "Tu aviso debería cubrir normalmente:",
         items: [
           "que se utiliza un chatbot en el sitio o en el área de cliente;",
           "qué datos pueden recogerse en el chat o en formularios de leads;",
           "por qué se recogen esos datos y cómo se usan;",
-          "quién recibe acceso a los datos, incluido MoAssist;",
+          "quién recibe acceso a los datos, incluido MoMicro;",
           "si el chat puede vincularse a un usuario autenticado o a una cuenta de cliente;",
           "si se utilizan cookies o tecnologías similares y si se requiere consentimiento.",
         ],
@@ -440,10 +440,10 @@ const privacyContent = {
 const imprintContent = {
   en: {
     seo: {
-      title: "MoAssist Imprint",
+      title: "MoMicro Imprint",
       description:
-        "Company and contact information for MoMicro, the organization behind MoAssist.",
-      imageAlt: "MoAssist imprint",
+        "Company and contact information for MoMicro, the AI Agent for e-commerce.",
+      imageAlt: "MoMicro imprint",
     },
     backLabel: "Back to home",
     title: "Imprint",
@@ -456,10 +456,10 @@ const imprintContent = {
   },
   de: {
     seo: {
-      title: "MoAssist Impressum",
+      title: "MoMicro Impressum",
       description:
-        "Unternehmens- und Kontaktdaten von MoMicro, der Organisation hinter MoAssist.",
-      imageAlt: "MoAssist Impressum",
+        "Unternehmens- und Kontaktdaten von MoMicro, der Organisation hinter MoMicro.",
+      imageAlt: "MoMicro Impressum",
     },
     backLabel: "Zur Startseite",
     title: "Impressum",
@@ -472,10 +472,10 @@ const imprintContent = {
   },
   es: {
     seo: {
-      title: "Aviso legal de MoAssist",
+      title: "Aviso legal de MoMicro",
       description:
-        "Información de empresa y contacto de MoMicro, la organización detrás de MoAssist.",
-      imageAlt: "Aviso legal de MoAssist",
+        "Información de empresa y contacto de MoMicro, la organización detrás de MoMicro.",
+      imageAlt: "Aviso legal de MoMicro",
     },
     backLabel: "Volver al inicio",
     title: "Aviso legal",
@@ -491,10 +491,10 @@ const imprintContent = {
 const termsContent = {
   en: {
     seo: {
-      title: "MoAssist Terms & Conditions",
+      title: "MoMicro Terms & Conditions",
       description:
-        "Read the MoAssist terms covering services, accounts, billing, acceptable use, availability, and liability.",
-      imageAlt: "MoAssist terms and conditions",
+        "Read the MoMicro terms covering services, accounts, billing, acceptable use, availability, and liability.",
+      imageAlt: "MoMicro terms and conditions",
     },
     backLabel: "Back to home",
     title: "Terms & Conditions",
@@ -502,7 +502,7 @@ const termsContent = {
       {
         title: "1. Services",
         body:
-          "MoAssist provides chatbot creation, deployment, and conversation management tools for business use.",
+          "MoMicro provides chatbot creation, deployment, and conversation management tools for business use.",
       },
       {
         title: "2. Accounts",
@@ -540,12 +540,12 @@ const termsContent = {
           {
             subtitle: "8.1 Roles",
             body:
-              "To the extent that MoAssist processes personal data on behalf of the customer: The customer acts as Data Controller, MoMicro (MoAssist) acts as Data Processor within the meaning of Art. 28 GDPR",
+              "To the extent that MoMicro processes personal data on behalf of the customer: The customer acts as Data Controller, MoMicro (MoMicro) acts as Data Processor within the meaning of Art. 28 GDPR",
           },
           {
             subtitle: "8.2 Subject Matter and Duration",
             body:
-              "Processing is carried out for the purpose of providing the MoAssist services for the duration of the agreement.",
+              "Processing is carried out for the purpose of providing the MoMicro services for the duration of the agreement.",
           },
           {
             subtitle: "8.3 Nature and Purpose of Processing",
@@ -598,10 +598,10 @@ const termsContent = {
   },
   de: {
     seo: {
-      title: "MoAssist AGB",
+      title: "MoMicro AGB",
       description:
-        "Lesen Sie die MoAssist Bedingungen zu Services, Konten, Abrechnung, zulässiger Nutzung, Verfügbarkeit und Haftung.",
-      imageAlt: "MoAssist AGB",
+        "Lesen Sie die MoMicro Bedingungen zu Services, Konten, Abrechnung, zulässiger Nutzung, Verfügbarkeit und Haftung.",
+      imageAlt: "MoMicro AGB",
     },
     backLabel: "Zur Startseite",
     title: "AGB",
@@ -609,7 +609,7 @@ const termsContent = {
       {
         title: "1. Leistungen",
         body:
-          "MoAssist stellt Tools zur Erstellung, Bereitstellung und Verwaltung von Chatbot-Gesprächen für geschäftliche Nutzung bereit.",
+          "MoMicro stellt Tools zur Erstellung, Bereitstellung und Verwaltung von Chatbot-Gesprächen für geschäftliche Nutzung bereit.",
       },
       {
         title: "2. Konten",
@@ -645,10 +645,10 @@ const termsContent = {
   },
   es: {
     seo: {
-      title: "Términos y condiciones de MoAssist",
+      title: "Términos y condiciones de MoMicro",
       description:
-        "Lee los términos de MoAssist sobre servicios, cuentas, facturación, uso aceptable, disponibilidad y responsabilidad.",
-      imageAlt: "Términos y condiciones de MoAssist",
+        "Lee los términos de MoMicro sobre servicios, cuentas, facturación, uso aceptable, disponibilidad y responsabilidad.",
+      imageAlt: "Términos y condiciones de MoMicro",
     },
     backLabel: "Volver al inicio",
     title: "Términos y condiciones",
@@ -656,7 +656,7 @@ const termsContent = {
       {
         title: "1. Servicios",
         body:
-          "MoAssist ofrece herramientas de creación, despliegue y gestión de conversaciones de chatbot para uso empresarial.",
+          "MoMicro ofrece herramientas de creación, despliegue y gestión de conversaciones de chatbot para uso empresarial.",
       },
       {
         title: "2. Cuentas",

@@ -1,18 +1,18 @@
-# MoAssist
+# MoMicro
 
-> MoAssist is an AI chatbot for ecommerce and Shopify stores. It automates
+> MoMicro is an AI chatbot for ecommerce and Shopify stores. It automates
 > customer support, answers shipping/return/order questions instantly, captures
 > leads, supports signed-in customers, and lets teams manage AI and human
 > replies from one dashboard. Built by MoMicro. Free to get started.
 
 ## Core pages
-- [Home](https://momicro.com/): What MoAssist does, key benefits, and how it works
+- [Home](https://momicro.com/): What MoMicro does, key benefits, and how it works
 - [Pricing](https://momicro.com/pricing): Plans and pricing
-- [About MoMicro](https://momicro.com/momicro): The company behind MoAssist
+- [About MoMicro](https://momicro.com/momicro): The company behind MoMicro
 - [Contact](https://momicro.com/contacts): How to reach the team
 
 ## Key facts
-- Product: MoAssist (AI chatbot for ecommerce / Shopify)
+- Product: MoMicro (AI chatbot for ecommerce / Shopify)
 - Company: MoMicro
 - Automates up to 80% of customer questions; can cut support costs by up to 70%
 - Setup in under 5 minutes

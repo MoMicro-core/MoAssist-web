@@ -30,7 +30,7 @@
   <rect x="0" y="0" width="1600" height="64" fill="#ffffff"/>
   <rect x="0" y="63" width="1600" height="1" fill="#e3ebf2"/>
   <rect x="24" y="18" width="28" height="28" rx="8" fill="url(#accent)"/>
-  <text x="62" y="38" font-size="18" font-weight="700" fill="#0b1d2d">MoAssist</text>
+  <text x="62" y="38" font-size="18" font-weight="700" fill="#0b1d2d">MoMicro</text>
   <rect x="240" y="16" width="420" height="32" rx="16" fill="#f0f5f9"/>
   <circle cx="260" cy="32" r="6" fill="none" stroke="#95a7b5" stroke-width="1.6"/>
   <line x1="265" y1="37" x2="271" y2="43" stroke="#95a7b5" stroke-width="1.6" stroke-linecap="round"/>

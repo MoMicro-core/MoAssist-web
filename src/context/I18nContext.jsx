@@ -16,7 +16,7 @@ const LANG_KEY = "moassist-language";
 
 const dictionary = {
   en: {
-    appName: "MoAssist",
+    appName: "MoMicro",
     dashboard: "Dashboard",
     chatbots: "Chatbots",
     profile: "Profile",
@@ -42,7 +42,7 @@ const dictionary = {
     contactsNav: "Contacts",
     brandRelationshipShort: "Product by MoMicro",
     brandRelationshipLabel:
-      "MoAssist is the chatbot product. MoMicro is the organization behind it.",
+      "MoMicro — the AI Agent for e-commerce: live data, any API, and email.",
     continueWithGoogle: "Continue with Google",
     continueWithApple: "Continue with Apple",
     orUseEmail: "Or continue with email",
@@ -54,7 +54,7 @@ const dictionary = {
     switchToSignIn: "Use existing account",
     loginTitle: "Manage chatbots, conversations, and knowledge in one place.",
     loginBody:
-      "Sign in with Firebase and sync your dashboard with MoAssist server sessions.",
+      "Sign in with Firebase and sync your dashboard with MoMicro server sessions.",
     featureA:
       "Track chatbots, publish widgets, and respond to conversations from a single hub.",
     featureB:
@@ -142,7 +142,7 @@ const dictionary = {
     replaceLogoAction: "Replace logo",
     uploadingLogo: "Uploading logo",
     logoUploadHelp:
-      "Upload a PNG, JPG, WEBP, or SVG logo up to 10 MB. The file is stored for this chatbot and MoAssist manages the saved logo link.",
+      "Upload a PNG, JPG, WEBP, or SVG logo up to 10 MB. The file is stored for this chatbot and MoMicro manages the saved logo link.",
     logoBackgroundColorLabel: "Logo border",
     customBranding: "Custom branding",
     customBrandingUpgradeHint:
@@ -264,7 +264,7 @@ const dictionary = {
     pluginAuthBody:
       "Copy the website session snippet so the chatbot can recognize signed-in customers before the widget loads.",
     dashboardScriptBody:
-      "Copy the admin panel script to embed the live conversation inbox inside your own back office. Replace the placeholder session token with a valid signed-in MoAssist session.",
+      "Copy the admin panel script to embed the live conversation inbox inside your own back office. Replace the placeholder session token with a valid signed-in MoMicro session.",
     dashboardIframeBody:
       "Copy the admin panel iframe code if you want to place the conversation inbox inside a fixed area of your own admin interface.",
     dashboardInstallLockedTitle: "Admin panel install",
@@ -272,7 +272,7 @@ const dictionary = {
       "This install option is available on the Connected and Full AI plans.",
   },
   de: {
-    appName: "MoAssist",
+    appName: "MoMicro",
     dashboard: "Übersicht",
     chatbots: "Chatbots",
     profile: "Profil",
@@ -298,7 +298,7 @@ const dictionary = {
     contactsNav: "Kontakt",
     brandRelationshipShort: "Produkt von MoMicro",
     brandRelationshipLabel:
-      "MoAssist ist das Chatbot-Produkt. MoMicro ist die Organisation dahinter.",
+      "MoMicro — der KI-Agent für E-Commerce: Live-Daten, jede API und E-Mail.",
     continueWithGoogle: "Mit Google fortfahren",
     continueWithApple: "Mit Apple fortfahren",
     orUseEmail: "Oder mit E-Mail fortfahren",
@@ -310,7 +310,7 @@ const dictionary = {
     switchToSignIn: "Vorhandenes Konto verwenden",
     loginTitle: "Verwalte Chatbots, Gespräche und Wissen an einem Ort.",
     loginBody:
-      "Melde dich mit Firebase an und synchronisiere dein Dashboard mit MoAssist.",
+      "Melde dich mit Firebase an und synchronisiere dein Dashboard mit MoMicro.",
     featureA:
       "Chatbots verfolgen, Widgets veröffentlichen und Gespräche an einem Ort beantworten.",
     featureB: "Wissensdateien hochladen und Analysen ohne Wechsel anzeigen.",
@@ -396,7 +396,7 @@ const dictionary = {
     replaceLogoAction: "Logo ersetzen",
     uploadingLogo: "Logo wird hochgeladen",
     logoUploadHelp:
-      "Lade ein PNG-, JPG-, WEBP- oder SVG-Logo bis 10 MB hoch. Die Datei wird fuer diesen Chatbot gespeichert und MoAssist verwaltet den gespeicherten Logo-Link.",
+      "Lade ein PNG-, JPG-, WEBP- oder SVG-Logo bis 10 MB hoch. Die Datei wird fuer diesen Chatbot gespeichert und MoMicro verwaltet den gespeicherten Logo-Link.",
     logoBackgroundColorLabel: "Logo-Rahmen",
     customBranding: "Eigenes Branding",
     customBrandingUpgradeHint:
@@ -495,7 +495,7 @@ const dictionary = {
     pluginAuthBody:
       "Kopiere das Session-Snippet deiner Website, damit der Chatbot angemeldete Kunden erkennt, bevor das Widget geladen wird.",
     dashboardScriptBody:
-      "Kopiere das Adminbereich-Script, um den Live-Konversationsbereich in dein eigenes Backoffice einzubetten. Ersetze den Platzhalter fuer das Session-Token mit einer gueltigen angemeldeten MoAssist-Session.",
+      "Kopiere das Adminbereich-Script, um den Live-Konversationsbereich in dein eigenes Backoffice einzubetten. Ersetze den Platzhalter fuer das Session-Token mit einer gueltigen angemeldeten MoMicro-Session.",
     dashboardIframeBody:
       "Kopiere den Adminbereich-Iframe-Code, wenn du den Konversationsbereich in einem festen Bereich deiner eigenen Adminoberflaeche anzeigen willst.",
     dashboardInstallLockedTitle: "Adminbereich Installation",
@@ -503,7 +503,7 @@ const dictionary = {
       "Diese Installationsoption ist nur im Connected- oder Full-AI-Plan verfuegbar.",
   },
   es: {
-    appName: "MoAssist",
+    appName: "MoMicro",
     dashboard: "Panel",
     chatbots: "Chatbots",
     profile: "Perfil",
@@ -530,7 +530,7 @@ const dictionary = {
     contactsNav: "Contactos",
     brandRelationshipShort: "Producto de MoMicro",
     brandRelationshipLabel:
-      "MoAssist es el producto de chatbot. MoMicro es la organización que lo crea.",
+      "MoMicro — el Agente IA para e-commerce: datos en vivo, cualquier API y correo.",
     continueWithGoogle: "Continuar con Google",
     continueWithApple: "Continuar con Apple",
     orUseEmail: "O continuar con correo",
@@ -542,7 +542,7 @@ const dictionary = {
     switchToSignIn: "Usar cuenta existente",
     loginTitle:
       "Gestiona chatbots, conversaciones y conocimiento en un solo lugar.",
-    loginBody: "Inicia sesión con Firebase y sincroniza el panel con MoAssist.",
+    loginBody: "Inicia sesión con Firebase y sincroniza el panel con MoMicro.",
     featureA:
       "Gestiona chatbots, publica widgets y responde conversaciones en un solo panel.",
     featureB: "Sube archivos de conocimiento y analiza métricas sin salir.",
@@ -628,7 +628,7 @@ const dictionary = {
     replaceLogoAction: "Reemplazar logo",
     uploadingLogo: "Subiendo logo",
     logoUploadHelp:
-      "Sube un logo PNG, JPG, WEBP o SVG de hasta 10 MB. El archivo se guarda para este chatbot y MoAssist gestiona el enlace guardado del logo.",
+      "Sube un logo PNG, JPG, WEBP o SVG de hasta 10 MB. El archivo se guarda para este chatbot y MoMicro gestiona el enlace guardado del logo.",
     logoBackgroundColorLabel: "Borde del logo",
     customBranding: "Marca personalizada",
     customBrandingUpgradeHint:
@@ -726,7 +726,7 @@ const dictionary = {
     pluginAuthBody:
       "Copia el fragmento de sesion de tu sitio para que el chatbot reconozca a usuarios identificados antes de cargar el widget.",
     dashboardScriptBody:
-      "Copia el script del panel admin para insertar la bandeja de conversaciones en tu propio back office. Sustituye el token de ejemplo por una sesion valida iniciada en MoAssist.",
+      "Copia el script del panel admin para insertar la bandeja de conversaciones en tu propio back office. Sustituye el token de ejemplo por una sesion valida iniciada en MoMicro.",
     dashboardIframeBody:
       "Copia el iframe del panel admin si quieres colocar la bandeja de conversaciones en un area fija de tu propia interfaz administrativa.",
     dashboardInstallLockedTitle: "Instalacion en panel admin",
@@ -736,7 +736,7 @@ const dictionary = {
 };
 
 dictionary.fr = {
-  appName: "MoAssist",
+  appName: "MoMicro",
   dashboard: "Tableau de bord",
   chatbots: "Chatbots",
   profile: "Profil",
@@ -759,7 +759,7 @@ dictionary.fr = {
   pricingNav: "Tarifs",
   contactsNav: "Contacts",
   brandRelationshipShort: "Produit de MoMicro",
-  brandRelationshipLabel: "MoAssist est le produit chatbot. MoMicro est l'organisation derrière.",
+  brandRelationshipLabel: "MoMicro — l'Agent IA pour le e-commerce : données en direct, toute API et e-mail.",
   continueWithGoogle: "Continuer avec Google",
   continueWithApple: "Continuer avec Apple",
   orUseEmail: "Ou continuer avec l'email",
@@ -770,7 +770,7 @@ dictionary.fr = {
   switchToRegister: "Créer un compte à la place",
   switchToSignIn: "Utiliser un compte existant",
   loginTitle: "Gérez chatbots, conversations et connaissances en un seul endroit.",
-  loginBody: "Connectez-vous avec Firebase et synchronisez votre tableau de bord avec MoAssist.",
+  loginBody: "Connectez-vous avec Firebase et synchronisez votre tableau de bord avec MoMicro.",
   featureA: "Suivez les chatbots, publiez des widgets et répondez aux conversations depuis un seul hub.",
   featureB: "Téléchargez des fichiers de connaissances et suivez les analyses sans quitter le tableau de bord.",
   newChatbot: "Nouveau chatbot",
@@ -961,7 +961,7 @@ dictionary.fr = {
 };
 
 dictionary.it = {
-  appName: "MoAssist",
+  appName: "MoMicro",
   dashboard: "Dashboard",
   chatbots: "Chatbot",
   profile: "Profilo",
@@ -984,7 +984,7 @@ dictionary.it = {
   pricingNav: "Prezzi",
   contactsNav: "Contatti",
   brandRelationshipShort: "Prodotto di MoMicro",
-  brandRelationshipLabel: "MoAssist è il prodotto chatbot. MoMicro è l'organizzazione dietro.",
+  brandRelationshipLabel: "MoMicro — l'Agente IA per l'e-commerce: dati live, qualsiasi API ed e-mail.",
   continueWithGoogle: "Continua con Google",
   continueWithApple: "Continua con Apple",
   orUseEmail: "O continua con l'email",
@@ -995,7 +995,7 @@ dictionary.it = {
   switchToRegister: "Crea un account",
   switchToSignIn: "Usa un account esistente",
   loginTitle: "Gestisci chatbot, conversazioni e conoscenze in un unico posto.",
-  loginBody: "Accedi con Firebase e sincronizza il dashboard con MoAssist.",
+  loginBody: "Accedi con Firebase e sincronizza il dashboard con MoMicro.",
   featureA: "Monitora chatbot, pubblica widget e rispondi alle conversazioni da un unico hub.",
   featureB: "Carica file di conoscenza e monitora le analisi senza lasciare il dashboard.",
   newChatbot: "Nuovo chatbot",
@@ -1186,7 +1186,7 @@ dictionary.it = {
 };
 
 dictionary.ru = {
-  appName: "MoAssist",
+  appName: "MoMicro",
   dashboard: "Панель",
   chatbots: "Чатботы",
   profile: "Профиль",
@@ -1209,7 +1209,7 @@ dictionary.ru = {
   pricingNav: "Цены",
   contactsNav: "Контакты",
   brandRelationshipShort: "Продукт MoMicro",
-  brandRelationshipLabel: "MoAssist — продукт чатбот. MoMicro — организация за ним.",
+  brandRelationshipLabel: "MoMicro — ИИ-агент для e-commerce: живые данные, любой API и почта.",
   continueWithGoogle: "Продолжить с Google",
   continueWithApple: "Продолжить с Apple",
   orUseEmail: "Или продолжить с email",
@@ -1220,7 +1220,7 @@ dictionary.ru = {
   switchToRegister: "Создать аккаунт",
   switchToSignIn: "Использовать существующий аккаунт",
   loginTitle: "Управляйте чатботами, разговорами и знаниями в одном месте.",
-  loginBody: "Войдите через Firebase и синхронизируйте панель с MoAssist.",
+  loginBody: "Войдите через Firebase и синхронизируйте панель с MoMicro.",
   featureA: "Отслеживайте чатботы, публикуйте виджеты и отвечайте на разговоры из одного места.",
   featureB: "Загружайте файлы знаний и отслеживайте аналитику не выходя из панели.",
   newChatbot: "Новый чатбот",
@@ -1411,7 +1411,7 @@ dictionary.ru = {
 };
 
 dictionary.ua = {
-  appName: "MoAssist",
+  appName: "MoMicro",
   dashboard: "Панель",
   chatbots: "Чатботи",
   profile: "Профіль",
@@ -1434,7 +1434,7 @@ dictionary.ua = {
   pricingNav: "Ціни",
   contactsNav: "Контакти",
   brandRelationshipShort: "Продукт MoMicro",
-  brandRelationshipLabel: "MoAssist — продукт чатбот. MoMicro — організація за ним.",
+  brandRelationshipLabel: "MoMicro — ШІ-агент для e-commerce: живі дані, будь-який API та пошта.",
   continueWithGoogle: "Продовжити з Google",
   continueWithApple: "Продовжити з Apple",
   orUseEmail: "Або продовжити з email",
@@ -1445,7 +1445,7 @@ dictionary.ua = {
   switchToRegister: "Створити акаунт",
   switchToSignIn: "Використати існуючий акаунт",
   loginTitle: "Керуйте чатботами, розмовами та знаннями в одному місці.",
-  loginBody: "Увійдіть через Firebase та синхронізуйте панель з MoAssist.",
+  loginBody: "Увійдіть через Firebase та синхронізуйте панель з MoMicro.",
   featureA: "Відстежуйте чатботи, публікуйте віджети та відповідайте на розмови з одного місця.",
   featureB: "Завантажуйте файли знань та відстежуйте аналітику, не виходячи з панелі.",
   newChatbot: "Новий чатбот",

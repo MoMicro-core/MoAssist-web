@@ -79,7 +79,7 @@ export const ChatbotPreview = ({
     settings?.initialMessage || "Hi. How can I help you today?";
   const suggested = settings?.suggestedMessages || [];
   const userPrompt = suggested[0] || "How can I reset my password?";
-  const botName = settings?.botName || "MoAssist";
+  const botName = settings?.botName || "MoMicro";
   const logoUrl = settings?.brand?.logoUrl || "/preview/logo.svg";
   const logoBackgroundColor =
     settings?.brand?.logoBackgroundColor || palette.surfaceColor;
@@ -319,7 +319,7 @@ export const ChatbotPreview = ({
           className="mt-2 text-xs"
           style={{ color: palette.textColor, opacity: 0.6 }}
         >
-          Powered by MoAssist
+          Powered by MoMicro
         </Text>
       </div>
       {launcherPlacement.isTop ? null : launcherDock}

@@ -1,0 +1,54 @@
+/* MoMicro public marketing site — animations, scroll-reveal, hover helpers.
+   Scoped to the redesigned public pages (light mode only). */
+
+@keyframes mm-floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes mm-aurora { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(5%,4%) scale(1.12)} 100%{transform:translate(0,0) scale(1)} }
+@keyframes mm-livedot { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(92,215,211,.6)} 50%{opacity:.6;box-shadow:0 0 0 6px rgba(92,215,211,0)} }
+@keyframes mm-spinSlow { to{transform:rotate(360deg)} }
+@keyframes mm-dash { to{background-position:14px 0} }
+
+.mm-aurora { animation: mm-aurora 16s ease-in-out infinite; }
+.mm-aurora--rev { animation: mm-aurora 20s ease-in-out infinite reverse; }
+.mm-livedot { animation: mm-livedot 2s infinite; }
+.mm-spin { animation: mm-spinSlow 40s linear infinite; }
+.mm-dash { animation: mm-dash 1s linear infinite; }
+
+/* Scroll reveal */
+.mm-reveal { opacity: 0; transform: translateY(24px); transition: opacity .56s cubic-bezier(.16,1,.3,1), transform .56s cubic-bezier(.16,1,.3,1); }
+.mm-reveal.mm-in { opacity: 1; transform: none; }
+
+/* Hover helpers (inline styles can't express :hover) */
+.mm-lift { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, gap .18s ease; }
+.mm-lift:hover { transform: translateY(-2px); }
+.mm-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.mm-card:hover { transform: translateY(-3px); border-color: #bfe3ec; box-shadow: 0 24px 44px -30px rgba(11,51,68,.35); }
+.mm-navlink { transition: background .15s ease, color .15s ease; }
+.mm-navlink:hover { background: #eaf3f6; }
+.mm-flink { transition: color .15s ease; }
+.mm-flink:hover { color: #0a8ec9; }
+.mm-arrow:hover { gap: 11px; }
+
+/* Inline emphasis inside localized rich-text strings */
+.mm-richtext b { color: #0b3344; font-weight: 600; }
+.mm-richtext i { font-style: italic; }
+
+/* Responsive header: nav + actions on desktop, hamburger below 1120px */
+.mm-desktop-nav { display: flex; }
+.mm-desktop-actions { display: flex; }
+.mm-burger { display: none; }
+@media (max-width: 1119px) {
+  .mm-desktop-nav, .mm-desktop-actions { display: none !important; }
+  .mm-burger { display: flex !important; }
+}
+
+/* Docs page: sidebar on desktop, horizontal tab bar on mobile */
+.mm-docs-mobiletabs { display: none; }
+@media (max-width: 900px) {
+  .mm-docs-sidebar { display: none !important; }
+  .mm-docs-mobiletabs { display: flex !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mm-aurora, .mm-aurora--rev, .mm-livedot, .mm-spin, .mm-dash { animation: none !important; }
+  .mm-reveal { opacity: 1; transform: none; transition: none; }
+}

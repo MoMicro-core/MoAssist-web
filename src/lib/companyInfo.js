@@ -1,15 +1,15 @@
 export const COMPANY_INFO = {
   organizationName: "MoMicro",
-  productName: "MoAssist",
+  productName: "MoMicro",
   supportEmail: "support@momicro.com",
   infoEmail: "info@momicro.com",
   primaryPhone: "+491608417916",
   primaryPhoneDisplay: "+49 160 8417916",
   secondaryPhone: "+380661394645",
   secondaryPhoneDisplay: "+380 66 139 4645",
-  companyNote: "MoAssist is powered by MoMicro.",
+  companyNote: "MoMicro — the AI Agent for e-commerce.",
   // Official brand profiles — feeds schema `sameAs` so Google can connect the
-  // "MoAssist" / "MoMicro" search terms to this domain as one entity.
+  // "MoMicro" / "MoMicro" search terms to this domain as one entity.
   // Add real, verified URLs (LinkedIn, X, Instagram, Product Hunt, G2,
   // Crunchbase, …). Leave empty until each profile actually exists.
   socialProfiles: [],
@@ -25,7 +25,7 @@ export const buildOrganizationStructuredData = ({
   "@type": "Organization",
   name: COMPANY_INFO.organizationName,
   // Helps Google treat the company name and the product name as one entity,
-  // so searches for "MoAssist" resolve to this site.
+  // so searches for "MoMicro" resolve to this site.
   alternateName: COMPANY_INFO.productName,
   url: url || siteUrl || undefined,
   logo: siteUrl ? new URL("/preview/logo.svg", siteUrl).toString() : undefined,

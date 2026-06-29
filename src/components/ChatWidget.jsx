@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useI18n } from "../context/I18nContext";
 import { isPublicLandingPath, resolveLocale } from "../lib/siteLocales";
 
-// The MoAssist chat widget that greets visitors on the public marketing site.
+// The MoMicro chat widget that greets visitors on the public marketing site.
 // It is intentionally NOT shown inside the authenticated app (dashboard, chats,
 // settings, …) — only on public landing pages.
 const CHATBOT_ID = "f5a65979-17c3-4935-8b6d-1c6e794a8aed";

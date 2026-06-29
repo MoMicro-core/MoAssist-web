@@ -436,7 +436,7 @@ export const Chatbots = () => {
               >
                 <div>
                   <div className="text-sm font-medium text-zinc-900 dark:text-white">
-                    {bot.settings?.title || "MoAssist Bot"}
+                    {bot.settings?.title || "MoMicro Bot"}
                   </div>
                   <div className="text-xs text-zinc-500">
                     {new Date(bot.updatedAt).toLocaleDateString()}
@@ -516,7 +516,7 @@ export const Chatbots = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <Heading level={3} className="font-display text-lg">
-                      {chatbot.settings?.title || "MoAssist Bot"}
+                      {chatbot.settings?.title || "MoMicro Bot"}
                     </Heading>
                     <div className="flex items-center gap-2">
                       <button
@@ -554,7 +554,7 @@ export const Chatbots = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <Text className="text-sm text-zinc-600">
-                      {chatbot.settings?.botName || "MoAssist"}
+                      {chatbot.settings?.botName || "MoMicro"}
                     </Text>
                     <div className="flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500">
                       <ArrowsUpDownIcon className="size-3.5" />
@@ -691,7 +691,7 @@ export const Chatbots = () => {
                 <Input
                   value={title}
                   onChange={(event) => setTitle(event.target.value)}
-                  placeholder="MoAssist Bot"
+                  placeholder="MoMicro Bot"
                   autoFocus
                 />
               </Field>
