@@ -28,6 +28,7 @@ export const previewTargets = [
   { id: "assistantBubble", label: "Assistant bubble" },
   { id: "visitorBubble", label: "Visitor bubble" },
   { id: "suggested", label: "Suggested chips" },
+  { id: "leadForm", label: "Lead form" },
   { id: "composer", label: "Composer" },
   { id: "launcher", label: "Launcher" },
   { id: "canvas", label: "Canvas" },

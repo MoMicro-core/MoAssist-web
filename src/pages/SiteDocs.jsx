@@ -83,9 +83,9 @@ const ConnectTab = ({ d, snip }) => (
     <H3>{d.scriptTitle}</H3>
     <P>{d.scriptBody}</P>
     <CodeBlock code={snip.script} copyLabel={d.copy} copiedLabel={d.copied} />
-    <H3>{d.iframeTitle}</H3>
-    <P>{d.iframeBody}</P>
-    <CodeBlock code={snip.iframe} copyLabel={d.copy} copiedLabel={d.copied} />
+    <H3>{d.mobileTitle}</H3>
+    <P>{d.mobileBody}</P>
+    <CodeBlock code={snip.mobile} copyLabel={d.copy} copiedLabel={d.copied} />
     <H3>{d.langTitle}</H3>
     <P>{d.langBody}</P>
     <div style={{ fontFamily: MONO, fontSize: 12.5, color: "#0a7bb5", background: "#eaf7fa", border: "1px solid #bfe3ec", borderRadius: 8, padding: "10px 13px", marginTop: 12, overflowX: "auto" }}>{d.langExamples}</div>
@@ -131,9 +131,8 @@ const DashboardTab = ({ d, snip }) => (
     <H3>{d.scriptTitle}</H3>
     <P>{d.scriptBody}</P>
     <CodeBlock code={snip.dashboardScript} copyLabel={d.copy} copiedLabel={d.copied} />
-    <H3>{d.iframeTitle}</H3>
-    <P>{d.iframeBody}</P>
-    <CodeBlock code={snip.dashboardIframe} copyLabel={d.copy} copiedLabel={d.copied} />
+    <H3>{d.loginTitle}</H3>
+    <P>{d.loginBody}</P>
     <Callout body={d.note} />
   </div>
 );

@@ -134,6 +134,13 @@ export const api = {
     remove: (chatbotId) =>
       apiRequest(`/v1/chatbots/${chatbotId}`, { method: "DELETE" }),
     install: (chatbotId) => apiRequest(`/v1/chatbots/${chatbotId}/install`),
+    externalDashboard: (chatbotId) =>
+      apiRequest(`/v1/chatbots/${chatbotId}/external-dashboard`),
+    setExternalDashboard: (chatbotId, payload) =>
+      apiRequest(`/v1/chatbots/${chatbotId}/external-dashboard`, {
+        method: "PUT",
+        body: payload,
+      }),
     preview: (chatbotId, settings, mode = "light", selectedPart = "launcher") =>
       apiRequest(`/v1/chatbots/${chatbotId}/preview/widget`, {
         method: "POST",

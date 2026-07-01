@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
+import { useAutosave } from "../lib/useAutosave";
 import { useChatbot } from "../context/ChatbotContext";
 import { Button } from "../ui/button";
+import { Dialog, DialogActions, DialogBody, DialogTitle } from "../ui/dialog";
 import { Field, FieldGroup, Label } from "../ui/fieldset";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
 import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
@@ -19,6 +22,7 @@ import {
   previewTargets,
   themeFallbacks,
 } from "../components/chatbot-settings/shared";
+import { SaveStatus } from "../components/chatbot-settings/SaveStatus";
 
 const widgetLocationOptions = [
   { value: "right" },
@@ -27,9 +31,48 @@ const widgetLocationOptions = [
   { value: "top-right" },
 ];
 
+// Mirrors createDefaultChatbotSettings() in MoAssist-server/src/modules/chatbots/domain/default-settings.js,
+// scoped to only the fields this page (and its Reset button) can edit.
+const DEFAULT_APPEARANCE = {
+  widgetLocation: "right",
+  rounded: true,
+  cornerRadius: 24,
+  brand: {
+    logoBackgroundColor: "",
+  },
+  theme: {
+    light: {
+      accentColor: "#099ad9",
+      backgroundColor: "#fcfff8",
+      surfaceColor: "#ffffff",
+      launcherBackgroundColor: "#099ad9",
+      inputBackgroundColor: "#ffffff",
+      textColor: "#173a55",
+      accentTextColor: "#fcfff8",
+      borderColor: "#beebf0",
+      suggestionBackgroundColor: "",
+      suggestionTextColor: "",
+      suggestionBorderColor: "",
+    },
+    dark: {
+      accentColor: "#5cd7d3",
+      backgroundColor: "#0b1c2a",
+      surfaceColor: "#102536",
+      launcherBackgroundColor: "#5cd7d3",
+      inputBackgroundColor: "#102536",
+      textColor: "#ecfdff",
+      accentTextColor: "#0b1c2a",
+      borderColor: "#214d6f",
+      suggestionBackgroundColor: "",
+      suggestionTextColor: "",
+      suggestionBorderColor: "",
+    },
+  },
+};
+
 export const ChatbotAppearance = () => {
   const { chatbotId } = useParams();
-  const { chatbot, loading, reload } = useChatbot();
+  const { chatbot, loading, applyChatbot } = useChatbot();
   const { t, language } = useI18n();
   const copy =
     {
@@ -48,8 +91,28 @@ export const ChatbotAppearance = () => {
         bubbleBorder: "Blasenrand",
         accent: "Akzent",
         accentText: "Akzenttext",
-        chipSurface: "Chip-Fläche",
+        chipSurface: "Chip-Hintergrund",
+        chipText: "Chip-Text",
         chipBorder: "Chip-Rand",
+        chipHint:
+          "Diese Farben gelten nur für die Vorschlags-Chips. Leer lassen, um dem Theme zu folgen.",
+        leadTitleLabel: "Formulartitel",
+        leadDescLabel: "Beschreibung",
+        leadSubmitLabel: "Senden-Button",
+        leadSkipLabel: "Überspringen-Button",
+        leadHint:
+          "Das Lead-Formular nutzt Ihre Theme-Farben. Die erfassten Felder verwalten Sie im Einstellungen-Tab.",
+        leadFieldLabelsTitle: "Feldbeschriftungen",
+        leadInputBg: "Eingabefeld-Hintergrund",
+        resetButton: "Auf Standard zurücksetzen",
+        resetDialogTitle: "UI-Anpassung zurücksetzen?",
+        resetDialogBody:
+          "Dies setzt Farben, Widget-Position, Eckenradius und Logo-Hintergrund auf die Standardwerte zurück. Ihr Logo, das Launcher-Icon und die Lead-Formular-Texte bleiben unverändert.",
+        resetConfirm: "Zurücksetzen",
+        savingLabel: "Wird gespeichert…",
+        savedLabel: "Alle Änderungen gespeichert",
+        saveErrorLabel: "Speichern fehlgeschlagen",
+        retryLabel: "Erneut",
         composerBorder: "Composer-Rand",
         composerInput: "Eingabe-Hintergrund",
         sendAccent: "Sende-Akzent",
@@ -93,6 +156,7 @@ export const ChatbotAppearance = () => {
           assistantBubble: "Assistentenblase",
           visitorBubble: "Besucherblase",
           suggested: "Vorschlags-Chips",
+          leadForm: "Lead-Formular",
           composer: "Composer",
           launcher: "Launcher",
           canvas: "Canvas",
@@ -113,8 +177,28 @@ export const ChatbotAppearance = () => {
         bubbleBorder: "Borde del globo",
         accent: "Acento",
         accentText: "Texto de acento",
-        chipSurface: "Superficie del chip",
+        chipSurface: "Fondo del chip",
+        chipText: "Texto del chip",
         chipBorder: "Borde del chip",
+        chipHint:
+          "Estos colores solo se aplican a los chips de mensajes sugeridos. Déjalo vacío para seguir el tema.",
+        leadTitleLabel: "Título del formulario",
+        leadDescLabel: "Descripción",
+        leadSubmitLabel: "Botón de enviar",
+        leadSkipLabel: "Botón de omitir",
+        leadHint:
+          "El formulario de leads usa los colores de tu tema. Gestiona qué campos se recopilan en la pestaña de Ajustes.",
+        leadFieldLabelsTitle: "Etiquetas de los campos",
+        leadInputBg: "Fondo del campo de entrada",
+        resetButton: "Restablecer valores predeterminados",
+        resetDialogTitle: "¿Restablecer la personalización de la UI?",
+        resetDialogBody:
+          "Esto restablece los colores, la posición del widget, el radio de esquina y el fondo del logo a los valores predeterminados. Tu logo, el icono del launcher y los textos del formulario de leads no cambian.",
+        resetConfirm: "Restablecer",
+        savingLabel: "Guardando…",
+        savedLabel: "Todos los cambios guardados",
+        saveErrorLabel: "No se pudo guardar",
+        retryLabel: "Reintentar",
         composerBorder: "Borde del composer",
         composerInput: "Fondo del campo",
         sendAccent: "Acento de enviar",
@@ -158,6 +242,7 @@ export const ChatbotAppearance = () => {
           assistantBubble: "Globo del asistente",
           visitorBubble: "Globo del visitante",
           suggested: "Chips sugeridos",
+          leadForm: "Formulario de leads",
           composer: "Composer",
           launcher: "Launcher",
           canvas: "Canvas",
@@ -178,8 +263,28 @@ export const ChatbotAppearance = () => {
       bubbleBorder: "Bubble border",
       accent: "Accent",
       accentText: "Accent text",
-      chipSurface: "Chip surface",
+      chipSurface: "Chip background",
+      chipText: "Chip text",
       chipBorder: "Chip border",
+      chipHint:
+        "These colors apply only to the suggested-message chips. Leave blank to follow the theme.",
+      leadTitleLabel: "Form title",
+      leadDescLabel: "Description",
+      leadSubmitLabel: "Submit button",
+      leadSkipLabel: "Skip button",
+      leadHint:
+        "The lead form uses your theme colors. Manage which fields are collected in the Settings tab.",
+      leadFieldLabelsTitle: "Field labels",
+      leadInputBg: "Input field background",
+      resetButton: "Reset to defaults",
+      resetDialogTitle: "Reset UI customization?",
+      resetDialogBody:
+        "This resets colors, widget position, corner radius, and logo background back to the defaults. Your logo image, launcher icon, and lead form text stay unchanged.",
+      resetConfirm: "Reset",
+      savingLabel: "Saving…",
+      savedLabel: "All changes saved",
+      saveErrorLabel: "Couldn't save",
+      retryLabel: "Retry",
       composerBorder: "Composer border",
       composerInput: "Input background",
       sendAccent: "Send accent",
@@ -222,6 +327,7 @@ export const ChatbotAppearance = () => {
         assistantBubble: "Assistant bubble",
         visitorBubble: "Visitor bubble",
         suggested: "Suggested chips",
+        leadForm: "Lead form",
         composer: "Composer",
         launcher: "Launcher",
         canvas: "Canvas",
@@ -242,7 +348,6 @@ export const ChatbotAppearance = () => {
   const previewFrameRef = useRef(null);
   const previewRequestRef = useRef(0);
   const [draft, setDraft] = useState(null);
-  const [saving, setSaving] = useState(false);
   const [logoUploading, setLogoUploading] = useState(false);
   const [error, setError] = useState("");
   const [previewHtml, setPreviewHtml] = useState("");
@@ -250,6 +355,7 @@ export const ChatbotAppearance = () => {
   const [previewError, setPreviewError] = useState("");
   const [previewMode, setPreviewMode] = useState("light");
   const [selectedPreviewPart, setSelectedPreviewPart] = useState("launcher");
+  const [resetConfirmOpen, setResetConfirmOpen] = useState(false);
 
   const postPreviewHighlight = (part = selectedPreviewPart) => {
     const target = previewFrameRef.current?.contentWindow;
@@ -265,8 +371,11 @@ export const ChatbotAppearance = () => {
     );
   };
 
+  // Seed once per chatbot so autosave's cache refresh never resets the draft.
+  const seededIdRef = useRef(null);
   useEffect(() => {
-    if (chatbot?.settings) {
+    if (chatbot?.settings && seededIdRef.current !== chatbot.id) {
+      seededIdRef.current = chatbot.id;
       setDraft(chatbot.settings);
     }
   }, [chatbot]);
@@ -390,6 +499,10 @@ export const ChatbotAppearance = () => {
     setDraft((prev) => ({ ...prev, widgetLocation: value }));
   };
 
+  const updateField = (field) => (event) => {
+    setDraft((prev) => ({ ...prev, [field]: event.target.value }));
+  };
+
   const setThemeValue = (mode, field, value) => {
     setDraft((prev) => ({
       ...prev,
@@ -416,18 +529,45 @@ export const ChatbotAppearance = () => {
     setCornerRadius(event.target.value);
   };
 
-  const handleSave = async () => {
-    setSaving(true);
-    setError("");
-    try {
-      await api.chatbots.update(chatbotId, draft);
-      await reload();
-    } catch (err) {
-      setError(err?.message || copy.unableSave);
-    } finally {
-      setSaving(false);
-    }
+  const updateLeadFieldLabel = (index) => (event) => {
+    const value = event.target.value;
+    setDraft((prev) => {
+      const next = [...(prev.leadsForm || [])];
+      next[index] = { ...next[index], label: value };
+      return { ...prev, leadsForm: next };
+    });
   };
+
+  const resetToDefaults = () => {
+    setDraft((prev) => ({
+      ...prev,
+      widgetLocation: DEFAULT_APPEARANCE.widgetLocation,
+      rounded: DEFAULT_APPEARANCE.rounded,
+      cornerRadius: DEFAULT_APPEARANCE.cornerRadius,
+      brand: {
+        ...(prev.brand || {}),
+        logoBackgroundColor: DEFAULT_APPEARANCE.brand.logoBackgroundColor,
+      },
+      theme: {
+        light: { ...DEFAULT_APPEARANCE.theme.light },
+        dark: { ...DEFAULT_APPEARANCE.theme.dark },
+      },
+    }));
+    setResetConfirmOpen(false);
+  };
+
+  const saveDraft = useCallback(
+    async (current) => {
+      const updated = await api.chatbots.update(chatbotId, current);
+      if (updated?.id) applyChatbot(updated);
+    },
+    [chatbotId, applyChatbot],
+  );
+
+  const autosave = useAutosave(draft, {
+    save: saveDraft,
+    enabled: Boolean(draft),
+  });
 
   const handleLogoUpload = async (event) => {
     const [file] = Array.from(event.target.files || []);
@@ -436,10 +576,16 @@ export const ChatbotAppearance = () => {
     setError("");
     try {
       const updatedChatbot = await api.chatbots.uploadLogo(chatbotId, file);
-      if (updatedChatbot?.settings) {
-        setDraft(updatedChatbot.settings);
+      // Merge only the new logo into the live draft (don't clobber unsaved edits)
+      // and refresh the shared cache.
+      const nextLogo = updatedChatbot?.settings?.brand?.logoUrl;
+      if (nextLogo !== undefined) {
+        setDraft((prev) => ({
+          ...prev,
+          brand: { ...(prev?.brand || {}), logoUrl: nextLogo },
+        }));
       }
-      await reload();
+      if (updatedChatbot?.id) applyChatbot(updatedChatbot);
     } catch (err) {
       setError(err?.message || copy.unableUpload);
     } finally {
@@ -546,22 +692,99 @@ export const ChatbotAppearance = () => {
           <FieldGroup>
             <ColorField
               label={copy.chipSurface}
-              value={draft.theme?.[previewMode]?.surfaceColor || ""}
-              onTextChange={updateTheme(previewMode, "surfaceColor")}
+              value={draft.theme?.[previewMode]?.suggestionBackgroundColor || ""}
+              onTextChange={updateTheme(previewMode, "suggestionBackgroundColor")}
               onColorChange={(value) =>
-                setThemeValue(previewMode, "surfaceColor", value)
+                setThemeValue(previewMode, "suggestionBackgroundColor", value)
               }
-              fallback={paletteFallback.surfaceColor}
+              fallback={
+                draft.theme?.[previewMode]?.surfaceColor ||
+                paletteFallback.surfaceColor
+              }
+            />
+            <ColorField
+              label={copy.chipText}
+              value={draft.theme?.[previewMode]?.suggestionTextColor || ""}
+              onTextChange={updateTheme(previewMode, "suggestionTextColor")}
+              onColorChange={(value) =>
+                setThemeValue(previewMode, "suggestionTextColor", value)
+              }
+              fallback={
+                draft.theme?.[previewMode]?.textColor ||
+                paletteFallback.textColor
+              }
             />
             <ColorField
               label={copy.chipBorder}
-              value={draft.theme?.[previewMode]?.borderColor || ""}
-              onTextChange={updateTheme(previewMode, "borderColor")}
+              value={draft.theme?.[previewMode]?.suggestionBorderColor || ""}
+              onTextChange={updateTheme(previewMode, "suggestionBorderColor")}
               onColorChange={(value) =>
-                setThemeValue(previewMode, "borderColor", value)
+                setThemeValue(previewMode, "suggestionBorderColor", value)
               }
-              fallback={paletteFallback.borderColor}
+              fallback={
+                draft.theme?.[previewMode]?.borderColor ||
+                paletteFallback.borderColor
+              }
             />
+            <PreviewHint>{copy.chipHint}</PreviewHint>
+          </FieldGroup>
+        );
+      case "leadForm":
+        return (
+          <FieldGroup>
+            <Field>
+              <Label>{copy.leadTitleLabel}</Label>
+              <Input
+                value={draft.leadsFormTitle || ""}
+                onChange={updateField("leadsFormTitle")}
+              />
+            </Field>
+            <Field>
+              <Label>{copy.leadDescLabel}</Label>
+              <Textarea
+                rows={3}
+                value={draft.leadsFormDescription || ""}
+                onChange={updateField("leadsFormDescription")}
+              />
+            </Field>
+            <Field>
+              <Label>{copy.leadSubmitLabel}</Label>
+              <Input
+                value={draft.leadsFormSubmitLabel || ""}
+                onChange={updateField("leadsFormSubmitLabel")}
+              />
+            </Field>
+            <Field>
+              <Label>{copy.leadSkipLabel}</Label>
+              <Input
+                value={draft.leadsFormSkipLabel || ""}
+                onChange={updateField("leadsFormSkipLabel")}
+              />
+            </Field>
+            <ColorField
+              label={copy.leadInputBg}
+              value={draft.theme?.[previewMode]?.inputBackgroundColor || ""}
+              onTextChange={updateTheme(previewMode, "inputBackgroundColor")}
+              onColorChange={(value) =>
+                setThemeValue(previewMode, "inputBackgroundColor", value)
+              }
+              fallback={paletteFallback.surfaceColor}
+            />
+            {(draft.leadsForm || []).length ? (
+              <Field>
+                <Label>{copy.leadFieldLabelsTitle}</Label>
+                <div className="space-y-2">
+                  {(draft.leadsForm || []).map((field, index) => (
+                    <Input
+                      key={field.key || index}
+                      value={field.label || ""}
+                      onChange={updateLeadFieldLabel(index)}
+                    />
+                  ))}
+                </div>
+              </Field>
+            ) : null}
+            <PreviewHint>{copy.leadHint}</PreviewHint>
           </FieldGroup>
         );
       case "composer":
@@ -696,10 +919,44 @@ export const ChatbotAppearance = () => {
             {copy.uiBody}
           </Text>
         </div>
-        <Button color="sky" onClick={handleSave} disabled={saving}>
-          {saving ? t("saving") : t("saveChanges")}
-        </Button>
+        <div className="flex flex-wrap items-center gap-3">
+          <Button outline onClick={() => setResetConfirmOpen(true)}>
+            {copy.resetButton}
+          </Button>
+          <SaveStatus
+            status={autosave.status}
+            onRetry={autosave.retry}
+            labels={{
+              idle: copy.savedLabel,
+              saving: copy.savingLabel,
+              saved: copy.savedLabel,
+              error: copy.saveErrorLabel,
+              retry: copy.retryLabel,
+            }}
+          />
+        </div>
       </div>
+
+      <Dialog
+        open={resetConfirmOpen}
+        onClose={() => setResetConfirmOpen(false)}
+        size="md"
+      >
+        <DialogTitle>{copy.resetDialogTitle}</DialogTitle>
+        <DialogBody>
+          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+            {copy.resetDialogBody}
+          </Text>
+        </DialogBody>
+        <DialogActions>
+          <Button outline onClick={() => setResetConfirmOpen(false)}>
+            {t("cancel")}
+          </Button>
+          <Button color="red" onClick={resetToDefaults}>
+            {copy.resetConfirm}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {error ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">

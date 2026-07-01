@@ -25,6 +25,7 @@ const ChatbotShell = () => {
     { label: t('appearance'), path: 'appearance' },
     { label: t('billingTab'), path: 'billing' },
     { label: 'Plugins', path: 'plugin' },
+    { label: t('externalDashboardTab'), path: 'external-dashboard' },
   ]
 
   if (loading) return <Loading />

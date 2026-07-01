@@ -62,6 +62,110 @@ const InstallMethodCard = ({ title, body, previewCode, ctaLabel, onCopy }) => (
   </div>
 );
 
+const MobileInstallCard = ({
+  title,
+  body,
+  url,
+  urlLabel,
+  copyLabel,
+  onCopyUrl,
+  snippets,
+  onCopySnippet,
+}) => (
+  <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+    <div className="space-y-4">
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-2">
+          <Heading level={4} className="font-display text-base">
+            {title}
+          </Heading>
+          <Text className="text-sm text-zinc-600 dark:text-zinc-300">
+            {body}
+          </Text>
+        </div>
+        <Button
+          outline
+          onClick={onCopyUrl}
+          aria-label={copyLabel}
+          title={copyLabel}
+        >
+          <ClipboardDocumentIcon data-slot="icon" />
+          {copyLabel}
+        </Button>
+      </div>
+      <div className="space-y-2">
+        <Text className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+          {urlLabel}
+        </Text>
+        <pre className="overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs leading-6 text-zinc-700 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200">
+          {url}
+        </pre>
+      </div>
+      <div className="space-y-3">
+        {snippets.map((snippet) => (
+          <div key={snippet.label} className="space-y-2">
+            <div className="flex items-center justify-between gap-4">
+              <Text className="text-xs font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
+                {snippet.label}
+              </Text>
+              <Button
+                outline
+                onClick={() => onCopySnippet(snippet.code)}
+                aria-label={copyLabel}
+                title={copyLabel}
+              >
+                <ClipboardDocumentIcon data-slot="icon" />
+                {copyLabel}
+              </Button>
+            </div>
+            <pre className="overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs leading-6 text-zinc-700 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200">
+              {snippet.code}
+            </pre>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const buildMobileSnippets = (url) => {
+  if (!url) return [];
+  return [
+    {
+      label: "iOS — Swift (WKWebView)",
+      code: `let webView = WKWebView(frame: view.bounds)
+webView.isOpaque = false // transparent so the launcher floats
+webView.load(URLRequest(url: URL(string: "${url}")!))
+view.addSubview(webView)`,
+    },
+    {
+      label: "Android — Kotlin (WebView)",
+      code: `val webView = WebView(this)
+webView.settings.javaScriptEnabled = true
+webView.settings.domStorageEnabled = true
+webView.setBackgroundColor(Color.TRANSPARENT)
+webView.loadUrl("${url}")
+setContentView(webView)`,
+    },
+    {
+      label: "React Native (react-native-webview)",
+      code: `import { WebView } from 'react-native-webview';
+
+<WebView
+  source={{ uri: '${url}' }}
+  style={{ backgroundColor: 'transparent' }}
+/>;`,
+    },
+    {
+      label: "Flutter (webview_flutter)",
+      code: `final controller = WebViewController()
+  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  ..setBackgroundColor(Colors.transparent)
+  ..loadRequest(Uri.parse('${url}'));`,
+    },
+  ];
+};
+
 const LockedInstallCard = ({ title, body, ctaLabel, href }) => (
   <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-zinc-900">
     <div className="flex items-start justify-between gap-4">
@@ -108,15 +212,6 @@ export const ChatbotPlugin = () => {
     install?.dashboardInstallEnabled ??
     chatbot?.featureAccess?.authenticatedWidget ??
     false;
-  const authSnippet = chatbot?.settings?.auth
-    ? `<script>
-window.MOMICRO_ASSIST_CONFIG = {
-  ${JSON.stringify(chatbotId)}: {
-    authClient: window.websiteSession.userId
-  }
-}
-</script>`
-    : "";
 
   return (
     <div className="space-y-6">
@@ -128,15 +223,6 @@ window.MOMICRO_ASSIST_CONFIG = {
           {t("embedBody")}
         </Text>
       </div>
-      {chatbot?.settings?.auth ? (
-        <InstallMethodCard
-          title={t("authEnabledLabel")}
-          body={t("pluginAuthBody")}
-          ctaLabel={t("copyCode")}
-          previewCode={createCodePreview(authSnippet)}
-          onCopy={() => copy(authSnippet)}
-        />
-      ) : null}
       <div className="space-y-4">
         <InstallMethodCard
           title={t("scriptEmbed")}
@@ -145,12 +231,15 @@ window.MOMICRO_ASSIST_CONFIG = {
           previewCode={createCodePreview(install?.scriptSnippet)}
           onCopy={() => copy(install?.scriptSnippet)}
         />
-        <InstallMethodCard
-          title={t("iframeEmbed")}
-          body={t("pluginIframeBody")}
-          ctaLabel={t("copyCode")}
-          previewCode={createCodePreview(install?.iframeSnippet)}
-          onCopy={() => copy(install?.iframeSnippet)}
+        <MobileInstallCard
+          title={t("mobileEmbed")}
+          body={t("pluginMobileBody")}
+          url={install?.mobileUrl || ""}
+          urlLabel={t("mobileUrlLabel")}
+          copyLabel={t("copyCode")}
+          onCopyUrl={() => copy(install?.mobileUrl)}
+          snippets={buildMobileSnippets(install?.mobileUrl || "")}
+          onCopySnippet={(code) => copy(code)}
         />
         {dashboardInstallEnabled ? (
           <>
@@ -160,13 +249,6 @@ window.MOMICRO_ASSIST_CONFIG = {
               ctaLabel={t("copyCode")}
               previewCode={createCodePreview(install?.dashboardScriptSnippet)}
               onCopy={() => copy(install?.dashboardScriptSnippet)}
-            />
-            <InstallMethodCard
-              title={t("dashboardIframeEmbed")}
-              body={t("dashboardIframeBody")}
-              ctaLabel={t("copyCode")}
-              previewCode={createCodePreview(install?.dashboardIframeSnippet)}
-              onCopy={() => copy(install?.dashboardIframeSnippet)}
             />
           </>
         ) : (

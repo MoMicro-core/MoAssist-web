@@ -40,8 +40,20 @@ export const ChatbotProvider = ({ children }) => {
     if (chatbotId) subscribeChatbot(chatbotId)
   }, [chatbotId, subscribeChatbot])
 
+  // Refresh the cached chatbot from a server response (e.g. after an autosave)
+  // without a refetch, so sibling tabs stay current but an in-progress draft is
+  // never reset. Guards against a stale response for a different chatbot.
+  const applyChatbot = useCallback(
+    (next) => {
+      if (next?.id && next.id === chatbotId) setChatbot(next)
+    },
+    [chatbotId],
+  )
+
   return (
-    <ChatbotContext.Provider value={{ chatbot, loading, error, reload: loadChatbot }}>
+    <ChatbotContext.Provider
+      value={{ chatbot, loading, error, reload: loadChatbot, applyChatbot }}
+    >
       {children}
     </ChatbotContext.Provider>
   )

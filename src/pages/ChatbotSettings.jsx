@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
+import { useAutosave } from "../lib/useAutosave";
 import { useChatbot } from "../context/ChatbotContext";
 import { Button } from "../ui/button";
 import { Field, FieldGroup, Label } from "../ui/fieldset";
@@ -25,14 +26,19 @@ import {
   PreviewHint,
   SettingsCard,
 } from "../components/chatbot-settings/shared";
+import { TagInput } from "../components/chatbot-settings/TagInput";
+import { SaveStatus } from "../components/chatbot-settings/SaveStatus";
 
-const splitList = (value) =>
-  value
-    .split(/[\n,]/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-const listToText = (value) => (value || []).join("\n");
+// Stable client id for lead-form rows so editing a field never remounts its
+// inputs (using the editable value as a React key stole focus on each keystroke).
+let leadUidSeq = 0;
+const withLeadUids = (leadsForm = []) =>
+  (Array.isArray(leadsForm) ? leadsForm : []).map((field) => ({
+    ...field,
+    _uid: field._uid ?? `lead-${(leadUidSeq += 1)}`,
+  }));
+const stripLeadUids = (leadsForm = []) =>
+  (Array.isArray(leadsForm) ? leadsForm : []).map(({ _uid, ...field }) => field);
 
 const normalizeLanguageSelection = (defaultLanguage, languages = []) => {
   const next = [
@@ -68,16 +74,30 @@ const SimpleSwitchRow = ({
 
 export const ChatbotSettings = () => {
   const { chatbotId } = useParams();
-  const { chatbot, loading, reload } = useChatbot();
+  const { chatbot, loading, applyChatbot } = useChatbot();
   const { t, language } = useI18n();
   const copy =
     {
       de: {
         pageBody:
           "Nutzen Sie diese Seite nur für das Hauptverhalten des Chatbots. Design und visuelle Anpassung befinden sich im separaten Appearance-Tab.",
-        quickControls: "Schnellsteuerung",
+        savingLabel: "Wird gespeichert…",
+        savedLabel: "Alle Änderungen gespeichert",
+        saveErrorLabel: "Speichern fehlgeschlagen",
+        retryLabel: "Erneut",
+        quickControls: "Status & KI",
         quickControlsBody:
-          "Verwenden Sie einfache Schalter für das wichtigste Chatbot-Verhalten.",
+          "Veröffentlichen Sie den Chatbot und schalten Sie KI-Antworten ein oder aus.",
+        moodLabel: "Antwort-Stimmung",
+        moodFriendly: "Freundlich",
+        moodNormal: "Normal",
+        moodProfessional: "Professionell",
+        addLabel: "Hinzufügen",
+        domainsEmpty:
+          "Noch keine Domains — das Widget lädt überall, bis Sie eine hinzufügen.",
+        messagesEmpty: "Noch keine vorgeschlagenen Nachrichten.",
+        domainAddPlaceholder: "example.com",
+        messageAddPlaceholder: "Was sind Ihre Preise?",
         quickPublishBody:
           "Schalten Sie den Chatbot auf Ihren erlaubten Domains live, sobald er bereit ist.",
         quickAuthBody:
@@ -112,7 +132,7 @@ export const ChatbotSettings = () => {
         noLeadFields:
           "Noch keine Lead-Felder vorhanden. Fügen Sie das erste Feld hinzu, das Sie erfassen möchten.",
         aiBody:
-          "Legen Sie fest, ob KI antworten soll, wie lang Antworten sein dürfen und welchen Richtlinien sie folgen soll.",
+          "Legen Sie fest, ob KI antworten soll, wie lang Antworten sein dürfen und welchen Ton sie verwenden soll.",
         aiEnabled: "aktiviert",
         aiDisabled: "deaktiviert",
         aiStatusPrefix: "KI-Antworten sind aktuell",
@@ -140,9 +160,23 @@ export const ChatbotSettings = () => {
       es: {
         pageBody:
           "Usa esta página solo para el comportamiento principal del chatbot. El diseño y la personalización visual están en la pestaña de apariencia.",
-        quickControls: "Controles rápidos",
+        savingLabel: "Guardando…",
+        savedLabel: "Todos los cambios guardados",
+        saveErrorLabel: "No se pudo guardar",
+        retryLabel: "Reintentar",
+        quickControls: "Estado e IA",
         quickControlsBody:
-          "Usa interruptores simples para el comportamiento principal del chatbot.",
+          "Publica el chatbot y activa o desactiva las respuestas de IA.",
+        moodLabel: "Tono de respuesta",
+        moodFriendly: "Amistoso",
+        moodNormal: "Normal",
+        moodProfessional: "Profesional",
+        addLabel: "Añadir",
+        domainsEmpty:
+          "Aún no hay dominios: el widget se carga en todas partes hasta que añadas uno.",
+        messagesEmpty: "Aún no hay mensajes sugeridos.",
+        domainAddPlaceholder: "example.com",
+        messageAddPlaceholder: "¿Cuáles son sus precios?",
         quickPublishBody:
           "Publica el chatbot en tus dominios permitidos cuando esté listo.",
         quickAuthBody:
@@ -177,7 +211,7 @@ export const ChatbotSettings = () => {
         noLeadFields:
           "Todavía no hay campos de lead. Añade el primer campo que quieras recopilar.",
         aiBody:
-          "Elige si la IA debe responder, qué longitud deben tener las respuestas y qué directrices debe seguir.",
+          "Elige si la IA debe responder, qué longitud deben tener las respuestas y qué tono debe usar.",
         aiEnabled: "activadas",
         aiDisabled: "desactivadas",
         aiStatusPrefix: "Las respuestas de IA están actualmente",
@@ -205,9 +239,23 @@ export const ChatbotSettings = () => {
     }[language] || {
       pageBody:
         "Keep this page for the main chatbot behavior only. Design and visual customization live in the separate appearance tab.",
-      quickControls: "Quick controls",
+      savingLabel: "Saving…",
+      savedLabel: "All changes saved",
+      saveErrorLabel: "Couldn't save",
+      retryLabel: "Retry",
+      quickControls: "Status & AI",
       quickControlsBody:
-        "Use simple switches for the main chatbot behavior.",
+        "Publish the chatbot and turn AI replies on or off.",
+      moodLabel: "Response mood",
+      moodFriendly: "Friendly",
+      moodNormal: "Normal",
+      moodProfessional: "Professional",
+      addLabel: "Add",
+      domainsEmpty:
+        "No domains yet — the widget loads everywhere until you add one.",
+      messagesEmpty: "No suggested messages yet.",
+      domainAddPlaceholder: "example.com",
+      messageAddPlaceholder: "What are your prices?",
       quickPublishBody:
         "Turn the chatbot live on your allowed domains when you are ready.",
       quickAuthBody:
@@ -242,7 +290,7 @@ export const ChatbotSettings = () => {
       noLeadFields:
         "No lead fields yet. Add the first field you want to collect.",
       aiBody:
-        "Choose whether AI should reply, how long replies should be, and which guidelines it should follow.",
+        "Choose whether AI should reply, how long replies should be, and the tone it should use.",
       aiEnabled: "enabled",
       aiDisabled: "disabled",
       aiStatusPrefix: "AI replies are currently",
@@ -268,7 +316,6 @@ export const ChatbotSettings = () => {
     };
   const fileInputRef = useRef(null);
   const [draft, setDraft] = useState(null);
-  const [saving, setSaving] = useState(false);
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -277,9 +324,16 @@ export const ChatbotSettings = () => {
     allowedLanguages: ["english"],
   });
 
+  // Seed the editable draft once per chatbot. Autosave refreshes the shared
+  // cache via applyChatbot, and re-seeding on that would reset an active draft.
+  const seededIdRef = useRef(null);
   useEffect(() => {
-    if (chatbot?.settings) {
-      setDraft(chatbot.settings);
+    if (chatbot?.settings && seededIdRef.current !== chatbot.id) {
+      seededIdRef.current = chatbot.id;
+      setDraft({
+        ...chatbot.settings,
+        leadsForm: withLeadUids(chatbot.settings.leadsForm),
+      });
     }
   }, [chatbot]);
 
@@ -360,10 +414,6 @@ export const ChatbotSettings = () => {
     });
   };
 
-  const updateBoolean = (field) => (value) => {
-    setDraft((prev) => ({ ...prev, [field]: value }));
-  };
-
   const updateNumber =
     (field, fallback = 0) =>
     (event) => {
@@ -389,17 +439,6 @@ export const ChatbotSettings = () => {
     }));
   };
 
-  const updateDomains = (event) => {
-    setDraft((prev) => ({ ...prev, domains: splitList(event.target.value) }));
-  };
-
-  const updateSuggested = (event) => {
-    setDraft((prev) => ({
-      ...prev,
-      suggestedMessages: splitList(event.target.value),
-    }));
-  };
-
   const updateLeadsField = (index, field, value) => {
     setDraft((prev) => {
       const next = [...(prev.leadsForm || [])];
@@ -413,7 +452,7 @@ export const ChatbotSettings = () => {
       ...prev,
       leadsForm: [
         ...(prev.leadsForm || []),
-        { key: "", label: "", type: "text", required: false },
+        { _uid: `lead-${(leadUidSeq += 1)}`, key: "", label: "", type: "text", required: false },
       ],
     }));
   };
@@ -425,18 +464,22 @@ export const ChatbotSettings = () => {
     }));
   };
 
-  const handleSave = async () => {
-    setSaving(true);
-    setError("");
-    try {
-      await api.chatbots.update(chatbotId, draft);
-      await reload();
-    } catch (err) {
-      setError(err?.message || "Unable to save settings");
-    } finally {
-      setSaving(false);
-    }
-  };
+  const saveDraft = useCallback(
+    async (current) => {
+      const updated = await api.chatbots.update(chatbotId, {
+        ...current,
+        leadsForm: stripLeadUids(current.leadsForm),
+      });
+      // Refresh the shared cache without a refetch so the draft is never reset.
+      if (updated?.id) applyChatbot(updated);
+    },
+    [chatbotId, applyChatbot],
+  );
+
+  const autosave = useAutosave(draft, {
+    save: saveDraft,
+    enabled: Boolean(draft),
+  });
 
   const handleFileUpload = async (event) => {
     const selection = Array.from(event.target.files || []);
@@ -470,14 +513,6 @@ export const ChatbotSettings = () => {
     node?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const domainText = useMemo(
-    () => listToText(draft?.domains),
-    [draft?.domains],
-  );
-  const suggestedText = useMemo(
-    () => listToText(draft?.suggestedMessages),
-    [draft?.suggestedMessages],
-  );
   const availableLanguages = useMemo(
     () =>
       languageOptions.allowedLanguages?.length
@@ -530,11 +565,19 @@ export const ChatbotSettings = () => {
           </Text>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <SaveStatus
+            status={autosave.status}
+            onRetry={autosave.retry}
+            labels={{
+              idle: copy.savedLabel,
+              saving: copy.savingLabel,
+              saved: copy.savedLabel,
+              error: copy.saveErrorLabel,
+              retry: copy.retryLabel,
+            }}
+          />
           <Button outline href={`/chatbots/${chatbotId}/appearance`}>
             {t("appearance")}
-          </Button>
-          <Button color="sky" onClick={handleSave} disabled={saving}>
-            {saving ? t("saving") : t("saveChanges")}
           </Button>
         </div>
       </div>
@@ -554,23 +597,13 @@ export const ChatbotSettings = () => {
           </Button>
         }
       >
-        <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
               {t("planLabel")}
             </div>
             <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
               {currentTier?.name || chatbot?.premiumPlan || copy.freeLabel}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400">
-              {copy.signedInSupport}
-            </div>
-            <div className="mt-2 text-sm font-semibold text-zinc-900 dark:text-white">
-              {featureAccess.authenticatedWidget
-                ? copy.included
-                : copy.upgradeRequired}
             </div>
           </div>
           <div className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50">
@@ -620,18 +653,6 @@ export const ChatbotSettings = () => {
                 ...prev,
                 status: value ? "published" : "draft",
               }))
-            }
-          />
-          <SimpleSwitchRow
-            label={t("authEnabledLabel")}
-            description={copy.quickAuthBody}
-            checked={Boolean(draft.auth)}
-            onChange={updateBoolean("auth")}
-            disabled={!featureAccess.authenticatedWidget}
-            hint={
-              featureAccess.authenticatedWidget
-                ? t("authClientHelp")
-                : t("authUpgradeHint")
             }
           />
           <SimpleSwitchRow
@@ -700,21 +721,34 @@ export const ChatbotSettings = () => {
           </Field>
           <Field>
             <Label>{t("allowedDomainsLabel")}</Label>
-            <Textarea
-              value={domainText}
-              onChange={updateDomains}
-              rows={4}
-              placeholder={copy.domainsPlaceholder}
+            <TagInput
+              values={(draft.domains || []).filter((d) => d && d !== "*")}
+              onChange={(next) =>
+                setDraft((prev) => ({ ...prev, domains: next }))
+              }
+              addLabel={copy.addLabel}
+              placeholder={copy.domainAddPlaceholder}
+              emptyLabel={copy.domainsEmpty}
+              transform={(value) =>
+                value
+                  .trim()
+                  .toLowerCase()
+                  .replace(/^https?:\/\//, "")
+                  .replace(/\/.*$/, "")
+              }
             />
             <PreviewHint>{copy.domainsHelp}</PreviewHint>
           </Field>
           <Field>
             <Label>{t("suggestedMessagesLabel")}</Label>
-            <Textarea
-              value={suggestedText}
-              onChange={updateSuggested}
-              rows={4}
-              placeholder={copy.suggestedPlaceholder}
+            <TagInput
+              values={draft.suggestedMessages || []}
+              onChange={(next) =>
+                setDraft((prev) => ({ ...prev, suggestedMessages: next }))
+              }
+              addLabel={copy.addLabel}
+              placeholder={copy.messageAddPlaceholder}
+              emptyLabel={copy.messagesEmpty}
             />
             <PreviewHint>{copy.suggestedHelp}</PreviewHint>
           </Field>
@@ -802,7 +836,7 @@ export const ChatbotSettings = () => {
         <div className="space-y-3">
           {(draft.leadsForm || []).map((field, index) => (
             <div
-              key={`${field.key}-${index}`}
+              key={field._uid || index}
               className="rounded-2xl border border-zinc-200/80 bg-zinc-50/70 p-4 dark:border-white/10 dark:bg-zinc-950/50"
             >
               <div className="grid gap-4 md:grid-cols-2">
@@ -897,22 +931,16 @@ export const ChatbotSettings = () => {
               </Select>
             </Field>
             <Field>
-              <Label>{t("guidelinesLabel")}</Label>
-              <Textarea
-                value={draft.ai?.guidelines || ""}
-                onChange={updateAi("guidelines")}
-                rows={4}
+              <Label>{copy.moodLabel}</Label>
+              <Select
+                value={draft.ai?.mood || "normal"}
+                onChange={updateAi("mood")}
                 disabled={!featureAccess.aiResponder || !draft.ai?.enabled}
-              />
-            </Field>
-            <Field>
-              <Label>{t("templateLabel")}</Label>
-              <Input
-                value={draft.ai?.template || ""}
-                onChange={updateAi("template")}
-                disabled={!featureAccess.aiResponder || !draft.ai?.enabled}
-              />
-              <PreviewHint>{copy.aiTemplateHelp}</PreviewHint>
+              >
+                <option value="friendly">{copy.moodFriendly}</option>
+                <option value="normal">{copy.moodNormal}</option>
+                <option value="professional">{copy.moodProfessional}</option>
+              </Select>
             </Field>
           </FieldGroup>
         </div>

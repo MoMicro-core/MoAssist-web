@@ -79,13 +79,12 @@ export const buildWidgetSnippets = (apiBaseUrl, chatbotId = "YOUR_CHATBOT_ID", l
   const base = (apiBaseUrl || "https://api.momicro.com").replace(/\/$/, "");
   return {
     script: `<script src="${base}/chat/script/${chatbotId}?lang=${lang}" defer></script>`,
-    iframe: `<iframe src="${base}/chat/iframe/${chatbotId}?lang=${lang}" title="MoMicro Agent" style="width:420px;height:680px;border:0;"></iframe>`,
+    mobile: `${base}/chat/iframe/${chatbotId}?lang=${lang}`,
     auth: `<script>
 window.MOMICRO_ASSIST_CONFIG = {
   "${chatbotId}": { authClient: window.websiteSession.userId }
 };
 </script>`,
-    dashboardScript: `<script src="${base}/chat/dashboard/script/${chatbotId}" defer></script>`,
-    dashboardIframe: `<iframe src="${base}/chat/dashboard/iframe/${chatbotId}" title="MoMicro Dashboard" style="width:100%;height:760px;border:0;"></iframe>`,
+    dashboardScript: `<script src="${base}/chat/dashboard/script/${chatbotId}" data-selector="#momicro-dashboard-root" data-height="760px" defer></script>`,
   };
 };
