@@ -71,6 +71,11 @@ const ChatbotExternalDashboard = lazy(() =>
     default: module.ChatbotExternalDashboard,
   })),
 );
+const ChatbotConnector = lazy(() =>
+  import("./pages/ChatbotConnector").then((module) => ({
+    default: module.ChatbotConnector,
+  })),
+);
 const NotFound = lazy(() =>
   import("./pages/NotFound").then((module) => ({ default: module.NotFound })),
 );
@@ -171,6 +176,7 @@ export default function App() {
               path="external-dashboard"
               element={<ChatbotExternalDashboard />}
             />
+            <Route path="connector" element={<ChatbotConnector />} />
           </Route>
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />

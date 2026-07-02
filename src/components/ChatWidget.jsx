@@ -1,11 +1,9 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useI18n } from "../context/I18nContext";
-import { isPublicLandingPath, resolveLocale } from "../lib/siteLocales";
+import { resolveLocale } from "../lib/siteLocales";
 
-// The MoMicro chat widget that greets visitors on the public marketing site.
-// It is intentionally NOT shown inside the authenticated app (dashboard, chats,
-// settings, …) — only on public landing pages.
+// The MoMicro chat widget, shown across the whole app — public marketing
+// pages as well as the authenticated dashboard (chatbots, chats, settings, …).
 const CHATBOT_ID = "f5a65979-17c3-4935-8b6d-1c6e794a8aed";
 const WIDGET_ELEMENT_ID = `momicro-assist-${CHATBOT_ID}`;
 const SCRIPT_ID = `momicro-assist-script-${CHATBOT_ID}`;
@@ -20,16 +18,9 @@ const removeWidget = () => {
 };
 
 export const ChatWidget = () => {
-  const location = useLocation();
   const { language } = useI18n();
 
   useEffect(() => {
-    // Hide the widget everywhere except the public marketing pages.
-    if (!isPublicLandingPath(location.pathname)) {
-      removeWidget();
-      return;
-    }
-
     // The active language is derived from the URL by I18nProvider; map the
     // locale to the language name the widget expects (e.g. "english").
     const langName = resolveLocale(language).languageName.toLowerCase();
@@ -51,7 +42,7 @@ export const ChatWidget = () => {
     script.defer = true;
     script.dataset.lang = langName;
     document.body.appendChild(script);
-  }, [location.pathname, language]);
+  }, [language]);
 
   // Full teardown if the app unmounts.
   useEffect(() => removeWidget, []);

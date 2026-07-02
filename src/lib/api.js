@@ -141,6 +141,16 @@ export const api = {
         method: "PUT",
         body: payload,
       }),
+    connector: (chatbotId) => apiRequest(`/v1/chatbots/${chatbotId}/connector`),
+    setConnector: (chatbotId, payload) =>
+      apiRequest(`/v1/chatbots/${chatbotId}/connector`, {
+        method: "PUT",
+        body: payload,
+      }),
+    resyncConnector: (chatbotId) =>
+      apiRequest(`/v1/chatbots/${chatbotId}/connector/resync`, {
+        method: "POST",
+      }),
     preview: (chatbotId, settings, mode = "light", selectedPart = "launcher") =>
       apiRequest(`/v1/chatbots/${chatbotId}/preview/widget`, {
         method: "POST",

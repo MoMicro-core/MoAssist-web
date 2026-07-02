@@ -293,6 +293,39 @@ const dictionary = {
       "Paste this into your site. Your team signs in with the username and password above — no token needed.",
     externalDashboardEmbedHint:
       "One script tag. Add a container like <div id=\"momicro-dashboard-root\"></div> where you want it, and change data-selector or data-height on the tag to adjust where it mounts and its height.",
+    connectorTab: "Real-time data",
+    connectorTitle: "Real-time data connector",
+    connectorBody:
+      "A hand-written connector fetches live account data (orders, subscriptions, referrals) from the merchant's own API and feeds it to the AI. Admin only.",
+    connectorEnableLabel: "Enable connector",
+    connectorEnableDesc:
+      "When on, signed-in visitors with a valid auth token get answers from their live account data.",
+    connectorBaseUrl: "API base URL",
+    connectorAllowedHosts: "Allowed hosts",
+    connectorAllowedHostsHint:
+      "Comma-separated hostnames the connector may call. Requests to any other host are blocked.",
+    connectorSource: "Connector source (.js)",
+    connectorSourceHint:
+      "Exports verifyIdentity, loadSnapshot, and fetchContext. Stored in Supabase and synced to the server on boot.",
+    connectorSecrets: "Secrets (JSON)",
+    connectorSecretsHint:
+      "Merchant API keys as JSON, encrypted at rest and injected as ctx.secrets. Leave empty to keep the current secrets.",
+    connectorSecretsSet: "Secrets are set.",
+    connectorIntents: "Intent catalog (JSON)",
+    connectorIntentsHint:
+      'Array of intents: { "name", "phrases": [..], "endpoint", "freshness": "live" | "snapshot" }. Phrases are embedded on save and drive routing.',
+    connectorThreshold: "Router threshold",
+    connectorMargin: "Router margin",
+    connectorVersion: "Version",
+    connectorSave: "Save connector",
+    connectorSaving: "Saving…",
+    connectorSaved: "Saved. Intent phrases re-embedded.",
+    connectorResync: "Re-sync from storage",
+    connectorResynced: "Re-synced from storage.",
+    connectorInvalidJson: "Invalid JSON in",
+    connectorAdminOnly:
+      "Only platform administrators can manage connectors.",
+    connectorNotConfigured: "No connector yet. Fill the form to create one.",
   },
   de: {
     appName: "MoMicro",

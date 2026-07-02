@@ -7,6 +7,7 @@ import { Heading } from '../ui/heading'
 import { Navbar, NavbarSection, NavbarItem, NavbarLabel } from '../ui/navbar'
 import { Text } from '../ui/text'
 import { Loading } from '../components/Loading'
+import { useAuth } from '../context/AuthContext'
 import { useI18n } from '../context/I18nContext'
 import { api } from '../lib/api'
 
@@ -15,6 +16,7 @@ const ChatbotShell = () => {
   const location = useLocation()
   const { chatbot, loading, error, reload } = useChatbot()
   const { t } = useI18n()
+  const { user } = useAuth()
   const [savingStatus, setSavingStatus] = useState(false)
   const [statusError, setStatusError] = useState('')
 
@@ -27,6 +29,10 @@ const ChatbotShell = () => {
     { label: 'Plugins', path: 'plugin' },
     { label: t('externalDashboardTab'), path: 'external-dashboard' },
   ]
+  // Connectors are authored by the platform operator only (sole-author rule).
+  if (user?.role === 'admin') {
+    tabs.push({ label: t('connectorTab'), path: 'connector' })
+  }
 
   if (loading) return <Loading />
 
