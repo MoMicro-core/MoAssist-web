@@ -36,7 +36,9 @@ export const ChatWidget = () => {
 
     const script = document.createElement("script");
     script.id = SCRIPT_ID;
-    script.src = `https://api.momicro.com/chat/script/${CHATBOT_ID}?lang=${encodeURIComponent(
+    const hostname = window.location.hostname
+    const domain = hostname === 'localhost' ? 'http://localhost:8080' : 'https://api.momicro.com'
+    script.src = `${domain}/chat/script/${CHATBOT_ID}?lang=${encodeURIComponent(
       langName,
     )}`;
     script.defer = true;
