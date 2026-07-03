@@ -20,6 +20,7 @@ export const PublicHeader = ({ showActions = true }) => {
   const activePath = stripLocalePrefix(location.pathname) || "/";
   const pricingPath = buildLocalizedPath("/pricing", language);
   const contactsPath = buildLocalizedPath("/contacts", language);
+  const loginPath = buildLocalizedPath("/login", language);
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
@@ -84,7 +85,7 @@ export const PublicHeader = ({ showActions = true }) => {
           </div>
           {showActions ? (
             <div className="hidden items-center gap-2 sm:flex">
-              <Button outline href="/login">
+              <Button outline href={loginPath}>
                 {t("signIn")}
               </Button>
               <Button color="teal" href="/chatbots">
@@ -195,7 +196,7 @@ export const PublicHeader = ({ showActions = true }) => {
 
             {showActions ? (
               <div className="mt-5 grid gap-3">
-                <Button outline href="/login" onClick={closeMobileMenu} className="justify-center">
+                <Button outline href={loginPath} onClick={closeMobileMenu} className="justify-center">
                   {t("signIn")}
                 </Button>
                 <Button color="teal" href="/chatbots" onClick={closeMobileMenu} className="justify-center">

@@ -114,7 +114,9 @@ export const PublicFooter = ({
       return href;
     }
 
-    return isPublicLandingPath(href) ? buildLocalizedPath(href, language) : href;
+    return isPublicLandingPath(href) || href === "/login"
+      ? buildLocalizedPath(href, language)
+      : href;
   };
 
   return (

@@ -152,6 +152,9 @@ export default function App() {
         <Route path="/momicro" element={<Navigate to="/platform" replace />} />
 
         <Route path="/login" element={<Login />} />
+        {PUBLIC_LOCALE_KEYS.map((locale) => (
+          <Route key={`login-${locale}`} path={`/${locale}/login`} element={<Login />} />
+        ))}
         <Route path="/billing/success" element={<BillingSuccess />} />
         <Route path="/billing/failure" element={<BillingFailure />} />
         <Route

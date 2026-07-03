@@ -60,6 +60,7 @@ const UNSPLASH = (id) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=70`;
 
 export const NEWS_POSTS = [
+  { id: "rebrand-momicro", cat: "Company", date: "Jul 3, 2026", read: "2 min", image: "/preview/logo.png", fit: "contain", bg: "#eef7fa" },
   { id: "email-e2e", cat: "Product", date: "Jun 24, 2026", read: "4 min", image: UNSPLASH("1596526131083-e8c633c948d2") },
   { id: "rest-api", cat: "Product", date: "Jun 18, 2026", read: "3 min", image: UNSPLASH("1555066931-4365d14bab8c") },
   // Product Hunt brand mark — shown "contain" on a tinted backdrop so the logo isn't cropped.
@@ -85,6 +86,19 @@ window.MOMICRO_ASSIST_CONFIG = {
   "${chatbotId}": { authClient: window.websiteSession.userId }
 };
 </script>`,
+    realtime: `<script>
+  // Tell the widget who is signed in. Render the customer's auth
+  // token from your session; leave it empty when nobody is signed in.
+  window.MOMICRO_ASSIST_CONFIG = {
+    realtimeToken: "CUSTOMER_AUTH_TOKEN_OR_EMPTY"
+  };
+</script>
+<script src="${base}/chat/script/${chatbotId}?lang=${lang}" defer></script>`,
+    realtimeSpa: `// after the customer logs in
+window.MoMicroAssist.setRealtimeToken(newToken);
+
+// after the customer logs out
+window.MoMicroAssist.setRealtimeToken("");`,
     dashboardScript: `<script src="${base}/chat/dashboard/script/${chatbotId}" data-selector="#momicro-dashboard-root" data-height="760px" defer></script>`,
   };
 };

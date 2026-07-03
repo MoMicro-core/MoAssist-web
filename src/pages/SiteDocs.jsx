@@ -93,7 +93,7 @@ const ConnectTab = ({ d, snip }) => (
   </div>
 );
 
-const AgentTab = ({ d, copy }) => {
+const AgentTab = ({ d, snip, copyLabel, copiedLabel }) => {
   const { go } = useSiteNav();
   return (
     <div>
@@ -109,6 +109,14 @@ const AgentTab = ({ d, copy }) => {
       </div>
       <H3>{d.howTitle}</H3>
       <P>{d.howBody}</P>
+      <H3>{d.tokenTitle}</H3>
+      <P>{d.tokenBody}</P>
+      <CodeBlock code={snip.realtime} copyLabel={copyLabel} copiedLabel={copiedLabel} />
+      <P>{d.logoutBody}</P>
+      <H3>{d.spaTitle}</H3>
+      <P>{d.spaBody}</P>
+      <CodeBlock code={snip.realtimeSpa} copyLabel={copyLabel} copiedLabel={copiedLabel} />
+      <Callout title={d.securityTitle} body={d.securityBody} />
       <div style={{ background: GRAD.dark, borderRadius: 16, padding: "26px 26px", marginTop: 20 }}>
         <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: 19, color: "#fff", letterSpacing: "-.015em", marginBottom: 6 }}>{d.contactTitle}</div>
         <div style={{ fontSize: 14.5, lineHeight: 1.6, color: "#a9cdda", marginBottom: 16 }}>{d.contactBody}</div>
@@ -217,7 +225,7 @@ export const SiteDocs = () => {
         {/* content */}
         <div style={{ flex: "1 1 auto", minWidth: 0, maxWidth: 780 }} key={tab}>
           {tab === "connect" && <ConnectTab d={d.connect} snip={snip} />}
-          {tab === "agent" && <AgentTab d={d.agent} copy={d.copy} />}
+          {tab === "agent" && <AgentTab d={d.agent} snip={snip} copyLabel={d.copy} copiedLabel={d.copied} />}
           {tab === "dashboard" && <DashboardTab d={d.dashboard} snip={snip} />}
           {tab === "files" && <FilesTab d={d.files} />}
         </div>
