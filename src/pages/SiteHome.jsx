@@ -164,13 +164,21 @@ export const SiteHome = () => {
               <GradButton size="lg" onClick={() => go("login")}>{c.actions.startFree}</GradButton>
               <OutlineButton size="lg" onClick={() => go("how")}>{c.actions.seeHow}</OutlineButton>
             </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
               {h.hero.chips.map((chip) => (
                 <div key={chip} style={{ display: "flex", alignItems: "center", gap: 7, background: "#fff", border: "1px solid #dcebef", fontSize: 13, fontWeight: 500, color: "#3f6276", padding: "7px 13px", borderRadius: 100 }}>
                   <span style={{ color: C.teal, fontWeight: 700 }}>✓</span>{chip}
                 </div>
               ))}
             </div>
+            <a href="https://www.producthunt.com/products/momicro?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-momicro" target="_blank" rel="noopener noreferrer">
+              <img
+                alt="MoMicro - AI Agent & AI Chatbot | Product Hunt"
+                width={250}
+                height={54}
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1190608&theme=neutral"
+              />
+            </a>
           </div>
           <AgentDemo d={h.demo} />
         </div>

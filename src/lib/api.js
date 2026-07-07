@@ -52,6 +52,8 @@ const withQuery = (path, params) => {
   return `${path}?${search}`;
 };
 
+const REQUEST_TIMEOUT_MS = 20000;
+
 export const apiRequest = async (
   path,
   { method = "GET", body, headers, isForm } = {},
@@ -63,11 +65,24 @@ export const apiRequest = async (
   if (!isForm && body !== undefined) {
     finalHeaders["Content-Type"] = "application/json";
   }
-  const response = await fetch(url, {
-    method,
-    headers: finalHeaders,
-    body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  let response;
+  try {
+    response = await fetch(url, {
+      method,
+      headers: finalHeaders,
+      body: body === undefined ? undefined : isForm ? body : JSON.stringify(body),
+      signal: controller.signal,
+    });
+  } catch (err) {
+    if (err.name === "AbortError") {
+      throw new Error("Request timed out. Please try again.");
+    }
+    throw new Error("Network error. Please check your connection and try again.");
+  } finally {
+    clearTimeout(timeout);
+  }
   const text = await response.text();
   let data = null;
   if (text) {

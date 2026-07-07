@@ -160,8 +160,21 @@ export const PublicFooter = ({
                 {t("pricingNav")}
               </Button>
             </div>
-            <div className="text-sm text-zinc-500 dark:text-zinc-400">
-              © {new Date().getFullYear()} MoMicro
+            <div className="flex items-center justify-between gap-4">
+              <div className="text-sm text-zinc-500 dark:text-zinc-400">
+                © {new Date().getFullYear()} MoMicro
+              </div>
+              <a
+                href="https://x.com/momicroai"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="MoMicro on X"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-500 transition hover:border-sky-200 hover:text-zinc-900 dark:border-white/10 dark:text-zinc-400 dark:hover:border-cyan-400/40 dark:hover:text-white"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
+                  <path d="M18.9 2H22l-7.6 8.7L23.3 22h-7l-5.5-7.2L4.4 22H1.3l8.1-9.3L1 2h7.2l5 6.6L18.9 2Zm-1.2 18h1.7L7.4 4h-1.8l12.1 16Z" />
+                </svg>
+              </a>
             </div>
           </div>
 
