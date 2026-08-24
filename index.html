@@ -212,8 +212,12 @@
             "name": "MoMicro",
             "alternateName": "MoMicro",
             "url": "https://momicro.com/",
-            "logo": "https://momicro.com/preview/logo.svg",
-            "description": "MoMicro is the AI Agent and AI chatbot platform for ecommerce and Shopify stores."
+            "logo": "https://momicro.com/preview/logo.png",
+            "description": "MoMicro is the AI Agent and AI chatbot platform for ecommerce and Shopify stores. It reads live store data, calls any REST API, and resolves customer support across chat and email.",
+            "sameAs": [
+              "https://www.producthunt.com/products/momicro",
+              "https://github.com/MoMicro-core"
+            ]
           },
           {
             "@type": "WebSite",
@@ -245,8 +249,29 @@
       window.MOMICRO_ASSIST_CONFIG = {
         realtimeToken: localStorage.getItem('momicro-assist-session') || '',
       };
+      // The widget loads independently of the React bundle. It used to be
+      // injected by a component, so it could not appear until a 417KB chunk had
+      // downloaded, parsed and mounted -- and never appeared at all if that
+      // failed. ChatWidget.jsx now only switches its language.
+      (function () {
+        var CHATBOT_ID = 'f5a65979-17c3-4935-8b6d-1c6e794a8aed';
+        var host =
+          window.location.hostname === 'localhost'
+            ? 'http://localhost:8080'
+            : 'https://api.momicro.com';
+        var NAMES = {
+          en: 'english', de: 'german', es: 'spanish', fr: 'french',
+          it: 'italian', ru: 'russian', uk: 'ukrainian', ua: 'ukrainian'
+        };
+        var seg = window.location.pathname.split('/')[1] || 'en';
+        var name = NAMES[seg] || NAMES[(document.documentElement.lang || 'en').slice(0, 2)] || 'english';
+        var script = document.createElement('script');
+        script.id = 'momicro-assist-script-' + CHATBOT_ID;
+        script.defer = true;
+        script.dataset.lang = name;
+        script.src = host + '/chat/script/' + CHATBOT_ID + '?lang=' + name;
+        document.head.appendChild(script);
+      })();
     </script>
-    <!-- The MoMicro chat widget is injected by src/components/ChatWidget.jsx
-         (public pages only, in the visitor's language). Do not re-add it here. -->
   </body>
 </html>

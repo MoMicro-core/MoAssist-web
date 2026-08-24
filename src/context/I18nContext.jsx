@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { loadSiteContent } from "../content/site";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   DEFAULT_LOCALE_KEY,
@@ -1762,6 +1763,21 @@ export const I18nProvider = ({ children }) => {
     [language],
   );
 
+  // Marketing copy for the non-English locales is a separate chunk. Load it on
+  // language change and bump a counter so consumers of getSiteContent re-render
+  // once it lands. main.jsx preloads the URL's locale before first paint, so
+  // this only matters for in-app language switches.
+  const [contentRevision, setContentRevision] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    loadSiteContent(language).then(() => {
+      if (!cancelled) setContentRevision((value) => value + 1);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [language]);
+
   const value = useMemo(
     () => ({
       language,
@@ -1786,8 +1802,9 @@ export const I18nProvider = ({ children }) => {
       t,
       languages: LANGUAGE_OPTIONS.map(({ key }) => key),
       languageOptions: LANGUAGE_OPTIONS,
+      contentRevision,
     }),
-    [language, location.pathname, navigate, t],
+    [language, location.pathname, navigate, t, contentRevision],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

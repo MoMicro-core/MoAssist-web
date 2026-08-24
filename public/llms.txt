@@ -1,19 +1,38 @@
 # MoMicro
 
-> MoMicro is an AI chatbot for ecommerce and Shopify stores. It automates
-> customer support, answers shipping/return/order questions instantly, captures
-> leads, supports signed-in customers, and lets teams manage AI and human
-> replies from one dashboard. Built by MoMicro. Free to get started.
+> MoMicro is an AI Agent for e-commerce and Shopify stores. Unlike a scripted
+> chatbot, it reads the store's live data, calls any REST API on demand, ties
+> each conversation to the signed-in shopper, and resolves customer support
+> across both chat and email. A free plan gives any website a chat widget with
+> manual replies.
 
 ## Core pages
-- [Home](https://momicro.com/): What MoMicro does, key benefits, and how it works
-- [Pricing](https://momicro.com/pricing): Plans and pricing
-- [About MoMicro](https://momicro.com/momicro): The company behind MoMicro
-- [Contact](https://momicro.com/contacts): How to reach the team
+- [Home](https://momicro.com/): What the AI Agent does and how it works
+- [How it works](https://momicro.com/how-it-works): The five-step agent loop, from question to resolved
+- [AI Chatbot](https://momicro.com/ai-chatbot): Upload business files and answer common questions from them
+- [Platform](https://momicro.com/platform): Live database access, any API, per-shopper memory, chat and email
+- [Pricing](https://momicro.com/pricing): The three plans and what each one unlocks
+- [Docs](https://momicro.com/docs): Installing the widget, connecting APIs, embedding the dashboard
+- [News](https://momicro.com/news): Product and company updates
+- [Contact](https://momicro.com/contact): How to reach the team
 
-## Key facts
-- Product: MoMicro (AI chatbot for ecommerce / Shopify)
+## What it is
+- Product: MoMicro — an AI Agent (and AI chatbot) for e-commerce customer support
 - Company: MoMicro
-- Automates up to 80% of customer questions; can cut support costs by up to 70%
-- Setup in under 5 minutes
+- Installed with one script tag before the closing body tag of any website
 - Multilingual: English, German, Spanish, French, Italian, Russian, Ukrainian
+
+## Plans
+- Free ($0/mo): chat widget on your website, lead capture, manual replies from
+  the dashboard, 20+ languages. No AI replies.
+- Connected ($20/mo): everything in Free, plus conversations linked to your
+  signed-in customers, full branding (logo, icon, colours), and a dashboard you
+  can embed in your own admin.
+- AI Agent ($50/mo): everything in Connected, plus AI replies, uploaded business
+  files answered via retrieval, live database access, any REST API integration
+  at no extra cost, and email resolution.
+
+## Notes
+- API integrations are included at no extra cost on the AI Agent plan, and the
+  MoMicro team will connect them for you.
+- A basic widget is live in minutes; connecting data sources is a guided setup.

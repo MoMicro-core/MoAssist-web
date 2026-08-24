@@ -91,15 +91,18 @@ const Testimonials = ({ head, items }) => {
   const [idx, setIdx] = useState(0);
   const n = items.length;
   useEffect(() => {
+    if (!n) return undefined;
     const id = setInterval(() => setIdx((v) => (v + 1) % n), 5200);
     return () => clearInterval(id);
   }, [n]);
+  // Renders nothing until there are real, attributable quotes to show.
+  if (!n) return null;
   const go = (i) => setIdx(((i % n) + n) % n);
   return (
     <Reveal style={{ maxWidth: 1100, margin: "0 auto", padding: "50px 24px 20px" }}>
       <div style={{ textAlign: "center", marginBottom: 28 }}>
         <Kicker>{head.kicker}</Kicker>
-        <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: "-.02em", margin: 0 }}>{head.title}</h2>
+        <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(24px, 4.4vw, 34px)", letterSpacing: "-.02em", margin: 0 }}>{head.title}</h2>
       </div>
       <div style={{ position: "relative", maxWidth: 860, margin: "0 auto" }}>
         <div style={{ overflow: "hidden", borderRadius: 22 }}>
@@ -156,10 +159,10 @@ export const SiteHome = () => {
         <div style={{ position: "relative", maxWidth: 1200, margin: "0 auto", padding: "64px 24px 60px", display: "flex", flexWrap: "wrap", gap: 48, alignItems: "center" }}>
           <div style={{ flex: "1 1 420px", minWidth: 300 }}>
             <div style={{ marginBottom: 24 }}><Badge dot>{h.hero.badge}</Badge></div>
-            <h1 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 54, lineHeight: 1.03, letterSpacing: "-.03em", margin: "0 0 22px" }}>
+            <h1 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(32px, 7vw, 54px)", lineHeight: 1.03, letterSpacing: "-.03em", margin: "0 0 22px" }}>
               {h.hero.titlePre}<br />{h.hero.titleA}<span style={{ color: C.brand }}>{h.hero.titleAgent}</span>{h.hero.titleB}
             </h1>
-            <p className="mm-richtext" style={{ fontSize: 18.5, lineHeight: 1.6, color: C.body, margin: "0 0 30px", maxWidth: 520 }} dangerouslySetInnerHTML={{ __html: h.hero.sub }} />
+            <p className="mm-richtext" style={{ fontSize: "clamp(16px, 2.1vw, 18.5px)", lineHeight: 1.6, color: C.body, margin: "0 0 30px", maxWidth: 520 }} dangerouslySetInnerHTML={{ __html: h.hero.sub }} />
             <div style={{ display: "flex", flexWrap: "wrap", gap: 13, marginBottom: 28 }}>
               <GradButton size="lg" onClick={() => go("login")}>{c.actions.startFree}</GradButton>
               <OutlineButton size="lg" onClick={() => go("how")}>{c.actions.seeHow}</OutlineButton>
@@ -188,14 +191,14 @@ export const SiteHome = () => {
       <Reveal style={{ maxWidth: 1200, margin: "0 auto", padding: "8px 24px" }}>
         <div style={{ background: GRAD.dark, borderRadius: 22, padding: "40px 30px", display: "flex", flexWrap: "wrap", gap: 26, alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ flex: "1 1 360px" }}>
-            <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: 27, letterSpacing: "-.02em", color: "#fff", lineHeight: 1.18 }}>
+            <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(20px, 3.4vw, 27px)", letterSpacing: "-.02em", color: "#fff", lineHeight: 1.18 }}>
               {h.band.titleA}<span style={{ color: "#7fa9b8" }}>{h.band.answer}</span><br />{h.band.titleB}<span style={{ color: "#5cd7d3" }}>{h.band.resolves}</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: 30, flexWrap: "wrap" }}>
             {h.band.stats.map((s, i) => (
               <div key={i}>
-                <div style={{ fontFamily: SANS, fontSize: 34, fontWeight: 700, color: s.plain ? "#5cd7d3" : "#fff" }}>
+                <div style={{ fontFamily: SANS, fontSize: "clamp(24px, 4.4vw, 34px)", fontWeight: 700, color: s.plain ? "#5cd7d3" : "#fff" }}>
                   {s.plain ? s.plain : <span data-count={s.value} data-suffix={s.suffix}>0{s.suffix}</span>}
                 </div>
                 <div style={{ fontSize: 13, color: "#a9cdda" }}>{s.label}</div>
@@ -209,7 +212,7 @@ export const SiteHome = () => {
       <Reveal style={{ maxWidth: 1100, margin: "0 auto", padding: "62px 24px 8px" }}>
         <div style={{ textAlign: "center", marginBottom: 24 }}>
           <Kicker>{h.products.kicker}</Kicker>
-          <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 34, lineHeight: 1.12, letterSpacing: "-.025em", margin: "0 auto 8px", maxWidth: 640 }}>{h.products.title}</h2>
+          <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(24px, 4.4vw, 34px)", lineHeight: 1.12, letterSpacing: "-.025em", margin: "0 auto 8px", maxWidth: 640 }}>{h.products.title}</h2>
           <p style={{ fontSize: 16, lineHeight: 1.6, color: C.body, maxWidth: 560, margin: "0 auto" }}>{h.products.sub}</p>
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 22 }}>
@@ -227,7 +230,7 @@ export const SiteHome = () => {
         <div style={{ background: "#fff", border: "1px solid #e4eff3", borderRadius: 22, padding: 34, display: "flex", flexWrap: "wrap", gap: 36, alignItems: "center", boxShadow: "0 24px 50px -38px rgba(11,51,68,.4)" }}>
           <div style={{ flex: "1 1 320px", minWidth: 280 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 7, fontFamily: MONO, fontSize: 11, fontWeight: 600, letterSpacing: ".04em", color: C.brand, background: "#eaf7fa", border: "1px solid #bfe3ec", borderRadius: 7, padding: "5px 11px", marginBottom: 16 }}>{card.badge}</div>
-            <h3 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 30, letterSpacing: "-.02em", margin: "0 0 12px" }}>{card.name}</h3>
+            <h3 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(22px, 4vw, 30px)", letterSpacing: "-.02em", margin: "0 0 12px" }}>{card.name}</h3>
             <p style={{ fontSize: 16.5, lineHeight: 1.6, color: C.body, margin: "0 0 20px" }}>{card.tagline}</p>
             <div style={{ display: "flex", flexDirection: "column", gap: 11, marginBottom: 24 }}>
               {card.points.map((p) => (
@@ -279,14 +282,14 @@ export const SiteHome = () => {
       <div style={wrap({ padding: "60px 24px 16px" })}>
         <Reveal style={{ textAlign: "center", marginBottom: 14 }}>
           <Kicker>{h.diff.kicker}</Kicker>
-          <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 38, lineHeight: 1.1, letterSpacing: "-.025em", margin: "0 auto", maxWidth: 680 }}>{h.diff.title}</h2>
+          <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(26px, 5vw, 38px)", lineHeight: 1.1, letterSpacing: "-.025em", margin: "0 auto", maxWidth: 680 }}>{h.diff.title}</h2>
         </Reveal>
       </div>
       <DiffCards h={h} />
 
       {/* VS TABLE */}
       <Reveal style={{ maxWidth: 1100, margin: "0 auto", padding: "56px 24px 20px" }}>
-        <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 34, letterSpacing: "-.02em", margin: "0 0 22px", textAlign: "center" }}>{h.vs.title}</h2>
+        <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(24px, 4.4vw, 34px)", letterSpacing: "-.02em", margin: "0 0 22px", textAlign: "center" }}>{h.vs.title}</h2>
         <div style={{ background: "#fff", border: "1px solid #e4eff3", borderRadius: 18, overflow: "hidden", overflowX: "auto" }}>
           <div style={{ minWidth: 560 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1.1fr", background: C.bg, borderBottom: "1px solid #e4eff3", padding: "15px 24px", fontSize: 13, fontWeight: 600 }}>
@@ -310,7 +313,7 @@ export const SiteHome = () => {
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 14, marginBottom: 26 }}>
           <div>
             <Kicker style={{ marginBottom: 10 }}>{h.loop.kicker}</Kicker>
-            <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 32, letterSpacing: "-.02em", margin: 0 }}>{h.loop.title}</h2>
+            <h2 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(23px, 4.2vw, 32px)", letterSpacing: "-.02em", margin: 0 }}>{h.loop.title}</h2>
           </div>
           <div onClick={() => go("how")} className="mm-arrow" style={{ display: "inline-flex", alignItems: "center", gap: 7, color: C.brand, fontWeight: 600, fontSize: 15, cursor: "pointer", whiteSpace: "nowrap", transition: "gap .18s ease" }}>{h.loop.link}</div>
         </div>
@@ -439,7 +442,7 @@ const DiffCards = ({ h }) => {
 const DiffHead = ({ item, noMargin }) => (
   <>
     <div style={{ fontFamily: MONO, fontSize: 11.5, letterSpacing: ".05em", color: C.brand, marginBottom: 12 }}>{item.tag}</div>
-    <h3 style={{ fontFamily: SANS, fontWeight: 700, fontSize: 28, lineHeight: 1.14, letterSpacing: "-.02em", margin: "0 0 12px" }}>{item.title}</h3>
+    <h3 style={{ fontFamily: SANS, fontWeight: 700, fontSize: "clamp(21px, 3.6vw, 28px)", lineHeight: 1.14, letterSpacing: "-.02em", margin: "0 0 12px" }}>{item.title}</h3>
     <p style={{ fontSize: 16, lineHeight: 1.6, color: C.body, margin: noMargin ? 0 : "0 0 16px" }}>{item.body}</p>
   </>
 );

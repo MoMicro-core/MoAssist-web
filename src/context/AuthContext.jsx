@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -30,6 +31,10 @@ export const AuthProvider = ({ children }) => {
   const [sessionToken, setSessionTokenState] = useState(getSessionToken());
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
+  const [authError, setAuthError] = useState("");
+  // A ref so refreshSession can reach the Firebase client without taking it as
+  // a dependency and re-running on every client change.
+  const authClientRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,6 +51,10 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    authClientRef.current = authClient;
+  }, [authClient]);
+
   const refreshSession = useCallback(async () => {
     const token = getSessionToken();
     setSessionTokenState(token);
@@ -58,6 +67,22 @@ export const AuthProvider = ({ children }) => {
       const me = await api.auth.me();
       setUser(me);
     } catch {
+      // The backend session expired, but Firebase usually still holds the
+      // credential. Exchange it for a fresh session instead of dumping the user
+      // on the login screen while they are still signed in.
+      try {
+        const firebaseUser = authClientRef.current?.currentUser;
+        if (firebaseUser) {
+          const idToken = await firebaseUser.getIdToken(true);
+          const session = await api.auth.createSession({ idToken });
+          setSessionToken(session.token);
+          setSessionTokenState(session.token);
+          setUser(await api.auth.me());
+          return;
+        }
+      } catch {
+        // Fall through to a clean sign-out below.
+      }
       setSessionToken("");
       setSessionTokenState("");
       setUser(null);
@@ -94,7 +119,15 @@ export const AuthProvider = ({ children }) => {
           await exchangeFirebaseSession(result.user);
         }
       })
-      .catch(() => {});
+      .catch((error) => {
+        // A silently swallowed failure here meant the visitor came back from a
+        // Google or Apple redirect simply not signed in, with no explanation.
+        if (error?.code === "auth/no-auth-event") return;
+        console.error("[auth] redirect sign-in failed", error);
+        setAuthError(
+          "We could not complete that sign-in. Please try again, or use email and password.",
+        );
+      });
   }, [authClient, exchangeFirebaseSession]);
 
   const signIn = useCallback(
@@ -178,12 +211,15 @@ export const AuthProvider = ({ children }) => {
       signInWithApple,
       signOut,
       refreshSession,
+      authError,
+      clearAuthError: () => setAuthError(""),
     }),
     [
       user,
       sessionToken,
       ready,
       authReady,
+      authError,
       signIn,
       register,
       signInWithGoogle,

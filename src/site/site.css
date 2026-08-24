@@ -13,9 +13,13 @@
 .mm-spin { animation: mm-spinSlow 40s linear infinite; }
 .mm-dash { animation: mm-dash 1s linear infinite; }
 
-/* Scroll reveal */
-.mm-reveal { opacity: 0; transform: translateY(24px); transition: opacity .56s cubic-bezier(.16,1,.3,1), transform .56s cubic-bezier(.16,1,.3,1); }
-.mm-reveal.mm-in { opacity: 1; transform: none; }
+/* Scroll reveal.
+   Content is visible by default. The hidden state is applied only once JS has
+   confirmed it can reveal it again (html.mm-js, set by useReveal), so a crawler
+   or a failed bundle never gets a page of opacity:0 sections. */
+.mm-reveal { opacity: 1; transform: none; }
+.mm-js .mm-reveal { opacity: 0; transform: translateY(24px); transition: opacity .56s cubic-bezier(.16,1,.3,1), transform .56s cubic-bezier(.16,1,.3,1); }
+.mm-js .mm-reveal.mm-in { opacity: 1; transform: none; }
 
 /* Hover helpers (inline styles can't express :hover) */
 .mm-lift { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, gap .18s ease; }
@@ -50,5 +54,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mm-aurora, .mm-aurora--rev, .mm-livedot, .mm-spin, .mm-dash { animation: none !important; }
-  .mm-reveal { opacity: 1; transform: none; transition: none; }
+  .mm-reveal, .mm-js .mm-reveal { opacity: 1; transform: none; transition: none; }
 }

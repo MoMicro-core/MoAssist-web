@@ -12,7 +12,13 @@ export const COMPANY_INFO = {
   // "MoMicro" / "MoMicro" search terms to this domain as one entity.
   // Add real, verified URLs (LinkedIn, X, Instagram, Product Hunt, G2,
   // Crunchbase, …). Leave empty until each profile actually exists.
-  socialProfiles: [],
+  // Feeds schema `sameAs`. This binds the coined word "MoMicro" to this domain
+  // — without it a brand search has nothing to attach the name to, and search
+  // engines fall back to autocorrecting toward similar words.
+  socialProfiles: [
+    "https://www.producthunt.com/products/momicro",
+    "https://github.com/MoMicro-core",
+  ],
 };
 
 export const buildOrganizationStructuredData = ({
@@ -28,7 +34,7 @@ export const buildOrganizationStructuredData = ({
   // so searches for "MoMicro" resolve to this site.
   alternateName: COMPANY_INFO.productName,
   url: url || siteUrl || undefined,
-  logo: siteUrl ? new URL("/preview/logo.svg", siteUrl).toString() : undefined,
+  logo: siteUrl ? new URL("/preview/logo.png", siteUrl).toString() : undefined,
   description,
   sameAs: COMPANY_INFO.socialProfiles?.length
     ? COMPANY_INFO.socialProfiles

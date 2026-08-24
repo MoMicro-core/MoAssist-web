@@ -25,9 +25,9 @@ export default {
     band: {
       titleA: "La maggior parte dei chatbot ", answer: "risponde.", titleB: "MoMicro ", resolves: "risolve.",
       stats: [
-        { value: 89, suffix: "%", label: "ticket risolti dall'inizio alla fine" },
-        { value: 70, suffix: "%", label: "costo di assistenza in meno" },
-        { plain: "tempo reale", label: "risposte da dati live" },
+        { plain: "tempo reale", label: "risposte dai tuoi dati in tempo reale" },
+        { plain: "qualsiasi API", label: "collegata su richiesta, gratis" },
+        { plain: "chat + email", label: "un agente, entrambi i canali" },
       ],
     },
     products: {
@@ -89,13 +89,7 @@ export default {
       ],
     },
     testimonialsHead: { kicker: "Amato dai commercianti", title: "Cosa dicono i nostri clienti" },
-    testimonials: [
-      { result: "89% risolto", initial: "S", quote: "Non risponde soltanto: risolve davvero. Cambi di indirizzo, rimborsi, tracciamento, tutto gestito con i nostri dati ordini live.", name: "Sarah M.", role: "Negozio Shopify, Moda" },
-      { result: "−70% costi", initial: "T", quote: "La memoria per cliente è la funzione vincente. I clienti di ritorno si sentono come con un concierge personale.", name: "Tom B.", role: "D2C, Elettronica" },
-      { result: "Anche e-mail", initial: "E", quote: "L'abbiamo puntato sulla nostra casella di supporto e ha svuotato l'arretrato. Solo i casi strani arrivano ancora a noi.", name: "Elena K.", role: "Brand beauty D2C" },
-      { result: "Live in un giorno", initial: "M", quote: "Collegare il nostro database ordini e l'API di spedizione ha richiesto un pomeriggio. La mattina dopo risolveva ticket reali.", name: "Marc D.", role: "Marketplace, Casa" },
-      { result: "4,9/5 CSAT", initial: "P", quote: "I clienti non capiscono che è IA: conosce i loro ordini e risolve e basta. La nostra soddisfazione è salita.", name: "Priya N.", role: "D2C, Benessere" },
-    ],
+    testimonials: [],
     cta: { title: "Dai a ogni cliente il suo Agente IA.", sub: "Collega i tuoi dati e le tue API, vai live in pochi minuti e lascia che MoMicro risolva l'assistenza via chat ed e-mail, automaticamente." },
   },
 
@@ -173,8 +167,8 @@ export default {
     sub: "Inizia con un widget chatbot gratuito. Aggiungi dashboard e personalizzazione con Connected, oppure sblocca l'agente IA completo — dati live, qualsiasi API ed e-mail — con AI.",
     period: "/mese",
     tiers: [
-      { key: "free", name: "Free", summary: "Un widget chatbot per il tuo sito — gratis per sempre.", cta: "Inizia gratis", features: ["Widget chatbot per il web", "Personalizzazione del brand", "Acquisizione lead in chat", "Risposte manuali dalla dashboard", "Oltre 20 lingue"] },
-      { key: "connected", name: "Connected", summary: "Una dashboard incorporabile per il tuo sito, più personalizzazione completa.", cta: "Scegli Connected", features: ["Tutto di Free", "Dashboard incorporabile sul tuo sito", "Personalizzazione completa del chatbot", "Utilizzo e crediti residui", "Supporto e-mail prioritario"] },
+      { key: "free", name: "Free", summary: "Un widget chatbot per il tuo sito — gratis per sempre.", cta: "Inizia gratis", features: ["Widget chatbot per il web", "Acquisizione lead in chat", "Risposte manuali dalla dashboard", "Oltre 20 lingue"] },
+      { key: "connected", name: "Connected", summary: "Una dashboard incorporabile per il tuo sito, più personalizzazione completa.", cta: "Scegli Connected", features: ["Tutto di Free", "Dashboard incorporabile sul tuo sito", "Personalizzazione completa del chatbot", "Conversazioni collegate ai clienti registrati", "Supporto e-mail prioritario"] },
       { key: "ai", name: "Agente IA", badge: "AGENTE COMPLETO", featured: true, summary: "L'agente IA completo: dati live, qualsiasi API, azioni ed e-mail.", cta: "Scegli AI", features: ["Tutto di Connected", "Carica file per risposte istantanee", "Accesso al database live", "Integrazione con qualsiasi API — gratis", "Assistente di sessione per cliente", "Esegue azioni reali (rimborsi, modifiche)", "Risposte via e-mail incluse"] },
     ],
     includedTag: "INCLUSO GRATIS",

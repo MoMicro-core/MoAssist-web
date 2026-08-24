@@ -47,10 +47,12 @@ export default {
       answer: "answer.",
       titleB: "MoMicro ",
       resolves: "resolves.",
+      // Replaced two unsourced metrics ("89%", "-70%") with claims that describe
+      // what the product does rather than results we cannot evidence.
       stats: [
-        { value: 89, suffix: "%", label: "tickets resolved end-to-end" },
-        { value: 70, suffix: "%", label: "lower support cost" },
-        { plain: "real-time", label: "answers from live data" },
+        { plain: "real-time", label: "answers from your live data" },
+        { plain: "any API", label: "connected on request, free" },
+        { plain: "chat + email", label: "one agent, both channels" },
       ],
     },
     products: {
@@ -159,13 +161,12 @@ export default {
       kicker: "Loved by merchants",
       title: "What our customers say",
     },
-    testimonials: [
-      { result: "89% resolved", initial: "S", quote: "It doesn't just reply — it actually resolves. Address changes, refunds, tracking, all handled with our live order data.", name: "Sarah M.", role: "Shopify Store, Fashion" },
-      { result: "−70% cost", initial: "T", quote: "The per-customer memory is the killer feature. Returning shoppers feel like they have a personal concierge.", name: "Tom B.", role: "D2C, Electronics" },
-      { result: "Email too", initial: "E", quote: "We pointed it at our support inbox and it cleared the backlog. Only the weird edge cases reach us now.", name: "Elena K.", role: "D2C Beauty Brand" },
-      { result: "Live in a day", initial: "M", quote: "Connecting our order database and shipping API took an afternoon. By the next morning it was resolving real tickets.", name: "Marc D.", role: "Marketplace, Home" },
-      { result: "4.9/5 CSAT", initial: "P", quote: "Customers can't tell it's AI — it knows their orders and just fixes things. Our satisfaction score went up.", name: "Priya N.", role: "D2C, Wellness" },
-    ],
+    // Emptied deliberately. These were five named people with hard metrics
+    // ("89% resolved", "4.9/5 CSAT") that cannot be substantiated — an
+    // endorsement-law exposure in the US and EU, and the first thing a
+    // sceptical buyer checks. Add entries back only with a real name, company
+    // and the customer's permission. The section hides itself while empty.
+    testimonials: [],
     cta: {
       title: "Give every shopper their own AI Agent.",
       sub: "Connect your data and APIs, go live in minutes, and let MoMicro resolve support across chat and email — automatically.",
@@ -271,8 +272,8 @@ export default {
     sub: "Begin with a free chatbot widget. Add the dashboard and customization on Connected, or unlock the full AI agent — live data, any API and email — on AI.",
     period: "/mo",
     tiers: [
-      { key: "free", name: "Free", summary: "A chatbot widget for your website — free forever.", cta: "Start free", features: ["Website chatbot widget", "Brand customization", "Lead capture in chat", "Manual replies from dashboard", "20+ languages"] },
-      { key: "connected", name: "Connected", summary: "An embeddable dashboard for your own website, plus full customization.", cta: "Choose Connected", features: ["Everything in Free", "Embeddable dashboard on your site", "Full chatbot customization", "Usage & remaining credits", "Priority email support"] },
+      { key: "free", name: "Free", summary: "A chatbot widget for your website — free forever.", cta: "Start free", features: ["Website chatbot widget", "Lead capture in chat", "Manual replies from dashboard", "20+ languages"] },
+      { key: "connected", name: "Connected", summary: "Support tied to your signed-in customers, plus full branding and an embeddable dashboard.", cta: "Choose Connected", features: ["Everything in Free", "Conversations linked to signed-in customers", "Full branding: your logo, icon and colours", "Embeddable dashboard on your site", "Priority email support"] },
       { key: "ai", name: "AI Agent", badge: "FULL AGENT", featured: true, summary: "The full AI agent: live data, any API, actions and email.", cta: "Choose AI", features: ["Everything in Connected", "Upload business files for instant answers", "Live database access", "Integration with any API — free", "Per-shopper session assistant", "Takes real actions (refunds, edits)", "Email answers included"] },
     ],
     includedTag: "INCLUDED FREE",
@@ -282,8 +283,8 @@ export default {
     rows: [
       { label: "Chatbot widget", v0: "Included", v1: "Included", v2: "Included" },
       { label: "Dashboard via API", v0: "—", v1: "Included", v2: "Included" },
-      { label: "Chatbot customization", v0: "Basic", v1: "Full", v2: "Full" },
-      { label: "Usage & remaining credits", v0: "—", v1: "Included", v2: "Included" },
+      { label: "Branding (logo, icon, colours)", v0: "—", v1: "Full", v2: "Full" },
+      { label: "Signed-in customer conversations", v0: "—", v1: "Included", v2: "Included" },
       { label: "Upload business files (AI answers)", v0: "—", v1: "—", v2: "Included" },
       { label: "Live database access", v0: "—", v1: "—", v2: "Included" },
       { label: "Integration with any API", v0: "—", v1: "—", v2: "Free" },
@@ -295,7 +296,7 @@ export default {
     faqs: [
       { q: "How is this different from a normal chatbot?", a: "A chatbot replies from a fixed script. MoMicro is an agent: it reads your live data, calls your APIs, takes real actions (like changing an address or issuing a refund), and works across chat and email." },
       { q: "Do you offer a simpler AI chatbot?", a: "Yes. Our standalone AI Chatbot lets you upload your business files — PDFs, FAQs, policies, product info — and the AI answers every typical customer question from them, 24/7. It's the fastest way to automate common questions; upgrade to the AI Agent when you need live data, actions and email." },
-      { q: "What's included in each plan?", a: "Free gives you the chatbot widget. Connected ($20) adds an embeddable dashboard you can install on your own site, full customization and usage tracking. AI ($50) unlocks the full agent: live database access, any API integration (free), autonomous actions and email answers." },
+      { q: "What's included in each plan?", a: "Free gives you the chatbot widget with manual replies. Connected ($20) links conversations to your signed-in customers, unlocks full branding, and adds an embeddable dashboard you can install on your own site. AI ($50) unlocks the full agent: uploaded business files, live database access, any API integration (free), autonomous actions and email answers." },
       { q: "Are API integrations really free?", a: "Yes — on the AI plan, connecting any REST API is included at no extra cost. Add your order DB, shipping, ERP or any custom endpoint, and the agent calls it on demand. New integrations can be added on request." },
       { q: "Does it really handle email?", a: "Yes. Email answers are included on the AI plan. The same agent reads, drafts and resolves support emails end-to-end with the same live data and actions, escalating only genuine edge cases to your team." },
       { q: "How long does setup take?", a: "A basic widget is live in minutes. Connecting data sources and APIs is a guided setup — or our team does it for you for free." },

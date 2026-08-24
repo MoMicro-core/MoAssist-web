@@ -25,9 +25,9 @@ export default {
     band: {
       titleA: "Die meisten Chatbots ", answer: "antworten.", titleB: "MoMicro ", resolves: "löst.",
       stats: [
-        { value: 89, suffix: "%", label: "Tickets vollständig gelöst" },
-        { value: 70, suffix: "%", label: "geringere Supportkosten" },
-        { plain: "Echtzeit", label: "Antworten aus Live-Daten" },
+        { plain: "Echtzeit", label: "Antworten aus deinen Live-Daten" },
+        { plain: "jede API", label: "auf Anfrage verbunden, kostenlos" },
+        { plain: "Chat + E-Mail", label: "ein Agent, beide Kanäle" },
       ],
     },
     products: {
@@ -89,13 +89,7 @@ export default {
       ],
     },
     testimonialsHead: { kicker: "Von Händlern geliebt", title: "Was unsere Kunden sagen" },
-    testimonials: [
-      { result: "89% gelöst", initial: "S", quote: "Es antwortet nicht nur – es löst wirklich. Adressänderungen, Erstattungen, Tracking, alles mit unseren Live-Bestelldaten erledigt.", name: "Sarah M.", role: "Shopify-Shop, Mode" },
-      { result: "−70% Kosten", initial: "T", quote: "Das Gedächtnis pro Kunde ist das Killer-Feature. Wiederkehrende Käufer fühlen sich wie mit persönlichem Concierge.", name: "Tom B.", role: "D2C, Elektronik" },
-      { result: "Auch E-Mail", initial: "E", quote: "Wir haben es auf unser Support-Postfach gerichtet und es hat den Rückstau geleert. Nur die kuriosen Sonderfälle erreichen uns noch.", name: "Elena K.", role: "D2C Beauty-Marke" },
-      { result: "An einem Tag live", initial: "M", quote: "Unsere Bestelldatenbank und Versand-API zu verbinden dauerte einen Nachmittag. Am nächsten Morgen löste es echte Tickets.", name: "Marc D.", role: "Marktplatz, Wohnen" },
-      { result: "4,9/5 CSAT", initial: "P", quote: "Kunden merken nicht, dass es KI ist – es kennt ihre Bestellungen und regelt einfach alles. Unser Zufriedenheitswert stieg.", name: "Priya N.", role: "D2C, Wellness" },
-    ],
+    testimonials: [],
     cta: { title: "Gib jedem Kunden seinen eigenen KI-Agenten.", sub: "Verbinde deine Daten und APIs, gehe in Minuten live und lass MoMicro Support über Chat und E-Mail automatisch lösen." },
   },
 
@@ -173,8 +167,8 @@ export default {
     sub: "Beginne mit einem kostenlosen Chatbot-Widget. Füge mit Connected Dashboard und Anpassung hinzu, oder schalte mit AI den vollen KI-Agenten frei – Live-Daten, jede API und E-Mail.",
     period: "/Mon.",
     tiers: [
-      { key: "free", name: "Free", summary: "Ein Chatbot-Widget für deine Website – für immer kostenlos.", cta: "Kostenlos starten", features: ["Website-Chatbot-Widget", "Markenanpassung", "Lead-Erfassung im Chat", "Manuelle Antworten aus dem Dashboard", "20+ Sprachen"] },
-      { key: "connected", name: "Connected", summary: "Ein einbettbares Dashboard für deine eigene Website, plus volle Anpassung.", cta: "Connected wählen", features: ["Alles aus Free", "Einbettbares Dashboard auf deiner Seite", "Volle Chatbot-Anpassung", "Nutzung & Restguthaben", "Bevorzugter E-Mail-Support"] },
+      { key: "free", name: "Free", summary: "Ein Chatbot-Widget für deine Website – für immer kostenlos.", cta: "Kostenlos starten", features: ["Website-Chatbot-Widget", "Lead-Erfassung im Chat", "Manuelle Antworten aus dem Dashboard", "20+ Sprachen"] },
+      { key: "connected", name: "Connected", summary: "Ein einbettbares Dashboard für deine eigene Website, plus volle Anpassung.", cta: "Connected wählen", features: ["Alles aus Free", "Einbettbares Dashboard auf deiner Seite", "Volle Chatbot-Anpassung", "Gespräche mit angemeldeten Kunden verknüpft", "Bevorzugter E-Mail-Support"] },
       { key: "ai", name: "KI-Agent", badge: "VOLLER AGENT", featured: true, summary: "Der volle KI-Agent: Live-Daten, jede API, Aktionen und E-Mail.", cta: "AI wählen", features: ["Alles aus Connected", "Geschäftsdateien für sofortige Antworten hochladen", "Live-Datenbankzugriff", "Integration jeder API – kostenlos", "Sitzungsassistent pro Kunde", "Führt echte Aktionen aus (Erstattungen, Änderungen)", "E-Mail-Antworten inklusive"] },
     ],
     includedTag: "KOSTENLOS ENTHALTEN",

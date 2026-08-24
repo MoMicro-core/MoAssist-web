@@ -1,16 +1,22 @@
 // Resolves the localized public-site content for the active language.
 // Each locale mirrors the shape of en.js; any missing key deep-falls back to
 // English so the page never renders an empty string.
+//
+// English is bundled with the app because it is the default and the fallback
+// for every other locale. The other six are dynamic imports, so an English
+// visitor no longer downloads ~250KB of Russian, Ukrainian, German, Spanish,
+// French and Italian copy inside the main chunk.
 
 import en from "./en";
-import de from "./de";
-import es from "./es";
-import fr from "./fr";
-import it from "./it";
-import ru from "./ru";
-import ua from "./ua";
 
-const LOCALES = { en, de, es, fr, it, ru, ua };
+const LOADERS = {
+  de: () => import("./de"),
+  es: () => import("./es"),
+  fr: () => import("./fr"),
+  it: () => import("./it"),
+  ru: () => import("./ru"),
+  ua: () => import("./ua"),
+};
 
 const isObject = (value) =>
   value && typeof value === "object" && !Array.isArray(value);
@@ -27,12 +33,25 @@ const deepMerge = (base, override) => {
   return out;
 };
 
-const cache = {};
+const cache = { en };
+const inFlight = {};
 
-export const getSiteContent = (language = "en") => {
-  const key = LOCALES[language] ? language : "en";
-  if (!cache[key]) {
-    cache[key] = key === "en" ? en : deepMerge(en, LOCALES[key]);
+// Async: fetches the locale chunk and caches the merged result. Call this
+// before rendering so `getSiteContent` below can stay synchronous.
+export const loadSiteContent = async (language = "en") => {
+  const key = LOADERS[language] ? language : "en";
+  if (cache[key]) return cache[key];
+  if (!inFlight[key]) {
+    inFlight[key] = LOADERS[key]()
+      .then((module) => {
+        cache[key] = deepMerge(en, module.default);
+        return cache[key];
+      })
+      .catch(() => en);
   }
-  return cache[key];
+  return inFlight[key];
 };
+
+// Sync: returns the locale if it has been loaded, English otherwise. Callers
+// render immediately and re-render once the chunk lands.
+export const getSiteContent = (language = "en") => cache[language] || en;

@@ -25,9 +25,9 @@ export default {
     band: {
       titleA: "La plupart des chatbots ", answer: "répondent.", titleB: "MoMicro ", resolves: "résout.",
       stats: [
-        { value: 89, suffix: "%", label: "tickets résolus de bout en bout" },
-        { value: 70, suffix: "%", label: "de coût de support en moins" },
-        { plain: "temps réel", label: "réponses à partir de données en direct" },
+        { plain: "temps reel", label: "reponses issues de vos donnees en direct" },
+        { plain: "toute API", label: "connectee sur demande, gratuitement" },
+        { plain: "chat + e-mail", label: "un agent, les deux canaux" },
       ],
     },
     products: {
@@ -89,13 +89,7 @@ export default {
       ],
     },
     testimonialsHead: { kicker: "Adoré par les marchands", title: "Ce que disent nos clients" },
-    testimonials: [
-      { result: "89% résolu", initial: "S", quote: "Il ne répond pas seulement, il résout vraiment. Changements d'adresse, remboursements, suivi, tout est géré avec nos données de commande en direct.", name: "Sarah M.", role: "Boutique Shopify, Mode" },
-      { result: "−70% de coût", initial: "T", quote: "La mémoire par client est la fonction phare. Les clients qui reviennent ont l'impression d'avoir un concierge personnel.", name: "Tom B.", role: "D2C, Électronique" },
-      { result: "E-mail aussi", initial: "E", quote: "Nous l'avons pointé sur notre boîte de support et il a vidé la file d'attente. Seuls les cas étranges nous parviennent désormais.", name: "Elena K.", role: "Marque beauté D2C" },
-      { result: "En ligne en un jour", initial: "M", quote: "Connecter notre base de commandes et l'API de livraison a pris un après-midi. Le lendemain matin, il résolvait de vrais tickets.", name: "Marc D.", role: "Marketplace, Maison" },
-      { result: "4,9/5 CSAT", initial: "P", quote: "Les clients ne devinent pas que c'est de l'IA : il connaît leurs commandes et règle simplement les choses. Notre satisfaction a grimpé.", name: "Priya N.", role: "D2C, Bien-être" },
-    ],
+    testimonials: [],
     cta: { title: "Offrez à chaque client son propre Agent IA.", sub: "Connectez vos données et API, lancez-vous en quelques minutes et laissez MoMicro résoudre le support par chat et e-mail, automatiquement." },
   },
 
@@ -173,7 +167,7 @@ export default {
     sub: "Commencez avec un widget de chatbot gratuit. Ajoutez le tableau de bord et la personnalisation avec Connected, ou débloquez l'agent IA complet — données en direct, n'importe quelle API et e-mail — avec AI.",
     period: "/mois",
     tiers: [
-      { key: "free", name: "Free", summary: "Un widget de chatbot pour votre site — gratuit pour toujours.", cta: "Commencer gratuitement", features: ["Widget de chatbot pour le web", "Personnalisation de marque", "Capture de leads dans le chat", "Réponses manuelles depuis le tableau de bord", "Plus de 20 langues"] },
+      { key: "free", name: "Free", summary: "Un widget de chatbot pour votre site — gratuit pour toujours.", cta: "Commencer gratuitement", features: ["Widget de chatbot pour le web", "Capture de leads dans le chat", "Réponses manuelles depuis le tableau de bord", "Plus de 20 langues"] },
       { key: "connected", name: "Connected", summary: "Un tableau de bord intégrable pour votre propre site, plus une personnalisation complète.", cta: "Choisir Connected", features: ["Tout de Free", "Tableau de bord intégrable sur votre site", "Personnalisation complète du chatbot", "Usage et crédits restants", "Support e-mail prioritaire"] },
       { key: "ai", name: "Agent IA", badge: "AGENT COMPLET", featured: true, summary: "L'agent IA complet : données en direct, n'importe quelle API, actions et e-mail.", cta: "Choisir AI", features: ["Tout de Connected", "Importez des fichiers pour des réponses instantanées", "Accès à la base de données en direct", "Intégration de n'importe quelle API — gratuit", "Assistant de session par client", "Effectue de vraies actions (remboursements, modifications)", "Réponses par e-mail incluses"] },
     ],

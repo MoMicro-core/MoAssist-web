@@ -25,9 +25,9 @@ export default {
     band: {
       titleA: "La mayoría de los chatbots ", answer: "responden.", titleB: "MoMicro ", resolves: "resuelve.",
       stats: [
-        { value: 89, suffix: "%", label: "tickets resueltos de principio a fin" },
-        { value: 70, suffix: "%", label: "menos coste de soporte" },
-        { plain: "tiempo real", label: "respuestas con datos en vivo" },
+        { plain: "tiempo real", label: "respuestas desde tus datos en vivo" },
+        { plain: "cualquier API", label: "conectada a peticion, gratis" },
+        { plain: "chat + email", label: "un agente, ambos canales" },
       ],
     },
     products: {
@@ -89,13 +89,7 @@ export default {
       ],
     },
     testimonialsHead: { kicker: "Querido por comerciantes", title: "Lo que dicen nuestros clientes" },
-    testimonials: [
-      { result: "89% resuelto", initial: "S", quote: "No solo responde: realmente resuelve. Cambios de dirección, reembolsos, seguimiento, todo con nuestros datos de pedidos en vivo.", name: "Sarah M.", role: "Tienda Shopify, Moda" },
-      { result: "−70% coste", initial: "T", quote: "La memoria por cliente es la función estrella. Los compradores que vuelven sienten que tienen un conserje personal.", name: "Tom B.", role: "D2C, Electrónica" },
-      { result: "También correo", initial: "E", quote: "Lo apuntamos a nuestra bandeja de soporte y vació el atasco. Solo los casos raros nos llegan ahora.", name: "Elena K.", role: "Marca de belleza D2C" },
-      { result: "En vivo en un día", initial: "M", quote: "Conectar nuestra base de pedidos y la API de envíos llevó una tarde. A la mañana siguiente resolvía tickets reales.", name: "Marc D.", role: "Marketplace, Hogar" },
-      { result: "4,9/5 CSAT", initial: "P", quote: "Los clientes no notan que es IA: conoce sus pedidos y simplemente lo arregla. Nuestra satisfacción subió.", name: "Priya N.", role: "D2C, Bienestar" },
-    ],
+    testimonials: [],
     cta: { title: "Da a cada comprador su propio Agente IA.", sub: "Conecta tus datos y APIs, sal en vivo en minutos y deja que MoMicro resuelva el soporte por chat y correo, automáticamente." },
   },
 
@@ -173,8 +167,8 @@ export default {
     sub: "Empieza con un widget de chatbot gratis. Añade el panel y la personalización en Connected, o desbloquea el agente IA completo (datos en vivo, cualquier API y correo) en AI.",
     period: "/mes",
     tiers: [
-      { key: "free", name: "Free", summary: "Un widget de chatbot para tu web, gratis para siempre.", cta: "Empezar gratis", features: ["Widget de chatbot para web", "Personalización de marca", "Captación de leads en el chat", "Respuestas manuales desde el panel", "Más de 20 idiomas"] },
-      { key: "connected", name: "Connected", summary: "Un panel incrustable para tu propia web, más personalización completa.", cta: "Elegir Connected", features: ["Todo lo de Free", "Panel incrustable en tu sitio", "Personalización completa del chatbot", "Uso y créditos restantes", "Soporte por correo prioritario"] },
+      { key: "free", name: "Free", summary: "Un widget de chatbot para tu web, gratis para siempre.", cta: "Empezar gratis", features: ["Widget de chatbot para web", "Captación de leads en el chat", "Respuestas manuales desde el panel", "Más de 20 idiomas"] },
+      { key: "connected", name: "Connected", summary: "Un panel incrustable para tu propia web, más personalización completa.", cta: "Elegir Connected", features: ["Todo lo de Free", "Panel incrustable en tu sitio", "Personalización completa del chatbot", "Conversaciones vinculadas a clientes registrados", "Soporte por correo prioritario"] },
       { key: "ai", name: "Agente IA", badge: "AGENTE COMPLETO", featured: true, summary: "El agente IA completo: datos en vivo, cualquier API, acciones y correo.", cta: "Elegir AI", features: ["Todo lo de Connected", "Sube archivos para respuestas instantáneas", "Acceso a base de datos en vivo", "Integración con cualquier API, gratis", "Asistente de sesión por comprador", "Realiza acciones reales (reembolsos, cambios)", "Respuestas por correo incluidas"] },
     ],
     includedTag: "INCLUIDO GRATIS",

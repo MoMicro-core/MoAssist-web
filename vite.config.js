@@ -31,6 +31,18 @@ export default defineConfig({
       hostname: 'https://momicro.com',
       dynamicRoutes: sitemapRoutes,
       exclude: ['/login', '/chatbots'],
+      // Every URL used to be priority 1.0 / changefreq daily, which tells a
+      // crawler nothing. Tier them so the signal is real.
+      changefreq: 'weekly',
+      priority: 0.7,
+      readable: true,
+      // Link the seven language versions to each other in the one file designed
+      // for it. The xhtml namespace was declared but never used.
+      i18n: {
+        languages: ['en', ...LOCALES],
+        defaultLanguage: 'en',
+        strategy: 'prefix',
+      },
       // Plugin-generated robots.txt overwrites public/robots.txt, so the
       // private-route Disallow rules must be declared here too.
       robots: [

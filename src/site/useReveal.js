@@ -8,6 +8,13 @@ export const useReveal = (deps = []) => {
     const revealNodes = Array.from(document.querySelectorAll("[data-reveal]"));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Opt into the hidden-then-revealed state only now that we know the
+    // observer will run. Without this the sections start at opacity:0 in CSS,
+    // so anything that does not execute JS sees an empty page.
+    if (!reduce && "IntersectionObserver" in window) {
+      document.documentElement.classList.add("mm-js");
+    }
+
     if (reduce) {
       revealNodes.forEach((n) => n.classList.add("mm-in"));
       document.querySelectorAll("[data-count]").forEach((n) => {
